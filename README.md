@@ -9,5 +9,7 @@ protocol, released together under one version:
 - `@getquick/content`: an npm package for the Frontend (events, delivery,
   publication store, reconciliation, and its D1 migrations).
 
-The code is being extracted from gq-site's app skeleton
+This repository holds no code yet. The code arrives through
+[#1](https://github.com/Quick-Release/gq-content/issues/1), which extracts it
+from gq-site's app skeleton in one cut
 ([gq-platform ADR 0001](https://github.com/Quick-Release/gq-platform/blob/main/docs/adr/0001-ownership-of-work-across-getquick-repositories.md)).
