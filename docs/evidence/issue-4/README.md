@@ -5,6 +5,18 @@ Base: `c899d6f0af26ba3f253b61419390912972f3babe`. Recorded 2026-10-18.
 The parent owns independent Standards/Spec review and the eventual push/release.
 No issue edits, publication, push or duplicate delegated review were performed.
 
+## Independent review and correction
+
+The Spec review of `c899d6f...4ab1723` found no issues and independently reran
+the installed consumer and real Alchemy persistence proof. The Standards review
+found one Platform ADR 0004 violation: proof scripts called pnpm directly.
+Both scripts now route packing through `vp pm pack` and installation through
+`vp install`, retaining the declared pnpm 12.11.2 backend. The orchestrator reran
+`vp run validate` successfully after that correction: 101 local tests, 101 clean
+installed-consumer tests, quality/type checks and the complete P1 lifecycle.
+See [review-validation.log](review-validation.log). No heuristic smells were
+reported. This correction changes the command surface, not package behavior.
+
 ## Source and adaptations
 
 Read #4 and its comments, parent #1 and its comments, completed #3 and its

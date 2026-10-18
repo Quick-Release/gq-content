@@ -29,7 +29,7 @@ function run(command, args, cwd) {
 try {
   const artifacts = join(temporary, "artifacts");
   mkdirSync(artifacts);
-  run("pnpm", ["pack", "--pack-destination", artifacts], join(repo, "frontend"));
+  run("vp", ["pm", "pack", "--pack-destination", artifacts], join(repo, "frontend"));
   const tarball = join(artifacts, "getquick-content-0.1.0.tgz");
   const listing = execFileSync("tar", ["-tzf", tarball], { encoding: "utf8" }).trim().split("\n");
   for (const file of listing) {
@@ -51,7 +51,7 @@ try {
     }),
   );
   writeFileSync(join(consumer, ".npmrc"), "registry=https://registry.npmjs.org/\n");
-  run("pnpm", ["install", "--ignore-scripts"], consumer);
+  run("vp", ["install", "--ignore-scripts"], consumer);
   const installed = join(consumer, "node_modules/@getquick/content");
   const manifest = JSON.parse(readFileSync(join(installed, "package.json"), "utf8"));
   assert.deepEqual(manifest.dependencies, { zod: "3.25.76" });

@@ -20,7 +20,7 @@ function run(command, args, cwd = consumer) {
 }
 try {
   cpSync(join(repo, "scripts/fixtures/alchemy-p1"), consumer, { recursive: true });
-  run("pnpm", ["pack", "--pack-destination", consumer], join(repo, "frontend"));
+  run("vp", ["pm", "pack", "--pack-destination", consumer], join(repo, "frontend"));
   const integrity =
     "sha512-" +
     createHash("sha512")
@@ -28,7 +28,7 @@ try {
       .digest("base64");
   const lockfile = join(consumer, "pnpm-lock.yaml");
   writeFileSync(lockfile, readFileSync(lockfile, "utf8").replace("TARBALL_INTEGRITY", integrity));
-  run("pnpm", ["install", "--frozen-lockfile", "--ignore-scripts"]);
+  run("vp", ["install", "--frozen-lockfile", "--ignore-scripts"]);
   writeFileSync(
     join(consumer, "tsconfig.json"),
     JSON.stringify({
