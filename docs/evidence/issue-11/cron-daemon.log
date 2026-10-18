@@ -1,0 +1,19 @@
+crond: crond (busybox 1.37.0) started, log level 0
+crond: user:proof entry:* * * * * cd /data/code/getquick/gq-content/.proofs/p2/bedrock && PATH=/data/code/getquick/gq-content/.proofs/reconciliation/cron/bin:/usr/local/bin:/usr/bin:/bin wp gq-events retry-due --quiet > /data/code/getquick/gq-content/.proofs/reconciliation/cron/stdout 2> /data/code/getquick/gq-content/.proofs/reconciliation/cron/stderr; echo $? > /data/code/getquick/gq-content/.proofs/reconciliation/cron/exit
+111111111111111111111111111111111111111111111111111111111111
+111111111111111111111111
+11111111111111111111111111111111
+111111111111
+1111111
+crond: user:proof entry:* * * * * cd /data/code/getquick/gq-content/.proofs/p2/bedrock && PATH=/data/code/getquick/gq-content/.proofs/reconciliation/cron/bin:/usr/local/bin:/usr/bin:/bin wp gq-events retry-due --quiet > /data/code/getquick/gq-content/.proofs/reconciliation/cron/stdout 2> /data/code/getquick/gq-content/.proofs/reconciliation/cron/stderr; echo $? > /data/code/getquick/gq-content/.proofs/reconciliation/cron/exit
+111111111111111111111111111111111111111111111111111111111111
+111111111111111111111111
+11111111111111111111111111111111
+111111111111
+1111111
+crond: wakeup dt=58
+crond: file proof:
+crond:  line cd /data/code/getquick/gq-content/.proofs/p2/bedrock && PATH=/data/code/getquick/gq-content/.proofs/reconciliation/cron/bin:/usr/local/bin:/usr/bin:/bin wp gq-events retry-due --quiet > /data/code/getquick/gq-content/.proofs/reconciliation/cron/stdout 2> /data/code/getquick/gq-content/.proofs/reconciliation/cron/stderr; echo $? > /data/code/getquick/gq-content/.proofs/reconciliation/cron/exit
+crond:  job: 0 cd /data/code/getquick/gq-content/.proofs/p2/bedrock && PATH=/data/code/getquick/gq-content/.proofs/reconciliation/cron/bin:/usr/local/bin:/usr/bin:/bin wp gq-events retry-due --quiet > /data/code/getquick/gq-content/.proofs/reconciliation/cron/stdout 2> /data/code/getquick/gq-content/.proofs/reconciliation/cron/stderr; echo $? > /data/code/getquick/gq-content/.proofs/reconciliation/cron/exit
+crond: child running /bin/sh
+crond: USER proof pid  10 cmd cd /data/code/getquick/gq-content/.proofs/p2/bedrock && PATH=/data/code/getquick/gq-content/.proofs/reconciliation/cron/bin:/usr/local/bin:/usr/bin:/bin wp gq-events retry-due --quiet > /data/code/getquick/gq-content/.proofs/reconciliation/cron/stdout 2> /data/code/getquick/gq-content/.proofs/reconciliation/cron/stderr; echo $? > /data/code/getquick/gq-content/.proofs/reconciliation/cron/exit

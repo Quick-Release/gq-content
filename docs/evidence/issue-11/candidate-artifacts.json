@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "scope": "#11 local candidate regression; not a release manifest",
+  "contentBase": "dcf7e21cbc325223aa2e032b97652a624adc15f1",
+  "npmCandidates": [
+    {
+      "proof": "consumer",
+      "filename": "getquick-content-0.1.0.tgz",
+      "sha256": "b04512cf229f14ce2364e2c52bab1f6ece8f735a09b2b7d0b073e5af60e4e848",
+      "integrity": "sha512-xUEEf6Ld5vap262axzK2jvC+aRbV+b+ctSmtb38x7lT/jpRJDc2DDJ1WbNfgz0F4+YRF88QACZYUi+KqTv0JAw=="
+    },
+    {
+      "proof": "alchemy",
+      "filename": "getquick-content-0.1.0.tgz",
+      "sha256": "b04512cf229f14ce2364e2c52bab1f6ece8f735a09b2b7d0b073e5af60e4e848",
+      "integrity": "sha512-xUEEf6Ld5vap262axzK2jvC+aRbV+b+ctSmtb38x7lT/jpRJDc2DDJ1WbNfgz0F4+YRF88QACZYUi+KqTv0JAw=="
+    },
+    {
+      "proof": "reconciliation",
+      "filename": "getquick-content-0.1.0.tgz",
+      "sha256": "b04512cf229f14ce2364e2c52bab1f6ece8f735a09b2b7d0b073e5af60e4e848",
+      "integrity": "sha512-xUEEf6Ld5vap262axzK2jvC+aRbV+b+ctSmtb38x7lT/jpRJDc2DDJ1WbNfgz0F4+YRF88QACZYUi+KqTv0JAw=="
+    },
+    {
+      "proof": "pair",
+      "filename": "getquick-content-0.1.0.tgz",
+      "sha256": "b04512cf229f14ce2364e2c52bab1f6ece8f735a09b2b7d0b073e5af60e4e848"
+    },
+    {
+      "proof": "multilingual",
+      "filename": "getquick-content-0.1.0.tgz",
+      "sha256": "b04512cf229f14ce2364e2c52bab1f6ece8f735a09b2b7d0b073e5af60e4e848"
+    }
+  ],
+  "composerZip": {
+    "filename": "gq-content-0.1.0.zip",
+    "sha256": "0b4efa51940f474b5dcc8b4c403024352a3d543b44096f9142af41af8a861a8a"
+  },
+  "composerLockSha256": "f68064f113c42388d9afc12b7270efab49c9382ad997a587e0f84a32d020254e",
+  "composerPackages": {
+    "composer/installers": "v2.3.0",
+    "getquick/gq-content": "0.1.0",
+    "graham-campbell/result-type": "v1.2.0",
+    "oscarotero/env": "v2.1.1",
+    "phpoption/phpoption": "1.10.0",
+    "roots/bedrock-autoloader": "1.1.0",
+    "roots/bedrock-disallow-indexing": "2.1.0",
+    "roots/wordpress": "7.1.3",
+    "roots/wordpress-core-installer": "v4.0.0",
+    "roots/wordpress-no-content": "7.1.3",
+    "roots/wp-config": "1.0.0",
+    "symfony/polyfill-ctype": "v1.37.0",
+    "symfony/polyfill-mbstring": "v1.43.0",
+    "symfony/polyfill-php80": "v1.43.0",
+    "vlucas/phpdotenv": "v5.7.0",
+    "wp-theme/twentytwentyfive": "1.5",
+    "node": "v24.21.0",
+    "pnpm": "12.11.2 (Vite+ toolchain)",
+    "vite-plus": "1.1.0",
+    "typescript": "6.0.3",
+    "alchemy": "2.0.0-beta.79",
+    "effect": "4.0.0-rc.115",
+    "workerd": "1.20260901.1",
+    "compatibilityDate": "2026-09-08",
+    "PHP": "PHP 8.5.10 (cli) (built: Aug 25 2026 21:09:32) (NTS)",
+    "Composer": "Composer version 2.10.3 2026-08-27 13:34:23",
+    "Bedrock project": "1.31.7",
+    "WP-CLI": "2.12.0",
+    "Polylang": "3.8.11",
+    "SQLite integration": "3.1.0",
+    "Astro": "not installed: framework-neutral thin consumer exercises public standard handlers; source Astro presentation/build wiring is gq-site#77",
+    "cron": "BusyBox 1.37.0, PHP 8.4.26 in digest-pinned local wordpress CLI container"
+  },
+  "wpCliPharSha256": "ce34ddd838f7351d6759068d09793f26755463b4a4610a5a5c0a97b68220d85c",
+  "evidenceHashes": {
+    "sixty-publications.json": "8c7aa89d210f966f4d9ad5c83293289de89e537abd7edc72a2aaf4812ea3d9e5",
+    "persistence.json": "26cc8fe03bbf31acf673418e678acafd91eb556add927a61015cc30bb34e5ccc",
+    "aged-persistence.json": "e08c18f73fd91f7b67393e0e8a19f64841f3f64bb74f50259f465307809068be",
+    "daemon.json": "563de696a574e9e5d7f905f04167f01cca026866c57cd03f049dbc4826121150",
+    "inflight.json": "1a0a0fc8e88ebdca81498b4a24a7f536faa5e5f4cd368d8c57f148a0dead6533",
+    "final-check.json": "1be46e89b277c73508d35504a1d6bb241b72f500fa7ad2955cf949da67395be5",
+    "cms-reconciliation.json": "9eee8b993493c245d4c7df6786cabd991f89a7b6dde9809c153afe42647e9dea",
+    "partial-cli.txt": "86513aac59bc4bc42903fd38f5c314e0be2d75d9211c2259f2bebdf8a79900cd",
+    "failed-cli.txt": "ca58ca3c67c76a8bbcaf0a783122919ebad8c39d1a5206fcacae9bf06d3006e3"
+  },
+  "gates": {
+    "P1": "installed Alchemy migration lifecycle and unchanged identities/data on Worker update",
+    "P2": "actual Composer ZIP/Bedrock/WordPress/PHP/WP-CLI and minute cron daemon",
+    "P3": "public-only credential-isolated installed consumer, declarations/artifact inspection and all tests",
+    "P4": "public boundary access/isolation/fresh bindings/canonical language identity",
+    "P6": "package suites; actual CMS/pair/retry/Polylang and integrated workerd regression",
+    "P5": "independent #10; actual gq-content GITHUB_TOKEN CI access awaits final push; NOT passed by #11",
+    "P7": "independent publication recovery; NOT executed by #11"
+  },
+  "limitations": [
+    "No actual Ploi provisioning or PHP-FPM response-completion measurement",
+    "No deployed Cloudflare CPU/subrequest-enforcement proof; local actual GraphQL request counts are <=40",
+    "GraphQL-only fixtures: no live GETQUICK GraphQL schema proof",
+    "No Astro generated Site, Blueprint switch, release, registry availability or publication recovery claim"
+  ]
+}

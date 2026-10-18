@@ -176,5 +176,11 @@ elif phase == 'recover':
     (WORK / 'final-check.json').write_text(json.dumps(final, indent=2))
     (WORK / 'cms-reconciliation.json').write_text(wp('option', 'get', 'gq_reconciliation', '--format=json').stdout)
     observer.unlink(missing_ok=True)
+elif phase in ['runtime', 'aged-after-update', 'bulk']:
+    import runpy
+    runpy.run_path(str(ROOT / 'scripts/workerd-regression.py'))['prove'](cms, environment, origin, fixture, control, WORK, phase)
+elif phase == 'daemon':
+    import runpy
+    runpy.run_path(str(ROOT / 'scripts/cron-proof.py'))['prove'](cms, environment, origin, fixture, control, WORK)
 else:
     raise ValueError(phase)

@@ -1,3 +1,4 @@
+import { formatDate } from "@getquick/content";
 import { expect, test, vi } from "vite-plus/test";
 import { createContentRuntime } from "@getquick/content/server";
 
@@ -644,3 +645,61 @@ test("database diagnostics do not expose secrets in public failures or logs", as
   expect(JSON.stringify(result)).not.toContain("private-store-secret");
   expect(JSON.stringify(vi.mocked(console.error).mock.calls)).not.toContain("private-store-secret");
 });
+
+test("development serves a post with absent optional image when chrome is unavailable", async () => {
+  stubWordPress({
+    entry: () =>
+      data({
+        pageBy: null,
+        postBy: {
+          id: "post-7",
+          uri: "/hello/",
+          title: "Hello",
+          content: "<p>We make things.</p>",
+          status: "publish",
+          isRestricted: false,
+          featuredImage: { node: null },
+          excerpt: null,
+          date: "2026-09-30T10:00:00",
+        },
+        designTokens: { colors: [], spacingSizes: [] },
+      }),
+    chrome: () => httpError(500),
+  });
+  const api = runtime({ bindings: () => ({}), development: true });
+  expect(await api.publishedEntry("/hello/")).toMatchObject({
+    kind: "found",
+    content: {
+      entry: {
+        content: "<p>We make things.</p>",
+        featuredImage: null,
+        excerpt: "",
+        date: "2026-09-30T10:00:00",
+      },
+      chrome: { menuItems: [], siteIcon: null, siteLogo: null },
+    },
+  });
+  expect(formatDate("2026-09-30T10:00:00")).toBe("September 30, 2026");
+  expect(console.error).toHaveBeenCalledWith(
+    expect.stringContaining("site chrome is unavailable (http)"),
+  );
+});
+
+test.each(["missing", "unavailable"] as const)(
+  "development home retains %s without a publication store",
+  async (kind) => {
+    stubWordPress({
+      home: () =>
+        kind === "missing"
+          ? data({
+              nodeByUri: null,
+              generalSettings: { title: "Acme", description: "Things" },
+              designTokens: { colors: [], spacingSizes: [] },
+            })
+          : httpError(500),
+    });
+    expect((await runtime({ bindings: () => ({}), development: true }).publishedHome()).kind).toBe(
+      kind,
+    );
+  },
+);

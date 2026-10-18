@@ -94,6 +94,7 @@ def prove(cms, environment, request, fixture, work):
         request('/proof/offline')
         failed = publish(post, '<p>Recovered</p>')
         check('WordPress saves while public delivery remains last-known-good', failed['delivery']['status'] == 'failed' and failed['delivery']['reason'] == 'refresh' and saved(post)['content']['entry']['content'] == '<p>Last good</p>')
+        check('Frontend failure reason remains secret-safe', failed['delivery']['message'] == "network: WordPress couldn't be reached" and environment['PUBLICATION_EVENT_SECRET'] not in json.dumps(failed))
         failed_report = report(post)
         check('editor REST report separates save and delivery without secrets', failed_report['state'] == 'retrying' and 'saved in WordPress' in failed_report['notice']['message'] and environment['PUBLICATION_EVENT_SECRET'] not in json.dumps(failed_report))
         check('editor delivery route requires edit permission', json.loads(wp('eval', "echo rest_do_request('/gq-events/v1/entries/" + post + "')->get_status();").stdout) in [401, 403])

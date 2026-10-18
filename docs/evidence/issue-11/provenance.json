@@ -1,0 +1,208 @@
+{
+  "checkpoint": "eaec13488d57b3d04059309b5b36de5d016f3de1",
+  "upstreamMain": "497a3ae11b5d15df3619f71ff24f095d9b5e8cbe",
+  "deltaReview": "Only 497a3ae: Composer CI image/plugin root execution, related smoke/docs/version. No runtime, inventoried source suites/smokes, migrations, CMS or ADR changes. No source checkpoint change.",
+  "relevantPaths": [
+    "blueprint/templates/apps/cms/web/app/mu-plugins",
+    "blueprint/templates/apps/frontend",
+    "scripts/smoke/frontend-runtime.sh",
+    "scripts/smoke/frontend-runtime.mjs",
+    "scripts/smoke/frontend-runtime-lib.mjs",
+    "scripts/smoke/cms-events.sh",
+    "scripts/smoke/cms-events.mjs",
+    "scripts/smoke/frontend-languages.mjs",
+    "scripts/smoke/cms-polylang.sh",
+    "scripts/smoke/cms-polylang.mjs",
+    "docs/adr"
+  ],
+  "relevantDiff": "",
+  "sourceFiles": [
+    {
+      "path": "blueprint/templates/apps/frontend/src/lib/wp-block-renderer.test.ts",
+      "blob": "1cae04c593bdc7fb035b6b021fa6b1994d701020",
+      "sha256": "0234ca81bb118a4dfe1bf530db8162f5780b6055d7b87dd20c64d28cc424143a"
+    },
+    {
+      "path": "blueprint/templates/apps/frontend/src/lib/wp-block-styles.test.ts",
+      "blob": "a28091a93f00f2cee196dd3b4e909c04588e39e0",
+      "sha256": "ec045cdfdc2cdbee15c6ec2ac23d4763f26f1e1689ce67e78384da41963b13b1"
+    },
+    {
+      "path": "blueprint/templates/apps/frontend/src/lib/wp-container-layout.test.ts",
+      "blob": "628a7fa0b097e397cdd6a38c487ae4ecda6988ed",
+      "sha256": "b3a0b8e27c384eff0a8e268d890c9885367a938100e4b9b874c22418dc170a7b"
+    },
+    {
+      "path": "blueprint/templates/apps/frontend/src/lib/wordpress.test.ts",
+      "blob": "e094b56c71d402f2b7985f913630a654d569651f",
+      "sha256": "b502f347a227e98ac75d1b650c7e69c24e175901c8eab4019b7de3e82a630d2b"
+    },
+    {
+      "path": "blueprint/templates/apps/frontend/src/lib/wordpress-access.test.ts",
+      "blob": "492e00a3ecbb2766b03ecbb32e9be4e90c5e40b8",
+      "sha256": "9983a418bf219ac860457e1484976841e2a8da1fe860454854b3d0a8e95d9391"
+    },
+    {
+      "path": "blueprint/templates/apps/frontend/src/lib/site-language.test.ts",
+      "blob": "bf0c6a12ea1c190e0924c6c3136cf89bd15deb1f",
+      "sha256": "8947da3e6804abaaa6ec597d6fa835f92f33c3c16b2b74b5d614fcb74f89994c"
+    },
+    {
+      "path": "blueprint/templates/apps/frontend/src/homepage.test.ts",
+      "blob": "1eec5dda406e2c9f9222b707aa91e51f321ba827",
+      "sha256": "ce96ce85602a5a3df4acf7fd9abc14e7958df4e948b0b0e7424aa549c61fb172"
+    },
+    {
+      "path": "blueprint/templates/apps/frontend/src/entries.test.ts",
+      "blob": "7e93de68df63954d39c6781e14b8923a27189ac1",
+      "sha256": "4d09b0a37123a35dbb6e69e612bf358f2461707c4dec2b16b3b7733ce60880b9"
+    },
+    {
+      "path": "blueprint/templates/apps/frontend/src/routes.test.ts",
+      "blob": "9f4fa26c036f9259ed029321ed71cef3cc40901b",
+      "sha256": "fe1b955fdd4458e78ab8d934bdee56d1388324d6c673399d989ce6b961062c57"
+    },
+    {
+      "path": "blueprint/templates/apps/frontend/src/events.test.ts",
+      "blob": "d9043bf91167e501799073de55c4aaeb52cb3514",
+      "sha256": "a984626e7c0709b03fc645fbfdb4a92e818625f15cf294b65672b499994789ac"
+    },
+    {
+      "path": "blueprint/templates/apps/frontend/src/withdrawals.test.ts",
+      "blob": "4f99da5ffca134c0f5b24311bde2498acb03b3a2",
+      "sha256": "40ba8e0c2da1c176e2dc7becdc429933b2e95adf94fdbfa423d483367cc728db"
+    },
+    {
+      "path": "blueprint/templates/apps/frontend/src/settings.test.ts",
+      "blob": "36036279b9fa1e548b29b767c01b2cba9091a251",
+      "sha256": "60ee94aee1e9a304eeb5eed7f6b5f8c9feca46b45335f6baa34c00dd18b05c8e"
+    },
+    {
+      "path": "blueprint/templates/apps/frontend/src/retries.test.ts",
+      "blob": "2806b5fe7a0dff50ab52a18f7fbff208e412d0a4",
+      "sha256": "95c001f0d444b3203a7a8961b2e4a8dccd37ecd584d03e2c625d73ef3b1b2c1e"
+    },
+    {
+      "path": "blueprint/templates/apps/frontend/src/reconciliation.test.ts",
+      "blob": "0d5baaf010247e07a6df21f08f3772e3dac9819a",
+      "sha256": "8a07a30c8fe9a6cf944ace687367ec8c97b5703152d7acbcaa5144091fbe095c"
+    },
+    {
+      "path": "blueprint/templates/apps/frontend/src/languages.test.ts",
+      "blob": "853860da86f83fb76b187b6dc29b436ee518ca90",
+      "sha256": "66cf391b865607033706e4b2f6ef0ac98bebd4ea6e858de39331c4b4768f4e0f"
+    },
+    {
+      "path": "blueprint/templates/apps/frontend/src/language-updates.test.ts",
+      "blob": "cb7dbfe9b65aac1bfd4e52f43dd9707493d3da3c",
+      "sha256": "955085e5945da10a03c9c97748978147560ec29a1e77c44c037780e7658fbed6"
+    },
+    {
+      "path": "scripts/smoke/frontend-runtime.sh",
+      "blob": "abb6933ec9f46220c2c0582b65bc8397fe4e66ec",
+      "sha256": "62e847d22b62b73dd818dc2311376cc511a98107b962d446ae6ef057b8742a86"
+    },
+    {
+      "path": "scripts/smoke/frontend-runtime.mjs",
+      "blob": "3cfce6e0a0572479f281e63c425c38b146aa2f0b",
+      "sha256": "775c8f0e475abff589507ce87ebd45dcb52031ef078f5d407e87e9ff35c47593"
+    },
+    {
+      "path": "scripts/smoke/frontend-runtime-lib.mjs",
+      "blob": "504f7c54563b36578525b5c4f2a9e99d90a01f4a",
+      "sha256": "face238abaabfbd1da95e2caa7ecfad7c05e2d621eef39c4af0d699bd78fbdc4"
+    },
+    {
+      "path": "scripts/smoke/cms-events.sh",
+      "blob": "51a28d41094e2fd02d4e677f25d337e069b685d7",
+      "sha256": "35fc6c8d9d4ddd1e030a80f755f43b8afb8a430b6bbe48dd574b432a12cb017e"
+    },
+    {
+      "path": "scripts/smoke/cms-events.mjs",
+      "blob": "70687d07e44f3d1738133f58918ffe53258dbe2c",
+      "sha256": "26ece12f6b9a707f7679f3e3f305467f4597f877bc56058c3c04ff3143b2bd2c"
+    },
+    {
+      "path": "scripts/smoke/frontend-languages.mjs",
+      "blob": "354ee63d42c1c50d829b929ee61f062a25bae4a4",
+      "sha256": "88d7264edf3c6209ade7541a5022e4404161ce98dce9bc20f22eb14d483bedd3"
+    },
+    {
+      "path": "scripts/smoke/cms-polylang.sh",
+      "blob": "bef1871437c22b207769edab2876b7c06c199374",
+      "sha256": "06cc589a84035edef90222259f25ab5a664468c59574a6ea54b3ed845760136c"
+    },
+    {
+      "path": "scripts/smoke/cms-polylang.mjs",
+      "blob": "e5e0f301cea9c16e782eb57394fadad8ceb55101",
+      "sha256": "a1ba4b7a766f08c3a2cdd61dc5a1a03026531d97a29011744027ee26709f93ac"
+    },
+    {
+      "path": "blueprint/templates/apps/frontend/src/test/sqlite-d1.ts",
+      "blob": "d20a089023eee646ccf7b9c907657992092e80fb",
+      "sha256": "63fa68d157e86ebd4dbddbdd0b8dd1c516a0ef2a8f4a1d20ae3f09e9b33201a8"
+    },
+    {
+      "path": "blueprint/templates/apps/frontend/src/test/wordpress-stub.ts",
+      "blob": "fa51ded8e81620420b5fcd66caa638a5ef86132f",
+      "sha256": "7730d9a0c266f27300c70781f87e7cd02f808ffa9fefe8763195962557f9893d"
+    },
+    {
+      "path": "docs/adr/0003-serve-published-content-from-a-durable-store.md",
+      "blob": "9453b9b9d779ad4d096b995b1ce2194b1cb9ec45",
+      "sha256": "59fa1d7d292595d4a4671853c9642eebbbd1f1806b4116fa007a2b9885ddd93b"
+    },
+    {
+      "path": "docs/adr/0004-serve-entries-from-the-store-with-a-cold-lookup.md",
+      "blob": "7322deedcb1b52e063622c2f83b8106b9b74a4cb",
+      "sha256": "dd691aa1e7769ac51a0c0edf1844dbdca53b9818d864e5f4614ac4ef0ecd6523"
+    },
+    {
+      "path": "docs/adr/0005-refresh-publications-through-signed-cms-events.md",
+      "blob": "5aac5221e8fdbae75374019fd1fef048d3865180",
+      "sha256": "071b40157f784ed587cc98a17f57fe6ae98d7fb909fef496220032fbc68d737f"
+    },
+    {
+      "path": "docs/adr/0006-withdraw-publications-through-signed-cms-events.md",
+      "blob": "e69380c23c5aaf0cbee0aa80764cb9d40ccfa546",
+      "sha256": "ee67c035a3dcd8be37820654dd73c5b975a04ff0d441298e94b659b166c7580b"
+    },
+    {
+      "path": "docs/adr/0007-refresh-shared-settings-through-settings-events.md",
+      "blob": "88a2c1321d8bb24c874356712d4a3a297be32113",
+      "sha256": "f1ad981613edcec30247faae8c0d57fa360382836f4f7069294773ebf56d2970"
+    },
+    {
+      "path": "docs/adr/0008-retry-event-delivery-from-the-cms-on-a-server-cron.md",
+      "blob": "7b05b6aacc615266b7ca9837008a0ecea1566ce5",
+      "sha256": "409c18efa6749cd1f6524333c2a5fa900d52edb48b1a4207300ce60d4a5da197"
+    },
+    {
+      "path": "docs/adr/0009-reconcile-missed-changes-on-the-cms-scheduler.md",
+      "blob": "3084727760e9b9adf0baa8f4a49968bd1c1e6f7f",
+      "sha256": "06df8144a2f40d3b75752b27f5ec186c8e8590b93f2771c05ad48defa68b5424"
+    },
+    {
+      "path": "docs/adr/0010-declare-a-new-content-site-ready-through-one-readiness-gate.md",
+      "blob": "e098092d7683d81c2f7e67fb90aa0391c562e9d3",
+      "sha256": "7adbae3130ba9a022bc4f272e83599fa3bda21b3cbfd002459699161c0bda6e2"
+    },
+    {
+      "path": "docs/adr/0013-serve-each-language-from-its-own-shared-rows.md",
+      "blob": "546d15f2b5a9bff2c40ac45980ad5ec4d4cc9abc",
+      "sha256": "22529f09af67d89e273aa07f292ac0ca13b7d8fa3d6205ed440f12b6af0461ff"
+    },
+    {
+      "path": "docs/adr/0018-ship-gq-designs-contract-and-renderer-as-lockstep-packages.md",
+      "blob": "95a9a3cc161a13fe6d760ad4120d847244dc45b8",
+      "sha256": "a25c3388bc7d885c25ba40fb3a99acd611b7e0a4867406be8cf7dd90f708b3ce"
+    }
+  ],
+  "contentBase": "dcf7e21cbc325223aa2e032b97652a624adc15f1",
+  "platformReadRevision": "72fc9cc20e2a0c9eeec1b53eeb108dcf45b9d401",
+  "platformSources": [
+    "GLOSSARY.md",
+    "docs/adr/0001-ownership-of-work-across-getquick-repositories.md"
+  ],
+  "ownership": "Existing accepted local ADRs remain canonical until approved documentation migration. All implementation and evidence here is gq-content-owned; no other repository written."
+}

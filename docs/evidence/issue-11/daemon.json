@@ -1,0 +1,274 @@
+{
+  "implementation": "BusyBox crond 1.37.0 (Alpine; built 2026-01-10); PHP 8.4.26; pinned WordPress CLI container",
+  "image": "wordpress@sha256:668db37ba48bc8d8ec4ca2f22163a1c74d17216c97bf509e327168963a687117",
+  "namespace": "isolated container; job maps to invoking uid/gid; no host schedules changed",
+  "daemonCommand": [
+    "docker",
+    "run",
+    "--rm",
+    "--name",
+    "gq-content-proof-cron-2346879",
+    "--user",
+    "0:0",
+    "--network",
+    "host",
+    "--mount",
+    "type=bind,src=/data/code/getquick/gq-content,dst=/data/code/getquick/gq-content",
+    "--mount",
+    "type=bind,src=/data/code/getquick/gq-content/.proofs/reconciliation/cron/passwd,dst=/etc/passwd,readonly",
+    "--entrypoint",
+    "/bin/sh",
+    "wordpress@sha256:668db37ba48bc8d8ec4ca2f22163a1c74d17216c97bf509e327168963a687117",
+    "-c",
+    "mkdir /tmp/gq-cron && cp /data/code/getquick/gq-content/.proofs/reconciliation/cron/tabs/proof /tmp/gq-cron/proof && chown 0:0 /tmp/gq-cron/proof && exec /usr/sbin/crond -f -l 0 -L /data/code/getquick/gq-content/.proofs/reconciliation/cron/daemon.log -c /tmp/gq-cron"
+  ],
+  "processAtLaunch": "docker run --rm --name gq-content-proof-cron-2346879 --user 0:0 --network host --mount type=bind,src=/data/code/getquick/gq-content,dst=/data/code/getquick/gq-content --mount type=bind,src=/data/code/getquick/gq-content/.proofs/reconciliation/cron/passwd,dst=/etc/passwd,readonly --entrypoint /bin/sh wordpress@sha256:668db37ba48bc8d8ec4ca2f22163a1c74d17216c97bf509e327168963a687117 -c 'mkdir /tmp/gq-cron && cp /data/code/getquick/gq-content/.proofs/reconciliation/cron/tabs/proof /tmp/gq-cron/proof && chown 0:0 /tmp/gq-cron/proof && exec /usr/sbin/crond -f -l 0 -L /data/code/getquick/gq-content/.proofs/reconciliation/cron/daemon.log -c /tmp/gq-cron'",
+  "dockerClientPid": 2347002,
+  "daemonProcesses": "PID                 PPID                COMMAND\n2347060             2347032             /usr/sbin/crond -f -l 0 -L /data/code/getquick/gq-content/.proofs/reconciliation/cron/daemon.log -c /tmp/gq-cron\n",
+  "jobProcess": "pid=11 parent=10 cwd=/data/code/getquick/gq-content/.proofs/p2/bedrock uid=1000 gid=1000",
+  "schedule": "* * * * * cd <disposable Bedrock> && PATH=<pinned launcher> wp gq-events retry-due --quiet",
+  "elapsedSeconds": 58.654,
+  "failed": {
+    "event": {
+      "site": "P1",
+      "id": "7768dd42-52e5-4f30-ad9d-fe44fb9ad9b8",
+      "action": "publish",
+      "occurredAt": 1792297381049,
+      "entry": {
+        "id": "cG9zdDo1OA==",
+        "uri": "/en/reconcile-story-3/",
+        "language": "en"
+      }
+    },
+    "delivery": {
+      "status": "failed",
+      "reason": "refresh",
+      "httpStatus": 503,
+      "message": "http: WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502",
+      "attempts": 1,
+      "attemptedAt": 1792297381
+    }
+  },
+  "recovered": {
+    "event": {
+      "site": "P1",
+      "id": "7768dd42-52e5-4f30-ad9d-fe44fb9ad9b8",
+      "action": "publish",
+      "occurredAt": 1792297381049,
+      "entry": {
+        "id": "cG9zdDo1OA==",
+        "uri": "/en/reconcile-story-3/",
+        "language": "en"
+      }
+    },
+    "delivery": {
+      "status": "refreshed",
+      "frontendStatus": "refreshed",
+      "attempts": 2,
+      "attemptedAt": 1792297440
+    }
+  },
+  "before": {
+    "kind": "found",
+    "content": {
+      "entry": {
+        "language": "en",
+        "translations": [],
+        "id": "cG9zdDo1OA==",
+        "title": "Story 3",
+        "excerpt": "",
+        "content": "<p>Story 3</p>",
+        "uri": "/en/reconcile-story-3/",
+        "date": "",
+        "featuredImage": null,
+        "hasVideoHero": false,
+        "spacingSizes": [],
+        "colors": [
+          {
+            "slug": "brand",
+            "color": "#0b0"
+          }
+        ]
+      },
+      "chrome": {
+        "menuItems": [
+          {
+            "id": "46",
+            "label": "About us",
+            "href": "/en/about/",
+            "target": null,
+            "children": []
+          },
+          {
+            "id": "47",
+            "label": "Team",
+            "href": "/en/team/",
+            "target": null,
+            "children": []
+          }
+        ],
+        "siteIcon": {
+          "sourceUrl": "https://media.test/703.png",
+          "altText": "Proof"
+        },
+        "siteLogo": {
+          "sourceUrl": "https://media.test/702.png",
+          "altText": "Proof"
+        }
+      },
+      "alternates": [
+        {
+          "language": {
+            "locale": "pt_PT_ao90",
+            "slug": "pt",
+            "code": "PT",
+            "lang": "pt-PT",
+            "isDefault": true,
+            "home": "/"
+          },
+          "route": "/",
+          "translation": false
+        }
+      ]
+    }
+  },
+  "after": {
+    "kind": "found",
+    "content": {
+      "entry": {
+        "language": "en",
+        "translations": [],
+        "id": "cG9zdDo1OA==",
+        "title": "Story 3",
+        "excerpt": "",
+        "content": "<p>Delivered by actual cron daemon</p>",
+        "uri": "/en/reconcile-story-3/",
+        "date": "",
+        "featuredImage": null,
+        "hasVideoHero": false,
+        "spacingSizes": [],
+        "colors": [
+          {
+            "slug": "brand",
+            "color": "#0b0"
+          }
+        ]
+      },
+      "chrome": {
+        "menuItems": [
+          {
+            "id": "46",
+            "label": "About us",
+            "href": "/en/about/",
+            "target": null,
+            "children": []
+          },
+          {
+            "id": "47",
+            "label": "Team",
+            "href": "/en/team/",
+            "target": null,
+            "children": []
+          }
+        ],
+        "siteIcon": {
+          "sourceUrl": "https://media.test/703.png",
+          "altText": "Proof"
+        },
+        "siteLogo": {
+          "sourceUrl": "https://media.test/702.png",
+          "altText": "Proof"
+        }
+      },
+      "alternates": [
+        {
+          "language": {
+            "locale": "pt_PT_ao90",
+            "slug": "pt",
+            "code": "PT",
+            "lang": "pt-PT",
+            "isDefault": true,
+            "home": "/"
+          },
+          "route": "/",
+          "translation": false
+        }
+      ]
+    }
+  },
+  "exit": "0",
+  "missedDelivery": {
+    "kind": "found",
+    "content": {
+      "entry": {
+        "language": "en",
+        "translations": [],
+        "id": "cG9zdDo2Mg==",
+        "title": "Story 7",
+        "excerpt": "",
+        "content": "<p>Missed change repaired by actual cron</p>",
+        "uri": "/en/reconcile-story-7/",
+        "date": "",
+        "featuredImage": null,
+        "hasVideoHero": false,
+        "spacingSizes": [],
+        "colors": [
+          {
+            "slug": "brand",
+            "color": "#0b0"
+          }
+        ]
+      },
+      "chrome": {
+        "menuItems": [
+          {
+            "id": "46",
+            "label": "About us",
+            "href": "/en/about/",
+            "target": null,
+            "children": []
+          },
+          {
+            "id": "47",
+            "label": "Team",
+            "href": "/en/team/",
+            "target": null,
+            "children": []
+          }
+        ],
+        "siteIcon": {
+          "sourceUrl": "https://media.test/703.png",
+          "altText": "Proof"
+        },
+        "siteLogo": {
+          "sourceUrl": "https://media.test/702.png",
+          "altText": "Proof"
+        }
+      },
+      "alternates": [
+        {
+          "language": {
+            "locale": "pt_PT_ao90",
+            "slug": "pt",
+            "code": "PT",
+            "lang": "pt-PT",
+            "isDefault": true,
+            "home": "/"
+          },
+          "route": "/",
+          "translation": false
+        }
+      ]
+    }
+  },
+  "reconciliation": {
+    "ranAt": 1792297560,
+    "status": "reconciled",
+    "reconciledAt": 1792297560,
+    "reason": "",
+    "message": ""
+  },
+  "controlledClock": "gq_events_now +120 seconds makes retry due; daemon still waits for real wall-clock minute",
+  "cleanup": true,
+  "boundary": "actual local cron daemon, WordPress, installed Composer plugin, signed HTTP, installed npm package and workerd/D1; GraphQL-only snapshot boundary; no Ploi provisioning or PHP-FPM claim"
+}

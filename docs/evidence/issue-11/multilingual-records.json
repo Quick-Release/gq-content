@@ -1,0 +1,813 @@
+{
+  "polylang": "3.8.11",
+  "state": {
+    "reads": 35,
+    "operations": [
+      {
+        "name": "HomePage",
+        "variables": {}
+      },
+      {
+        "name": "SiteChrome",
+        "variables": {
+          "location": "PRIMARY"
+        }
+      },
+      {
+        "name": "DesignPresets"
+      },
+      {
+        "name": "PublishedRoutes",
+        "variables": {
+          "after": null
+        }
+      },
+      {
+        "name": "HomePage",
+        "variables": {
+          "uri": "/en/",
+          "language": "EN"
+        }
+      },
+      {
+        "name": "SiteChrome",
+        "variables": {
+          "location": "PRIMARY",
+          "language": "EN"
+        }
+      },
+      {
+        "name": "EntryByUri",
+        "variables": {
+          "uri": "/en/about/"
+        }
+      },
+      {
+        "name": "EntryByUri",
+        "variables": {
+          "uri": "/sobre/"
+        }
+      },
+      {
+        "name": "SiteChrome",
+        "variables": {
+          "location": "PRIMARY",
+          "language": "EN"
+        }
+      },
+      {
+        "name": "SiteChrome",
+        "variables": {
+          "location": "PRIMARY",
+          "language": "EN"
+        }
+      },
+      {
+        "name": "HomePage",
+        "variables": {
+          "uri": "/en/",
+          "language": "EN"
+        }
+      },
+      {
+        "name": "SiteChrome",
+        "variables": {
+          "location": "PRIMARY"
+        }
+      },
+      {
+        "name": "SiteChrome",
+        "variables": {
+          "location": "PRIMARY",
+          "language": "EN"
+        }
+      },
+      {
+        "name": "SiteChrome",
+        "variables": {
+          "location": "PRIMARY"
+        }
+      },
+      {
+        "name": "SiteChrome",
+        "variables": {
+          "location": "PRIMARY",
+          "language": "EN"
+        }
+      },
+      {
+        "name": "HomePage",
+        "variables": {}
+      },
+      {
+        "name": "SiteChrome",
+        "variables": {
+          "location": "PRIMARY"
+        }
+      },
+      {
+        "name": "HomePage",
+        "variables": {
+          "uri": "/en/",
+          "language": "EN"
+        }
+      },
+      {
+        "name": "SiteChrome",
+        "variables": {
+          "location": "PRIMARY",
+          "language": "EN"
+        }
+      },
+      {
+        "name": "HomePage",
+        "variables": {}
+      },
+      {
+        "name": "SiteChrome",
+        "variables": {
+          "location": "PRIMARY"
+        }
+      },
+      {
+        "name": "HomePage",
+        "variables": {
+          "uri": "/en/",
+          "language": "EN"
+        }
+      },
+      {
+        "name": "SiteChrome",
+        "variables": {
+          "location": "PRIMARY",
+          "language": "EN"
+        }
+      },
+      {
+        "name": "DesignPresets"
+      },
+      {
+        "name": "DesignPresets"
+      },
+      {
+        "name": "HomePage",
+        "variables": {
+          "uri": "/en/",
+          "language": "EN"
+        }
+      },
+      {
+        "name": "HomePage",
+        "variables": {}
+      },
+      {
+        "name": "SiteChrome",
+        "variables": {
+          "location": "PRIMARY"
+        }
+      },
+      {
+        "name": "HomePage",
+        "variables": {
+          "uri": "/en/",
+          "language": "EN"
+        }
+      },
+      {
+        "name": "SiteChrome",
+        "variables": {
+          "location": "PRIMARY",
+          "language": "EN"
+        }
+      },
+      {
+        "name": "HomePage",
+        "variables": {
+          "uri": "/en/",
+          "language": "EN"
+        }
+      },
+      {
+        "name": "EntryByUri",
+        "variables": {
+          "uri": "/en/sobre/"
+        }
+      }
+    ],
+    "events": [
+      {
+        "site": "Pair Site / Á:06",
+        "id": "f5143ea9-b131-4110-895d-4d28da9317dd",
+        "action": "settings",
+        "occurredAt": 1792297360103,
+        "setting": "menus",
+        "language": "en"
+      },
+      {
+        "site": "Pair Site / Á:06",
+        "id": "51bbbb59-74c7-4b96-aa63-091654f45915",
+        "action": "settings",
+        "occurredAt": 1792297360657,
+        "setting": "menus",
+        "language": "en"
+      },
+      {
+        "site": "Pair Site / Á:06",
+        "id": "51bbbb59-74c7-4b96-aa63-091654f45915",
+        "action": "settings",
+        "occurredAt": 1792297360657,
+        "setting": "menus",
+        "language": "en"
+      },
+      {
+        "site": "Pair Site / Á:06",
+        "id": "0583346a-d9c2-4425-baa5-fc232923dbac",
+        "action": "settings",
+        "occurredAt": 1792297361711,
+        "setting": "identity",
+        "language": "en"
+      },
+      {
+        "site": "Pair Site / Á:06",
+        "id": "e34438c9-0c9c-4d07-9f22-105d5c944023",
+        "action": "settings",
+        "occurredAt": 1792297362247,
+        "setting": "logo"
+      },
+      {
+        "site": "Pair Site / Á:06",
+        "id": "8563c5de-9768-422d-b9bb-09400eac9d16",
+        "action": "settings",
+        "occurredAt": 1792297362791,
+        "setting": "logo"
+      },
+      {
+        "site": "Pair Site / Á:06",
+        "id": "8563c5de-9768-422d-b9bb-09400eac9d16",
+        "action": "settings",
+        "occurredAt": 1792297362791,
+        "setting": "logo"
+      },
+      {
+        "site": "Pair Site / Á:06",
+        "id": "5565ef8b-94a4-4108-aba6-22be2d28c3c1",
+        "action": "settings",
+        "occurredAt": 1792297364112,
+        "setting": "identity"
+      },
+      {
+        "site": "Pair Site / Á:06",
+        "id": "11ee97f5-7900-401e-bbe6-9bc65acd64c7",
+        "action": "settings",
+        "occurredAt": 1792297364681,
+        "setting": "identity"
+      },
+      {
+        "site": "Pair Site / Á:06",
+        "id": "dbdd645c-1e04-4808-b27d-683682cbf86e",
+        "action": "settings",
+        "occurredAt": 1792297365263,
+        "setting": "design"
+      },
+      {
+        "site": "Pair Site / Á:06",
+        "id": "f28c29fd-5ebb-42e7-bfb7-651dc7392fa7",
+        "action": "settings",
+        "occurredAt": 1792297366287,
+        "setting": "design"
+      },
+      {
+        "site": "Pair Site / Á:06",
+        "id": "3d5127a0-eed6-48f6-9ca2-67610a7b6eaf",
+        "action": "publish",
+        "occurredAt": 1792297367051,
+        "entry": {
+          "id": "cG9zdDo0MQ==",
+          "uri": "/en/",
+          "language": "en"
+        }
+      },
+      {
+        "site": "Pair Site / Á:06",
+        "id": "c3708d14-2f9c-46da-ac9f-305072483a74",
+        "action": "withdraw",
+        "occurredAt": 1792297367578,
+        "entry": {
+          "id": "cG9zdDo0MQ==",
+          "uri": "/en/",
+          "language": "en"
+        }
+      },
+      {
+        "site": "Pair Site / Á:06",
+        "id": "575df650-3c94-4f67-b4c4-7242a46f7dc0",
+        "action": "settings",
+        "occurredAt": 1792297367849,
+        "setting": "identity"
+      },
+      {
+        "site": "Pair Site / Á:06",
+        "id": "ce545e24-d24d-4ed6-a92e-b191e4b23159",
+        "action": "publish",
+        "occurredAt": 1792297368401,
+        "entry": {
+          "id": "cG9zdDo0MQ==",
+          "uri": "/en/",
+          "language": "en"
+        }
+      },
+      {
+        "site": "Pair Site / Á:06",
+        "id": "c1e08124-b21d-42c9-b9c4-f9d73bdc5aa6",
+        "action": "withdraw",
+        "occurredAt": 1792297368694,
+        "entry": {
+          "id": "cG9zdDo0Mw==",
+          "uri": "/en/about/",
+          "language": "en"
+        }
+      },
+      {
+        "site": "Pair Site / Á:06",
+        "id": "b9a785f7-c50c-4f6e-ad2d-ce2cba49f08d",
+        "action": "publish",
+        "occurredAt": 1792297369236,
+        "entry": {
+          "id": "cG9zdDo0Mg==",
+          "uri": "/en/sobre/",
+          "language": "en"
+        }
+      }
+    ],
+    "envelopes": [
+      {
+        "event": {
+          "site": "Pair Site / Á:06",
+          "id": "f5143ea9-b131-4110-895d-4d28da9317dd",
+          "action": "settings",
+          "occurredAt": 1792297360103,
+          "setting": "menus",
+          "language": "en"
+        },
+        "timestamp": "1792297360",
+        "signature": "v1=18c98de882b306dd6845c1fee40e2da86005385980f2ef9ec3aba9e0f17e8549"
+      },
+      {
+        "event": {
+          "site": "Pair Site / Á:06",
+          "id": "51bbbb59-74c7-4b96-aa63-091654f45915",
+          "action": "settings",
+          "occurredAt": 1792297360657,
+          "setting": "menus",
+          "language": "en"
+        },
+        "timestamp": "1792297360",
+        "signature": "v1=7fbf4b89c1ee009cec1ddd87e2c6fe76ac131321f210f4ae1388306fa1f64ba9"
+      },
+      {
+        "event": {
+          "site": "Pair Site / Á:06",
+          "id": "51bbbb59-74c7-4b96-aa63-091654f45915",
+          "action": "settings",
+          "occurredAt": 1792297360657,
+          "setting": "menus",
+          "language": "en"
+        },
+        "timestamp": "1792297361",
+        "signature": "v1=e3e78ad67660dbdbf91696a7957df2fc5158a58d6bdeb894abe45fc04b912c0f"
+      },
+      {
+        "event": {
+          "site": "Pair Site / Á:06",
+          "id": "0583346a-d9c2-4425-baa5-fc232923dbac",
+          "action": "settings",
+          "occurredAt": 1792297361711,
+          "setting": "identity",
+          "language": "en"
+        },
+        "timestamp": "1792297361",
+        "signature": "v1=ecef305b3f990a05f978b75a801cd3bae08660b114b1fac6f1f8ec4d5f0fa801"
+      },
+      {
+        "event": {
+          "site": "Pair Site / Á:06",
+          "id": "e34438c9-0c9c-4d07-9f22-105d5c944023",
+          "action": "settings",
+          "occurredAt": 1792297362247,
+          "setting": "logo"
+        },
+        "timestamp": "1792297362",
+        "signature": "v1=d3a9e11fcacea49f77ab1eb20159268b4847d545fa9df9b5fd0f594825f588d2"
+      },
+      {
+        "event": {
+          "site": "Pair Site / Á:06",
+          "id": "8563c5de-9768-422d-b9bb-09400eac9d16",
+          "action": "settings",
+          "occurredAt": 1792297362791,
+          "setting": "logo"
+        },
+        "timestamp": "1792297362",
+        "signature": "v1=3b682b163d5794a56f1a93b2569913b92f8c2eb1664e8ff5e96fc52d2be5a7d4"
+      },
+      {
+        "event": {
+          "site": "Pair Site / Á:06",
+          "id": "8563c5de-9768-422d-b9bb-09400eac9d16",
+          "action": "settings",
+          "occurredAt": 1792297362791,
+          "setting": "logo"
+        },
+        "timestamp": "1792297363",
+        "signature": "v1=01ab938b12df3c11e0381ff4caab18bd8828e34126ccfc6752b3aa3009a3236c"
+      },
+      {
+        "event": {
+          "site": "Pair Site / Á:06",
+          "id": "5565ef8b-94a4-4108-aba6-22be2d28c3c1",
+          "action": "settings",
+          "occurredAt": 1792297364112,
+          "setting": "identity"
+        },
+        "timestamp": "1792297364",
+        "signature": "v1=419b7762049d8d9fd02183f3ed59a310d142dfee9e941f55b8b7e72c5af320b8"
+      },
+      {
+        "event": {
+          "site": "Pair Site / Á:06",
+          "id": "11ee97f5-7900-401e-bbe6-9bc65acd64c7",
+          "action": "settings",
+          "occurredAt": 1792297364681,
+          "setting": "identity"
+        },
+        "timestamp": "1792297364",
+        "signature": "v1=9a0e77aaafa46b67e50f52f3358c50074166031885aa1d4b8c60c678cf2a820b"
+      },
+      {
+        "event": {
+          "site": "Pair Site / Á:06",
+          "id": "dbdd645c-1e04-4808-b27d-683682cbf86e",
+          "action": "settings",
+          "occurredAt": 1792297365263,
+          "setting": "design"
+        },
+        "timestamp": "1792297365",
+        "signature": "v1=45037e75d1738f20d20938bb6bb75029fa483d09fdaccc4bcce8e1de7e6226fa"
+      },
+      {
+        "event": {
+          "site": "Pair Site / Á:06",
+          "id": "f28c29fd-5ebb-42e7-bfb7-651dc7392fa7",
+          "action": "settings",
+          "occurredAt": 1792297366287,
+          "setting": "design"
+        },
+        "timestamp": "1792297366",
+        "signature": "v1=718534efe2d777a0f23dfe67aa29875e0a8ecc37f04939071f9acdfdfe950886"
+      },
+      {
+        "event": {
+          "site": "Pair Site / Á:06",
+          "id": "3d5127a0-eed6-48f6-9ca2-67610a7b6eaf",
+          "action": "publish",
+          "occurredAt": 1792297367051,
+          "entry": {
+            "id": "cG9zdDo0MQ==",
+            "uri": "/en/",
+            "language": "en"
+          }
+        },
+        "timestamp": "1792297367",
+        "signature": "v1=218ed81db519fbdf244b59f38d16a140c1ad360fdf5cd4c56ad7bb2db395a977"
+      },
+      {
+        "event": {
+          "site": "Pair Site / Á:06",
+          "id": "c3708d14-2f9c-46da-ac9f-305072483a74",
+          "action": "withdraw",
+          "occurredAt": 1792297367578,
+          "entry": {
+            "id": "cG9zdDo0MQ==",
+            "uri": "/en/",
+            "language": "en"
+          }
+        },
+        "timestamp": "1792297367",
+        "signature": "v1=d12a2319b1ba6f0380a22c24bb6c5a1c514f2f46cfaf9abe6121d9b49ae70565"
+      },
+      {
+        "event": {
+          "site": "Pair Site / Á:06",
+          "id": "575df650-3c94-4f67-b4c4-7242a46f7dc0",
+          "action": "settings",
+          "occurredAt": 1792297367849,
+          "setting": "identity"
+        },
+        "timestamp": "1792297367",
+        "signature": "v1=ffeddf1d96327e896be8025f47cf696ac1e5e67581380f1c4884eb0d2759db4e"
+      },
+      {
+        "event": {
+          "site": "Pair Site / Á:06",
+          "id": "ce545e24-d24d-4ed6-a92e-b191e4b23159",
+          "action": "publish",
+          "occurredAt": 1792297368401,
+          "entry": {
+            "id": "cG9zdDo0MQ==",
+            "uri": "/en/",
+            "language": "en"
+          }
+        },
+        "timestamp": "1792297368",
+        "signature": "v1=1775385b937b6a2e261387744938ce12bde3f947bbccd84ce6b7b786aece785f"
+      },
+      {
+        "event": {
+          "site": "Pair Site / Á:06",
+          "id": "c1e08124-b21d-42c9-b9c4-f9d73bdc5aa6",
+          "action": "withdraw",
+          "occurredAt": 1792297368694,
+          "entry": {
+            "id": "cG9zdDo0Mw==",
+            "uri": "/en/about/",
+            "language": "en"
+          }
+        },
+        "timestamp": "1792297368",
+        "signature": "v1=4322a82e0dad160fc2c730ea477d6865ac10d63c9966b798820285c8b3c0910e"
+      },
+      {
+        "event": {
+          "site": "Pair Site / Á:06",
+          "id": "b9a785f7-c50c-4f6e-ad2d-ce2cba49f08d",
+          "action": "publish",
+          "occurredAt": 1792297369236,
+          "entry": {
+            "id": "cG9zdDo0Mg==",
+            "uri": "/en/sobre/",
+            "language": "en"
+          }
+        },
+        "timestamp": "1792297369",
+        "signature": "v1=5b091d50c42946b17bbf30e051edb1e2dd878212280485ddd0a0d9c42867a633"
+      }
+    ]
+  },
+  "settingsCli": [
+    {
+      "setting": "menus",
+      "event": "",
+      "status": "none",
+      "reason": "",
+      "attempts": 0,
+      "message": ""
+    },
+    {
+      "setting": "logo",
+      "event": "8563c5de-9768-422d-b9bb-09400eac9d16",
+      "status": "refreshed",
+      "reason": "",
+      "attempts": 2,
+      "message": ""
+    },
+    {
+      "setting": "identity",
+      "event": "575df650-3c94-4f67-b4c4-7242a46f7dc0",
+      "status": "refreshed",
+      "reason": "",
+      "attempts": 1,
+      "message": ""
+    },
+    {
+      "setting": "design",
+      "event": "f28c29fd-5ebb-42e7-bfb7-651dc7392fa7",
+      "status": "refreshed",
+      "reason": "",
+      "attempts": 1,
+      "message": ""
+    },
+    {
+      "setting": "menus:pt",
+      "event": "",
+      "status": "none",
+      "reason": "",
+      "attempts": 0,
+      "message": ""
+    },
+    {
+      "setting": "identity:pt",
+      "event": "",
+      "status": "none",
+      "reason": "",
+      "attempts": 0,
+      "message": ""
+    },
+    {
+      "setting": "menus:en",
+      "event": "51bbbb59-74c7-4b96-aa63-091654f45915",
+      "status": "refreshed",
+      "reason": "",
+      "attempts": 2,
+      "message": ""
+    },
+    {
+      "setting": "identity:en",
+      "event": "0583346a-d9c2-4425-baa5-fc232923dbac",
+      "status": "refreshed",
+      "reason": "",
+      "attempts": 1,
+      "message": ""
+    }
+  ],
+  "fixture": {
+    "entries": {
+      "/en/sobre/": {
+        "id": "cG9zdDo0Mg==",
+        "uri": "/en/sobre/",
+        "title": "Sobre",
+        "content": "<p>Now English</p>",
+        "status": "publish",
+        "isRestricted": false,
+        "featuredImage": null,
+        "language": {
+          "slug": "en"
+        },
+        "translations": []
+      }
+    },
+    "homes": {
+      "pt": {
+        "generalSettings": {
+          "title": "Still shared",
+          "description": "Coisas"
+        },
+        "nodeByUri": {
+          "__typename": "Page",
+          "id": "cG9zdDo0MA==",
+          "isFrontPage": true,
+          "title": "Início",
+          "content": "<p>Início</p>"
+        },
+        "designTokens": {
+          "colors": [
+            {
+              "slug": "brand",
+              "color": "#0b0"
+            }
+          ],
+          "spacingSizes": []
+        }
+      },
+      "en": {
+        "language": {
+          "title": "Still shared",
+          "description": "Better things"
+        },
+        "nodeByUri": {
+          "__typename": "Page",
+          "id": "cG9zdDo0MQ==",
+          "isFrontPage": true,
+          "title": "Home",
+          "content": "<h1>Welcome back</h1>"
+        },
+        "designTokens": {
+          "colors": [
+            {
+              "slug": "brand",
+              "color": "#0b0"
+            }
+          ],
+          "spacingSizes": []
+        }
+      }
+    },
+    "chrome": {
+      "pt": {
+        "generalSettings": {
+          "siteLogo": {
+            "node": {
+              "sourceUrl": "https://media.test/702.png",
+              "altText": "Proof"
+            }
+          },
+          "siteIcon": {
+            "node": {
+              "sourceUrl": "https://media.test/703.png",
+              "altText": "Proof"
+            }
+          }
+        },
+        "menuItems": {
+          "nodes": [
+            {
+              "id": "44",
+              "parentId": null,
+              "label": "Sobre nós",
+              "url": "/sobre/",
+              "target": null
+            }
+          ]
+        }
+      },
+      "en": {
+        "generalSettings": {
+          "siteLogo": {
+            "node": {
+              "sourceUrl": "https://media.test/702.png",
+              "altText": "Proof"
+            }
+          },
+          "siteIcon": {
+            "node": {
+              "sourceUrl": "https://media.test/703.png",
+              "altText": "Proof"
+            }
+          }
+        },
+        "menuItems": {
+          "nodes": [
+            {
+              "id": "46",
+              "parentId": null,
+              "label": "About us",
+              "url": "/en/about/",
+              "target": null
+            },
+            {
+              "id": "47",
+              "parentId": null,
+              "label": "Team",
+              "url": "/en/team/",
+              "target": null
+            }
+          ]
+        }
+      }
+    },
+    "design": {
+      "colors": [
+        {
+          "slug": "brand",
+          "color": "#0b0"
+        }
+      ],
+      "spacingSizes": []
+    }
+  },
+  "homeEvent": {
+    "event": {
+      "site": "Pair Site / Á:06",
+      "id": "3d5127a0-eed6-48f6-9ca2-67610a7b6eaf",
+      "action": "publish",
+      "occurredAt": 1792297367051,
+      "entry": {
+        "id": "cG9zdDo0MQ==",
+        "uri": "/en/",
+        "language": "en"
+      }
+    },
+    "delivery": {
+      "status": "refreshed",
+      "frontendStatus": "refreshed",
+      "attempts": 1,
+      "attemptedAt": 1792297367
+    }
+  },
+  "failedSetting": {
+    "event": {
+      "site": "Pair Site / Á:06",
+      "id": "8563c5de-9768-422d-b9bb-09400eac9d16",
+      "action": "settings",
+      "occurredAt": 1792297362791,
+      "setting": "logo"
+    },
+    "delivery": {
+      "status": "failed",
+      "reason": "refresh",
+      "httpStatus": 503,
+      "message": "network: WordPress couldn't be reached",
+      "attempts": 1,
+      "attemptedAt": 1792297362
+    }
+  },
+  "retryOutput": "Success: Refreshed the menus:en on the Frontend.",
+  "languageChange": {
+    "event": {
+      "site": "Pair Site / Á:06",
+      "id": "b9a785f7-c50c-4f6e-ad2d-ce2cba49f08d",
+      "action": "publish",
+      "occurredAt": 1792297369236,
+      "entry": {
+        "id": "cG9zdDo0Mg==",
+        "uri": "/en/sobre/",
+        "language": "en"
+      }
+    },
+    "delivery": {
+      "status": "refreshed",
+      "frontendStatus": "refreshed",
+      "attempts": 1,
+      "attemptedAt": 1792297369
+    }
+  }
+}

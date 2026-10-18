@@ -1,3 +1,4 @@
+import { recordArtifact } from "./proof-artifact.mjs";
 import { execFileSync } from "node:child_process";
 import {
   mkdtempSync,
@@ -31,6 +32,7 @@ try {
   mkdirSync(artifacts);
   run("vp", ["pm", "pack", "--pack-destination", artifacts], join(repo, "frontend"));
   const tarball = join(artifacts, "getquick-content-0.1.0.tgz");
+  recordArtifact(tarball, "consumer");
   const listing = execFileSync("tar", ["-tzf", tarball], { encoding: "utf8" }).trim().split("\n");
   for (const file of listing) {
     assert.match(

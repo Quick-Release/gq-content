@@ -1,0 +1,1 @@
+pid=11 parent=10 cwd=/data/code/getquick/gq-content/.proofs/p2/bedrock uid=1000 gid=1000

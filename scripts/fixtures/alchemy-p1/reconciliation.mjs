@@ -70,6 +70,15 @@ const bridge = createServer(async (req, res) => {
       res.end("{}");
       return;
     }
+    if (state.holdUri === variables.uri && query.includes("EntryByUri")) {
+      writeFileSync(
+        join(root, ".proofs/reconciliation/held.json"),
+        JSON.stringify({ uri: variables.uri }),
+      );
+      const deadline = Date.now() + 6000;
+      while (!JSON.parse(readFileSync(control, "utf8")).release && Date.now() < deadline)
+        await new Promise((resolve) => setTimeout(resolve, 20));
+    }
     if (state.delayMs) await new Promise((resolve) => setTimeout(resolve, state.delayMs));
     let data;
     if (query.includes("HomePage")) data = saved.homes[variables.language === "EN" ? "en" : "pt"];
@@ -104,6 +113,10 @@ const bridge = createServer(async (req, res) => {
 });
 await new Promise((resolve) => bridge.listen(0, "127.0.0.1", resolve));
 const cmsGraphql = "http://127.0.0.1:" + bridge.address().port + "/graphql";
+writeFileSync(
+  join(root, ".proofs/reconciliation/bridge.json"),
+  JSON.stringify({ origin: new URL(cmsGraphql).origin }),
+);
 const options = { providers, dev: true, sidecar: false, stage: "p9" };
 const stack = Core.scratchStack(options, "content-installed-reconciliation", "proof");
 const program = (revision) =>
@@ -185,6 +198,7 @@ try {
       assert.deepEqual(failedAfter.attempts, failed.attempts);
       assert.deepEqual(failedAfter.ledger, failed.ledger);
       yield* phase("recover", third.worker.url);
+      yield* phase("daemon", third.worker.url);
       const recovered = yield* diagnostics(third.worker.url);
       for (const before of failed.events.filter((e) => e.status === "failed")) {
         const after = recovered.events.find((e) => e.id === before.id);
@@ -210,6 +224,23 @@ try {
       );
       console.log(
         "P2/P6 #9 integrated WordPress CLI/scheduler → installed package/workerd: convergence, partial continuation, outage/recovery, complete failed/pending records and event attempt progression across Worker updates passed.",
+      );
+      yield* phase("runtime", third.worker.url);
+      const aged = yield* diagnostics(third.worker.url);
+      const fourth = yield* stack.deploy(program("fourth"));
+      assert.equal(fourth.db.databaseId, first.db.databaseId);
+      const agedAfter = yield* diagnostics(fourth.worker.url);
+      for (const key of ["publications", "events", "attempts", "withdrawals", "ledger"])
+        assert.deepEqual(
+          agedAfter[key],
+          aged[key],
+          `complete ${key} survives redeploy during outage`,
+        );
+      yield* phase("aged-after-update", fourth.worker.url);
+      yield* phase("bulk", fourth.worker.url);
+      writeFileSync(
+        join(root, ".proofs/reconciliation/aged-persistence.json"),
+        JSON.stringify({ aged, agedAfter }, null, 2) + "\n",
       );
       yield* stack.destroy();
     }),

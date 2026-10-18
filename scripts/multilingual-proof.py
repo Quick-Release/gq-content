@@ -153,8 +153,11 @@ try:
     check('actual site icon reaches both language chrome rows', all(public(uri)['content']['chrome']['siteIcon']['sourceUrl'] == 'https://media.test/703.png' for uri in ['/sobre/', '/en/about/']))
     styles = wp('post', 'create', '--post_type=wp_global_styles', '--post_status=publish', '--post_title=Proof styles', '--post_content={"version":3,"isGlobalStylesUserThemeJSON":true,"settings":{"color":{"palette":{"custom":[{"slug":"brand","color":"#0a0"}]}}}}', '--porcelain')
     check('actual global-styles save sends shared design event', status('design')['delivery']['status'] == 'refreshed' and 'language' not in status('design')['event'])
+    previous_design = status('design')
+    rest = wp('eval', "wp_set_current_user(1); $r=new WP_REST_Request('POST','/wp/v2/global-styles/" + styles + "'); $r->set_body_params(['settings'=>['color'=>['palette'=>['custom'=>[['slug'=>'brand','color'=>'#0b0']]]]]]); echo rest_do_request($r)->get_status();")
+    check('actual global-styles REST save delivers a fresh design event', rest == '200' and status('design')['event']['id'] != previous_design['event']['id'] and status('design')['delivery']['status'] == 'refreshed')
     request('/proof/offline')
-    check('shared presets persist on both homes and entries during outage', all(public(uri)['content']['entry']['colors'] == [{'slug': 'brand', 'color': '#0a0'}] for uri in ['/sobre/', '/en/about/']) and all(home(lang)['content']['home']['colors'] == [{'slug': 'brand', 'color': '#0a0'}] for lang in ['pt', 'en']))
+    check('shared presets persist on both homes and entries during outage', all(public(uri)['content']['entry']['colors'] == [{'slug': 'brand', 'color': '#0b0'}] for uri in ['/sobre/', '/en/about/']) and all(home(lang)['content']['home']['colors'] == [{'slug': 'brand', 'color': '#0b0'}] for lang in ['pt', 'en']))
     request('/proof/online')
     # Real per-language home publication/withdrawal with actual Polylang permalink identity.
     wp('post', 'update', en, '--post_content=<h1>Welcome back</h1>')

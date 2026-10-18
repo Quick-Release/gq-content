@@ -84,6 +84,7 @@ try:
     prepared = request('/gq/refresh', {}, True)
     check('refresh installs usable chrome through public handler', prepared['refreshed'] and prepared['ready'])
     fixture.write_text(json.dumps({'entries': {uri: entry}}))
+    check('saving a draft retains no publication event', cms.wp('post', 'meta', 'get', post, '_gq_publication_event', env=environment, ok=False).returncode != 0)
     wp('post', 'update', post, '--post_status=publish')
     saved = record(post)
     check('actual CMS signature and configured Site accepted by installed handler', saved['event']['site'] == 'Pair Site / Á:06' and saved['delivery']['status'] == 'refreshed')
@@ -100,6 +101,13 @@ try:
     updated = record(post)
     check('update has fresh event identity and changes stored public delivery', updated['event']['id'] != saved['event']['id'] and request('/proof/read?uri=' + uri)['delivery']['content']['entry']['content'] == '<p>Pair publication v2</p>')
     check('timeout filter receives 15 and its numeric result controls transport', json.loads(timeout_log.read_text().splitlines()[-1]) == {'timeout': 7})
+    # Actual unreachable receiver is independent of a readable CMS/GraphQL outage.
+    started = time.monotonic()
+    outcome = cms.wp('post', 'update', post, '--post_content=Save during receiver outage', env=environment | {'GETQUICK_FRONTEND_URL': 'http://127.0.0.1:1'})
+    unavailable = record(post)
+    check('unreachable receiver does not fail a WordPress save', outcome.returncode == 0 and time.monotonic() - started < 18 and unavailable['delivery']['status'] == 'failed' and unavailable['delivery']['reason'] == 'network')
+    wp('gq-events', 'retry', post)
+    check('receiver recovery retries same recorded identity', record(post)['event'] == unavailable['event'] and record(post)['delivery']['status'] == 'refreshed')
     previous_uri = uri
     uri = '/pair-moved-' + post + '/'
     entry['uri'] = uri
@@ -128,6 +136,11 @@ try:
     request('/proof/online')
     wp('post', 'update', post, '--post_password=')
     check('removing password sends real later publication', record(post)['event']['action'] == 'publish' and request('/proof/read?uri=' + uri)['delivery']['kind'] == 'found')
+    before = request('/proof/offline')['reads']
+    wp('post', 'update', post, '--post_status=trash')
+    check('trashing a publication sends withdrawal and hides its public route', record(post)['event']['action'] == 'withdraw' and request('/proof/read?uri=' + uri)['delivery']['kind'] == 'missing')
+    request('/proof/online')
+    wp('post', 'update', post, '--post_status=publish')
     before = request('/proof/offline')['reads']
     wp('post', 'delete', post, '--force')
     check('permanent deletion withdraws all stored routes without CMS reads', request('/proof/read?uri=' + uri)['delivery']['kind'] == 'missing' and request('/proof/read?uri=' + previous_uri)['delivery']['kind'] == 'missing' and request('/proof/read?uri=' + uri)['reads'] == before)

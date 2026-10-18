@@ -1,0 +1,51 @@
+{
+  "held": {
+    "uri": "/en/reconcile-story-5/"
+  },
+  "refresh": [
+    200,
+    {
+      "Content-Length": "90",
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store"
+    },
+    {
+      "refreshed": true,
+      "entries": {
+        "/en/reconcile-story-5/": {
+          "outcome": "withdrawn"
+        }
+      },
+      "moved": {}
+    }
+  ],
+  "withdrawn": {
+    "kind": "missing",
+    "chrome": {
+      "menuItems": [
+        {
+          "id": "46",
+          "label": "About us",
+          "href": "/en/about/",
+          "target": null,
+          "children": []
+        },
+        {
+          "id": "47",
+          "label": "Team",
+          "href": "/en/team/",
+          "target": null,
+          "children": []
+        }
+      ],
+      "siteIcon": {
+        "sourceUrl": "https://media.test/703.png",
+        "altText": "Proof"
+      },
+      "siteLogo": {
+        "sourceUrl": "https://media.test/702.png",
+        "altText": "Proof"
+      }
+    }
+  }
+}
