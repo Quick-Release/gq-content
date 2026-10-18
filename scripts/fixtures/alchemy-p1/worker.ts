@@ -17,6 +17,7 @@ export default {
       for (const [key, body] of [
         ["home", home],
         ["chrome", chrome],
+        ["chrome:en", chrome],
       ] as const) {
         await db
           .prepare(
@@ -30,10 +31,31 @@ export default {
       site: "P1",
       graphqlEndpoint: "https://offline.invalid/graphql",
       cmsOrigin: "https://offline.invalid",
+      wordpress: { locale: "pt_PT_ao90", languages: [{ locale: "en_US", slug: "en" }] },
       isServer: () => true,
       bindings: () => env,
       fetch: async (_url, init) => {
         const body = JSON.parse(String(init?.body));
+        if (body.query.includes("HomePage"))
+          return Response.json({
+            data: {
+              language: { title: "English", description: "Shared rows" },
+              nodeByUri: {
+                __typename: "Page",
+                id: "front-en",
+                isFrontPage: true,
+                title: "Home",
+                content: "<h1>English workerd home</h1>",
+              },
+              designTokens: { colors: [], spacingSizes: [] },
+            },
+          });
+        if (body.query.includes("DesignPresets"))
+          return Response.json({
+            data: {
+              designTokens: { colors: [{ slug: "brand", color: "#0a0" }], spacingSizes: [] },
+            },
+          });
         if (!body.query.includes("EntryByUri")) throw new Error("Unexpected CMS read");
         return Response.json({
           data: {
@@ -45,6 +67,8 @@ export default {
               status: "publish",
               isRestricted: false,
               featuredImage: null,
+              language: { slug: "pt" },
+              translations: [],
             },
             postBy: null,
             designTokens: { colors: [], spacingSizes: [] },
@@ -54,6 +78,15 @@ export default {
     });
     if (path === "/gq/events") return runtime.handleEvent(request);
     if (path === "/gq/refresh") return runtime.handleRefresh(request);
+    if (path === "/en/") {
+      const home = await runtime.publishedHome(undefined, runtime.languages[1]);
+      if (
+        home.kind === "found" &&
+        !home.content.alternates.every((a) => runtime.languages.includes(a.language))
+      )
+        throw new Error("Noncanonical language identity");
+      return Response.json(home);
+    }
     if (path === "/entry/") return Response.json(await runtime.publishedEntry(path));
     const ledger = await db.prepare("SELECT * FROM __alchemy_migrations ORDER BY rowid").all();
     const tables = await db

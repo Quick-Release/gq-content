@@ -1,0 +1,2164 @@
+{
+  "checkpoint": "eaec13488d57b3d04059309b5b36de5d016f3de1",
+  "note": "Per-assertion overlay of #3; #3–#6 inventories remain immutable. Mixed HTML checks preserve runtime DTO guarantees here and presentation in gq-site #77. Pending #9 is not completed. CMS expectSent helper invocations additionally map to actual language publication/menu/string/logo/identity events in multilingual-proof.py; custom helper calls are not counted as independent assertions in the original AST inventory.",
+  "files": [
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/site-language.test.ts",
+      "sourceBlob": "bf0c6a12ea1c190e0924c6c3136cf89bd15deb1f",
+      "assertions": [
+        {
+          "sourceLines": [6, 6],
+          "context": "is the WordPress locale's language and region",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [7, 7],
+          "context": "is the WordPress locale's language and region",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [8, 8],
+          "context": "is the WordPress locale's language and region",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [12, 12],
+          "context": "leaves out WordPress's variants, which aren't BCP 47 subtags",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [13, 13],
+          "context": "leaves out WordPress's variants, which aren't BCP 47 subtags",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [17, 17],
+          "context": "is a language alone when the locale has no region",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [21, 21],
+          "context": "is English without a locale",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [22, 22],
+          "context": "is English without a locale",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [36, 47],
+          "context": "are wordpress.locale, at /, then wordpress.languages, each under its slug",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [51, 53],
+          "context": "are one, at /, for a monolingual Site, with or without a locale",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [54, 56],
+          "context": "are one, at /, for a monolingual Site, with or without a locale",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [64, 64],
+          "context": "is the language whose slug is the route's first segment",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [65, 65],
+          "context": "is the language whose slug is the route's first segment",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [66, 66],
+          "context": "is the language whose slug is the route's first segment",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [70, 70],
+          "context": "is the default language otherwise",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [71, 71],
+          "context": "is the default language otherwise",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [72, 72],
+          "context": "is the default language otherwise",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [74, 74],
+          "context": "is the default language otherwise",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [78, 78],
+          "context": "is a language's home only at its home route",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [79, 79],
+          "context": "is a language's home only at its home route",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [80, 80],
+          "context": "is a language's home only at its home route",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        },
+        {
+          "sourceLines": [81, 81],
+          "context": "is a language's home only at its home route",
+          "status": "preserved #3",
+          "destination": "frontend/tests/site-language.test.ts"
+        }
+      ]
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/settings.test.ts",
+      "sourceBlob": "36036279b9fa1e548b29b767c01b2cba9091a251",
+      "assertions": [
+        {
+          "sourceLines": [219, 219],
+          "context": "shared helper",
+          "status": "test support projection #7",
+          "destination": "frontend/tests/settings-languages.test.ts public Request/Response/DTO helpers"
+        },
+        {
+          "sourceLines": [220, 220],
+          "context": "shared helper",
+          "status": "test support projection #7",
+          "destination": "frontend/tests/settings-languages.test.ts public Request/Response/DTO helpers"
+        },
+        {
+          "sourceLines": [250, 250],
+          "context": "shared helper",
+          "status": "test support projection #7",
+          "destination": "frontend/tests/settings-languages.test.ts public Request/Response/DTO helpers"
+        },
+        {
+          "sourceLines": [251, 251],
+          "context": "shared helper",
+          "status": "test support projection #7",
+          "destination": "frontend/tests/settings-languages.test.ts public Request/Response/DTO helpers"
+        },
+        {
+          "sourceLines": [253, 253],
+          "context": "shared helper",
+          "status": "test support projection #7",
+          "destination": "frontend/tests/settings-languages.test.ts public Request/Response/DTO helpers"
+        },
+        {
+          "sourceLines": [258, 258],
+          "context": "shared helper",
+          "status": "test support projection #7",
+          "destination": "frontend/tests/settings-languages.test.ts public Request/Response/DTO helpers"
+        },
+        {
+          "sourceLines": [259, 259],
+          "context": "shared helper",
+          "status": "test support projection #7",
+          "destination": "frontend/tests/settings-languages.test.ts public Request/Response/DTO helpers"
+        },
+        {
+          "sourceLines": [269, 269],
+          "context": "shared helper",
+          "status": "test support projection #7",
+          "destination": "frontend/tests/settings-languages.test.ts public Request/Response/DTO helpers"
+        },
+        {
+          "sourceLines": [272, 272],
+          "context": "shared helper",
+          "status": "test support projection #7",
+          "destination": "frontend/tests/settings-languages.test.ts public Request/Response/DTO helpers"
+        },
+        {
+          "sourceLines": [273, 273],
+          "context": "shared helper",
+          "status": "test support projection #7",
+          "destination": "frontend/tests/settings-languages.test.ts public Request/Response/DTO helpers"
+        },
+        {
+          "sourceLines": [277, 277],
+          "context": "shared helper",
+          "status": "test support projection #7",
+          "destination": "frontend/tests/settings-languages.test.ts public Request/Response/DTO helpers"
+        },
+        {
+          "sourceLines": [278, 278],
+          "context": "shared helper",
+          "status": "test support projection #7",
+          "destination": "frontend/tests/settings-languages.test.ts public Request/Response/DTO helpers"
+        },
+        {
+          "sourceLines": [285, 285],
+          "context": "shared helper",
+          "status": "test support projection #7",
+          "destination": "frontend/tests/settings-languages.test.ts public Request/Response/DTO helpers"
+        },
+        {
+          "sourceLines": [286, 286],
+          "context": "shared helper",
+          "status": "test support projection #7",
+          "destination": "frontend/tests/settings-languages.test.ts public Request/Response/DTO helpers"
+        },
+        {
+          "sourceLines": [288, 288],
+          "context": "shared helper",
+          "status": "test support projection #7",
+          "destination": "frontend/tests/settings-languages.test.ts public Request/Response/DTO helpers"
+        },
+        {
+          "sourceLines": [304, 304],
+          "context": "a change to the %s reaches the homepage and every entry through its event, without reading the entries, and outlives an outage",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: shared %s changes reach every stored page",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [305, 305],
+          "context": "a change to the %s reaches the homepage and every entry through its event, without reading the entries, and outlives an outage",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: shared %s changes reach every stored page",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [306, 306],
+          "context": "a change to the %s reaches the homepage and every entry through its event, without reading the entries, and outlives an outage",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: shared %s changes reach every stored page",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [307, 307],
+          "context": "a change to the %s reaches the homepage and every entry through its event, without reading the entries, and outlives an outage",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: shared %s changes reach every stored page",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [309, 309],
+          "context": "a change to the %s reaches the homepage and every entry through its event, without reading the entries, and outlives an outage",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: shared %s changes reach every stored page",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [312, 312],
+          "context": "a change to the %s reaches the homepage and every entry through its event, without reading the entries, and outlives an outage",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: shared %s changes reach every stored page",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [313, 322],
+          "context": "a change to the %s reaches the homepage and every entry through its event, without reading the entries, and outlives an outage",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: shared %s changes reach every stored page",
+          "note": "SQL introspection replaced by observable public reads and duplicate/retry/order outcomes; actual CMS record keys/CLI fields retained in multilingual pair proof."
+        },
+        {
+          "sourceLines": [337, 337],
+          "context": "a %s event during a CMS outage is recorded as failed, and every page keeps the previous settings",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: failed %s retains last-known-good settings",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [338, 338],
+          "context": "a %s event during a CMS outage is recorded as failed, and every page keeps the previous settings",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: failed %s retains last-known-good settings",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [340, 340],
+          "context": "a %s event during a CMS outage is recorded as failed, and every page keeps the previous settings",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: failed %s retains last-known-good settings",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [343, 345],
+          "context": "a %s event during a CMS outage is recorded as failed, and every page keeps the previous settings",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: failed %s retains last-known-good settings",
+          "note": "SQL introspection replaced by observable public reads and duplicate/retry/order outcomes; actual CMS record keys/CLI fields retained in multilingual pair proof."
+        },
+        {
+          "sourceLines": [376, 376],
+          "context": "a design refresh failing on %s keeps the stored presets on every page",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: invalid design read (%s)",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [377, 377],
+          "context": "a design refresh failing on %s keeps the stored presets on every page",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: invalid design read (%s)",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [379, 379],
+          "context": "a design refresh failing on %s keeps the stored presets on every page",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: invalid design read (%s)",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [380, 380],
+          "context": "a design refresh failing on %s keeps the stored presets on every page",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: invalid design read (%s)",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [395, 395],
+          "context": "a partly failed identity refresh keeps the stored menu, logo and icon, and its retry completes it",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: partly failed identity refresh",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [396, 400],
+          "context": "a partly failed identity refresh keeps the stored menu, logo and icon, and its retry completes it",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: partly failed identity refresh",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [402, 402],
+          "context": "a partly failed identity refresh keeps the stored menu, logo and icon, and its retry completes it",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: partly failed identity refresh",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [404, 404],
+          "context": "a partly failed identity refresh keeps the stored menu, logo and icon, and its retry completes it",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: partly failed identity refresh",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [405, 405],
+          "context": "a partly failed identity refresh keeps the stored menu, logo and icon, and its retry completes it",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: partly failed identity refresh",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [406, 406],
+          "context": "a partly failed identity refresh keeps the stored menu, logo and icon, and its retry completes it",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: partly failed identity refresh",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [414, 414],
+          "context": "a partly failed identity refresh keeps the stored menu, logo and icon, and its retry completes it",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: partly failed identity refresh",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [415, 415],
+          "context": "a partly failed identity refresh keeps the stored menu, logo and icon, and its retry completes it",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: partly failed identity refresh",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [417, 417],
+          "context": "a partly failed identity refresh keeps the stored menu, logo and icon, and its retry completes it",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: partly failed identity refresh",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [419, 421],
+          "context": "a partly failed identity refresh keeps the stored menu, logo and icon, and its retry completes it",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: partly failed identity refresh",
+          "note": "SQL introspection replaced by observable public reads and duplicate/retry/order outcomes; actual CMS record keys/CLI fields retained in multilingual pair proof."
+        },
+        {
+          "sourceLines": [433, 433],
+          "context": "a duplicate settings event is recognised and doesn't read the CMS again",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: shared %s changes reach every stored page",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [434, 434],
+          "context": "a duplicate settings event is recognised and doesn't read the CMS again",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: shared %s changes reach every stored page",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [435, 435],
+          "context": "a duplicate settings event is recognised and doesn't read the CMS again",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: shared %s changes reach every stored page",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [453, 453],
+          "context": "a delayed settings event older than a refreshed one for the same setting is superseded, and can't roll it back",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: older settings cannot roll back",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [454, 454],
+          "context": "a delayed settings event older than a refreshed one for the same setting is superseded, and can't roll it back",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: older settings cannot roll back",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [455, 455],
+          "context": "a delayed settings event older than a refreshed one for the same setting is superseded, and can't roll it back",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: older settings cannot roll back",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [456, 456],
+          "context": "a delayed settings event older than a refreshed one for the same setting is superseded, and can't roll it back",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: older settings cannot roll back",
+          "note": "SQL introspection replaced by observable public reads and duplicate/retry/order outcomes; actual CMS record keys/CLI fields retained in multilingual pair proof."
+        },
+        {
+          "sourceLines": [457, 457],
+          "context": "a delayed settings event older than a refreshed one for the same setting is superseded, and can't roll it back",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: older settings cannot roll back",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [472, 472],
+          "context": "a newer refreshed settings event supersedes an older failed one, so its retry is skipped",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a newer successful setting supersedes",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [473, 473],
+          "context": "a newer refreshed settings event supersedes an older failed one, so its retry is skipped",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a newer successful setting supersedes",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [487, 487],
+          "context": "settings are ordered apart: a newer menus event doesn't supersede an older logo change",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a newer successful setting supersedes",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [488, 488],
+          "context": "settings are ordered apart: a newer menus event doesn't supersede an older logo change",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a newer successful setting supersedes",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [489, 489],
+          "context": "settings are ordered apart: a newer menus event doesn't supersede an older logo change",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a newer successful setting supersedes",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [502, 502],
+          "context": "a read that started before a newer promoted one never replaces it",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a slower settings read",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [516, 516],
+          "context": "a read that started before a newer promoted one never replaces it",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a slower settings read",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [517, 517],
+          "context": "a read that started before a newer promoted one never replaces it",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a slower settings read",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [555, 555],
+          "context": "an entry published after a design change is served with the shared presets",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: an entry published with lagging design",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [570, 570],
+          "context": "a Site prepared before the shared presets were stored serves each page's own, until a design change stores them",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: legacy design %s",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [571, 571],
+          "context": "a Site prepared before the shared presets were stored serves each page's own, until a design change stores them",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: legacy design %s",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [573, 573],
+          "context": "a Site prepared before the shared presets were stored serves each page's own, until a design change stores them",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: legacy design %s",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [584, 584],
+          "context": "shared presets this Frontend can't read leave each page with its own",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: legacy design %s",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [585, 585],
+          "context": "shared presets this Frontend can't read leave each page with its own",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: legacy design %s",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [600, 600],
+          "context": "a settings event with %s is rejected and changes nothing",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: invalid settings envelope %j",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [601, 601],
+          "context": "a settings event with %s is rejected and changes nothing",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: invalid settings envelope %j",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [602, 602],
+          "context": "a settings event with %s is rejected and changes nothing",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: invalid settings envelope %j",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [603, 603],
+          "context": "a settings event with %s is rejected and changes nothing",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: invalid settings envelope %j",
+          "note": "SQL introspection replaced by observable public reads and duplicate/retry/order outcomes; actual CMS record keys/CLI fields retained in multilingual pair proof."
+        },
+        {
+          "sourceLines": [604, 604],
+          "context": "a settings event with %s is rejected and changes nothing",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: invalid settings envelope %j",
+          "note": "SQL introspection replaced by observable public reads and duplicate/retry/order outcomes; actual CMS record keys/CLI fields retained in multilingual pair proof."
+        },
+        {
+          "sourceLines": [624, 624],
+          "context": "a settings event signed with another key is refused and changes nothing",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: settings signed by another Site key",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [625, 625],
+          "context": "a settings event signed with another key is refused and changes nothing",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: settings signed by another Site key",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [626, 626],
+          "context": "a settings event signed with another key is refused and changes nothing",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: settings signed by another Site key",
+          "note": "SQL introspection replaced by observable public reads and duplicate/retry/order outcomes; actual CMS record keys/CLI fields retained in multilingual pair proof."
+        }
+      ]
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/languages.test.ts",
+      "sourceBlob": "853860da86f83fb76b187b6dc29b436ee518ca90",
+      "assertions": [
+        {
+          "sourceLines": [182, 182],
+          "context": "shared helper",
+          "status": "test support projection #7",
+          "destination": "frontend/tests/settings-languages.test.ts public Request/Response/DTO helpers"
+        },
+        {
+          "sourceLines": [211, 211],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [212, 212],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [213, 213],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [214, 214],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [215, 215],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [216, 216],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [217, 217],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [219, 219],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [220, 220],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [221, 221],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [222, 222],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [223, 223],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [224, 224],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [225, 225],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [226, 226],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [227, 227],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [242, 242],
+          "context": "each home links to the other with hreflang alternates and the language switcher",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [243, 243],
+          "context": "each home links to the other with hreflang alternates and the language switcher",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [244, 246],
+          "context": "each home links to the other with hreflang alternates and the language switcher",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [247, 247],
+          "context": "each home links to the other with hreflang alternates and the language switcher",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [255, 264],
+          "context": "the refresh reads each language's front page, title, tagline and menu",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: whole refresh reads both languages",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [265, 267],
+          "context": "the refresh reads each language's front page, title, tagline and menu",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: whole refresh reads both languages",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [268, 270],
+          "context": "the refresh reads each language's front page, title, tagline and menu",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: whole refresh reads both languages",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [272, 272],
+          "context": "the refresh reads each language's front page, title, tagline and menu",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: whole refresh reads both languages",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [284, 284],
+          "context": "a language whose home was never stored is a 404, its pages too",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a never-stored English home",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [285, 285],
+          "context": "a language whose home was never stored is a 404, its pages too",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a never-stored English home",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [288, 288],
+          "context": "a language whose home was never stored is a 404, its pages too",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a never-stored English home",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [289, 289],
+          "context": "a language whose home was never stored is a 404, its pages too",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a never-stored English home",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [290, 290],
+          "context": "a language whose home was never stored is a 404, its pages too",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a never-stored English home",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [302, 302],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [303, 303],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [304, 304],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [305, 305],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [306, 306],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [307, 307],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [308, 308],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [309, 309],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [310, 310],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [317, 317],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [318, 318],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [319, 319],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [320, 320],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: each language's home, chrome, routes and alternates",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [329, 329],
+          "context": "an English page without a Portuguese translation has no Portuguese alternate",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a cold English entry and an English-only entry",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [330, 330],
+          "context": "an English page without a Portuguese translation has no Portuguese alternate",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a cold English entry and an English-only entry",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [331, 331],
+          "context": "an English page without a Portuguese translation has no Portuguese alternate",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a cold English entry and an English-only entry",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [333, 333],
+          "context": "an English page without a Portuguese translation has no Portuguese alternate",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a cold English entry and an English-only entry",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [351, 351],
+          "context": "/en/sobre/ is a 404 in English: no fallback across languages",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: wrong-language CMS entry never falls back",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [352, 352],
+          "context": "/en/sobre/ is a 404 in English: no fallback across languages",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: wrong-language CMS entry never falls back",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [353, 353],
+          "context": "/en/sobre/ is a 404 in English: no fallback across languages",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: wrong-language CMS entry never falls back",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [354, 354],
+          "context": "/en/sobre/ is a 404 in English: no fallback across languages",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: wrong-language CMS entry never falls back",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [355, 355],
+          "context": "/en/sobre/ is a 404 in English: no fallback across languages",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: wrong-language CMS entry never falls back",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [364, 364],
+          "context": "a Portuguese 404 is in Portuguese",
+          "status": "Blueprint presentation retained",
+          "destination": "gq-site #77 translated 404 document/copy; package wrong-language/missing DTO tests retained"
+        },
+        {
+          "sourceLines": [365, 365],
+          "context": "a Portuguese 404 is in Portuguese",
+          "status": "Blueprint presentation retained",
+          "destination": "gq-site #77 translated 404 document/copy; package wrong-language/missing DTO tests retained"
+        },
+        {
+          "sourceLines": [366, 366],
+          "context": "a Portuguese 404 is in Portuguese",
+          "status": "Blueprint presentation retained",
+          "destination": "gq-site #77 translated 404 document/copy; package wrong-language/missing DTO tests retained"
+        },
+        {
+          "sourceLines": [367, 367],
+          "context": "a Portuguese 404 is in Portuguese",
+          "status": "Blueprint presentation retained",
+          "destination": "gq-site #77 translated 404 document/copy; package wrong-language/missing DTO tests retained"
+        },
+        {
+          "sourceLines": [368, 368],
+          "context": "a Portuguese 404 is in Portuguese",
+          "status": "Blueprint presentation retained",
+          "destination": "gq-site #77 translated 404 document/copy; package wrong-language/missing DTO tests retained"
+        },
+        {
+          "sourceLines": [376, 376],
+          "context": "an English page the store never held is looked up and served in English",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a cold English entry and an English-only entry",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [377, 377],
+          "context": "an English page the store never held is looked up and served in English",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a cold English entry and an English-only entry",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [378, 378],
+          "context": "an English page the store never held is looked up and served in English",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a cold English entry and an English-only entry",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [392, 392],
+          "context": "an entry stored before the Site listed its languages is the default language's",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a legacy entry with no language",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [393, 393],
+          "context": "an entry stored before the Site listed its languages is the default language's",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a legacy entry with no language",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [394, 394],
+          "context": "an entry stored before the Site listed its languages is the default language's",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a legacy entry with no language",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [395, 395],
+          "context": "an entry stored before the Site listed its languages is the default language's",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a legacy entry with no language",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [414, 414],
+          "context": "a withdrawn translation is no longer an alternate",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: wrong-language CMS entry never falls back",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [415, 415],
+          "context": "a withdrawn translation is no longer an alternate",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: wrong-language CMS entry never falls back",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [416, 416],
+          "context": "a withdrawn translation is no longer an alternate",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: wrong-language CMS entry never falls back",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [438, 442],
+          "context": "a route that resolves to the English front page moves to /en/",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a route resolving to an English front page",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [444, 444],
+          "context": "a route that resolves to the English front page moves to /en/",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a route resolving to an English front page",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [462, 462],
+          "context": "withdrawing the English front page withdraws only the English home",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: settings and whole refresh never lift",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [463, 463],
+          "context": "withdrawing the English front page withdraws only the English home",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: settings and whole refresh never lift",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [464, 464],
+          "context": "withdrawing the English front page withdraws only the English home",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: settings and whole refresh never lift",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        }
+      ]
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/language-updates.test.ts",
+      "sourceBlob": "cb7dbfe9b65aac1bfd4e52f43dd9707493d3da3c",
+      "assertions": [
+        {
+          "sourceLines": [324, 324],
+          "context": "shared helper",
+          "status": "test support projection #7",
+          "destination": "frontend/tests/settings-languages.test.ts public Request/Response/DTO helpers"
+        },
+        {
+          "sourceLines": [361, 361],
+          "context": "publishing an English page refreshes only its /en/… entry",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a %s publication refreshes only its own entry",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [362, 365],
+          "context": "publishing an English page refreshes only its /en/… entry",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a %s publication refreshes only its own entry",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [366, 366],
+          "context": "publishing an English page refreshes only its /en/… entry",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a %s publication refreshes only its own entry",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [367, 367],
+          "context": "publishing an English page refreshes only its /en/… entry",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a %s publication refreshes only its own entry",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [368, 368],
+          "context": "publishing an English page refreshes only its /en/… entry",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a %s publication refreshes only its own entry",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [369, 369],
+          "context": "publishing an English page refreshes only its /en/… entry",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a %s publication refreshes only its own entry",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [370, 370],
+          "context": "publishing an English page refreshes only its /en/… entry",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a %s publication refreshes only its own entry",
+          "note": "SQL introspection replaced by observable public reads and duplicate/retry/order outcomes; actual CMS record keys/CLI fields retained in multilingual pair proof."
+        },
+        {
+          "sourceLines": [371, 371],
+          "context": "publishing an English page refreshes only its /en/… entry",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a %s publication refreshes only its own entry",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [386, 386],
+          "context": "publishing the English front page refreshes home:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: publication updates only its own language home",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [387, 391],
+          "context": "publishing the English front page refreshes home:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: publication updates only its own language home",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [392, 392],
+          "context": "publishing the English front page refreshes home:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: publication updates only its own language home",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [393, 393],
+          "context": "publishing the English front page refreshes home:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: publication updates only its own language home",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [394, 394],
+          "context": "publishing the English front page refreshes home:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: publication updates only its own language home",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [395, 395],
+          "context": "publishing the English front page refreshes home:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: publication updates only its own language home",
+          "note": "SQL introspection replaced by observable public reads and duplicate/retry/order outcomes; actual CMS record keys/CLI fields retained in multilingual pair proof."
+        },
+        {
+          "sourceLines": [396, 396],
+          "context": "publishing the English front page refreshes home:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: publication updates only its own language home",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [397, 397],
+          "context": "publishing the English front page refreshes home:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: publication updates only its own language home",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [411, 411],
+          "context": "publishing the Portuguese front page refreshes only home, as a monolingual Site's does",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a %s publication refreshes only its own entry",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [412, 412],
+          "context": "publishing the Portuguese front page refreshes only home, as a monolingual Site's does",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a %s publication refreshes only its own entry",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [413, 413],
+          "context": "publishing the Portuguese front page refreshes only home, as a monolingual Site's does",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a %s publication refreshes only its own entry",
+          "note": "SQL introspection replaced by observable public reads and duplicate/retry/order outcomes; actual CMS record keys/CLI fields retained in multilingual pair proof."
+        },
+        {
+          "sourceLines": [424, 424],
+          "context": "withdrawing the English front page withdraws home:en only",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: settings and whole refresh never lift",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [425, 425],
+          "context": "withdrawing the English front page withdraws home:en only",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: settings and whole refresh never lift",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [426, 426],
+          "context": "withdrawing the English front page withdraws home:en only",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: settings and whole refresh never lift",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [427, 427],
+          "context": "withdrawing the English front page withdraws home:en only",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: settings and whole refresh never lift",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [443, 443],
+          "context": "an entry whose language isn't its URI's is refused, and nothing is read",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: invalid language subject %j",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [444, 444],
+          "context": "an entry whose language isn't its URI's is refused, and nothing is read",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: invalid language subject %j",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [445, 445],
+          "context": "an entry whose language isn't its URI's is refused, and nothing is read",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: invalid language subject %j",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [446, 446],
+          "context": "an entry whose language isn't its URI's is refused, and nothing is read",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: invalid language subject %j",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [464, 464],
+          "context": "reassigning the English primary menu refreshes only chrome:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: language-specific %s refreshes only its own subject",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [465, 470],
+          "context": "reassigning the English primary menu refreshes only chrome:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: language-specific %s refreshes only its own subject",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [471, 471],
+          "context": "reassigning the English primary menu refreshes only chrome:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: language-specific %s refreshes only its own subject",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [472, 472],
+          "context": "reassigning the English primary menu refreshes only chrome:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: language-specific %s refreshes only its own subject",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [473, 473],
+          "context": "reassigning the English primary menu refreshes only chrome:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: language-specific %s refreshes only its own subject",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [474, 474],
+          "context": "reassigning the English primary menu refreshes only chrome:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: language-specific %s refreshes only its own subject",
+          "note": "SQL introspection replaced by observable public reads and duplicate/retry/order outcomes; actual CMS record keys/CLI fields retained in multilingual pair proof."
+        },
+        {
+          "sourceLines": [475, 477],
+          "context": "reassigning the English primary menu refreshes only chrome:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: language-specific %s refreshes only its own subject",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [478, 478],
+          "context": "reassigning the English primary menu refreshes only chrome:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: language-specific %s refreshes only its own subject",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [494, 494],
+          "context": "changing the English tagline refreshes only home:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: language-specific %s refreshes only its own subject",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [495, 498],
+          "context": "changing the English tagline refreshes only home:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: language-specific %s refreshes only its own subject",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [499, 499],
+          "context": "changing the English tagline refreshes only home:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: language-specific %s refreshes only its own subject",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [500, 500],
+          "context": "changing the English tagline refreshes only home:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: language-specific %s refreshes only its own subject",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [501, 501],
+          "context": "changing the English tagline refreshes only home:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: language-specific %s refreshes only its own subject",
+          "note": "SQL introspection replaced by observable public reads and duplicate/retry/order outcomes; actual CMS record keys/CLI fields retained in multilingual pair proof."
+        },
+        {
+          "sourceLines": [502, 504],
+          "context": "changing the English tagline refreshes only home:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: language-specific %s refreshes only its own subject",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [505, 505],
+          "context": "changing the English tagline refreshes only home:en",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: language-specific %s refreshes only its own subject",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [517, 517],
+          "context": "changing the logo refreshes every language's chrome",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: shared %s changes reach every stored page",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [518, 522],
+          "context": "changing the logo refreshes every language's chrome",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: shared %s changes reach every stored page",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [523, 526],
+          "context": "changing the logo refreshes every language's chrome",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: shared %s changes reach every stored page",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [527, 527],
+          "context": "changing the logo refreshes every language's chrome",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: shared %s changes reach every stored page",
+          "note": "SQL introspection replaced by observable public reads and duplicate/retry/order outcomes; actual CMS record keys/CLI fields retained in multilingual pair proof."
+        },
+        {
+          "sourceLines": [529, 529],
+          "context": "changing the logo refreshes every language's chrome",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: shared %s changes reach every stored page",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [541, 541],
+          "context": "a change to the site's own title refreshes every language's home and chrome",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: shared %s changes reach every stored page",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [542, 542],
+          "context": "a change to the site's own title refreshes every language's home and chrome",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: shared %s changes reach every stored page",
+          "note": "SQL introspection replaced by observable public reads and duplicate/retry/order outcomes; actual CMS record keys/CLI fields retained in multilingual pair proof."
+        },
+        {
+          "sourceLines": [553, 553],
+          "context": "a menu change in the default language refreshes only its chrome",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a failed English menu event",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [554, 554],
+          "context": "a menu change in the default language refreshes only its chrome",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a failed English menu event",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [555, 555],
+          "context": "a menu change in the default language refreshes only its chrome",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a failed English menu event",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [556, 556],
+          "context": "a menu change in the default language refreshes only its chrome",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a failed English menu event",
+          "note": "SQL introspection replaced by observable public reads and duplicate/retry/order outcomes; actual CMS record keys/CLI fields retained in multilingual pair proof."
+        },
+        {
+          "sourceLines": [571, 571],
+          "context": "a failed English menu read is recorded failed and keeps the stored English menu",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a failed English menu event",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [572, 575],
+          "context": "a failed English menu read is recorded failed and keeps the stored English menu",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a failed English menu event",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [576, 576],
+          "context": "a failed English menu read is recorded failed and keeps the stored English menu",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: a failed English menu event",
+          "note": "Runtime content/chrome/design/alternate/status DTO projection. Site document markup, translated copy, CSS, href/hreflang and metadata composition remain gq-site #77. Canonical language identity asserted directly."
+        },
+        {
+          "sourceLines": [586, 586],
+          "context": "a language the Site doesn't serve, or one a shared setting can't have, is refused",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: invalid language subject %j",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [587, 587],
+          "context": "a language the Site doesn't serve, or one a shared setting can't have, is refused",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: invalid language subject %j",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [588, 588],
+          "context": "a language the Site doesn't serve, or one a shared setting can't have, is refused",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: invalid language subject %j",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [589, 589],
+          "context": "a language the Site doesn't serve, or one a shared setting can't have, is refused",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: invalid language subject %j",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [606, 606],
+          "context": "each language's settings are ordered apart: an older English menu event isn't superseded by a newer Portuguese one",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: language-specific %s refreshes only its own subject",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [619, 626],
+          "context": "the refresh is ready only once every language's home and chrome are stored",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: the whole refresh requires every language's chrome",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [627, 627],
+          "context": "the refresh is ready only once every language's home and chrome are stored",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: the whole refresh requires every language's chrome",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [639, 639],
+          "context": "a targeted refresh of a language's home is refused: it is refreshed with the whole Site",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: the whole refresh requires every language's chrome",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [640, 640],
+          "context": "a targeted refresh of a language's home is refused: it is refreshed with the whole Site",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: the whole refresh requires every language's chrome",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [641, 641],
+          "context": "a targeted refresh of a language's home is refused: it is refreshed with the whole Site",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: the whole refresh requires every language's chrome",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [652, 656],
+          "context": "the signed check reports each language's home and chrome",
+          "status": "runtime behavior migrated #7",
+          "destination": "frontend/tests/settings-languages.test.ts :: %s English home never falls back",
+          "note": "Configured package handler/public-delivery assertion. No Astro wrapper or internal-module mocks."
+        },
+        {
+          "sourceLines": [670, 678],
+          "context": "a run reads every language's front page and chrome, and the entries of every language",
+          "status": "deferred #9",
+          "destination": "gq-content #9 reconciliation per-language reads, canonical comparison, budget and recovery"
+        },
+        {
+          "sourceLines": [679, 679],
+          "context": "a run reads every language's front page and chrome, and the entries of every language",
+          "status": "deferred #9",
+          "destination": "gq-content #9 reconciliation per-language reads, canonical comparison, budget and recovery"
+        },
+        {
+          "sourceLines": [680, 683],
+          "context": "a run reads every language's front page and chrome, and the entries of every language",
+          "status": "deferred #9",
+          "destination": "gq-content #9 reconciliation per-language reads, canonical comparison, budget and recovery"
+        },
+        {
+          "sourceLines": [686, 686],
+          "context": "a run reads every language's front page and chrome, and the entries of every language",
+          "status": "deferred #9",
+          "destination": "gq-content #9 reconciliation per-language reads, canonical comparison, budget and recovery"
+        },
+        {
+          "sourceLines": [704, 712],
+          "context": "a missed English change, to a page and to the tagline, is restored at the next run",
+          "status": "deferred #9",
+          "destination": "gq-content #9 reconciliation per-language reads, canonical comparison, budget and recovery"
+        },
+        {
+          "sourceLines": [713, 713],
+          "context": "a missed English change, to a page and to the tagline, is restored at the next run",
+          "status": "deferred #9",
+          "destination": "gq-content #9 reconciliation per-language reads, canonical comparison, budget and recovery"
+        },
+        {
+          "sourceLines": [714, 714],
+          "context": "a missed English change, to a page and to the tagline, is restored at the next run",
+          "status": "deferred #9",
+          "destination": "gq-content #9 reconciliation per-language reads, canonical comparison, budget and recovery"
+        },
+        {
+          "sourceLines": [715, 717],
+          "context": "a missed English change, to a page and to the tagline, is restored at the next run",
+          "status": "deferred #9",
+          "destination": "gq-content #9 reconciliation per-language reads, canonical comparison, budget and recovery"
+        },
+        {
+          "sourceLines": [744, 748],
+          "context": "with two languages a run stays within its budget, catching up fewer entries per run",
+          "status": "deferred #9",
+          "destination": "gq-content #9 reconciliation per-language reads, canonical comparison, budget and recovery"
+        },
+        {
+          "sourceLines": [749, 749],
+          "context": "with two languages a run stays within its budget, catching up fewer entries per run",
+          "status": "deferred #9",
+          "destination": "gq-content #9 reconciliation per-language reads, canonical comparison, budget and recovery"
+        },
+        {
+          "sourceLines": [750, 750],
+          "context": "with two languages a run stays within its budget, catching up fewer entries per run",
+          "status": "deferred #9",
+          "destination": "gq-content #9 reconciliation per-language reads, canonical comparison, budget and recovery"
+        }
+      ]
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-events.mjs",
+      "sourceBlob": "70687d07e44f3d1738133f58918ffe53258dbe2c",
+      "assertions": [
+        {
+          "sourceLines": [264, 270],
+          "context": "gq site check: WordPress running but not installed is not ready, and its installer is named",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [285, 290],
+          "context": "gq site check: WordPress installed without WPGraphQL active is not ready",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [307, 315],
+          "context": "gq site check: real WPGraphQL without the GETQUICK plugins is not ready, naming what adds the missing fields",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [316, 320],
+          "context": "and every other field the Frontend reads is valid on real WPGraphQL",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [332, 336],
+          "context": "the Frontend's migrations apply to the local D1 store",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [347, 356],
+          "context": "gq site check: the Worker answering, with its secrets bound, is not ready before a refresh prepares it",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [360, 360],
+          "context": "the Site is prepared",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [363, 370],
+          "context": "gq site check: prepared but never reconciled by the CMS's scheduler is still not ready",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [373, 377],
+          "context": "wp gq-events check: the Frontend accepts the CMS's signed events",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [392, 392],
+          "context": "saving a draft sends no event",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [399, 407],
+          "context": "publishing the page sends a signed event, and the Frontend serves it through a CMS outage",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [414, 418],
+          "context": "an update reaches visitors without a deploy",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [426, 432],
+          "context": "a rename sends the route it left, which then redirects",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [443, 452],
+          "context": "a menu shown nowhere sends nothing; assigning it to the primary location sends a settings event, and every page shows it through an outage",
+          "status": "runtime projection #7",
+          "destination": "scripts/multilingual-proof.py; scripts/fixtures/alchemy-p1/{worker.ts,proof.mjs}; frontend/tests/settings-languages.test.ts",
+          "note": "Real Composer/Bedrock WordPress/Polylang saves and signed transport into installed consumer reads; real Alchemy migration/update separately. GraphQL answers are boundary fixtures exported from real CMS state. Live schema/REST editor composition and Site CLI orchestration are not proved."
+        },
+        {
+          "sourceLines": [460, 466],
+          "context": "editing the primary menu sends a new event, and every page shows it",
+          "status": "runtime projection #7",
+          "destination": "scripts/multilingual-proof.py; scripts/fixtures/alchemy-p1/{worker.ts,proof.mjs}; frontend/tests/settings-languages.test.ts",
+          "note": "Real Composer/Bedrock WordPress/Polylang saves and signed transport into installed consumer reads; real Alchemy migration/update separately. GraphQL answers are boundary fixtures exported from real CMS state. Live schema/REST editor composition and Site CLI orchestration are not proved."
+        },
+        {
+          "sourceLines": [474, 479],
+          "context": "changing the site logo sends a settings event, and every page shows it",
+          "status": "runtime projection #7",
+          "destination": "scripts/multilingual-proof.py; scripts/fixtures/alchemy-p1/{worker.ts,proof.mjs}; frontend/tests/settings-languages.test.ts",
+          "note": "Real Composer/Bedrock WordPress/Polylang saves and signed transport into installed consumer reads; real Alchemy migration/update separately. GraphQL answers are boundary fixtures exported from real CMS state. Live schema/REST editor composition and Site CLI orchestration are not proved."
+        },
+        {
+          "sourceLines": [489, 497],
+          "context": "changing the tagline and the site icon sends identity events: the homepage shows the tagline, every page the icon",
+          "status": "runtime projection #7",
+          "destination": "scripts/multilingual-proof.py; scripts/fixtures/alchemy-p1/{worker.ts,proof.mjs}; frontend/tests/settings-languages.test.ts",
+          "note": "Real Composer/Bedrock WordPress/Polylang saves and signed transport into installed consumer reads; real Alchemy migration/update separately. GraphQL answers are boundary fixtures exported from real CMS state. Live schema/REST editor composition and Site CLI orchestration are not proved."
+        },
+        {
+          "sourceLines": [517, 526],
+          "context": "saving the palette through the global-styles REST route sends a design event, and every page uses it",
+          "status": "runtime projection #7",
+          "destination": "scripts/multilingual-proof.py; scripts/fixtures/alchemy-p1/{worker.ts,proof.mjs}; frontend/tests/settings-languages.test.ts",
+          "note": "Real Composer/Bedrock WordPress/Polylang saves and signed transport into installed consumer reads; real Alchemy migration/update separately. GraphQL answers are boundary fixtures exported from real CMS state. Live schema/REST editor composition and Site CLI orchestration are not proved."
+        },
+        {
+          "sourceLines": [533, 543],
+          "context": "a settings refresh that fails on the Frontend is recorded, listed, and every page keeps its menu",
+          "status": "runtime projection #7",
+          "destination": "scripts/multilingual-proof.py; scripts/fixtures/alchemy-p1/{worker.ts,proof.mjs}; frontend/tests/settings-languages.test.ts",
+          "note": "Real Composer/Bedrock WordPress/Polylang saves and signed transport into installed consumer reads; real Alchemy migration/update separately. GraphQL answers are boundary fixtures exported from real CMS state. Live schema/REST editor composition and Site CLI orchestration are not proved."
+        },
+        {
+          "sourceLines": [551, 559],
+          "context": "wp gq-events settings retry delivers the same event once the CMS is back",
+          "status": "runtime projection #7",
+          "destination": "scripts/multilingual-proof.py; scripts/fixtures/alchemy-p1/{worker.ts,proof.mjs}; frontend/tests/settings-languages.test.ts",
+          "note": "Real Composer/Bedrock WordPress/Polylang saves and signed transport into installed consumer reads; real Alchemy migration/update separately. GraphQL answers are boundary fixtures exported from real CMS state. Live schema/REST editor composition and Site CLI orchestration are not proved."
+        },
+        {
+          "sourceLines": [569, 573],
+          "context": "with the Frontend down, publishing still succeeds, within the event's time bound",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [574, 580],
+          "context": "and the entry records the failed delivery for a retry",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [582, 588],
+          "context": "wp gq-events status lists it",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [592, 596],
+          "context": "meanwhile visitors get the last good publication",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [600, 608],
+          "context": "wp gq-events retry delivers the same event once the Frontend is back",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [614, 622],
+          "context": "a refresh that fails on the Frontend is recorded, and the stored version stays served",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [633, 641],
+          "context": "an event signed with another key is rejected and changes nothing",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [649, 654],
+          "context": "in production without the key, publishing succeeds and records why nothing was sent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [680, 687],
+          "context": "the retry scheduler delivers a publication recorded before the CMS was configured, once it is",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [705, 708],
+          "context": "a new page is delivered at once",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [715, 728],
+          "context": "a publication the Frontend didn't receive is reported to its editor and listed as retrying",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [734, 741],
+          "context": "before its delay has passed, the scheduler leaves it, and visitors keep the last good version",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [748, 758],
+          "context": "once it is due, the scheduler delivers the same event, without republishing or visits, and the editor sees it recovered",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [769, 776],
+          "context": "a refresh failure records the Frontend's reason, without any secret",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [784, 793],
+          "context": "while the CMS can't be read, retries fail with a growing delay, and every page keeps its last good version",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [801, 810],
+          "context": "once the CMS is back, the next due run delivers both, through a later outage",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [829, 836],
+          "context": "a pending event is left to its own request for a while, then sent by the scheduler if that request was interrupted",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [854, 865],
+          "context": "after its last attempt, a delivery isn't retried again; it is reported as failed to the editor, by delays and in Site Health",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [867, 871],
+          "context": "an operator's retry delivers it",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [882, 886],
+          "context": "a run while another holds the lock sends nothing",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [889, 893],
+          "context": "wp gq-events delays shows when the scheduler last ran",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [900, 903],
+          "context": "the entry is served before it is withdrawn",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [910, 920],
+          "context": "unpublishing sends a withdrawal, and the entry is a 404 at once and through a CMS outage",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [925, 929],
+          "context": "republishing serves it again",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [934, 938],
+          "context": "password-protecting it withdraws it",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [940, 940],
+          "context": "removing the password publishes it again",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [945, 952],
+          "context": "trashing it sends a withdrawal at the URI it had, and it is a 404",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [980, 980],
+          "context": "a second page is published",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [983, 987],
+          "context": "deleting a published page outright withdraws it, and leaves no record once refreshed",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [994, 1002],
+          "context": "with the Frontend down, deleting succeeds and keeps the failed withdrawal for a retry",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [1007, 1014],
+          "context": "wp gq-events retry delivers it once the Frontend is back, and the page is a 404",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [1029, 1044],
+          "context": "the scheduler delivers a withdrawal the Frontend missed, and the page is a 404",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [1075, 1075],
+          "context": "a page to unpublish quietly is served",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [1090, 1103],
+          "context": "changes no event was recorded for reach visitors at the scheduler's next run, which reconciles",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [1106, 1111],
+          "context": "gq site check: once the scheduler has reconciled, the Frontend and its delivery are ready, through the CMS outage",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [1128, 1143],
+          "context": "with the CMS unreadable a reconciliation fails without changing a page, and is reported once stale",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [1147, 1151],
+          "context": "wp gq-events reconcile reconciles at once once the CMS is back",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [1210, 1210],
+          "context": "the cron container starts",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        },
+        {
+          "sourceLines": [1231, 1242],
+          "context": "a real cron running the crontab gq ploi events installs delivers a missed publication, without visits or a retry by hand",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; scheduler #8/reconciliation #9"
+        }
+      ]
+    },
+    {
+      "sourcePath": "scripts/smoke/frontend-languages.mjs",
+      "sourceBlob": "354ee63d42c1c50d829b929ee61f062a25bae4a4",
+      "assertions": [
+        {
+          "sourceLines": [161, 165],
+          "context": "the Frontend's migrations apply to a bilingual Site's store",
+          "status": "runtime projection #7",
+          "destination": "scripts/multilingual-proof.py; scripts/fixtures/alchemy-p1/{worker.ts,proof.mjs}; frontend/tests/settings-languages.test.ts",
+          "note": "Real Composer/Bedrock WordPress/Polylang saves and signed transport into installed consumer reads; real Alchemy migration/update separately. GraphQL answers are boundary fixtures exported from real CMS state. Live schema/REST editor composition and Site CLI orchestration are not proved."
+        },
+        {
+          "sourceLines": [171, 178],
+          "context": "gq frontend refresh stores each language's front page and chrome",
+          "status": "runtime projection #7",
+          "destination": "scripts/multilingual-proof.py; scripts/fixtures/alchemy-p1/{worker.ts,proof.mjs}; frontend/tests/settings-languages.test.ts",
+          "note": "Real Composer/Bedrock WordPress/Polylang saves and signed transport into installed consumer reads; real Alchemy migration/update separately. GraphQL answers are boundary fixtures exported from real CMS state. Live schema/REST editor composition and Site CLI orchestration are not proved."
+        },
+        {
+          "sourceLines": [215, 219],
+          "context": "/en/sobre/ is a 404 in English: no fallback to the Portuguese page",
+          "status": "runtime projection #7",
+          "destination": "scripts/multilingual-proof.py; scripts/fixtures/alchemy-p1/{worker.ts,proof.mjs}; frontend/tests/settings-languages.test.ts",
+          "note": "Real Composer/Bedrock WordPress/Polylang saves and signed transport into installed consumer reads; real Alchemy migration/update separately. GraphQL answers are boundary fixtures exported from real CMS state. Live schema/REST editor composition and Site CLI orchestration are not proved."
+        }
+      ]
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-polylang.sh",
+      "sourceBlob": "bef1871437c22b207769edab2876b7c06c199374",
+      "assertions": []
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-polylang.mjs",
+      "sourceBlob": "e5e0f301cea9c16e782eb57394fadad8ceb55101",
+      "assertions": [
+        {
+          "sourceLines": [235, 239],
+          "context": "the generated deploy script passes Portuguese (AO90) and English under /en/",
+          "status": "Blueprint provisioning retained",
+          "destination": "gq-site #77 Polylang provisioning/deploy policy"
+        },
+        {
+          "sourceLines": [242, 242],
+          "context": "polylang.sh configures Polylang on a monolingual Site",
+          "status": "Blueprint provisioning retained",
+          "destination": "gq-site #77 Polylang provisioning/deploy policy"
+        },
+        {
+          "sourceLines": [244, 252],
+          "context": "Portuguese is the default language, then English",
+          "status": "Blueprint provisioning retained",
+          "destination": "gq-site #77 Polylang provisioning/deploy policy"
+        },
+        {
+          "sourceLines": [253, 259],
+          "context": "each language is a URL directory, the default's hidden",
+          "status": "Blueprint provisioning retained",
+          "destination": "gq-site #77 Polylang provisioning/deploy policy"
+        },
+        {
+          "sourceLines": [263, 268],
+          "context": "the content without a language is the default language's",
+          "status": "Blueprint provisioning retained",
+          "destination": "gq-site #77 Polylang provisioning/deploy policy"
+        },
+        {
+          "sourceLines": [301, 305],
+          "context": "nodeByUri(\"/en/\") is the English front page",
+          "status": "runtime projection #7",
+          "destination": "scripts/multilingual-proof.py; scripts/fixtures/alchemy-p1/{worker.ts,proof.mjs}; frontend/tests/settings-languages.test.ts",
+          "note": "Real Composer/Bedrock WordPress/Polylang saves and signed transport into installed consumer reads; real Alchemy migration/update separately. GraphQL answers are boundary fixtures exported from real CMS state. Live schema/REST editor composition and Site CLI orchestration are not proved."
+        },
+        {
+          "sourceLines": [306, 310],
+          "context": "language(code: EN) has the English title",
+          "status": "runtime projection #7",
+          "destination": "scripts/multilingual-proof.py; scripts/fixtures/alchemy-p1/{worker.ts,proof.mjs}; frontend/tests/settings-languages.test.ts",
+          "note": "Real Composer/Bedrock WordPress/Polylang saves and signed transport into installed consumer reads; real Alchemy migration/update separately. GraphQL answers are boundary fixtures exported from real CMS state. Live schema/REST editor composition and Site CLI orchestration are not proved."
+        },
+        {
+          "sourceLines": [311, 315],
+          "context": "an English page's uri is /en/<its slug>/",
+          "status": "runtime projection #7",
+          "destination": "scripts/multilingual-proof.py; scripts/fixtures/alchemy-p1/{worker.ts,proof.mjs}; frontend/tests/settings-languages.test.ts",
+          "note": "Real Composer/Bedrock WordPress/Polylang saves and signed transport into installed consumer reads; real Alchemy migration/update separately. GraphQL answers are boundary fixtures exported from real CMS state. Live schema/REST editor composition and Site CLI orchestration are not proved."
+        },
+        {
+          "sourceLines": [316, 320],
+          "context": "a Portuguese page's uri has no prefix",
+          "status": "runtime projection #7",
+          "destination": "scripts/multilingual-proof.py; scripts/fixtures/alchemy-p1/{worker.ts,proof.mjs}; frontend/tests/settings-languages.test.ts",
+          "note": "Real Composer/Bedrock WordPress/Polylang saves and signed transport into installed consumer reads; real Alchemy migration/update separately. GraphQL answers are boundary fixtures exported from real CMS state. Live schema/REST editor composition and Site CLI orchestration are not proved."
+        },
+        {
+          "sourceLines": [426, 432],
+          "context": "wp gq-events settings status lists English's own menus and identity",
+          "status": "runtime projection #7",
+          "destination": "scripts/multilingual-proof.py; scripts/fixtures/alchemy-p1/{worker.ts,proof.mjs}; frontend/tests/settings-languages.test.ts",
+          "note": "Real Composer/Bedrock WordPress/Polylang saves and signed transport into installed consumer reads; real Alchemy migration/update separately. GraphQL answers are boundary fixtures exported from real CMS state. Live schema/REST editor composition and Site CLI orchestration are not proved."
+        },
+        {
+          "sourceLines": [438, 444],
+          "context": "running polylang.sh again changes nothing",
+          "status": "Blueprint provisioning retained",
+          "destination": "gq-site #77 Polylang provisioning/deploy policy"
+        },
+        {
+          "sourceLines": [448, 454],
+          "context": "a language gq.ops.json no longer lists stops it, named, and changes nothing",
+          "status": "Blueprint provisioning retained",
+          "destination": "gq-site #77 Polylang provisioning/deploy policy"
+        },
+        {
+          "sourceLines": [458, 465],
+          "context": "it never deletes a language, even one without content",
+          "status": "Blueprint provisioning retained",
+          "destination": "gq-site #77 Polylang provisioning/deploy policy"
+        }
+      ]
+    }
+  ]
+}

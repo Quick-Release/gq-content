@@ -139,6 +139,27 @@ try {
         "withdrawn",
       );
       assert.equal((yield* get(new URL("/entry/", first.worker.url))).kind, "missing");
+      const languageEvent = {
+        site: "P1",
+        id: "workerd-home-en",
+        action: "publish",
+        occurredAt: Date.now() - 500,
+        entry: { id: "front-en", uri: "/en/", language: "en" },
+      };
+      assert.equal((yield* send(first.worker.url, languageEvent)).status, "refreshed");
+      const settingsEvent = {
+        site: "P1",
+        id: "workerd-design",
+        action: "settings",
+        occurredAt: Date.now() - 300,
+        setting: "design",
+      };
+      assert.equal((yield* send(first.worker.url, settingsEvent)).status, "refreshed");
+      assert.equal(
+        (yield* get(new URL("/en/", first.worker.url))).content.home.page.content,
+        "<h1>English workerd home</h1>",
+      );
+      const englishBefore = yield* get(new URL("/en/", first.worker.url));
       const protocolRows = yield* get(first.worker.url);
       const second = yield* stack.deploy(program("second"));
       assert.equal(second.db.databaseId, first.db.databaseId);
@@ -147,7 +168,12 @@ try {
       assert.equal(secondRead.revision, "second");
       assert.deepEqual(secondRead.ledger, firstRead.ledger);
       assert.deepEqual(secondRead.rows, protocolRows.rows);
-      assert.deepEqual(secondRead.delivery, firstRead.delivery);
+      assert.deepEqual(secondRead.delivery, protocolRows.delivery);
+      assert.deepEqual(yield* get(new URL("/en/", second.worker.url)), englishBefore);
+      assert.equal((yield* send(second.worker.url, settingsEvent)).duplicate, true);
+      console.log(
+        "P6 #7 workerd: language-specific home, shared design, canonical alternates and signed settings duplicate persist across Worker update.",
+      );
       assert.deepEqual(secondRead.tables, firstRead.tables);
       console.log(
         JSON.stringify(

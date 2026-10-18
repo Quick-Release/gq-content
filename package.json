@@ -15,7 +15,8 @@
     "lint": "vp lint",
     "proof:p2": "vp run cms",
     "build:cms": "vp run cms-package",
-    "proof:pair": "vp run pair"
+    "proof:pair": "vp run pair",
+    "proof:multilingual": "vp run multilingual"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

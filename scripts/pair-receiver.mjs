@@ -6,10 +6,15 @@ import { openTestD1 } from "./sqlite-d1.ts";
 const db = openTestD1(process.env.PAIR_DATABASE);
 let offline = false;
 let reads = 0;
+const operations = [];
+const events = [];
 const runtime = createContentRuntime({
   site: "Pair Site / Á:06",
   graphqlEndpoint: "https://cms.test/graphql",
   cmsOrigin: "https://cms.test",
+  wordpress: process.env.PAIR_MULTILINGUAL
+    ? { locale: "pt_PT_ao90", languages: [{ locale: "en_US", slug: "en" }] }
+    : undefined,
   isServer: () => true,
   bindings: () => ({
     PUBLICATION_DB: db,
@@ -20,14 +25,21 @@ const runtime = createContentRuntime({
     reads++;
     if (offline) throw new Error("CMS boundary offline");
     const { query, variables } = JSON.parse(init.body);
+    operations.push({ name: /query (\w+)/.exec(query)?.[1], variables });
     const fixture = JSON.parse(readFileSync(process.env.PAIR_FIXTURE, "utf8"));
+    if (process.env.PAIR_MULTILINGUAL && query.includes("HomePage"))
+      return Response.json({ data: fixture.homes[variables.language === "EN" ? "en" : "pt"] });
+    if (process.env.PAIR_MULTILINGUAL && query.includes("SiteChrome"))
+      return Response.json({ data: fixture.chrome[variables.language === "EN" ? "en" : "pt"] });
+    if (process.env.PAIR_MULTILINGUAL && query.includes("DesignPresets"))
+      return Response.json({ data: { designTokens: fixture.design } });
     if (query.includes("EntryByUri")) {
       const entry = fixture.entries[variables.uri];
       return Response.json({
         data: {
           pageBy: entry ?? null,
           postBy: null,
-          designTokens: { colors: [], spacingSizes: [] },
+          designTokens: fixture.design ?? { colors: [], spacingSizes: [] },
         },
       });
     }
@@ -66,7 +78,16 @@ const server = createServer(async (req, res) => {
   try {
     const url = new URL(req.url, "http://127.0.0.1");
     let response;
-    if (url.pathname === "/proof/offline") {
+    if (url.pathname === "/proof/state") {
+      response = Response.json({ reads, operations, events });
+    } else if (url.pathname === "/proof/home") {
+      const language = runtime.languages.find((l) => l.slug === url.searchParams.get("language"));
+      const delivery = await runtime.publishedHome(undefined, language);
+      const canonical =
+        delivery.kind !== "found" ||
+        delivery.content.alternates.every((a) => runtime.languages.includes(a.language));
+      response = Response.json({ delivery, canonical });
+    } else if (url.pathname === "/proof/offline") {
       offline = true;
       response = Response.json({ reads });
     } else if (url.pathname === "/proof/online") {
@@ -85,6 +106,7 @@ const server = createServer(async (req, res) => {
         headers: req.headers,
         body: req.method === "POST" ? Buffer.concat(chunks) : undefined,
       });
+      if (url.pathname === "/gq/events") events.push(JSON.parse(Buffer.concat(chunks).toString()));
       response = await (
         url.pathname === "/gq/events" ? runtime.handleEvent : runtime.handleRefresh
       )(request);

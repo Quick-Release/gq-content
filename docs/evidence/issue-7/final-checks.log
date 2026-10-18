@@ -1,0 +1,7 @@
+Issue #7 source verified: 15 unchanged paths; 318 assertion spans allocated.
+Finished in 123ms on 2 files using 32 threads.
+note: You are running `vp check` as a Vite+ built-in command. If you meant to run the check npm script, use `vpr check` instead.
+pass: All 80 files are correctly formatted (124ms, 32 threads)
+pass: Found no warnings, lint errors, or type errors in 42 files (494ms, 32 threads)
+No syntax errors detected in cms/tests/multilingual-export.php
+PASS actual installed Polylang version: 3.8.11

@@ -1,0 +1,95 @@
+{
+  "checkpoint": "eaec13488d57b3d04059309b5b36de5d016f3de1",
+  "observedUpstream": "497a3ae11b5d15df3619f71ff24f095d9b5e8cbe",
+  "base": "49b194340a6031df533468b82487f328e1ab2464",
+  "note": "Relevant settings/language runtime, CMS and smoke paths unchanged. The 10 upstream changed files concern CI Composer policy, release/development documentation and smoke fixtures; extraction source remains the reviewed checkpoint. No owner-repository writes.",
+  "upstreamChangedPaths": [
+    ".github/workflows/ci.yml",
+    "CHANGELOG.md",
+    "blueprint/templates/infra/ci/Dockerfile",
+    "docs/development.md",
+    "docs/guides/dependency-patches.md",
+    "package.json",
+    "scripts/smoke/ci-composer.mjs",
+    "scripts/smoke/ci-composer.sh",
+    "test/fixtures/README.md",
+    "test/fixtures/content-site/infra/ci/Dockerfile"
+  ],
+  "files": [
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/settings.test.ts",
+      "sourceBlob": "36036279b9fa1e548b29b767c01b2cba9091a251",
+      "sha256": "60ee94aee1e9a304eeb5eed7f6b5f8c9feca46b45335f6baa34c00dd18b05c8e"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/languages.test.ts",
+      "sourceBlob": "853860da86f83fb76b187b6dc29b436ee518ca90",
+      "sha256": "66cf391b865607033706e4b2f6ef0ac98bebd4ea6e858de39331c4b4768f4e0f"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/language-updates.test.ts",
+      "sourceBlob": "cb7dbfe9b65aac1bfd4e52f43dd9707493d3da3c",
+      "sha256": "955085e5945da10a03c9c97748978147560ec29a1e77c44c037780e7658fbed6"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/events.ts",
+      "sourceBlob": "9479d9a85c58cc88aae1d75923048530a3801759",
+      "sha256": "ba3ff815cd45d1cf475a5191217bb838d706ad97c9d6642161eb7503feafa4fd"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/delivery.ts",
+      "sourceBlob": "52008447469c4be16ad84b348c4d5548edcc2c6c",
+      "sha256": "d68d04c261ad55a6bf1ea152e7b35364195c0c92b6f3fea3b7f229b6313f9e52"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/publications.ts",
+      "sourceBlob": "08d6889a95daa5f5b27822fd3dad673584da728f",
+      "sha256": "e14ddc183b0e4416669e61f64ad0b9e79cee820291d9487dbb8119c6b7418824"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/wordpress.ts",
+      "sourceBlob": "f89dc75208fa9d90825e3765731af02bf9f956a6",
+      "sha256": "f2282c1667ad2974b8432b22a9fc3b33dcc3d35d90bb01e0fbc2974eee830fd8"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/site-language.ts",
+      "sourceBlob": "676716d4b8177f83f52f32586686dc8c6a24f63a",
+      "sha256": "17b96c17edfc26056a99254c69412919ffa38a681f27ebdda1ebfe44469589aa"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/site-language.test.ts",
+      "sourceBlob": "bf0c6a12ea1c190e0924c6c3136cf89bd15deb1f",
+      "sha256": "8947da3e6804abaaa6ec597d6fa835f92f33c3c16b2b74b5d614fcb74f89994c"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/cms/web/app/mu-plugins/settings-events.php",
+      "sourceBlob": "a0ac20a1577fd3636dad934e9d678745227df5f3",
+      "sha256": "83e8cd66ff7b9812920d38ec0ede21fb96c6691fb6ab531b86df788124abf5d1"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/cms/web/app/mu-plugins/publication-events.php",
+      "sourceBlob": "2757630775b673a5aa1330bb5799478168086e77",
+      "sha256": "80fd0875541192fe8d696ec0fc7af849db225c6772e68126f69e8f04440ee892"
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-events.mjs",
+      "sourceBlob": "70687d07e44f3d1738133f58918ffe53258dbe2c",
+      "sha256": "26ece12f6b9a707f7679f3e3f305467f4597f877bc56058c3c04ff3143b2bd2c"
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-polylang.mjs",
+      "sourceBlob": "e5e0f301cea9c16e782eb57394fadad8ceb55101",
+      "sha256": "a1ba4b7a766f08c3a2cdd61dc5a1a03026531d97a29011744027ee26709f93ac"
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-polylang.sh",
+      "sourceBlob": "bef1871437c22b207769edab2876b7c06c199374",
+      "sha256": "06cc589a84035edef90222259f25ab5a664468c59574a6ea54b3ed845760136c"
+    },
+    {
+      "sourcePath": "scripts/smoke/frontend-languages.mjs",
+      "sourceBlob": "354ee63d42c1c50d829b929ee61f062a25bae4a4",
+      "sha256": "88d7264edf3c6209ade7541a5022e4404161ce98dce9bc20f22eb14d483bedd3"
+    }
+  ]
+}

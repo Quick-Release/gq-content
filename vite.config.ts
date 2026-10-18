@@ -34,6 +34,11 @@ export default defineConfig({
         dependsOn: ["cms", "compile"],
         cache: false,
       },
+      multilingual: {
+        command: "python3 scripts/multilingual-proof.py",
+        dependsOn: ["pair"],
+        cache: false,
+      },
       compile: { command: "vp pack", cache: false },
       unit: { command: "vp test", dependsOn: ["compile"], cache: false },
       quality: { command: "vp check", dependsOn: ["compile"], cache: false },
@@ -45,7 +50,7 @@ export default defineConfig({
       },
       verification: {
         command: "vp exec tsc --noEmit",
-        dependsOn: ["unit", "quality", "installed", "alchemy", "pair"],
+        dependsOn: ["unit", "quality", "installed", "alchemy", "multilingual"],
         cache: false,
       },
     },

@@ -1,0 +1,36 @@
+{
+  "note": "Local proof artifacts, not a release/publication manifest. Secrets are disposable proof-only constants; no remote credentials used or included.",
+  "files": [
+    {
+      "path": ".artifacts/gq-content-0.1.0.zip",
+      "sha256": "0b4efa51940f474b5dcc8b4c403024352a3d543b44096f9142af41af8a861a8a"
+    },
+    {
+      "path": ".proofs/multilingual/getquick-content-0.1.0.tgz",
+      "sha256": "163fec70a2ba2d51b6b4df8d0e97ced15ef0789ad023c192f1570e75bcac0f50"
+    },
+    {
+      "path": ".proofs/p2/downloads/polylang-3.8.11.zip",
+      "sha256": "9258e48296fa2b2d9bcb17df63b665779a73e4e57a8854a17c7f9039ed5c3297"
+    }
+  ],
+  "versions": {
+    "node": "24.21.0",
+    "vpGlobal": "0.3.0",
+    "vitePlus": "1.1.0",
+    "pnpm": "12.11.2",
+    "typescript": "6.0.3",
+    "alchemy": "2.0.0-beta.79",
+    "workerd": "1.20260901.1",
+    "compatibilityDate": "2026-09-08",
+    "php": "8.5.10",
+    "composer": "2.10.3",
+    "bedrock": "1.31.7",
+    "wordpress": "7.1.3",
+    "wpCli": "2.12.0",
+    "bedrockAutoloader": "1.1.0",
+    "composerInstallers": "2.3.0",
+    "sqliteDatabaseIntegration": "3.1.0",
+    "polylang": "3.8.11"
+  }
+}
