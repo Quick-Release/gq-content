@@ -25,3 +25,8 @@ accepted scope and the runnable proofs still required before release.
 
 The [CMS installation instructions](cms/README.md) describe its single entry
 point, configuration, diagnostics and supported filters.
+
+Published Design fixture compatibility (P5) is opt-in so ordinary development
+and the public consumer remain credential-free. See
+[the compatibility workspace](compatibility/README.md) for installation,
+scoped registry access and `vp run design-fixtures`.

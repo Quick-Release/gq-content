@@ -38,6 +38,13 @@ try {
       /^package\/((?:package\.json|README\.md)|dist\/[\w-]+\.(js|d\.ts)|migrations\/000[1-5]_[a-z_]+\.sql)$/,
     );
   }
+  if (process.argv.includes("--design-fixtures")) {
+    run(
+      process.execPath,
+      ["scripts/inspect-artifacts.mjs", tarball, join(repo, ".artifacts/gq-content-0.1.0.zip")],
+      repo,
+    );
+  }
   const consumer = join(temporary, "consumer");
   mkdirSync(consumer);
   writeFileSync(
@@ -89,6 +96,11 @@ try {
   run("vp", ["exec", "tsc", "--noEmit"], consumer);
   run(process.execPath, ["tests/consumer-runtime.mjs"], consumer);
   run("vp", ["test"], consumer);
+  if (process.argv.includes("--design-fixtures")) {
+    writeFileSync(join(consumer, "design-content.mjs"), 'export * from "@getquick/content";\n');
+    env.DESIGN_CONSUMER_MODULE = join(consumer, "design-content.mjs");
+    run("vp", ["test", "--config", "compatibility/vite.config.ts"], repo);
+  }
   console.log(
     `P3/P4 issues #3/#4: inspected ${listing.length} packed files; public declarations and all package-boundary suites passed in a clean installed consumer.`,
   );

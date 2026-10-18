@@ -1,0 +1,9 @@
+{
+  "name": "gq-content-design-compatibility",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@quick-release/design-contract": "0.4.0"
+  },
+  "packageManager": "pnpm@12.11.2"
+}

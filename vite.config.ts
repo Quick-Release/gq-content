@@ -48,6 +48,11 @@ export default defineConfig({
       unit: { command: "vp test", dependsOn: ["compile"], cache: false },
       quality: { command: "vp check", dependsOn: ["compile"], cache: false },
       installed: { command: "node scripts/consumer.mjs", dependsOn: ["compile"], cache: false },
+      "design-fixtures": {
+        command: "node scripts/consumer.mjs --design-fixtures",
+        dependsOn: ["compile", "cms-package"],
+        cache: false,
+      },
       alchemy: {
         command: "node scripts/alchemy-consumer.mjs",
         dependsOn: ["compile"],

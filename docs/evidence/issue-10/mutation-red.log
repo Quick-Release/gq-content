@@ -1,0 +1,258 @@
+$ vp pack ⊘ cache disabled
+$ python3 scripts/cms-package.py ⊘ cache disabled
+/data/code/getquick/gq-content/.artifacts/gq-content-0.1.0.zip
+
+ℹ entry: frontend/src/index.ts, frontend/src/server.ts, frontend/src/migrations.ts
+ℹ target: es2022
+ℹ tsconfig: tsconfig.json
+ℹ Build start
+ℹ Cleaning 8 files
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- zod
+ℹ frontend/dist/server.js                202.31 kB │ gzip: 42.65 kB
+ℹ frontend/dist/index.js                   1.62 kB │ gzip:  0.72 kB
+ℹ frontend/dist/migrations.js              0.28 kB │ gzip:  0.21 kB
+ℹ frontend/dist/formatting-wOk2jz6J.js    12.60 kB │ gzip:  4.60 kB
+ℹ frontend/dist/index.d.ts                 4.14 kB │ gzip:  1.58 kB
+ℹ frontend/dist/server.d.ts                0.26 kB │ gzip:  0.16 kB
+ℹ frontend/dist/migrations.d.ts            0.17 kB │ gzip:  0.15 kB
+ℹ frontend/dist/wordpress-Bq1Hr1pV.d.ts   10.49 kB │ gzip:  3.40 kB
+ℹ 8 files, total: 231.88 kB
+✔ Build complete in 850ms
+
+$ node scripts/consumer.mjs --design-fixtures ⊘ cache disabled
+package: @getquick/content@0.1.0
+Tarball Contents
+dist/formatting-wOk2jz6J.js
+dist/index.d.ts
+dist/index.js
+dist/migrations.d.ts
+dist/migrations.js
+dist/server.d.ts
+dist/server.js
+dist/wordpress-Bq1Hr1pV.d.ts
+migrations/0001_publications.sql
+migrations/0002_entries.sql
+migrations/0003_publication_events.sql
+migrations/0004_withdrawals.sql
+migrations/0005_reconciliation.sql
+package.json
+README.md
+Tarball Details
+/data/code/getquick/gq-content/.proofs/consumer-vcxN60/artifacts/getquick-content-0.1.0.tgz
+{
+  "npm": {
+    "files": [
+      "package/dist/formatting-wOk2jz6J.js",
+      "package/dist/index.js",
+      "package/dist/migrations.js",
+      "package/dist/server.js",
+      "package/package.json",
+      "package/README.md",
+      "package/migrations/0001_publications.sql",
+      "package/migrations/0002_entries.sql",
+      "package/migrations/0003_publication_events.sql",
+      "package/migrations/0004_withdrawals.sql",
+      "package/migrations/0005_reconciliation.sql",
+      "package/dist/index.d.ts",
+      "package/dist/migrations.d.ts",
+      "package/dist/server.d.ts",
+      "package/dist/wordpress-Bq1Hr1pV.d.ts"
+    ],
+    "sha256": "b04512cf229f14ce2364e2c52bab1f6ece8f735a09b2b7d0b073e5af60e4e848"
+  },
+  "cms": {
+    "files": [
+      "composer.json",
+      "gq-content.php",
+      "README.md",
+      "LICENSE",
+      "modules/delivery-retries.php",
+      "modules/publication-events.php",
+      "modules/settings-events.php"
+    ],
+    "sha256": "0b4efa51940f474b5dcc8b4c403024352a3d543b44096f9142af41af8a861a8a"
+  }
+}
+[WARN] The store at /home/valerio/.local/share/pnpm/store/v11 is not used because packages cannot be hard linked from it into this project. Using the store at /data/.pnpm-store/v11 instead. Set storeDir to choose the store.
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /data/.pnpm-store/v11
+  Virtual store is at:             node_modules/.pnpm
+[WARN] 24 deprecated subdependencies found: @yuku-codegen/binding-android-arm64@0.9.5, @yuku-codegen/binding-darwin-arm64@0.9.5, @yuku-codegen/binding-darwin-x64@0.9.5, @yuku-codegen/binding-freebsd-x64@0.9.5, @yuku-codegen/binding-linux-arm-gnu@0.9.5, @yuku-codegen/binding-linux-arm-musl@0.9.5, @yuku-codegen/binding-linux-arm64-gnu@0.9.5, @yuku-codegen/binding-linux-arm64-musl@0.9.5, @yuku-codegen/binding-linux-x64-gnu@0.9.5, @yuku-codegen/binding-linux-x64-musl@0.9.5, @yuku-codegen/binding-win32-arm64@0.9.5, @yuku-codegen/binding-win32-x64@0.9.5, @yuku-parser/binding-android-arm64@0.9.5, @yuku-parser/binding-darwin-arm64@0.9.5, @yuku-parser/binding-darwin-x64@0.9.5, @yuku-parser/binding-freebsd-x64@0.9.5, @yuku-parser/binding-linux-arm-gnu@0.9.5, @yuku-parser/binding-linux-arm-musl@0.9.5, @yuku-parser/binding-linux-arm64-gnu@0.9.5, @yuku-parser/binding-linux-arm64-musl@0.9.5, @yuku-parser/binding-linux-x64-gnu@0.9.5, @yuku-parser/binding-linux-x64-musl@0.9.5, @yuku-parser/binding-win32-arm64@0.9.5, @yuku-parser/binding-win32-x64@0.9.5
+Packages: +85
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 85, reused 85, downloaded 0, added 85, done
+[WARN] Issues with peer dependencies found. Run "pnpm peers check" to list them.
+
+dependencies:
++ @getquick/content 0.1.0
+
+devDependencies:
++ typescript 6.0.3
++ vite-plus 1.1.0
+
+Done in 141ms using pnpm v12.11.2
+Installed ESM imports, pure helpers and real HTTP client integration passed.
+
+ RUN  v5.0.3 /data/code/getquick/gq-content/.proofs/consumer-vcxN60/consumer
+
+
+ Test Files  15 passed (15)
+      Tests  293 passed (293)
+   Start at  04:57:37
+   Duration  5.32s (tests 89%, transform 6%, import 4%, worker 1%)
+
+
+ RUN  v5.0.3 /data/code/getquick/gq-content
+
+ ❯ compatibility/html.test.ts (12 tests | 8 failed) 22ms
+   × published self-hosted Video Hero attributes render media and accessible overlay 7ms
+   × every enabled published manifest block resolves to a neutral fixture and survives the HTML boundary 4ms
+   × published YouTube attributes use a decorative privacy-enhanced looping embed 2ms
+   × published invalid-youtube Video Hero keeps overlay and omits absent or rejected media 1ms
+   × published default-ltr layout retains nested content, unsupported HTML and media 3ms
+   × published rtl layout retains nested content, unsupported HTML and media 2ms
+   × published fallback layout retains nested content, unsupported HTML and media 1ms
+   × manifest-advertised container layout and spacing support the HTML helper's constrained layout 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  compatibility/html.test.ts > published self-hosted Video Hero attributes render media and accessible overlay
+AssertionError: expected '<section class="wp-block-getquick-des…' to contain 'src="https://example.test/background.…'
+
+Expected: "src="https://example.test/background.mp4""
+Received: "<section class="wp-block-getquick-design-video-hero"><div class="wp-block-getquick-design-video-hero__media" aria-hidden="true"></div><div class="wp-block-getquick-design-video-hero__content"><p>Accessible overlay</p></div></section>"
+
+ ❯ compatibility/html.test.ts:37:16
+     35|   const node = named("getquick-video-hero-self-hosted");
+     36|   const html = content.renderWordPressBlocks(content.parseWordPressBlo…
+     37|   expect(html).toContain('src="https://example.test/background.mp4"');
+       |                ^
+     38|   expect(html).toContain('poster="https://example.test/poster.jpg"');
+     39|   expect(html).toContain("autoplay muted loop playsinline");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  compatibility/html.test.ts > every enabled published manifest block resolves to a neutral fixture and survives the HTML boundary
+AssertionError: expected {} to deeply equal { columns: 3, mobileColumns: 1, …(1) }
+
+- Expected
++ Received
+
+- {
+-   "columns": 3,
+-   "mobileColumns": 1,
+-   "tabletColumns": 2,
+- }
++ {}
+
+ ❯ compatibility/html.test.ts:53:34
+     51|     const parsed = content.parseWordPressBlocks(JSON.stringify([projec…
+     52|     expect(parsed[0].name).toBe(block.name);
+     53|     expect(parsed[0].attributes).toEqual(node.attributes);
+       |                                  ^
+     54|     const html = content.renderWordPressBlocks(parsed);
+     55|     if (block.name === "getquick-design/video-hero") {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  compatibility/html.test.ts > published YouTube attributes use a decorative privacy-enhanced looping embed
+AssertionError: expected '<section class="wp-block-getquick-des…' to contain 'src="https://www.youtube-nocookie.com…'
+
+Expected: "src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?"
+Received: "<section class="wp-block-getquick-design-video-hero"><div class="wp-block-getquick-design-video-hero__media" aria-hidden="true"></div><div class="wp-block-getquick-design-video-hero__content"><p>Accessible overlay</p></div></section>"
+
+ ❯ compatibility/html.test.ts:66:16
+     64| test("published YouTube attributes use a decorative privacy-enhanced l…
+     65|   const html = content.renderWordPressBlocks([project(named("getquick-…
+     66|   expect(html).toContain('src="https://www.youtube-nocookie.com/embed/…
+       |                ^
+     67|   expect(html).toContain("playlist=dQw4w9WgXcQ");
+     68|   expect(html).toContain('tabindex="-1" aria-hidden="true"');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  compatibility/html.test.ts > published invalid-youtube Video Hero keeps overlay and omits absent or rejected media
+AssertionError: expected '<section class="wp-block-getquick-des…' to contain 'src="https://example.test/poster.jpg"'
+
+Expected: "src="https://example.test/poster.jpg""
+Received: "<section class="wp-block-getquick-design-video-hero"><div class="wp-block-getquick-design-video-hero__media" aria-hidden="true"></div><div class="wp-block-getquick-design-video-hero__content"><p>Accessible overlay</p></div></section>"
+
+ ❯ compatibility/html.test.ts:83:20
+     81|     expect(html).not.toMatch(/<video\b|<iframe\b/);
+     82|     if (variant === "invalid-youtube") {
+     83|       expect(html).toContain('src="https://example.test/poster.jpg"');
+       |                    ^
+     84|     } else {
+     85|       expect(html).not.toContain("<img");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  compatibility/html.test.ts > published default-ltr layout retains nested content, unsupported HTML and media
+ FAIL  compatibility/html.test.ts > published rtl layout retains nested content, unsupported HTML and media
+ FAIL  compatibility/html.test.ts > published fallback layout retains nested content, unsupported HTML and media
+AssertionError: expected '<section class="wp-block-getquick-des…' to contain 'src="https://example.test/background.…'
+
+Expected: "src="https://example.test/background.mp4""
+Received: "<section class="wp-block-getquick-design-video-hero"><div class="wp-block-getquick-design-video-hero__media" aria-hidden="true"></div><div class="wp-block-getquick-design-video-hero__content"><p>Accessible overlay</p></div></section><section class="wp-block-getquick-design-video-hero"><div class="wp-block-getquick-design-video-hero__media" aria-hidden="true"></div><div class="wp-block-getquick-design-video-hero__content"><p>Accessible overlay</p></div></section><section class="wp-block-getquick-design-video-hero"><div class="wp-block-getquick-design-video-hero__media" aria-hidden="true"></div><div class="wp-block-getquick-design-video-hero__content"><p>Accessible overlay</p></div></section><p>Contract example</p><div>Fallback content</div>"
+
+ ❯ compatibility/html.test.ts:103:18
+    101|     expect(html).toContain("<p>Contract example</p>");
+    102|     expect(html).toContain("<div>Fallback content</div>");
+    103|     expect(html).toContain('src="https://example.test/background.mp4"'…
+       |                  ^
+    104|     expect(html).toContain("https://www.youtube-nocookie.com/embed/dQw…
+    105|   },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  compatibility/html.test.ts > manifest-advertised container layout and spacing support the HTML helper's constrained layout
+AssertionError: expected '<div class="wp-block-getquick-design-…' to contain 'gqd-container-layout--constrained'
+
+Expected: "gqd-container-layout--constrained"
+Received: "<div class="wp-block-getquick-design-container"><div class="wp-block-getquick-design-container">Nested</div></div>"
+
+ ❯ compatibility/html.test.ts:147:16
+    145|   ];
+    146|   const html = content.renderWordPressBlocks([parent]);
+    147|   expect(html).toContain("gqd-container-layout--constrained");
+       |                ^
+    148|   expect(html).toContain("--gqd-layout-content:48rem;--gqd-layout-wide…
+    149|   expect(html).toContain("--gqd-layout-gap:var(--wp--preset--spacing--…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed | 4 passed (12)
+   Start at  04:57:42
+   Duration  156ms (transform 38%, tests 37%, import 20%, worker 5%)
+
+node:internal/errors:986
+  const err = new Error(message);
+              ^
+
+Error: Command failed: vp test --config compatibility/vite.config.ts
+    at genericNodeError (node:internal/errors:986:15)
+    at wrappedFn (node:internal/errors:540:14)
+    at checkExecSyncError (node:child_process:942:11)
+    at execFileSync (node:child_process:978:15)
+    at run (file:///data/code/getquick/gq-content/scripts/consumer.mjs:27:3)
+    at file:///data/code/getquick/gq-content/scripts/consumer.mjs:102:5
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  status: 1,
+  signal: null,
+  output: [ null, null, null ],
+  pid: 2227029,
+  stdout: null,
+  stderr: null
+}
+
+Node.js v24.21.0
+
+---
+vp run: 0/3 cache hit (0%), 1 failed. (Run `vp run --last-details` for full details)

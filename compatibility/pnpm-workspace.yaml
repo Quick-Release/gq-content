@@ -1,0 +1,3 @@
+packages: []
+minimumReleaseAgeExclude:
+  - "@quick-release/design-contract@0.4.0"

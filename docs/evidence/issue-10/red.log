@@ -1,0 +1,32 @@
+note: You are running `vp test` as a Vite+ built-in command. If you meant to run the test npm script, use `vpr test` instead.
+
+ RUN  v5.0.3 /data/code/getquick/gq-content
+
+ ❯ compatibility/html.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  compatibility/html.test.ts [ compatibility/html.test.ts ]
+Error: Cannot find module './projection' imported from /data/code/getquick/gq-content/compatibility/html.test.ts
+ ❯ reviveInvokeError node_modules/.pnpm/@voidzero-dev+vite-plus-core@1.1.0_@types+node@24.19.2_typescript@6.0.3/node_modules/@voidzero-dev/vite-plus-core/dist/vite/node/module-runner.js:555:14
+ ❯ Object.invoke node_modules/.pnpm/@voidzero-dev+vite-plus-core@1.1.0_@types+node@24.19.2_typescript@6.0.3/node_modules/@voidzero-dev/vite-plus-core/dist/vite/node/module-runner.js:571:33
+ ❯ VitestModuleRunner.getModuleInformation node_modules/.pnpm/@voidzero-dev+vite-plus-core@1.1.0_@types+node@24.19.2_typescript@6.0.3/node_modules/@voidzero-dev/vite-plus-core/dist/vite/node/module-runner.js:1226:7
+ ❯ request node_modules/.pnpm/@voidzero-dev+vite-plus-core@1.1.0_@types+node@24.19.2_typescript@6.0.3/node_modules/@voidzero-dev/vite-plus-core/dist/vite/node/module-runner.js:1243:83
+ ❯ compatibility/html.test.ts:4:1
+      2| import { readFileSync } from "node:fs";
+      3| import { createRequire } from "node:module";
+      4| import { project } from "./projection";
+       | ^
+      5|
+      6| const consumer = process.env.DESIGN_CONSUMER_MANIFEST;
+ ❯ VitestModuleRunner.directRequest node_modules/.pnpm/@voidzero-dev+vite-plus-core@1.1.0_@types+node@24.19.2_typescript@6.0.3/node_modules/@voidzero-dev/vite-plus-core/dist/vite/node/module-runner.js:1286:59
+ ❯ VitestModuleRunner.cachedRequest node_modules/.pnpm/@voidzero-dev+vite-plus-core@1.1.0_@types+node@24.19.2_typescript@6.0.3/node_modules/@voidzero-dev/vite-plus-core/dist/vite/node/module-runner.js:1193:73
+ ❯ VitestModuleRunner.import node_modules/.pnpm/@voidzero-dev+vite-plus-core@1.1.0_@types+node@24.19.2_typescript@6.0.3/node_modules/@voidzero-dev/vite-plus-core/dist/vite/node/module-runner.js:1148:10
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  04:54:22
+   Duration  107ms (worker 96%, environment 4%)

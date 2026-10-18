@@ -1,0 +1,64 @@
+name: Published Design fixture compatibility
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+  packages: read
+jobs:
+  fixtures:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      VP_GIT_HOOKS: "0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: voidzero-dev/setup-vp@v1
+        with:
+          version: "1.1.0"
+          node-version-file: .node-version
+          run-install: false
+          cache: false
+      - name: Install public development dependencies
+        run: vp install --frozen-lockfile
+      - name: Configure only the private package registry credential
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+        run: |
+          umask 077
+          printf '%s\n' '@quick-release:registry=https://npm.pkg.github.com' '//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}' > "$RUNNER_TEMP/design.npmrc"
+          echo "NPM_CONFIG_USERCONFIG=$RUNNER_TEMP/design.npmrc" >> "$GITHUB_ENV"
+      - name: Verify live registry identity and this repository's package access
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+        run: |
+          set -o pipefail
+          node compatibility/registry.mjs | tee "$RUNNER_TEMP/p5-registry.json"
+      - name: Install the exact published fixture dependency
+        working-directory: compatibility
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+        run: vp install --frozen-lockfile --ignore-scripts
+      - name: Remove registry credential configuration before consumer checks
+        if: always()
+        run: |
+          rm -f "$RUNNER_TEMP/design.npmrc"
+          echo "NPM_CONFIG_USERCONFIG=/dev/null" >> "$GITHUB_ENV"
+      - name: Check public code and compatibility types
+        run: |
+          vp run quality
+          vp exec tsc --noEmit -p compatibility/tsconfig.json
+      - name: P5 packed artifacts, credential-free consumer and published fixtures
+        run: |
+          set -o pipefail
+          vp run design-fixtures | tee "$RUNNER_TEMP/p5.log"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p5-compatibility
+          path: |
+            ${{ runner.temp }}/p5.log
+            ${{ runner.temp }}/p5-registry.json
+          if-no-files-found: ignore
