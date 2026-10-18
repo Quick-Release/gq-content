@@ -1,0 +1,107 @@
+{
+  "sourceRepository": "Quick-Release/gq-site",
+  "reviewedCheckpoint": "eaec13488d57b3d04059309b5b36de5d016f3de1",
+  "verifiedOn": "2026-10-18",
+  "fetchedRef": "origin/main",
+  "fetchedCommit": "eaec13488d57b3d04059309b5b36de5d016f3de1",
+  "localHead": "eaec13488d57b3d04059309b5b36de5d016f3de1",
+  "verifiedRelevantPaths": [
+    "blueprint/templates/apps/frontend/src",
+    "blueprint/templates/apps/frontend/migrations",
+    "blueprint/templates/apps/cms/web/app/mu-plugins",
+    "scripts/smoke",
+    "docs/adr"
+  ],
+  "upstreamDelta": "none: fetched main equals reviewed checkpoint; relevant tracked working paths also identical",
+  "history": "Fresh extracted files on gq-content history; no history rewrite or source checkpoint substitution",
+  "sources": [
+    {
+      "source": "blueprint/templates/apps/frontend/src/lib/wordpress.ts",
+      "sourceBlob": "f89dc75208fa9d90825e3765731af02bf9f956a6",
+      "sourceSha256": "f2282c1667ad2974b8432b22a9fc3b33dcc3d35d90bb01e0fbc2974eee830fd8",
+      "destinations": [
+        "frontend/src/wordpress.ts",
+        "frontend/src/content-types.ts",
+        "frontend/src/formatting.ts"
+      ]
+    },
+    {
+      "source": "blueprint/templates/apps/frontend/src/lib/site-language.ts",
+      "sourceBlob": "676716d4b8177f83f52f32586686dc8c6a24f63a",
+      "sourceSha256": "17b96c17edfc26056a99254c69412919ffa38a681f27ebdda1ebfe44469589aa",
+      "destinations": ["frontend/src/site-language.ts"]
+    },
+    {
+      "source": "blueprint/templates/apps/frontend/src/lib/wp-block-renderer.ts",
+      "sourceBlob": "9cd9371db5053a97bb0d47ba0034f80ab81e3ad8",
+      "sourceSha256": "696c5b76dff6bb2cf8928aca30849928d7fc5e95fa65fa0bb5976a0aa8310a71",
+      "destinations": ["frontend/src/wp-block-renderer.ts"]
+    },
+    {
+      "source": "blueprint/templates/apps/frontend/src/lib/wp-block-styles.ts",
+      "sourceBlob": "0f8773ad0d9dd8101d71677985b9a376da787fd6",
+      "sourceSha256": "05ab72067725ca22590b1761864ac0f381f598b744e4cbd769fb853d66819d64",
+      "destinations": ["frontend/src/wp-block-styles.ts"]
+    },
+    {
+      "source": "blueprint/templates/apps/frontend/src/lib/wp-container-layout.ts",
+      "sourceBlob": "734ab1d18b821e1df2e2a7dcb82ed7e38b9b76ea",
+      "sourceSha256": "dad03350778384c5ff72d320a09e3e64485e4827c952c848e5e1c34d851a044b",
+      "destinations": ["frontend/src/wp-container-layout.ts"]
+    },
+    {
+      "source": "blueprint/templates/apps/frontend/src/lib/runtime.ts",
+      "sourceBlob": "b91f7c642f2483b4e83ac8c954256768ff1da252",
+      "sourceSha256": "0ebe75bfcf376cecb4b91049e158e7d74eb8ba551836e59f081f18c3f609f1c0",
+      "destinations": ["frontend/src/bindings.ts"]
+    },
+    {
+      "source": "blueprint/templates/apps/frontend/src/lib/publications.ts",
+      "sourceBlob": "08d6889a95daa5f5b27822fd3dad673584da728f",
+      "sourceSha256": "e14ddc183b0e4416669e61f64ad0b9e79cee820291d9487dbb8119c6b7418824",
+      "destinations": ["frontend/src/bindings.ts"]
+    },
+    {
+      "source": "blueprint/templates/apps/frontend/src/lib/delivery.ts",
+      "sourceBlob": "52008447469c4be16ad84b348c4d5548edcc2c6c",
+      "sourceSha256": "d68d04c261ad55a6bf1ea152e7b35364195c0c92b6f3fea3b7f229b6313f9e52",
+      "destinations": ["frontend/src/page-types.ts", "frontend/src/formatting.ts"]
+    },
+    {
+      "source": "blueprint/templates/apps/frontend/src/lib/wordpress.test.ts",
+      "sourceBlob": "e094b56c71d402f2b7985f913630a654d569651f",
+      "sourceSha256": "b502f347a227e98ac75d1b650c7e69c24e175901c8eab4019b7de3e82a630d2b",
+      "destinations": ["frontend/tests/wordpress.test.ts"]
+    },
+    {
+      "source": "blueprint/templates/apps/frontend/src/lib/wordpress-access.test.ts",
+      "sourceBlob": "492e00a3ecbb2766b03ecbb32e9be4e90c5e40b8",
+      "sourceSha256": "9983a418bf219ac860457e1484976841e2a8da1fe860454854b3d0a8e95d9391",
+      "destinations": ["frontend/tests/wordpress-access.test.ts"]
+    },
+    {
+      "source": "blueprint/templates/apps/frontend/src/lib/site-language.test.ts",
+      "sourceBlob": "bf0c6a12ea1c190e0924c6c3136cf89bd15deb1f",
+      "sourceSha256": "8947da3e6804abaaa6ec597d6fa835f92f33c3c16b2b74b5d614fcb74f89994c",
+      "destinations": ["frontend/tests/site-language.test.ts"]
+    },
+    {
+      "source": "blueprint/templates/apps/frontend/src/lib/wp-block-renderer.test.ts",
+      "sourceBlob": "1cae04c593bdc7fb035b6b021fa6b1994d701020",
+      "sourceSha256": "0234ca81bb118a4dfe1bf530db8162f5780b6055d7b87dd20c64d28cc424143a",
+      "destinations": ["frontend/tests/wp-block-renderer.test.ts"]
+    },
+    {
+      "source": "blueprint/templates/apps/frontend/src/lib/wp-block-styles.test.ts",
+      "sourceBlob": "a28091a93f00f2cee196dd3b4e909c04588e39e0",
+      "sourceSha256": "ec045cdfdc2cdbee15c6ec2ac23d4763f26f1e1689ce67e78384da41963b13b1",
+      "destinations": ["frontend/tests/wp-block-styles.test.ts"]
+    },
+    {
+      "source": "blueprint/templates/apps/frontend/src/lib/wp-container-layout.test.ts",
+      "sourceBlob": "628a7fa0b097e397cdd6a38c487ae4ecda6988ed",
+      "sourceSha256": "b3a0b8e27c384eff0a8e268d890c9885367a938100e4b9b874c22418dc170a7b",
+      "destinations": ["frontend/tests/wp-container-layout.test.ts"]
+    }
+  ]
+}

@@ -1,1 +1,5 @@
 /.agents/skills/
+node_modules/
+frontend/dist/
+.artifacts/
+.vite-hooks/_/

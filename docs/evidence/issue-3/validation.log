@@ -1,0 +1,81 @@
+$ vp pack ⊘ cache disabled
+ℹ entry: frontend/src/index.ts, frontend/src/server.ts
+ℹ target: es2022
+ℹ tsconfig: tsconfig.json
+ℹ Build start
+ℹ Cleaning 6 files
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- zod
+ℹ frontend/dist/server.js                120.23 kB │ gzip: 22.62 kB
+ℹ frontend/dist/index.js                   1.62 kB │ gzip:  0.72 kB
+ℹ frontend/dist/formatting-wOk2jz6J.js    12.60 kB │ gzip:  4.60 kB
+ℹ frontend/dist/index.d.ts                 5.63 kB │ gzip:  2.09 kB
+ℹ frontend/dist/server.d.ts                0.26 kB │ gzip:  0.16 kB
+ℹ frontend/dist/wordpress-GuuH2hjf.d.ts    8.12 kB │ gzip:  2.75 kB
+ℹ 6 files, total: 148.46 kB
+✔ Build complete in 792ms
+
+$ vp check ⊘ cache disabled
+$ node scripts/consumer.mjs ⊘ cache disabled
+$ vp test ⊘ cache disabled
+package: @getquick/content@0.1.0
+Tarball Contents
+dist/formatting-wOk2jz6J.js
+dist/index.d.ts
+dist/index.js
+dist/server.d.ts
+dist/server.js
+dist/wordpress-GuuH2hjf.d.ts
+package.json
+README.md
+Tarball Details
+/data/tmp/pi/gq-content-consumer-O2dSuY/artifacts/getquick-content-0.1.0.tgz
+[WARN] The store at /home/valerio/.local/share/pnpm/store/v11 is not used because packages cannot be hard linked from it into this project. Using the store at /data/.pnpm-store/v11 instead. Set storeDir to choose the store.
+
+ RUN  v5.0.3 /data/code/getquick/gq-content
+
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /data/.pnpm-store/v11
+  Virtual store is at:             node_modules/.pnpm
+[WARN] 24 deprecated subdependencies found: @yuku-codegen/binding-android-arm64@0.9.5, @yuku-codegen/binding-darwin-arm64@0.9.5, @yuku-codegen/binding-darwin-x64@0.9.5, @yuku-codegen/binding-freebsd-x64@0.9.5, @yuku-codegen/binding-linux-arm-gnu@0.9.5, @yuku-codegen/binding-linux-arm-musl@0.9.5, @yuku-codegen/binding-linux-arm64-gnu@0.9.5, @yuku-codegen/binding-linux-arm64-musl@0.9.5, @yuku-codegen/binding-linux-x64-gnu@0.9.5, @yuku-codegen/binding-linux-x64-musl@0.9.5, @yuku-codegen/binding-win32-arm64@0.9.5, @yuku-codegen/binding-win32-x64@0.9.5, @yuku-parser/binding-android-arm64@0.9.5, @yuku-parser/binding-darwin-arm64@0.9.5, @yuku-parser/binding-darwin-x64@0.9.5, @yuku-parser/binding-freebsd-x64@0.9.5, @yuku-parser/binding-linux-arm-gnu@0.9.5, @yuku-parser/binding-linux-arm-musl@0.9.5, @yuku-parser/binding-linux-arm64-gnu@0.9.5, @yuku-parser/binding-linux-arm64-musl@0.9.5, @yuku-parser/binding-linux-x64-gnu@0.9.5, @yuku-parser/binding-linux-x64-musl@0.9.5, @yuku-parser/binding-win32-arm64@0.9.5, @yuku-parser/binding-win32-x64@0.9.5
+Packages: +85
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 85, reused 84, downloaded 1, added 85, done
+pass: All 41 files are correctly formatted (138ms, 32 threads)
+[WARN] Issues with peer dependencies found. Run "pnpm peers check" to list them.
+
+dependencies:
++ @getquick/content 0.1.0
+
+devDependencies:
++ typescript 6.0.3
++ vite-plus 1.1.0
+
+Done in 147ms using pnpm v12.11.2
+
+ Test Files  7 passed (7)
+      Tests  61 passed (61)
+   Start at  03:04:18
+   Duration  240ms (transform 60%, import 20%, tests 16%, worker 3%)
+
+
+pass: Found no warnings, lint errors, or type errors in 23 files (431ms, 32 threads)
+
+Installed ESM imports, pure helpers and real HTTP client integration passed.
+
+ RUN  v5.0.3 /data/tmp/pi/gq-content-consumer-O2dSuY/consumer
+
+
+ Test Files  7 passed (7)
+      Tests  61 passed (61)
+   Start at  03:04:20
+   Duration  172ms (transform 33%, import 31%, tests 30%, worker 6%)
+
+P3/P4 issue #3: inspected 8 packed files; public declarations and all package-boundary suites passed in a clean installed consumer.
+
+$ vp exec tsc --noEmit ⊘ cache disabled
+
+---
+vp run: 0/5 cache hit (0%). (Run `vp run --last-details` for full details)

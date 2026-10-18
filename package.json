@@ -1,0 +1,25 @@
+{
+  "name": "gq-content",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vp run unit",
+    "check": "vp run quality",
+    "build": "vp pack",
+    "consumer": "vp run installed",
+    "prepare": "vp config --hooks --no-agent",
+    "validate": "vp run verification",
+    "format": "vp fmt",
+    "format:check": "vp fmt --check",
+    "lint": "vp lint"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "6.0.3",
+    "vite-plus": "1.1.0"
+  },
+  "engines": {
+    "node": "^24.11.0 || >=26.0.0"
+  },
+  "packageManager": "pnpm@12.11.2"
+}
