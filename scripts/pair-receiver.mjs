@@ -6,6 +6,8 @@ import { openTestD1 } from "./sqlite-d1.ts";
 const db = openTestD1(process.env.PAIR_DATABASE);
 let offline = false;
 let reads = 0;
+let rejectDelivery = false;
+const envelopes = [];
 const operations = [];
 const events = [];
 const runtime = createContentRuntime({
@@ -46,7 +48,7 @@ const runtime = createContentRuntime({
     if (query.includes("HomePage"))
       return Response.json({
         data: {
-          generalSettings: { title: "Pair", description: "Proof" },
+          generalSettings: fixture.identity ?? { title: "Pair", description: "Proof" },
           nodeByUri: {
             __typename: "Page",
             isFrontPage: true,
@@ -78,8 +80,11 @@ const server = createServer(async (req, res) => {
   try {
     const url = new URL(req.url, "http://127.0.0.1");
     let response;
-    if (url.pathname === "/proof/state") {
-      response = Response.json({ reads, operations, events });
+    if (url.pathname === "/proof/fail-delivery" || url.pathname === "/proof/accept-delivery") {
+      rejectDelivery = url.pathname === "/proof/fail-delivery";
+      response = Response.json({ rejectDelivery });
+    } else if (url.pathname === "/proof/state") {
+      response = Response.json({ reads, operations, events, envelopes });
     } else if (url.pathname === "/proof/home") {
       const language = runtime.languages.find((l) => l.slug === url.searchParams.get("language"));
       const delivery = await runtime.publishedHome(undefined, language);
@@ -106,10 +111,20 @@ const server = createServer(async (req, res) => {
         headers: req.headers,
         body: req.method === "POST" ? Buffer.concat(chunks) : undefined,
       });
-      if (url.pathname === "/gq/events") events.push(JSON.parse(Buffer.concat(chunks).toString()));
-      response = await (
-        url.pathname === "/gq/events" ? runtime.handleEvent : runtime.handleRefresh
-      )(request);
+      if (url.pathname === "/gq/events") {
+        events.push(JSON.parse(Buffer.concat(chunks).toString()));
+        envelopes.push({
+          event: events.at(-1),
+          timestamp: req.headers["gq-event-timestamp"],
+          signature: req.headers["gq-event-signature"],
+        });
+      }
+      response =
+        rejectDelivery && url.pathname === "/gq/events"
+          ? Response.json({ error: "Disposable transport outage" }, { status: 503 })
+          : await (url.pathname === "/gq/events" ? runtime.handleEvent : runtime.handleRefresh)(
+              request,
+            );
     }
     res.writeHead(response.status, Object.fromEntries(response.headers));
     res.end(await response.text());

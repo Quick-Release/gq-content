@@ -133,6 +133,9 @@ try:
     check('permanent deletion withdraws all stored routes without CMS reads', request('/proof/read?uri=' + uri)['delivery']['kind'] == 'missing' and request('/proof/read?uri=' + previous_uri)['delivery']['kind'] == 'missing' and request('/proof/read?uri=' + uri)['reads'] == before)
     deleted = cms.wp('option', 'get', 'gq_publication_events_deleted', '--format=json', env=environment, ok=False)
     check('successfully delivered deletion leaves no dangling deleted-entry record', deleted.returncode != 0 or post not in json.loads(deleted.stdout))
+    if '--retries' in sys.argv:
+        import runpy
+        runpy.run_path(str(ROOT / 'scripts/retry-proof.py'))['prove'](cms, environment, request, fixture, WORK)
     print('P2/P6 #6 installed pair passed: real Bedrock/WordPress transport; GraphQL boundary stub; Node SQLite publication store.', flush=True)
 finally:
     proof_config.unlink(missing_ok=True)

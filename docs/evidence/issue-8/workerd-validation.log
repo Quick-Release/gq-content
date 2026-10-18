@@ -1,0 +1,314 @@
+$ vp pack ⊘ cache disabled
+ℹ entry: frontend/src/index.ts, frontend/src/server.ts, frontend/src/migrations.ts
+ℹ target: es2022
+ℹ tsconfig: tsconfig.json
+ℹ Build start
+ℹ Cleaning 8 files
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- zod
+ℹ frontend/dist/server.js                186.09 kB │ gzip: 38.63 kB
+ℹ frontend/dist/index.js                   1.62 kB │ gzip:  0.72 kB
+ℹ frontend/dist/migrations.js              0.28 kB │ gzip:  0.21 kB
+ℹ frontend/dist/formatting-wOk2jz6J.js    12.60 kB │ gzip:  4.60 kB
+ℹ frontend/dist/index.d.ts                 4.14 kB │ gzip:  1.58 kB
+ℹ frontend/dist/server.d.ts                0.26 kB │ gzip:  0.16 kB
+ℹ frontend/dist/migrations.d.ts            0.17 kB │ gzip:  0.15 kB
+ℹ frontend/dist/wordpress-Bq1Hr1pV.d.ts   10.49 kB │ gzip:  3.40 kB
+ℹ 8 files, total: 215.65 kB
+✔ Build complete in 763ms
+
+$ node scripts/alchemy-consumer.mjs ⊘ cache disabled
+package: @getquick/content@0.1.0
+Tarball Contents
+dist/formatting-wOk2jz6J.js
+dist/index.d.ts
+dist/index.js
+dist/migrations.d.ts
+dist/migrations.js
+dist/server.d.ts
+dist/server.js
+dist/wordpress-Bq1Hr1pV.d.ts
+migrations/0001_publications.sql
+migrations/0002_entries.sql
+migrations/0003_publication_events.sql
+migrations/0004_withdrawals.sql
+migrations/0005_reconciliation.sql
+package.json
+README.md
+Tarball Details
+/data/code/getquick/gq-content/.proofs/alchemy-p1-fdY5GJ/getquick-content-0.1.0.tgz
+[WARN] The store at /home/valerio/.local/share/pnpm/store/v11 is not used because packages cannot be hard linked from it into this project. Using the store at /data/.pnpm-store/v11 instead. Set storeDir to choose the store.
+✓ Lockfile passes supply-chain policies (verified 26m ago)
+Lockfile is up to date, resolution step is skipped
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /data/.pnpm-store/v11
+  Virtual store is at:             node_modules/.pnpm
+Packages: +223
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 223, reused 223, downloaded 0, added 223, done
+
+dependencies:
++ @effect/platform-node 4.0.0-rc.115
++ @getquick/content 0.1.0
++ alchemy 2.0.0-beta.79
++ effect 4.0.0-rc.115
+
+Done in 480ms using pnpm v12.11.2
+[04:12:43.431] INFO (#4): Plan: no resources
+[04:12:43.432] INFO (#4): 
+[04:12:43.434] INFO (#4): 
+[04:12:43.434] INFO (#4): Done: 0 succeeded (2ms)
+[04:12:43.484] INFO (#4): Plan: 2 to create, 4 binding changes
+[04:12:43.484] INFO (#4): [Frontend] create (local)
+[04:12:43.484] INFO (#4): [Frontend/FRONTEND_REFRESH_TOKEN] create
+[04:12:43.484] INFO (#4): [Frontend/PUBLICATION_DB] create
+[04:12:43.484] INFO (#4): [Frontend/PUBLICATION_EVENT_SECRET] create
+[04:12:43.484] INFO (#4): [Frontend/REVISION] create
+[04:12:43.484] INFO (#4): [Publications] create (local)
+[04:12:43.484] INFO (#4): 
+[04:12:43.487] INFO (#156): [Publications] creating (local)
+[04:12:43.488] INFO (#157): [Frontend] pre-creating (local)
+[04:12:43.619] INFO (#157): [Frontend] creating (local)
+[04:12:43.621] INFO (#156): [Publications] created (local) (134ms)
+[04:12:43.640] INFO (#157): [Frontend] ready at http://localhost:1337
+[04:12:43.640] INFO (#157): [Frontend] created (local) (152ms)
+[04:12:43.664] INFO (#232): [Publications] created (local) (177ms)
+[04:12:43.664] INFO (#233): [Frontend] created (local) (176ms)
+[04:12:43.664] INFO (#4): 
+[04:12:43.664] INFO (#4): Done: 2 succeeded (180ms)
+[04:12:43.747] INFO (#222): [Frontend] Started in 124ms → http://localhost:1337/ (logs: /data/code/getquick/gq-content/.proofs/alchemy-p1-fdY5GJ/.alchemy/log/p1/Frontend)
+[Frontend] Delivery: the front page can't be served (not-ready): the front page and its chrome haven't been refreshed into the publication store yet
+P1 first lifecycle: all five migrations precede the package-consuming Worker; stored delivery passes without CMS/secrets.
+[Frontend] Refresh: the entry /entry/ promoted (published)
+[Frontend] Events: workerd-publish-0001 (publish /entry/) refreshed
+[Frontend] Withdrawal: workerd-withdraw-0001 withdrew /entry/
+[Frontend] Refresh: the en front page promoted (published)
+[Frontend] Events: workerd-home-en (publish /en/) refreshed
+[Frontend] Refresh: the shared design presets promoted (published)
+[Frontend] Events: workerd-design (settings design) refreshed
+[Frontend] WordPress: the design presets is unavailable (network): WordPress couldn't be reached
+[Frontend] Refresh: the shared design presets kept its last stored version (network): WordPress couldn't be reached
+[Frontend] Events: workerd-retry-0008 (settings design) failed
+[04:12:44.053] INFO (#4): Plan: 1 to update, 1 binding changes
+[04:12:44.053] INFO (#4): [Frontend] update (local)
+[04:12:44.053] INFO (#4): [Frontend/FRONTEND_REFRESH_TOKEN] noop
+[04:12:44.053] INFO (#4): [Frontend/PUBLICATION_DB] noop
+[04:12:44.053] INFO (#4): [Frontend/PUBLICATION_EVENT_SECRET] noop
+[04:12:44.053] INFO (#4): [Frontend/REVISION] update
+[04:12:44.053] INFO (#4): [Publications] noop (local)
+[04:12:44.053] INFO (#4): 
+[04:12:44.054] INFO (#439): [Frontend] updating (local)
+[04:12:44.056] WARN (#444): Port 1337 is in use by another process; serving on 1338 instead. Stop the other process, pick a different port, or set `strictPort: true` to fail instead.
+[04:12:44.057] INFO (#439): [Frontend] ready at http://localhost:1338
+[04:12:44.057] INFO (#439): [Frontend] updated (local) (3ms)
+[04:12:44.070] INFO (#457): [Frontend] updated (local) (16ms)
+[04:12:44.071] INFO (#4): 
+[04:12:44.071] INFO (#4): Done: 1 succeeded (18ms)
+[04:12:44.146] INFO (#447): [Frontend] Started in 90ms → http://localhost:1338/ (logs: /data/code/getquick/gq-content/.proofs/alchemy-p1-fdY5GJ/.alchemy/log/p1/Frontend)
+[Frontend] Events: workerd-design is a duplicate of a refreshed event
+P6 #7 workerd: language-specific home, shared design, canonical alternates and signed settings duplicate persist across Worker update.
+{
+  "migrationsDirectory": "/data/code/getquick/gq-content/.proofs/alchemy-p1-fdY5GJ/node_modules/.pnpm/@getquick+content@file+getquick-content-0.1.0.tgz/node_modules/@getquick/content/migrations/",
+  "databaseId": "dev:ab33f085-34d1-4918-a247-d43bea1e1806",
+  "migrationHashes": {
+    "0001_publications.sql": "0c0fdcef981c58169a092f68f77a36f741e599d6ebc84314ea2d5a6e792fa706",
+    "0002_entries.sql": "6e0289cb3a6ed6f9fff20a3a1365a496d18b1ee36f0efcd8f91efd655dc6c0f4",
+    "0003_publication_events.sql": "0a87d08c233fad167c67b35f1fa588c8eadeac67074fb7d2f6b3cd5a4daa8e6c",
+    "0004_withdrawals.sql": "b77aefdd632b0b4666cd74c849916f9d368b1c6e35e6db7578279f555f3391b5",
+    "0005_reconciliation.sql": "4b62e25c24940ae59dd97d9b4d7fc9cc658c2c1f2819adafa5bbc8a16151a00e"
+  },
+  "ledger": [
+    {
+      "id": 1,
+      "hash": "0c0fdcef981c58169a092f68f77a36f741e599d6ebc84314ea2d5a6e792fa706",
+      "created_at": null,
+      "name": "0001_publications.sql",
+      "applied_at": "2026-10-18 03:12:43"
+    },
+    {
+      "id": 2,
+      "hash": "6e0289cb3a6ed6f9fff20a3a1365a496d18b1ee36f0efcd8f91efd655dc6c0f4",
+      "created_at": null,
+      "name": "0002_entries.sql",
+      "applied_at": "2026-10-18 03:12:43"
+    },
+    {
+      "id": 3,
+      "hash": "0a87d08c233fad167c67b35f1fa588c8eadeac67074fb7d2f6b3cd5a4daa8e6c",
+      "created_at": null,
+      "name": "0003_publication_events.sql",
+      "applied_at": "2026-10-18 03:12:43"
+    },
+    {
+      "id": 4,
+      "hash": "b77aefdd632b0b4666cd74c849916f9d368b1c6e35e6db7578279f555f3391b5",
+      "created_at": null,
+      "name": "0004_withdrawals.sql",
+      "applied_at": "2026-10-18 03:12:43"
+    },
+    {
+      "id": 5,
+      "hash": "4b62e25c24940ae59dd97d9b4d7fc9cc658c2c1f2819adafa5bbc8a16151a00e",
+      "created_at": null,
+      "name": "0005_reconciliation.sql",
+      "applied_at": "2026-10-18 03:12:43"
+    }
+  ],
+  "tables": [
+    {
+      "name": "__alchemy_migrations"
+    },
+    {
+      "name": "_cf_METADATA"
+    },
+    {
+      "name": "publication_events"
+    },
+    {
+      "name": "publications"
+    },
+    {
+      "name": "reconciliation"
+    },
+    {
+      "name": "refresh_attempts"
+    },
+    {
+      "name": "withdrawals"
+    }
+  ],
+  "publicationRows": [
+    {
+      "key": "chrome",
+      "state": "published",
+      "format": 1,
+      "body": "{\"menuItems\":[],\"siteIcon\":null,\"siteLogo\":null}",
+      "read_started_at": 1,
+      "promoted_at": 1,
+      "node_id": null,
+      "modified_at": null
+    },
+    {
+      "key": "chrome:en",
+      "state": "published",
+      "format": 1,
+      "body": "{\"menuItems\":[],\"siteIcon\":null,\"siteLogo\":null}",
+      "read_started_at": 1,
+      "promoted_at": 1,
+      "node_id": null,
+      "modified_at": null
+    },
+    {
+      "key": "design",
+      "state": "published",
+      "format": 1,
+      "body": "{\"spacingSizes\":[],\"colors\":[{\"slug\":\"brand\",\"color\":\"#0a0\"}]}",
+      "read_started_at": 1792293163940,
+      "promoted_at": 1792293163940,
+      "node_id": null,
+      "modified_at": null
+    },
+    {
+      "key": "entry:/entry/",
+      "state": "withdrawn",
+      "format": 1,
+      "body": null,
+      "read_started_at": 1792293163862,
+      "promoted_at": 1792293163862,
+      "node_id": "workerd-page-1",
+      "modified_at": null
+    },
+    {
+      "key": "home",
+      "state": "published",
+      "format": 1,
+      "body": "{\"settings\":{\"title\":\"P1 durable Site\",\"description\":\"Installed package\"},\"page\":{\"title\":\"Home\",\"content\":\"<h1>Survives Worker update</h1>\",\"hasVideoHero\":false},\"colors\":[],\"spacingSizes\":[]}",
+      "read_started_at": 1,
+      "promoted_at": 1,
+      "node_id": null,
+      "modified_at": null
+    },
+    {
+      "key": "home:en",
+      "state": "published",
+      "format": 1,
+      "body": "{\"settings\":{\"title\":\"English\",\"description\":\"Shared rows\"},\"page\":{\"title\":\"Home\",\"content\":\"<h1>English workerd home</h1>\",\"hasVideoHero\":false},\"spacingSizes\":[],\"colors\":[]}",
+      "read_started_at": 1792293163925,
+      "promoted_at": 1792293163925,
+      "node_id": "front-en",
+      "modified_at": null
+    }
+  ],
+  "delivery": {
+    "kind": "found",
+    "content": {
+      "home": {
+        "settings": {
+          "title": "P1 durable Site",
+          "description": "Installed package"
+        },
+        "page": {
+          "title": "Home",
+          "content": "<h1>Survives Worker update</h1>",
+          "hasVideoHero": false
+        },
+        "spacingSizes": [],
+        "colors": [
+          {
+            "slug": "brand",
+            "color": "#0a0"
+          }
+        ]
+      },
+      "chrome": {
+        "menuItems": [],
+        "siteIcon": null,
+        "siteLogo": null
+      },
+      "alternates": [
+        {
+          "language": {
+            "locale": "en_US",
+            "slug": "en",
+            "code": "EN",
+            "lang": "en-US",
+            "isDefault": false,
+            "home": "/en/"
+          },
+          "route": "/en/",
+          "translation": true
+        }
+      ]
+    }
+  }
+}
+P1 repeat lifecycle: database identity, five complete ledger identities, publication bytes and public delivery preserved; database noop, Worker updated.
+[Frontend] Events: workerd-publish-0001 is a duplicate of a refreshed event
+[Frontend] Refresh: the entry /entry/ isn't promoted: its entry is withdrawn
+[Frontend] Events: workerd-publish-0002 lifts the withdrawal workerd-withdraw-0001
+[Frontend] Refresh: the entry /entry/ promoted (published)
+[Frontend] Events: workerd-publish-0002 (publish /entry/) refreshed
+P6 #6 workerd: real HMAC verification, publication/withdrawal SQL, restart persistence, duplicate ordering, refresh protection and later republication passed.
+[Frontend] Refresh: the shared design presets promoted (published)
+[Frontend] Events: workerd-retry-0008 (settings design) refreshed
+[Frontend] Events: workerd-retry-0008 is a duplicate of a refreshed event
+P6 #8 workerd: failed signed event survives Worker update and retries same identity to public delivery; duplicate is durable.
+[04:12:44.453] INFO (#4): Plan: 2 to delete, 4 binding changes
+[04:12:44.453] INFO (#4): [Frontend] delete (local)
+[04:12:44.453] INFO (#4): [Frontend/FRONTEND_REFRESH_TOKEN] unbind
+[04:12:44.453] INFO (#4): [Frontend/PUBLICATION_DB] unbind
+[04:12:44.453] INFO (#4): [Frontend/PUBLICATION_EVENT_SECRET] unbind
+[04:12:44.453] INFO (#4): [Frontend/REVISION] unbind
+[04:12:44.453] INFO (#4): [Publications] delete (local)
+[04:12:44.453] INFO (#4): 
+[04:12:44.454] INFO (#559): [Frontend] deleting (local)
+[04:12:44.456] INFO (#559): [Frontend] deleted (local) (2ms)
+[04:12:44.456] INFO (#560): [Publications] deleting (local)
+[04:12:44.456] INFO (#560): [Publications] deleted (local) (0ms)
+[04:12:44.457] INFO (#4): 
+[04:12:44.457] INFO (#4): Done: 2 succeeded (4ms)
+
+---
+vp run: 0/2 cache hit (0%). (Run `vp run --last-details` for full details)

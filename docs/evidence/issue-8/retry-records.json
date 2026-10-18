@@ -1,0 +1,230 @@
+{
+  "configurationFailure": {
+    "event": {
+      "site": "Pair Site / \u00c1:06",
+      "id": "25f13112-e173-4196-99a0-070bb4dbfc90",
+      "action": "publish",
+      "occurredAt": 1792293399039,
+      "entry": {
+        "id": "cG9zdDo0MQ==",
+        "uri": "/retry-41/"
+      }
+    },
+    "delivery": {
+      "status": "failed",
+      "reason": "not-configured",
+      "message": "GETQUICK_FRONTEND_URL and a PUBLICATION_EVENT_SECRET of 32 characters or more are required.",
+      "attempts": 1,
+      "attemptedAt": 1792293399
+    }
+  },
+  "failedPublication": {
+    "event": {
+      "site": "Pair Site / \u00c1:06",
+      "id": "08d18d71-949b-44e1-ab34-907eab732a23",
+      "action": "publish",
+      "occurredAt": 1792293401286,
+      "entry": {
+        "id": "cG9zdDo0NQ==",
+        "uri": "/retry-45/"
+      }
+    },
+    "delivery": {
+      "status": "failed",
+      "reason": "refresh",
+      "httpStatus": 503,
+      "message": "network: WordPress couldn't be reached",
+      "attempts": 1,
+      "attemptedAt": 1792293401
+    }
+  },
+  "automaticRecovery": {
+    "event": {
+      "site": "Pair Site / \u00c1:06",
+      "id": "25f13112-e173-4196-99a0-070bb4dbfc90",
+      "action": "publish",
+      "occurredAt": 1792293399039,
+      "entry": {
+        "id": "cG9zdDo0MQ==",
+        "uri": "/retry-41/"
+      }
+    },
+    "delivery": {
+      "status": "refreshed",
+      "frontendStatus": "refreshed",
+      "attempts": 2,
+      "attemptedAt": 1792293399
+    }
+  },
+  "interruptedPending": {
+    "event": {
+      "site": "Pair Site / \u00c1:06",
+      "id": "4d9df727-e11d-4fc3-a7cb-22e2863cdfb8",
+      "action": "publish",
+      "occurredAt": 1792293416409,
+      "entry": {
+        "id": "cG9zdDo0NQ==",
+        "uri": "/retry-45/"
+      }
+    },
+    "delivery": {
+      "status": "pending",
+      "attempts": 0,
+      "queuedAt": 1792293416
+    }
+  },
+  "superseded": {
+    "event": {
+      "site": "Pair Site / \u00c1:06",
+      "id": "30b058e7-b38c-4f2a-aea9-28d69a5edcd4",
+      "action": "publish",
+      "occurredAt": 1792293417832,
+      "entry": {
+        "id": "cG9zdDo0NQ==",
+        "uri": "/retry-45/"
+      }
+    },
+    "delivery": {
+      "status": "failed",
+      "reason": "refresh",
+      "httpStatus": 503,
+      "message": "network: WordPress couldn't be reached",
+      "attempts": 1,
+      "attemptedAt": 1792293417
+    }
+  },
+  "newer": {
+    "event": {
+      "site": "Pair Site / \u00c1:06",
+      "id": "116c3c33-5550-44b7-94c4-09c414de1799",
+      "action": "publish",
+      "occurredAt": 1792293418308,
+      "entry": {
+        "id": "cG9zdDo0NQ==",
+        "uri": "/retry-45/"
+      }
+    },
+    "delivery": {
+      "status": "refreshed",
+      "frontendStatus": "refreshed",
+      "attempts": 1,
+      "attemptedAt": 1792293418
+    }
+  },
+  "failedSetting": {
+    "event": {
+      "site": "Pair Site / \u00c1:06",
+      "id": "4ca51c38-162c-4103-9636-0035430451ce",
+      "action": "settings",
+      "occurredAt": 1792293418993,
+      "setting": "identity"
+    },
+    "delivery": {
+      "status": "failed",
+      "reason": "refresh",
+      "httpStatus": 503,
+      "message": "network: WordPress couldn't be reached",
+      "attempts": 1,
+      "attemptedAt": 1792293419
+    }
+  },
+  "recoveredSetting": {
+    "event": {
+      "site": "Pair Site / \u00c1:06",
+      "id": "4ca51c38-162c-4103-9636-0035430451ce",
+      "action": "settings",
+      "occurredAt": 1792293418993,
+      "setting": "identity"
+    },
+    "delivery": {
+      "status": "refreshed",
+      "frontendStatus": "refreshed",
+      "attempts": 2,
+      "attemptedAt": 1792293419
+    }
+  },
+  "deletedWithdrawal": {
+    "event": {
+      "site": "Pair Site / \u00c1:06",
+      "id": "313331e6-ee53-4cf3-b0b1-575f5aa8c672",
+      "action": "withdraw",
+      "occurredAt": 1792293420334,
+      "entry": {
+        "id": "cG9zdDo0NQ==",
+        "uri": "/retry-45/"
+      }
+    },
+    "delivery": {
+      "status": "failed",
+      "reason": "rejected",
+      "httpStatus": 503,
+      "message": "Disposable transport outage",
+      "attempts": 1,
+      "attemptedAt": 1792293420
+    }
+  },
+  "budget": {
+    "elapsedSeconds": 46.264,
+    "sent": [
+      {
+        "subject": "proof:0",
+        "label": "Extension check",
+        "event": "extension-check-0",
+        "action": "check",
+        "status": "refreshed",
+        "reason": "",
+        "attempts": 1
+      },
+      {
+        "subject": "proof:1",
+        "label": "Extension check",
+        "event": "extension-check-1",
+        "action": "check",
+        "status": "refreshed",
+        "reason": "",
+        "attempts": 1
+      }
+    ],
+    "persistedCallbacks": [
+      {
+        "event": {
+          "site": "Pair Site / \u00c1:06",
+          "id": "extension-check-0",
+          "action": "check",
+          "occurredAt": 1700000000000
+        },
+        "delivery": {
+          "status": "refreshed",
+          "attempts": 1,
+          "attemptedAt": 1792293444,
+          "callbackOwned": true
+        }
+      },
+      {
+        "event": {
+          "site": "Pair Site / \u00c1:06",
+          "id": "extension-check-1",
+          "action": "check",
+          "occurredAt": 1700000000001
+        },
+        "delivery": {
+          "status": "refreshed",
+          "attempts": 1,
+          "attemptedAt": 1792293467,
+          "callbackOwned": true
+        }
+      }
+    ],
+    "scheduler": {
+      "ranAt": 1792303421,
+      "sent": 2,
+      "refreshed": 2,
+      "failed": 0,
+      "deferred": 1,
+      "reconciliation": null
+    },
+    "overlap": "Another run is sending events; nothing sent."
+  },
+  "freshRetrySignature": true,
+  "cron": "actual /bin/sh invocation of wp gq-events retry-due --quiet; no daemon"
+}

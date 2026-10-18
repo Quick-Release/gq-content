@@ -53,11 +53,11 @@ const event = (id, action, occurredAt) => ({
   occurredAt,
   entry: { id: "workerd-page-1", uri: "/entry/" },
 });
-const send = (url, event) =>
+const send = (url, event, offline = false) =>
   Effect.promise(async () => {
     const body = JSON.stringify(event),
       timestamp = String(Math.floor(Date.now() / 1000));
-    const response = await fetch(new URL("/gq/events", url), {
+    const response = await fetch(new URL(offline ? "/gq/events?cms-offline" : "/gq/events", url), {
       method: "POST",
       body,
       headers: {
@@ -69,7 +69,7 @@ const send = (url, event) =>
             .digest("hex"),
       },
     });
-    assert.equal(response.status, 200);
+    assert.equal(response.status, offline ? 503 : 200);
     assert.equal(response.headers.get("Cache-Control"), "no-store");
     return response.json();
   });
@@ -160,6 +160,16 @@ try {
         "<h1>English workerd home</h1>",
       );
       const englishBefore = yield* get(new URL("/en/", first.worker.url));
+      assert.deepEqual(englishBefore.content.home.colors, [{ slug: "brand", color: "#0a0" }]);
+      const retryEvent = {
+        site: "P1",
+        id: "workerd-retry-0008",
+        action: "settings",
+        setting: "design",
+        occurredAt: Date.now() - 100,
+      };
+      yield* send(first.worker.url, retryEvent, true);
+      assert.equal((yield* get(new URL("/entry/", first.worker.url))).kind, "missing");
       const protocolRows = yield* get(first.worker.url);
       const second = yield* stack.deploy(program("second"));
       assert.equal(second.db.databaseId, first.db.databaseId);
@@ -217,6 +227,15 @@ try {
       assert.equal((yield* get(new URL("/entry/", second.worker.url))).kind, "found");
       console.log(
         "P6 #6 workerd: real HMAC verification, publication/withdrawal SQL, restart persistence, duplicate ordering, refresh protection and later republication passed.",
+      );
+      assert.equal((yield* send(second.worker.url, retryEvent)).status, "refreshed");
+      assert.equal((yield* get(new URL("/entry/", second.worker.url))).kind, "found");
+      assert.deepEqual((yield* get(new URL("/en/", second.worker.url))).content.home.colors, [
+        { slug: "brand", color: "#00a" },
+      ]);
+      assert.equal((yield* send(second.worker.url, retryEvent)).duplicate, true);
+      console.log(
+        "P6 #8 workerd: failed signed event survives Worker update and retries same identity to public delivery; duplicate is durable.",
       );
       yield* stack.destroy();
     }),

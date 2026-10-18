@@ -1,0 +1,31 @@
+{
+  "note": "Local validation artifacts and public pinned downloads; not published release bytes or a release manifest. PHP ZIP and npm tarball consumed by the final installed retry pair.",
+  "base": "b931ee5f1c3a4b57ab3aaf2f79a287b793bf0dd0",
+  "artifacts": [
+    {
+      "path": ".artifacts/gq-content-0.1.0.zip",
+      "bytes": 30021,
+      "sha256": "0b4efa51940f474b5dcc8b4c403024352a3d543b44096f9142af41af8a861a8a"
+    },
+    {
+      "path": ".proofs/pair/getquick-content-0.1.0.tgz",
+      "bytes": 53651,
+      "sha256": "163fec70a2ba2d51b6b4df8d0e97ced15ef0789ad023c192f1570e75bcac0f50"
+    },
+    {
+      "path": ".proofs/p2/downloads/wp-cli.phar",
+      "bytes": 7142777,
+      "sha256": "ce34ddd838f7351d6759068d09793f26755463b4a4610a5a5c0a97b68220d85c"
+    },
+    {
+      "path": ".proofs/p2/downloads/sqlite-3.1.0.zip",
+      "bytes": 235122,
+      "sha256": "e260e3ada78676f1c0f4e09eb9ebcb9ecce4d4b85f0c6e5a70fb9a93f5b9847f"
+    },
+    {
+      "path": ".proofs/p2/downloads/polylang-3.8.11.zip",
+      "bytes": 721036,
+      "sha256": "9258e48296fa2b2d9bcb17df63b665779a73e4e57a8854a17c7f9039ed5c3297"
+    }
+  ]
+}

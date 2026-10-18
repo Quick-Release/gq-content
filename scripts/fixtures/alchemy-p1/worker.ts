@@ -4,7 +4,8 @@ import type { ContentBindings } from "@getquick/content";
 export default {
   async fetch(request: Request, env: ContentBindings & { REVISION: string }) {
     const db = env.PUBLICATION_DB!;
-    const path = new URL(request.url).pathname;
+    const url = new URL(request.url);
+    const path = url.pathname;
     // A test consumer's seed action, never a production package endpoint.
     if (path === "/" && request.method === "POST") {
       const home = {
@@ -35,6 +36,7 @@ export default {
       isServer: () => true,
       bindings: () => env,
       fetch: async (_url, init) => {
+        if (url.searchParams.has("cms-offline")) throw new Error("Disposable CMS outage");
         const body = JSON.parse(String(init?.body));
         if (body.query.includes("HomePage"))
           return Response.json({
@@ -53,7 +55,10 @@ export default {
         if (body.query.includes("DesignPresets"))
           return Response.json({
             data: {
-              designTokens: { colors: [{ slug: "brand", color: "#0a0" }], spacingSizes: [] },
+              designTokens: {
+                colors: [{ slug: "brand", color: env.REVISION === "second" ? "#00a" : "#0a0" }],
+                spacingSizes: [],
+              },
             },
           });
         if (!body.query.includes("EntryByUri")) throw new Error("Unexpected CMS read");

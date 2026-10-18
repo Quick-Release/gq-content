@@ -1,0 +1,951 @@
+{
+  "checkpoint": "eaec13488d57b3d04059309b5b36de5d016f3de1",
+  "note": "Per-source-assertion overlay; earlier inventories immutable. Runtime recovery is projected at public handlers and real installed CMS/CLI. Source SQL side-channel checks become durable public outcomes. Reconciliation #9 and broader real daemon #11 remain explicit.",
+  "files": [
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/retries.test.ts",
+      "sourceBlob": "2806b5fe7a0dff50ab52a18f7fbff208e412d0a4",
+      "assertions": [
+        {
+          "sourceLines": [202, 202],
+          "context": "shared helper",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: prepare public refresh helper",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [232, 232],
+          "context": "a publication whose refresh keeps failing is delivered by a later retry, hours on, without another publish",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: publication recovers hours later",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [233, 233],
+          "context": "a publication whose refresh keeps failing is delivered by a later retry, hours on, without another publish",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: publication recovers hours later",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [234, 234],
+          "context": "a publication whose refresh keeps failing is delivered by a later retry, hours on, without another publish",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: publication recovers hours later",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [235, 235],
+          "context": "a publication whose refresh keeps failing is delivered by a later retry, hours on, without another publish",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: publication recovers hours later",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [236, 236],
+          "context": "a publication whose refresh keeps failing is delivered by a later retry, hours on, without another publish",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: publication recovers hours later",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [237, 239],
+          "context": "a publication whose refresh keeps failing is delivered by a later retry, hours on, without another publish",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: publication recovers hours later",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [256, 256],
+          "context": "a settings change whose refresh failed is delivered to every page by a later retry",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: failed shared setting recovers",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [257, 257],
+          "context": "a settings change whose refresh failed is delivered to every page by a later retry",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: failed shared setting recovers",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [258, 258],
+          "context": "a settings change whose refresh failed is delivered to every page by a later retry",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: failed shared setting recovers",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [259, 259],
+          "context": "a settings change whose refresh failed is delivered to every page by a later retry",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: failed shared setting recovers",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [260, 262],
+          "context": "a settings change whose refresh failed is delivered to every page by a later retry",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: failed shared setting recovers",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [289, 289],
+          "context": "work interrupted before its outcome was recorded is completed by the CMS's retry after a Worker restart",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: failed outcome persistence is completed",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [290, 290],
+          "context": "work interrupted before its outcome was recorded is completed by the CMS's retry after a Worker restart",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: failed outcome persistence is completed",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [291, 291],
+          "context": "work interrupted before its outcome was recorded is completed by the CMS's retry after a Worker restart",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: failed outcome persistence is completed",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [292, 292],
+          "context": "work interrupted before its outcome was recorded is completed by the CMS's retry after a Worker restart",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: failed outcome persistence is completed",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [293, 295],
+          "context": "work interrupted before its outcome was recorded is completed by the CMS's retry after a Worker restart",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: failed outcome persistence is completed",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [314, 314],
+          "context": "a retry of an older event, delivered after a newer one, reads nothing and can't overwrite it",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: older retry after a newer publication",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [315, 315],
+          "context": "a retry of an older event, delivered after a newer one, reads nothing and can't overwrite it",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: older retry after a newer publication",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [316, 316],
+          "context": "a retry of an older event, delivered after a newer one, reads nothing and can't overwrite it",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: older retry after a newer publication",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [340, 340],
+          "context": "a retry's signature is checked like any event's: a resent copy of an old signature is refused",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: replayed old signature is refused",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        },
+        {
+          "sourceLines": [341, 341],
+          "context": "a retry's signature is checked like any event's: a resent copy of an old signature is refused",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent",
+          "status": "runtime projection #8",
+          "destination": "frontend/tests/retries.test.ts :: replayed old signature is refused",
+          "note": "Public Request/Response and delivery DTOs replace Astro rendering and internal SQL outcome inspection. Persistent duplicate/recovery/supersede results prove outcomes; Site document markup stays gq-site #77. Interrupted database outcome uses a real SQLite failing trigger, then reopen, without runtime mocks."
+        }
+      ]
+    },
+    {
+      "sourcePath": "scripts/smoke/frontend-runtime.sh",
+      "sourceBlob": "abb6933ec9f46220c2c0582b65bc8397fe4e66ec",
+      "assertions": []
+    },
+    {
+      "sourcePath": "scripts/smoke/frontend-runtime.mjs",
+      "sourceBlob": "3cfce6e0a0572479f281e63c425c38b146aa2f0b",
+      "assertions": [
+        {
+          "sourceLines": [104, 108],
+          "context": "the Frontend's migrations apply to the local D1 store",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [113, 113],
+          "context": "a never-refreshed homepage is a 503",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [115, 119],
+          "context": "a never-refreshed Site's entry is a 503",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [126, 130],
+          "context": "a refresh without the token is refused",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [131, 131],
+          "context": "and the homepage is still not served",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [134, 138],
+          "context": "gq frontend refresh stores the homepage",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [140, 144],
+          "context": "the homepage is served with its menu, logo and design presets",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [146, 152],
+          "context": "and so is the published entry",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [156, 160],
+          "context": "with the CMS down the homepage is still served",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [162, 166],
+          "context": "and so is the entry",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [168, 172],
+          "context": "an entry the store never held is a 503, not a 404",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [174, 178],
+          "context": "a refresh during the outage fails and keeps it",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [179, 179],
+          "context": "and the homepage is still served",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [187, 187],
+          "context": "the store's rows are aged by a year",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [190, 194],
+          "context": "after a Worker restart, with the CMS still down and its content a year old, it is still served",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [196, 200],
+          "context": "and so is the entry",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [208, 212],
+          "context": "after a rebuilt redeploy, with the CMS still down, it is still served",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [219, 223],
+          "context": "once the CMS is back, a refresh serves its changes",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [227, 231],
+          "context": "an entry the store never held is looked up while the CMS is healthy",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [233, 233],
+          "context": "a URL WordPress has nothing at is a 404",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [244, 248],
+          "context": "gq frontend refresh --uri serves a new publication through an outage",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [249, 256],
+          "context": "and a moved entry's old route redirects to its new one",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [265, 269],
+          "context": "gq frontend events check: the Worker accepts this Site's signed events",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [275, 279],
+          "context": "and refuses events signed with another key",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [311, 321],
+          "context": "another Site's, malformed, unsupported and stale events are refused, changing and reading nothing",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [336, 344],
+          "context": "a signed withdrawal, with the CMS down, makes the entry a 404 at once",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [346, 350],
+          "context": "and the other entries are still served",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [356, 360],
+          "context": "after a Worker restart it is still a 404, and a delayed older publication is superseded",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [366, 370],
+          "context": "a whole-Site refresh from a CMS that still returns it doesn't restore it",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [376, 383],
+          "context": "a later republication serves it again, through an outage",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [404, 414],
+          "context": "a signed reconcile event brings a lost publication, update, removal and menu change to visitors",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "deferred #9",
+          "destination": "gq-content #9",
+          "note": "Scheduler retry proofs explicitly disable reconciliation; unavailable implementation remains 503."
+        },
+        {
+          "sourceLines": [420, 426],
+          "context": "with the CMS down a reconciliation fails and keeps every page",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; installed real-runtime proof #11",
+          "status": "deferred #9",
+          "destination": "gq-content #9",
+          "note": "Scheduler retry proofs explicitly disable reconciliation; unavailable implementation remains 503."
+        },
+        {
+          "sourceLines": [446, 453],
+          "context": "60 lost publications are caught up over a few runs, each within 40 CMS requests",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        }
+      ]
+    },
+    {
+      "sourcePath": "scripts/smoke/frontend-runtime-lib.mjs",
+      "sourceBlob": "504f7c54563b36578525b5c4f2a9e99d90a01f4a",
+      "assertions": []
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-events.sh",
+      "sourceBlob": "51a28d41094e2fd02d4e677f25d337e069b685d7",
+      "assertions": []
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-events.mjs",
+      "sourceBlob": "70687d07e44f3d1738133f58918ffe53258dbe2c",
+      "assertions": [
+        {
+          "sourceLines": [264, 270],
+          "context": "gq site check: WordPress running but not installed is not ready, and its installer is named",
+          "home": "gq-site#77 readiness orchestration/provisioning; retain runtime response obligation in #9/#11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [285, 290],
+          "context": "gq site check: WordPress installed without WPGraphQL active is not ready",
+          "home": "gq-site#77 readiness orchestration/provisioning; retain runtime response obligation in #9/#11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [307, 315],
+          "context": "gq site check: real WPGraphQL without the GETQUICK plugins is not ready, naming what adds the missing fields",
+          "home": "gq-site#77 readiness orchestration/provisioning; retain runtime response obligation in #9/#11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [316, 320],
+          "context": "and every other field the Frontend reads is valid on real WPGraphQL",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [332, 336],
+          "context": "the Frontend's migrations apply to the local D1 store",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [347, 356],
+          "context": "gq site check: the Worker answering, with its secrets bound, is not ready before a refresh prepares it",
+          "home": "gq-site#77 readiness orchestration/provisioning; retain runtime response obligation in #9/#11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [360, 360],
+          "context": "the Site is prepared",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [363, 370],
+          "context": "gq site check: prepared but never reconciled by the CMS's scheduler is still not ready",
+          "home": "gq-site#77 readiness orchestration/provisioning; retain runtime response obligation in #9/#11",
+          "status": "deferred #9",
+          "destination": "gq-content #9",
+          "note": "Scheduler retry proofs explicitly disable reconciliation; unavailable implementation remains 503."
+        },
+        {
+          "sourceLines": [373, 377],
+          "context": "wp gq-events check: the Frontend accepts the CMS's signed events",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [392, 392],
+          "context": "saving a draft sends no event",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [399, 407],
+          "context": "publishing the page sends a signed event, and the Frontend serves it through a CMS outage",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [414, 418],
+          "context": "an update reaches visitors without a deploy",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [426, 432],
+          "context": "a rename sends the route it left, which then redirects",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [443, 452],
+          "context": "a menu shown nowhere sends nothing; assigning it to the primary location sends a settings event, and every page shows it through an outage",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [460, 466],
+          "context": "editing the primary menu sends a new event, and every page shows it",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [474, 479],
+          "context": "changing the site logo sends a settings event, and every page shows it",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [489, 497],
+          "context": "changing the tagline and the site icon sends identity events: the homepage shows the tagline, every page the icon",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [517, 526],
+          "context": "saving the palette through the global-styles REST route sends a design event, and every page uses it",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [533, 543],
+          "context": "a settings refresh that fails on the Frontend is recorded, listed, and every page keeps its menu",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [551, 559],
+          "context": "wp gq-events settings retry delivers the same event once the CMS is back",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "installed runtime projection #8",
+          "destination": "scripts/retry-proof.py; cms/tests/retry-extension.php; scripts/pair-proof.py; frontend/tests/retries.test.ts",
+          "note": "Actual installed WordPress APIs/CLI/signatures, persisted records and installed package public delivery. Callback HTTP work, concurrent CLI processes and wall-clock budget replace mocked arithmetic. Secret-safe editor REST/CLI/Site Health asserted. HTML presentation stays Blueprint-owned."
+        },
+        {
+          "sourceLines": [569, 573],
+          "context": "with the Frontend down, publishing still succeeds, within the event's time bound",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [574, 580],
+          "context": "and the entry records the failed delivery for a retry",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; installed real-runtime proof #11",
+          "status": "installed runtime projection #8",
+          "destination": "scripts/retry-proof.py; cms/tests/retry-extension.php; scripts/pair-proof.py; frontend/tests/retries.test.ts",
+          "note": "Actual installed WordPress APIs/CLI/signatures, persisted records and installed package public delivery. Callback HTTP work, concurrent CLI processes and wall-clock budget replace mocked arithmetic. Secret-safe editor REST/CLI/Site Health asserted. HTML presentation stays Blueprint-owned."
+        },
+        {
+          "sourceLines": [582, 588],
+          "context": "wp gq-events status lists it",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [592, 596],
+          "context": "meanwhile visitors get the last good publication",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [600, 608],
+          "context": "wp gq-events retry delivers the same event once the Frontend is back",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "installed runtime projection #8",
+          "destination": "scripts/retry-proof.py; cms/tests/retry-extension.php; scripts/pair-proof.py; frontend/tests/retries.test.ts",
+          "note": "Actual installed WordPress APIs/CLI/signatures, persisted records and installed package public delivery. Callback HTTP work, concurrent CLI processes and wall-clock budget replace mocked arithmetic. Secret-safe editor REST/CLI/Site Health asserted. HTML presentation stays Blueprint-owned."
+        },
+        {
+          "sourceLines": [614, 622],
+          "context": "a refresh that fails on the Frontend is recorded, and the stored version stays served",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [633, 641],
+          "context": "an event signed with another key is rejected and changes nothing",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [649, 654],
+          "context": "in production without the key, publishing succeeds and records why nothing was sent",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [680, 687],
+          "context": "the retry scheduler delivers a publication recorded before the CMS was configured, once it is",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "installed runtime projection #8",
+          "destination": "scripts/retry-proof.py; cms/tests/retry-extension.php; scripts/pair-proof.py; frontend/tests/retries.test.ts",
+          "note": "Actual installed WordPress APIs/CLI/signatures, persisted records and installed package public delivery. Callback HTTP work, concurrent CLI processes and wall-clock budget replace mocked arithmetic. Secret-safe editor REST/CLI/Site Health asserted. HTML presentation stays Blueprint-owned."
+        },
+        {
+          "sourceLines": [705, 708],
+          "context": "a new page is delivered at once",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "installed runtime projection #8",
+          "destination": "scripts/retry-proof.py; cms/tests/retry-extension.php; scripts/pair-proof.py; frontend/tests/retries.test.ts",
+          "note": "Actual installed WordPress APIs/CLI/signatures, persisted records and installed package public delivery. Callback HTTP work, concurrent CLI processes and wall-clock budget replace mocked arithmetic. Secret-safe editor REST/CLI/Site Health asserted. HTML presentation stays Blueprint-owned."
+        },
+        {
+          "sourceLines": [715, 728],
+          "context": "a publication the Frontend didn't receive is reported to its editor and listed as retrying",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; installed real-runtime proof #11",
+          "status": "installed runtime projection #8",
+          "destination": "scripts/retry-proof.py; cms/tests/retry-extension.php; scripts/pair-proof.py; frontend/tests/retries.test.ts",
+          "note": "Actual installed WordPress APIs/CLI/signatures, persisted records and installed package public delivery. Callback HTTP work, concurrent CLI processes and wall-clock budget replace mocked arithmetic. Secret-safe editor REST/CLI/Site Health asserted. HTML presentation stays Blueprint-owned."
+        },
+        {
+          "sourceLines": [734, 741],
+          "context": "before its delay has passed, the scheduler leaves it, and visitors keep the last good version",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "installed runtime projection #8",
+          "destination": "scripts/retry-proof.py; cms/tests/retry-extension.php; scripts/pair-proof.py; frontend/tests/retries.test.ts",
+          "note": "Actual installed WordPress APIs/CLI/signatures, persisted records and installed package public delivery. Callback HTTP work, concurrent CLI processes and wall-clock budget replace mocked arithmetic. Secret-safe editor REST/CLI/Site Health asserted. HTML presentation stays Blueprint-owned."
+        },
+        {
+          "sourceLines": [748, 758],
+          "context": "once it is due, the scheduler delivers the same event, without republishing or visits, and the editor sees it recovered",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "installed runtime projection #8",
+          "destination": "scripts/retry-proof.py; cms/tests/retry-extension.php; scripts/pair-proof.py; frontend/tests/retries.test.ts",
+          "note": "Actual installed WordPress APIs/CLI/signatures, persisted records and installed package public delivery. Callback HTTP work, concurrent CLI processes and wall-clock budget replace mocked arithmetic. Secret-safe editor REST/CLI/Site Health asserted. HTML presentation stays Blueprint-owned."
+        },
+        {
+          "sourceLines": [769, 776],
+          "context": "a refresh failure records the Frontend's reason, without any secret",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "installed runtime projection #8",
+          "destination": "scripts/retry-proof.py; cms/tests/retry-extension.php; scripts/pair-proof.py; frontend/tests/retries.test.ts",
+          "note": "Actual installed WordPress APIs/CLI/signatures, persisted records and installed package public delivery. Callback HTTP work, concurrent CLI processes and wall-clock budget replace mocked arithmetic. Secret-safe editor REST/CLI/Site Health asserted. HTML presentation stays Blueprint-owned."
+        },
+        {
+          "sourceLines": [784, 793],
+          "context": "while the CMS can't be read, retries fail with a growing delay, and every page keeps its last good version",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "installed runtime projection #8",
+          "destination": "scripts/retry-proof.py; cms/tests/retry-extension.php; scripts/pair-proof.py; frontend/tests/retries.test.ts",
+          "note": "Actual installed WordPress APIs/CLI/signatures, persisted records and installed package public delivery. Callback HTTP work, concurrent CLI processes and wall-clock budget replace mocked arithmetic. Secret-safe editor REST/CLI/Site Health asserted. HTML presentation stays Blueprint-owned."
+        },
+        {
+          "sourceLines": [801, 810],
+          "context": "once the CMS is back, the next due run delivers both, through a later outage",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "installed runtime projection #8",
+          "destination": "scripts/retry-proof.py; cms/tests/retry-extension.php; scripts/pair-proof.py; frontend/tests/retries.test.ts",
+          "note": "Actual installed WordPress APIs/CLI/signatures, persisted records and installed package public delivery. Callback HTTP work, concurrent CLI processes and wall-clock budget replace mocked arithmetic. Secret-safe editor REST/CLI/Site Health asserted. HTML presentation stays Blueprint-owned."
+        },
+        {
+          "sourceLines": [829, 836],
+          "context": "a pending event is left to its own request for a while, then sent by the scheduler if that request was interrupted",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "installed runtime projection #8",
+          "destination": "scripts/retry-proof.py; cms/tests/retry-extension.php; scripts/pair-proof.py; frontend/tests/retries.test.ts",
+          "note": "Actual installed WordPress APIs/CLI/signatures, persisted records and installed package public delivery. Callback HTTP work, concurrent CLI processes and wall-clock budget replace mocked arithmetic. Secret-safe editor REST/CLI/Site Health asserted. HTML presentation stays Blueprint-owned."
+        },
+        {
+          "sourceLines": [854, 865],
+          "context": "after its last attempt, a delivery isn't retried again; it is reported as failed to the editor, by delays and in Site Health",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "installed runtime projection #8",
+          "destination": "scripts/retry-proof.py; cms/tests/retry-extension.php; scripts/pair-proof.py; frontend/tests/retries.test.ts",
+          "note": "Actual installed WordPress APIs/CLI/signatures, persisted records and installed package public delivery. Callback HTTP work, concurrent CLI processes and wall-clock budget replace mocked arithmetic. Secret-safe editor REST/CLI/Site Health asserted. HTML presentation stays Blueprint-owned."
+        },
+        {
+          "sourceLines": [867, 871],
+          "context": "an operator's retry delivers it",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; installed real-runtime proof #11",
+          "status": "installed runtime projection #8",
+          "destination": "scripts/retry-proof.py; cms/tests/retry-extension.php; scripts/pair-proof.py; frontend/tests/retries.test.ts",
+          "note": "Actual installed WordPress APIs/CLI/signatures, persisted records and installed package public delivery. Callback HTTP work, concurrent CLI processes and wall-clock budget replace mocked arithmetic. Secret-safe editor REST/CLI/Site Health asserted. HTML presentation stays Blueprint-owned."
+        },
+        {
+          "sourceLines": [882, 886],
+          "context": "a run while another holds the lock sends nothing",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "installed runtime projection #8",
+          "destination": "scripts/retry-proof.py; cms/tests/retry-extension.php; scripts/pair-proof.py; frontend/tests/retries.test.ts",
+          "note": "Actual installed WordPress APIs/CLI/signatures, persisted records and installed package public delivery. Callback HTTP work, concurrent CLI processes and wall-clock budget replace mocked arithmetic. Secret-safe editor REST/CLI/Site Health asserted. HTML presentation stays Blueprint-owned."
+        },
+        {
+          "sourceLines": [889, 893],
+          "context": "wp gq-events delays shows when the scheduler last ran",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; installed real-runtime proof #11",
+          "status": "installed runtime projection #8",
+          "destination": "scripts/retry-proof.py; cms/tests/retry-extension.php; scripts/pair-proof.py; frontend/tests/retries.test.ts",
+          "note": "Actual installed WordPress APIs/CLI/signatures, persisted records and installed package public delivery. Callback HTTP work, concurrent CLI processes and wall-clock budget replace mocked arithmetic. Secret-safe editor REST/CLI/Site Health asserted. HTML presentation stays Blueprint-owned."
+        },
+        {
+          "sourceLines": [900, 903],
+          "context": "the entry is served before it is withdrawn",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [910, 920],
+          "context": "unpublishing sends a withdrawal, and the entry is a 404 at once and through a CMS outage",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [925, 929],
+          "context": "republishing serves it again",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [934, 938],
+          "context": "password-protecting it withdraws it",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [940, 940],
+          "context": "removing the password publishes it again",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [945, 952],
+          "context": "trashing it sends a withdrawal at the URI it had, and it is a 404",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [980, 980],
+          "context": "a second page is published",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [983, 987],
+          "context": "deleting a published page outright withdraws it, and leaves no record once refreshed",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [994, 1002],
+          "context": "with the Frontend down, deleting succeeds and keeps the failed withdrawal for a retry",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; installed real-runtime proof #11",
+          "status": "installed runtime projection #8",
+          "destination": "scripts/retry-proof.py; cms/tests/retry-extension.php; scripts/pair-proof.py; frontend/tests/retries.test.ts",
+          "note": "Actual installed WordPress APIs/CLI/signatures, persisted records and installed package public delivery. Callback HTTP work, concurrent CLI processes and wall-clock budget replace mocked arithmetic. Secret-safe editor REST/CLI/Site Health asserted. HTML presentation stays Blueprint-owned."
+        },
+        {
+          "sourceLines": [1007, 1014],
+          "context": "wp gq-events retry delivers it once the Frontend is back, and the page is a 404",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; installed real-runtime proof #11",
+          "status": "installed runtime projection #8",
+          "destination": "scripts/retry-proof.py; cms/tests/retry-extension.php; scripts/pair-proof.py; frontend/tests/retries.test.ts",
+          "note": "Actual installed WordPress APIs/CLI/signatures, persisted records and installed package public delivery. Callback HTTP work, concurrent CLI processes and wall-clock budget replace mocked arithmetic. Secret-safe editor REST/CLI/Site Health asserted. HTML presentation stays Blueprint-owned."
+        },
+        {
+          "sourceLines": [1029, 1044],
+          "context": "the scheduler delivers a withdrawal the Frontend missed, and the page is a 404",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; installed real-runtime proof #11",
+          "status": "installed runtime projection #8",
+          "destination": "scripts/retry-proof.py; cms/tests/retry-extension.php; scripts/pair-proof.py; frontend/tests/retries.test.ts",
+          "note": "Actual installed WordPress APIs/CLI/signatures, persisted records and installed package public delivery. Callback HTTP work, concurrent CLI processes and wall-clock budget replace mocked arithmetic. Secret-safe editor REST/CLI/Site Health asserted. HTML presentation stays Blueprint-owned."
+        },
+        {
+          "sourceLines": [1075, 1075],
+          "context": "a page to unpublish quietly is served",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-5/assertion-allocation.json; docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json",
+          "note": "No broader completion claim in this overlay."
+        },
+        {
+          "sourceLines": [1090, 1103],
+          "context": "changes no event was recorded for reach visitors at the scheduler's next run, which reconciles",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "deferred #9",
+          "destination": "gq-content #9",
+          "note": "Scheduler retry proofs explicitly disable reconciliation; unavailable implementation remains 503."
+        },
+        {
+          "sourceLines": [1106, 1111],
+          "context": "gq site check: once the scheduler has reconciled, the Frontend and its delivery are ready, through the CMS outage",
+          "home": "gq-site#77 readiness orchestration/provisioning; retain runtime response obligation in #9/#11",
+          "status": "deferred #9",
+          "destination": "gq-content #9",
+          "note": "Scheduler retry proofs explicitly disable reconciliation; unavailable implementation remains 503."
+        },
+        {
+          "sourceLines": [1128, 1143],
+          "context": "with the CMS unreadable a reconciliation fails without changing a page, and is reported once stale",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "deferred #9",
+          "destination": "gq-content #9",
+          "note": "Scheduler retry proofs explicitly disable reconciliation; unavailable implementation remains 503."
+        },
+        {
+          "sourceLines": [1147, 1151],
+          "context": "wp gq-events reconcile reconciles at once once the CMS is back",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; installed real-runtime proof #11",
+          "status": "deferred #9",
+          "destination": "gq-content #9",
+          "note": "Scheduler retry proofs explicitly disable reconciliation; unavailable implementation remains 503."
+        },
+        {
+          "sourceLines": [1210, 1210],
+          "context": "the cron container starts",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; installed real-runtime proof #11",
+          "status": "cron invocation projected #8; daemon/provisioning deferred",
+          "destination": "scripts/retry-proof.py :: cron; gq-content #11 daemon proof; gq-site #77 crontab provisioning",
+          "note": "Actual shell command wp gq-events retry-due --quiet with disposable minimal environment and real installed WP-CLI; no WP-Cron scheduling. No cron daemon/container, Ploi crontab generation or lost-event reconciliation claim."
+        },
+        {
+          "sourceLines": [1231, 1242],
+          "context": "a real cron running the crontab gq ploi events installs delivers a missed publication, without visits or a retry by hand",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "cron invocation projected #8; daemon/provisioning deferred",
+          "destination": "scripts/retry-proof.py :: cron; gq-content #11 daemon proof; gq-site #77 crontab provisioning",
+          "note": "Actual shell command wp gq-events retry-due --quiet with disposable minimal environment and real installed WP-CLI; no WP-Cron scheduling. No cron daemon/container, Ploi crontab generation or lost-event reconciliation claim."
+        }
+      ]
+    }
+  ]
+}

@@ -34,9 +34,14 @@ export default defineConfig({
         dependsOn: ["cms", "compile"],
         cache: false,
       },
+      retry: {
+        command: "python3 scripts/pair-proof.py --retries",
+        dependsOn: ["pair"],
+        cache: false,
+      },
       multilingual: {
         command: "python3 scripts/multilingual-proof.py",
-        dependsOn: ["pair"],
+        dependsOn: ["retry"],
         cache: false,
       },
       compile: { command: "vp pack", cache: false },

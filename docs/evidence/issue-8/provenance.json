@@ -1,0 +1,85 @@
+{
+  "checkpoint": "eaec13488d57b3d04059309b5b36de5d016f3de1",
+  "observedUpstream": "497a3ae11b5d15df3619f71ff24f095d9b5e8cbe",
+  "base": "b931ee5f1c3a4b57ab3aaf2f79a287b793bf0dd0",
+  "note": "Explicit upstream delta review: only the previously reviewed CI/Composer, fixture and release/development documentation paths changed. All relevant retry paths unchanged. Source remains the accepted checkpoint; no source repository writes or new runtime extraction.",
+  "upstreamChangedPaths": [
+    ".github/workflows/ci.yml",
+    "CHANGELOG.md",
+    "blueprint/templates/infra/ci/Dockerfile",
+    "docs/development.md",
+    "docs/guides/dependency-patches.md",
+    "package.json",
+    "scripts/smoke/ci-composer.mjs",
+    "scripts/smoke/ci-composer.sh",
+    "test/fixtures/README.md",
+    "test/fixtures/content-site/infra/ci/Dockerfile"
+  ],
+  "files": [
+    {
+      "sourcePath": "blueprint/templates/apps/cms/web/app/mu-plugins/delivery-retries.php",
+      "sourceBlob": "5486b5559b0119de587d9241f2c2f36ec216a83a",
+      "sha256": "9299d777e81191abb191459155760ef6876ba8a7a7eb1df770f733a07042214f"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/cms/web/app/mu-plugins/publication-events.php",
+      "sourceBlob": "2757630775b673a5aa1330bb5799478168086e77",
+      "sha256": "80fd0875541192fe8d696ec0fc7af849db225c6772e68126f69e8f04440ee892"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/cms/web/app/mu-plugins/settings-events.php",
+      "sourceBlob": "a0ac20a1577fd3636dad934e9d678745227df5f3",
+      "sha256": "83e8cd66ff7b9812920d38ec0ede21fb96c6691fb6ab531b86df788124abf5d1"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/retries.test.ts",
+      "sourceBlob": "2806b5fe7a0dff50ab52a18f7fbff208e412d0a4",
+      "sha256": "95c001f0d444b3203a7a8961b2e4a8dccd37ecd584d03e2c625d73ef3b1b2c1e"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/events.ts",
+      "sourceBlob": "9479d9a85c58cc88aae1d75923048530a3801759",
+      "sha256": "ba3ff815cd45d1cf475a5191217bb838d706ad97c9d6642161eb7503feafa4fd"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/delivery.ts",
+      "sourceBlob": "52008447469c4be16ad84b348c4d5548edcc2c6c",
+      "sha256": "d68d04c261ad55a6bf1ea152e7b35364195c0c92b6f3fea3b7f229b6313f9e52"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/publications.ts",
+      "sourceBlob": "08d6889a95daa5f5b27822fd3dad673584da728f",
+      "sha256": "e14ddc183b0e4416669e61f64ad0b9e79cee820291d9487dbb8119c6b7418824"
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-events.mjs",
+      "sourceBlob": "70687d07e44f3d1738133f58918ffe53258dbe2c",
+      "sha256": "26ece12f6b9a707f7679f3e3f305467f4597f877bc56058c3c04ff3143b2bd2c"
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-events.sh",
+      "sourceBlob": "51a28d41094e2fd02d4e677f25d337e069b685d7",
+      "sha256": "35fc6c8d9d4ddd1e030a80f755f43b8afb8a430b6bbe48dd574b432a12cb017e"
+    },
+    {
+      "sourcePath": "scripts/smoke/frontend-runtime.mjs",
+      "sourceBlob": "3cfce6e0a0572479f281e63c425c38b146aa2f0b",
+      "sha256": "775c8f0e475abff589507ce87ebd45dcb52031ef078f5d407e87e9ff35c47593"
+    },
+    {
+      "sourcePath": "scripts/smoke/frontend-runtime.sh",
+      "sourceBlob": "abb6933ec9f46220c2c0582b65bc8397fe4e66ec",
+      "sha256": "62e847d22b62b73dd818dc2311376cc511a98107b962d446ae6ef057b8742a86"
+    },
+    {
+      "sourcePath": "scripts/smoke/frontend-runtime-lib.mjs",
+      "sourceBlob": "504f7c54563b36578525b5c4f2a9e99d90a01f4a",
+      "sha256": "face238abaabfbd1da95e2caa7ecfad7c05e2d621eef39c4af0d699bd78fbdc4"
+    },
+    {
+      "sourcePath": "docs/adr/0008-retry-event-delivery-from-the-cms-on-a-server-cron.md",
+      "sourceBlob": "7b05b6aacc615266b7ca9837008a0ecea1566ce5",
+      "sha256": "409c18efa6749cd1f6524333c2a5fa900d52edb48b1a4207300ce60d4a5da197"
+    }
+  ]
+}
