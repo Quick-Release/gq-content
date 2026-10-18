@@ -98,12 +98,15 @@ export default {
       .prepare("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name")
       .all();
     const rows = await db.prepare("SELECT * FROM publications ORDER BY key").all();
+    // Test-consumer diagnostics only; never a production package endpoint.
+    const events = await db.prepare("SELECT * FROM publication_events ORDER BY id").all();
     return Response.json({
       revision: env.REVISION,
       delivery: await runtime.publishedHome(),
       ledger: ledger.results,
       tables: tables.results,
       rows: rows.results,
+      events: events.results,
     });
   },
 };

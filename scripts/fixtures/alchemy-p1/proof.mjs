@@ -171,6 +171,10 @@ try {
       yield* send(first.worker.url, retryEvent, true);
       assert.equal((yield* get(new URL("/entry/", first.worker.url))).kind, "missing");
       const protocolRows = yield* get(first.worker.url);
+      const failedRetryRecord = protocolRows.events.find((row) => row.id === retryEvent.id);
+      assert.ok(failedRetryRecord);
+      assert.equal(failedRetryRecord.status, "failed");
+      assert.equal(failedRetryRecord.attempts, 1);
       const second = yield* stack.deploy(program("second"));
       assert.equal(second.db.databaseId, first.db.databaseId);
       assert.deepEqual(second.db.migrationsHashes, hashes);
@@ -178,6 +182,11 @@ try {
       assert.equal(secondRead.revision, "second");
       assert.deepEqual(secondRead.ledger, firstRead.ledger);
       assert.deepEqual(secondRead.rows, protocolRows.rows);
+      assert.deepEqual(
+        secondRead.events.find((row) => row.id === retryEvent.id),
+        failedRetryRecord,
+        "the complete failed event record must survive Worker update before any retry",
+      );
       assert.deepEqual(secondRead.delivery, protocolRows.delivery);
       assert.deepEqual(yield* get(new URL("/en/", second.worker.url)), englishBefore);
       assert.equal((yield* send(second.worker.url, settingsEvent)).duplicate, true);
@@ -229,11 +238,35 @@ try {
         "P6 #6 workerd: real HMAC verification, publication/withdrawal SQL, restart persistence, duplicate ordering, refresh protection and later republication passed.",
       );
       assert.equal((yield* send(second.worker.url, retryEvent)).status, "refreshed");
+      const recoveredRetryRecord = (yield* get(second.worker.url)).events.find(
+        (row) => row.id === retryEvent.id,
+      );
+      assert.ok(recoveredRetryRecord);
+      assert.equal(recoveredRetryRecord.status, "refreshed");
+      assert.equal(recoveredRetryRecord.attempts, failedRetryRecord.attempts + 1);
+      assert.equal(recoveredRetryRecord.reason, null);
+      assert.equal(recoveredRetryRecord.message, null);
+      for (const key of [
+        "id",
+        "action",
+        "node_id",
+        "uri",
+        "previous_uri",
+        "occurred_at",
+        "received_at",
+      ])
+        assert.equal(recoveredRetryRecord[key], failedRetryRecord[key]);
       assert.equal((yield* get(new URL("/entry/", second.worker.url))).kind, "found");
       assert.deepEqual((yield* get(new URL("/en/", second.worker.url))).content.home.colors, [
         { slug: "brand", color: "#00a" },
       ]);
       assert.equal((yield* send(second.worker.url, retryEvent)).duplicate, true);
+      assert.deepEqual(
+        (yield* get(second.worker.url)).events.find((row) => row.id === retryEvent.id),
+        recoveredRetryRecord,
+        "a duplicate must not advance the recovered event record",
+      );
+      console.log(JSON.stringify({ failedRetryRecord, recoveredRetryRecord }, null, 2));
       console.log(
         "P6 #8 workerd: failed signed event survives Worker update and retries same identity to public delivery; duplicate is durable.",
       );

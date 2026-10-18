@@ -5,6 +5,20 @@ Base: `b931ee5f1c3a4b57ab3aaf2f79a287b793bf0dd0`, on main, 2026-10-18.
 The parent owns independent Standards/Spec review and eventual push/release.
 No issue edits/closure, push, publication, live Site changes or delegated review.
 
+## Independent review correction
+
+Standards review found no issues. Spec review found that the initial Worker-update
+proof could also pass if its failed event record disappeared before retry. The
+proof now captures the complete failed row, checks it is identical after the
+Worker update before any retry, then verifies recovery retains its identity and
+receipt timestamp while advancing attempts from one to two and clearing failure
+details. A duplicate must leave that recovered row unchanged. Raw-row inspection
+is confined to this disposable migration/persistence consumer; no production
+endpoint or public export was added. The new assertions failed before the
+consumer exposed diagnostic event rows, then passed through the actual Alchemy
+lifecycle. See [review-validation.log](review-validation.log) for the corrected
+proof and [review-red.log](review-red.log) for its initial failure.
+
 ## Contract and provenance
 
 Read #8 and parent #1 bodies/comments using `gh --repo Quick-Release/gq-content`

@@ -1,0 +1,129 @@
+$ vp pack ⊘ cache disabled
+ℹ entry: frontend/src/index.ts, frontend/src/server.ts, frontend/src/migrations.ts
+ℹ target: es2022
+ℹ tsconfig: tsconfig.json
+ℹ Build start
+ℹ Cleaning 8 files
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- zod
+ℹ frontend/dist/server.js                186.09 kB │ gzip: 38.63 kB
+ℹ frontend/dist/index.js                   1.62 kB │ gzip:  0.72 kB
+ℹ frontend/dist/migrations.js              0.28 kB │ gzip:  0.21 kB
+ℹ frontend/dist/formatting-wOk2jz6J.js    12.60 kB │ gzip:  4.60 kB
+ℹ frontend/dist/index.d.ts                 4.14 kB │ gzip:  1.58 kB
+ℹ frontend/dist/server.d.ts                0.26 kB │ gzip:  0.16 kB
+ℹ frontend/dist/migrations.d.ts            0.17 kB │ gzip:  0.15 kB
+ℹ frontend/dist/wordpress-Bq1Hr1pV.d.ts   10.49 kB │ gzip:  3.40 kB
+ℹ 8 files, total: 215.65 kB
+✔ Build complete in 716ms
+
+$ node scripts/alchemy-consumer.mjs ⊘ cache disabled
+package: @getquick/content@0.1.0
+Tarball Contents
+dist/formatting-wOk2jz6J.js
+dist/index.d.ts
+dist/index.js
+dist/migrations.d.ts
+dist/migrations.js
+dist/server.d.ts
+dist/server.js
+dist/wordpress-Bq1Hr1pV.d.ts
+migrations/0001_publications.sql
+migrations/0002_entries.sql
+migrations/0003_publication_events.sql
+migrations/0004_withdrawals.sql
+migrations/0005_reconciliation.sql
+package.json
+README.md
+Tarball Details
+/data/code/getquick/gq-content/.proofs/alchemy-p1-1eNAVz/getquick-content-0.1.0.tgz
+[WARN] The store at /home/valerio/.local/share/pnpm/store/v11 is not used because packages cannot be hard linked from it into this project. Using the store at /data/.pnpm-store/v11 instead. Set storeDir to choose the store.
+✓ Lockfile passes supply-chain policies (verified 36m ago)
+Lockfile is up to date, resolution step is skipped
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /data/.pnpm-store/v11
+  Virtual store is at:             node_modules/.pnpm
+Packages: +223
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 223, reused 223, downloaded 0, added 223, done
+
+dependencies:
++ @effect/platform-node 4.0.0-rc.115
++ @getquick/content 0.1.0
++ alchemy 2.0.0-beta.79
++ effect 4.0.0-rc.115
+
+Done in 455ms using pnpm v12.11.2
+[04:23:04.643] INFO (#4): Plan: no resources
+[04:23:04.644] INFO (#4): 
+[04:23:04.646] INFO (#4): 
+[04:23:04.646] INFO (#4): Done: 0 succeeded (2ms)
+[04:23:04.698] INFO (#4): Plan: 2 to create, 4 binding changes
+[04:23:04.698] INFO (#4): [Frontend] create (local)
+[04:23:04.698] INFO (#4): [Frontend/FRONTEND_REFRESH_TOKEN] create
+[04:23:04.698] INFO (#4): [Frontend/PUBLICATION_DB] create
+[04:23:04.698] INFO (#4): [Frontend/PUBLICATION_EVENT_SECRET] create
+[04:23:04.698] INFO (#4): [Frontend/REVISION] create
+[04:23:04.699] INFO (#4): [Publications] create (local)
+[04:23:04.699] INFO (#4): 
+[04:23:04.702] INFO (#156): [Publications] creating (local)
+[04:23:04.703] INFO (#157): [Frontend] pre-creating (local)
+[04:23:04.832] INFO (#157): [Frontend] creating (local)
+[04:23:04.834] INFO (#156): [Publications] created (local) (132ms)
+[04:23:04.853] INFO (#157): [Frontend] ready at http://localhost:1337
+[04:23:04.853] INFO (#157): [Frontend] created (local) (150ms)
+[04:23:04.874] INFO (#232): [Publications] created (local) (172ms)
+[04:23:04.874] INFO (#233): [Frontend] created (local) (171ms)
+[04:23:04.874] INFO (#4): 
+[04:23:04.874] INFO (#4): Done: 2 succeeded (175ms)
+[04:23:04.957] INFO (#222): [Frontend] Started in 120ms → http://localhost:1337/ (logs: /data/code/getquick/gq-content/.proofs/alchemy-p1-1eNAVz/.alchemy/log/p1/Frontend)
+[Frontend] Delivery: the front page can't be served (not-ready): the front page and its chrome haven't been refreshed into the publication store yet
+P1 first lifecycle: all five migrations precede the package-consuming Worker; stored delivery passes without CMS/secrets.
+[Frontend] Refresh: the entry /entry/ promoted (published)
+[Frontend] Events: workerd-publish-0001 (publish /entry/) refreshed
+[Frontend] Withdrawal: workerd-withdraw-0001 withdrew /entry/
+[Frontend] Refresh: the en front page promoted (published)
+[Frontend] Events: workerd-home-en (publish /en/) refreshed
+[Frontend] Refresh: the shared design presets promoted (published)
+[Frontend] Events: workerd-design (settings design) refreshed
+[Frontend] WordPress: the design presets is unavailable (network): WordPress couldn't be reached
+[Frontend] Refresh: the shared design presets kept its last stored version (network): WordPress couldn't be reached
+[Frontend] Events: workerd-retry-0008 (settings design) failed
+TypeError: Cannot read properties of undefined (reading 'find')
+    at file:///data/code/getquick/gq-content/.proofs/alchemy-p1-1eNAVz/proof.mjs:174:53
+    at Generator.next (<anonymous>)
+    at ~effect/Effect/successCont (file:///data/code/getquick/gq-content/.proofs/alchemy-p1-1eNAVz/node_modules/.pnpm/effect@4.0.0-rc.115/node_modules/effect/dist/internal/effect.js:990:28)
+    at ~effect/Effect/evaluate (file:///data/code/getquick/gq-content/.proofs/alchemy-p1-1eNAVz/node_modules/.pnpm/effect@4.0.0-rc.115/node_modules/effect/dist/internal/core.js:297:30)
+    at FiberImpl.runLoop (file:///data/code/getquick/gq-content/.proofs/alchemy-p1-1eNAVz/node_modules/.pnpm/effect@4.0.0-rc.115/node_modules/effect/dist/internal/effect.js:487:95)
+    at FiberImpl.evaluate (file:///data/code/getquick/gq-content/.proofs/alchemy-p1-1eNAVz/node_modules/.pnpm/effect@4.0.0-rc.115/node_modules/effect/dist/internal/effect.js:438:23)
+    at file:///data/code/getquick/gq-content/.proofs/alchemy-p1-1eNAVz/node_modules/.pnpm/effect@4.0.0-rc.115/node_modules/effect/dist/internal/effect.js:821:17
+    at file:///data/code/getquick/gq-content/.proofs/alchemy-p1-1eNAVz/node_modules/.pnpm/effect@4.0.0-rc.115/node_modules/effect/dist/internal/effect.js:782:50
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+node:internal/errors:986
+  const err = new Error(message);
+              ^
+
+Error: Command failed: /home/valerio/.local/share/vite-plus/js_runtime/node/24.21.0/bin/node proof.mjs
+    at genericNodeError (node:internal/errors:986:15)
+    at wrappedFn (node:internal/errors:540:14)
+    at checkExecSyncError (node:child_process:942:11)
+    at execFileSync (node:child_process:978:15)
+    at run (file:///data/code/getquick/gq-content/scripts/alchemy-consumer.mjs:19:3)
+    at file:///data/code/getquick/gq-content/scripts/alchemy-consumer.mjs:48:3
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  status: 1,
+  signal: null,
+  output: [ null, null, null ],
+  pid: 2038067,
+  stdout: null,
+  stderr: null
+}
+
+Node.js v24.21.0
+
+---
+vp run: 0/2 cache hit (0%), 1 failed. (Run `vp run --last-details` for full details)
