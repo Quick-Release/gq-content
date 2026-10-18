@@ -14598,8 +14598,8 @@
             {
               "path": "scripts/pair-proof.py",
               "check": "stored publication survives CMS outage",
-              "line": 123,
-              "fileSha256": "d71765f907f4ac4fddf092b2a8b51b16701157094580ab7c1a9dfb41b606b8e4"
+              "line": 119,
+              "fileSha256": "c9ab74c8a1e773194069b21dc97cc0f09df9d318c5ef351768c94f8ee4a6f46b"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Keep gq frontend refresh/events CLI invocation and generated Astro adapter in Blueprint; the package consumer invokes the same handlers directly.",
@@ -14790,8 +14790,8 @@
             {
               "path": "scripts/pair-proof.py",
               "check": "actual rename retains previousUri",
-              "line": 121,
-              "fileSha256": "d71765f907f4ac4fddf092b2a8b51b16701157094580ab7c1a9dfb41b606b8e4"
+              "line": 117,
+              "fileSha256": "c9ab74c8a1e773194069b21dc97cc0f09df9d318c5ef351768c94f8ee4a6f46b"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Keep gq frontend refresh/events CLI invocation and generated Astro adapter in Blueprint; the package consumer invokes the same handlers directly.",
@@ -14860,8 +14860,8 @@
             {
               "path": "scripts/pair-proof.py",
               "check": "actual withdrawal changes public delivery",
-              "line": 130,
-              "fileSha256": "d71765f907f4ac4fddf092b2a8b51b16701157094580ab7c1a9dfb41b606b8e4"
+              "line": 126,
+              "fileSha256": "c9ab74c8a1e773194069b21dc97cc0f09df9d318c5ef351768c94f8ee4a6f46b"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Keep gq frontend refresh/events CLI invocation and generated Astro adapter in Blueprint; the package consumer invokes the same handlers directly.",
@@ -15150,8 +15150,8 @@
             {
               "path": "scripts/pair-proof.py",
               "check": "refresh installs usable chrome",
-              "line": 89,
-              "fileSha256": "d71765f907f4ac4fddf092b2a8b51b16701157094580ab7c1a9dfb41b606b8e4"
+              "line": 85,
+              "fileSha256": "c9ab74c8a1e773194069b21dc97cc0f09df9d318c5ef351768c94f8ee4a6f46b"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15198,8 +15198,8 @@
             {
               "path": "scripts/pair-proof.py",
               "check": "saving a draft retains no publication event",
-              "line": 91,
-              "fileSha256": "d71765f907f4ac4fddf092b2a8b51b16701157094580ab7c1a9dfb41b606b8e4"
+              "line": 87,
+              "fileSha256": "c9ab74c8a1e773194069b21dc97cc0f09df9d318c5ef351768c94f8ee4a6f46b"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15214,8 +15214,8 @@
             {
               "path": "scripts/pair-proof.py",
               "check": "actual CMS signature",
-              "line": 94,
-              "fileSha256": "d71765f907f4ac4fddf092b2a8b51b16701157094580ab7c1a9dfb41b606b8e4"
+              "line": 90,
+              "fileSha256": "c9ab74c8a1e773194069b21dc97cc0f09df9d318c5ef351768c94f8ee4a6f46b"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15230,8 +15230,8 @@
             {
               "path": "scripts/pair-proof.py",
               "check": "update has fresh event identity",
-              "line": 106,
-              "fileSha256": "d71765f907f4ac4fddf092b2a8b51b16701157094580ab7c1a9dfb41b606b8e4"
+              "line": 102,
+              "fileSha256": "c9ab74c8a1e773194069b21dc97cc0f09df9d318c5ef351768c94f8ee4a6f46b"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15246,8 +15246,8 @@
             {
               "path": "scripts/pair-proof.py",
               "check": "actual rename retains previousUri",
-              "line": 121,
-              "fileSha256": "d71765f907f4ac4fddf092b2a8b51b16701157094580ab7c1a9dfb41b606b8e4"
+              "line": 117,
+              "fileSha256": "c9ab74c8a1e773194069b21dc97cc0f09df9d318c5ef351768c94f8ee4a6f46b"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15262,14 +15262,14 @@
             {
               "path": "scripts/multilingual-proof.py",
               "check": "editing a menu shown nowhere",
-              "line": 128,
-              "fileSha256": "66461d1c2483286e72dcb4875e3bcb47fd7c82302f8f24a6f397bdb1194be48b"
+              "line": 124,
+              "fileSha256": "c0464f736279c5318b69da09279216c22b6e610e9deb89d03a66347d25864e62"
             },
             {
               "path": "scripts/multilingual-proof.py",
               "check": "real Polylang menu reassignment",
-              "line": 130,
-              "fileSha256": "66461d1c2483286e72dcb4875e3bcb47fd7c82302f8f24a6f397bdb1194be48b"
+              "line": 126,
+              "fileSha256": "c0464f736279c5318b69da09279216c22b6e610e9deb89d03a66347d25864e62"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15284,8 +15284,8 @@
             {
               "path": "scripts/multilingual-proof.py",
               "check": "English menu changes only English chrome",
-              "line": 134,
-              "fileSha256": "66461d1c2483286e72dcb4875e3bcb47fd7c82302f8f24a6f397bdb1194be48b"
+              "line": 130,
+              "fileSha256": "c0464f736279c5318b69da09279216c22b6e610e9deb89d03a66347d25864e62"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15300,8 +15300,8 @@
             {
               "path": "scripts/multilingual-proof.py",
               "check": "shared logo reaches both",
-              "line": 146,
-              "fileSha256": "66461d1c2483286e72dcb4875e3bcb47fd7c82302f8f24a6f397bdb1194be48b"
+              "line": 142,
+              "fileSha256": "c0464f736279c5318b69da09279216c22b6e610e9deb89d03a66347d25864e62"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15316,20 +15316,20 @@
             {
               "path": "scripts/multilingual-proof.py",
               "check": "actual site icon reaches both",
-              "line": 157,
-              "fileSha256": "66461d1c2483286e72dcb4875e3bcb47fd7c82302f8f24a6f397bdb1194be48b"
+              "line": 153,
+              "fileSha256": "c0464f736279c5318b69da09279216c22b6e610e9deb89d03a66347d25864e62"
             },
             {
               "path": "scripts/multilingual-proof.py",
               "check": "translated identity reaches",
-              "line": 144,
-              "fileSha256": "66461d1c2483286e72dcb4875e3bcb47fd7c82302f8f24a6f397bdb1194be48b"
+              "line": 140,
+              "fileSha256": "c0464f736279c5318b69da09279216c22b6e610e9deb89d03a66347d25864e62"
             },
             {
               "path": "scripts/multilingual-proof.py",
               "check": "shared identity updates",
-              "line": 155,
-              "fileSha256": "66461d1c2483286e72dcb4875e3bcb47fd7c82302f8f24a6f397bdb1194be48b"
+              "line": 151,
+              "fileSha256": "c0464f736279c5318b69da09279216c22b6e610e9deb89d03a66347d25864e62"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15344,8 +15344,8 @@
             {
               "path": "scripts/multilingual-proof.py",
               "check": "actual global-styles REST save delivers a fresh design event",
-              "line": 162,
-              "fileSha256": "66461d1c2483286e72dcb4875e3bcb47fd7c82302f8f24a6f397bdb1194be48b"
+              "line": 158,
+              "fileSha256": "c0464f736279c5318b69da09279216c22b6e610e9deb89d03a66347d25864e62"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15360,8 +15360,8 @@
             {
               "path": "scripts/multilingual-proof.py",
               "check": "failed real setting retains",
-              "line": 150,
-              "fileSha256": "66461d1c2483286e72dcb4875e3bcb47fd7c82302f8f24a6f397bdb1194be48b"
+              "line": 146,
+              "fileSha256": "c0464f736279c5318b69da09279216c22b6e610e9deb89d03a66347d25864e62"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15376,8 +15376,8 @@
             {
               "path": "scripts/multilingual-proof.py",
               "check": "real failed setting retry",
-              "line": 153,
-              "fileSha256": "66461d1c2483286e72dcb4875e3bcb47fd7c82302f8f24a6f397bdb1194be48b"
+              "line": 149,
+              "fileSha256": "c0464f736279c5318b69da09279216c22b6e610e9deb89d03a66347d25864e62"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15392,14 +15392,14 @@
             {
               "path": "scripts/pair-proof.py",
               "check": "default publication HTTP timeout",
-              "line": 96,
-              "fileSha256": "d71765f907f4ac4fddf092b2a8b51b16701157094580ab7c1a9dfb41b606b8e4"
+              "line": 92,
+              "fileSha256": "c9ab74c8a1e773194069b21dc97cc0f09df9d318c5ef351768c94f8ee4a6f46b"
             },
             {
               "path": "scripts/pair-proof.py",
               "check": "unreachable receiver does not fail a WordPress save",
-              "line": 112,
-              "fileSha256": "d71765f907f4ac4fddf092b2a8b51b16701157094580ab7c1a9dfb41b606b8e4"
+              "line": 108,
+              "fileSha256": "c9ab74c8a1e773194069b21dc97cc0f09df9d318c5ef351768c94f8ee4a6f46b"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15548,8 +15548,8 @@
             {
               "path": "scripts/pair-proof.py",
               "check": "actual CMS signature",
-              "line": 94,
-              "fileSha256": "d71765f907f4ac4fddf092b2a8b51b16701157094580ab7c1a9dfb41b606b8e4"
+              "line": 90,
+              "fileSha256": "c9ab74c8a1e773194069b21dc97cc0f09df9d318c5ef351768c94f8ee4a6f46b"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15746,8 +15746,8 @@
             {
               "path": "scripts/pair-proof.py",
               "check": "actual later republication",
-              "line": 135,
-              "fileSha256": "d71765f907f4ac4fddf092b2a8b51b16701157094580ab7c1a9dfb41b606b8e4"
+              "line": 131,
+              "fileSha256": "c9ab74c8a1e773194069b21dc97cc0f09df9d318c5ef351768c94f8ee4a6f46b"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15762,8 +15762,8 @@
             {
               "path": "scripts/pair-proof.py",
               "check": "actual withdrawal changes",
-              "line": 130,
-              "fileSha256": "d71765f907f4ac4fddf092b2a8b51b16701157094580ab7c1a9dfb41b606b8e4"
+              "line": 126,
+              "fileSha256": "c9ab74c8a1e773194069b21dc97cc0f09df9d318c5ef351768c94f8ee4a6f46b"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15778,8 +15778,8 @@
             {
               "path": "scripts/pair-proof.py",
               "check": "actual later republication",
-              "line": 135,
-              "fileSha256": "d71765f907f4ac4fddf092b2a8b51b16701157094580ab7c1a9dfb41b606b8e4"
+              "line": 131,
+              "fileSha256": "c9ab74c8a1e773194069b21dc97cc0f09df9d318c5ef351768c94f8ee4a6f46b"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15794,8 +15794,8 @@
             {
               "path": "scripts/pair-proof.py",
               "check": "password protection sends",
-              "line": 139,
-              "fileSha256": "d71765f907f4ac4fddf092b2a8b51b16701157094580ab7c1a9dfb41b606b8e4"
+              "line": 135,
+              "fileSha256": "c9ab74c8a1e773194069b21dc97cc0f09df9d318c5ef351768c94f8ee4a6f46b"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15810,8 +15810,8 @@
             {
               "path": "scripts/pair-proof.py",
               "check": "removing password sends",
-              "line": 142,
-              "fileSha256": "d71765f907f4ac4fddf092b2a8b51b16701157094580ab7c1a9dfb41b606b8e4"
+              "line": 138,
+              "fileSha256": "c9ab74c8a1e773194069b21dc97cc0f09df9d318c5ef351768c94f8ee4a6f46b"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15826,8 +15826,8 @@
             {
               "path": "scripts/pair-proof.py",
               "check": "trashing a publication",
-              "line": 145,
-              "fileSha256": "d71765f907f4ac4fddf092b2a8b51b16701157094580ab7c1a9dfb41b606b8e4"
+              "line": 141,
+              "fileSha256": "c9ab74c8a1e773194069b21dc97cc0f09df9d318c5ef351768c94f8ee4a6f46b"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15842,8 +15842,8 @@
             {
               "path": "scripts/pair-proof.py",
               "check": "actual CMS signature",
-              "line": 94,
-              "fileSha256": "d71765f907f4ac4fddf092b2a8b51b16701157094580ab7c1a9dfb41b606b8e4"
+              "line": 90,
+              "fileSha256": "c9ab74c8a1e773194069b21dc97cc0f09df9d318c5ef351768c94f8ee4a6f46b"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -15858,8 +15858,8 @@
             {
               "path": "scripts/pair-proof.py",
               "check": "successfully delivered deletion",
-              "line": 152,
-              "fileSha256": "d71765f907f4ac4fddf092b2a8b51b16701157094580ab7c1a9dfb41b606b8e4"
+              "line": 148,
+              "fileSha256": "c9ab74c8a1e773194069b21dc97cc0f09df9d318c5ef351768c94f8ee4a6f46b"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case. Retain gq site check/readiness orchestration, cron/Ploi provisioning, generated Site endpoint and resource discovery in Blueprint.",
@@ -16057,8 +16057,8 @@
             {
               "path": "scripts/multilingual-proof.py",
               "check": "whole refresh prepares both language",
-              "line": 104,
-              "fileSha256": "66461d1c2483286e72dcb4875e3bcb47fd7c82302f8f24a6f397bdb1194be48b"
+              "line": 100,
+              "fileSha256": "c0464f736279c5318b69da09279216c22b6e610e9deb89d03a66347d25864e62"
             }
           ],
           "blueprintObligation": "gq-site#77: retain Site HTML composition, visible copy/title/placeholder, logo/menu markup, document status/redirect adapter and CSS/preset wiring. Runtime content and outcomes are proven in the listed DTO/handler case.",
@@ -16093,8 +16093,8 @@
           {
             "path": "scripts/multilingual-proof.py",
             "check": "real Polylang normalizes",
-            "line": 103,
-            "fileSha256": "66461d1c2483286e72dcb4875e3bcb47fd7c82302f8f24a6f397bdb1194be48b"
+            "line": 99,
+            "fileSha256": "c0464f736279c5318b69da09279216c22b6e610e9deb89d03a66347d25864e62"
           }
         ],
         "blueprintObligation": "gq-site#77: retain generated Site/DDEV/CLI setup and teardown, rendered-document helpers and provisioning orchestration. Test-only sqlite/GraphQL support is replaced by frontend/tests/support; it is never shipped.",
@@ -16160,8 +16160,8 @@
             {
               "path": "scripts/multilingual-proof.py",
               "check": "real Polylang normalizes language routes",
-              "line": 103,
-              "fileSha256": "66461d1c2483286e72dcb4875e3bcb47fd7c82302f8f24a6f397bdb1194be48b"
+              "line": 99,
+              "fileSha256": "c0464f736279c5318b69da09279216c22b6e610e9deb89d03a66347d25864e62"
             }
           ],
           "behavior": "Real Polylang APIs export the corresponding route/home/title into the approved GraphQL snapshot boundary; installed handler consumes it. This does not claim the live GETQUICK GraphQL adapter schema is tested."
@@ -16175,14 +16175,14 @@
             {
               "path": "scripts/multilingual-proof.py",
               "check": "real Polylang normalizes language routes",
-              "line": 103,
-              "fileSha256": "66461d1c2483286e72dcb4875e3bcb47fd7c82302f8f24a6f397bdb1194be48b"
+              "line": 99,
+              "fileSha256": "c0464f736279c5318b69da09279216c22b6e610e9deb89d03a66347d25864e62"
             },
             {
               "path": "scripts/multilingual-proof.py",
               "check": "translated identity reaches",
-              "line": 144,
-              "fileSha256": "66461d1c2483286e72dcb4875e3bcb47fd7c82302f8f24a6f397bdb1194be48b"
+              "line": 140,
+              "fileSha256": "c0464f736279c5318b69da09279216c22b6e610e9deb89d03a66347d25864e62"
             }
           ],
           "behavior": "Real Polylang APIs export the corresponding route/home/title into the approved GraphQL snapshot boundary; installed handler consumes it. This does not claim the live GETQUICK GraphQL adapter schema is tested."
@@ -16196,8 +16196,8 @@
             {
               "path": "scripts/multilingual-proof.py",
               "check": "real Polylang normalizes language routes",
-              "line": 103,
-              "fileSha256": "66461d1c2483286e72dcb4875e3bcb47fd7c82302f8f24a6f397bdb1194be48b"
+              "line": 99,
+              "fileSha256": "c0464f736279c5318b69da09279216c22b6e610e9deb89d03a66347d25864e62"
             }
           ],
           "behavior": "Real Polylang APIs export the corresponding route/home/title into the approved GraphQL snapshot boundary; installed handler consumes it. This does not claim the live GETQUICK GraphQL adapter schema is tested."
@@ -16211,8 +16211,8 @@
             {
               "path": "scripts/multilingual-proof.py",
               "check": "real Polylang normalizes language routes",
-              "line": 103,
-              "fileSha256": "66461d1c2483286e72dcb4875e3bcb47fd7c82302f8f24a6f397bdb1194be48b"
+              "line": 99,
+              "fileSha256": "c0464f736279c5318b69da09279216c22b6e610e9deb89d03a66347d25864e62"
             }
           ],
           "behavior": "Real Polylang APIs export the corresponding route/home/title into the approved GraphQL snapshot boundary; installed handler consumes it. This does not claim the live GETQUICK GraphQL adapter schema is tested."
@@ -16226,8 +16226,8 @@
             {
               "path": "scripts/multilingual-proof.py",
               "check": "settings CLI lists shared and both language subjects",
-              "line": 189,
-              "fileSha256": "66461d1c2483286e72dcb4875e3bcb47fd7c82302f8f24a6f397bdb1194be48b"
+              "line": 185,
+              "fileSha256": "c0464f736279c5318b69da09279216c22b6e610e9deb89d03a66347d25864e62"
             }
           ],
           "behavior": "Real Polylang APIs export the corresponding route/home/title into the approved GraphQL snapshot boundary; installed handler consumes it. This does not claim the live GETQUICK GraphQL adapter schema is tested."

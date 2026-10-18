@@ -1,0 +1,3 @@
+note: You are running `vp check` as a Vite+ built-in command. If you meant to run the check npm script, use `vpr check` instead.
+pass: All 144 files are correctly formatted (134ms, 32 threads)
+pass: Found no warnings, lint errors, or type errors in 63 files (502ms, 32 threads)

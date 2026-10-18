@@ -1,0 +1,10 @@
+note: You are running `vp test` as a Vite+ built-in command. If you meant to run the test npm script, use `vpr test` instead.
+
+ RUN  v5.0.3 /data/code/getquick/gq-content
+
+No test files found, exiting with code 1
+
+filter: scripts/release/pipeline.test.mjs, scripts/release/candidate.test.mjs, scripts/release/services.test.mjs
+include: frontend/tests/**/*.test.ts
+exclude:  **/node_modules/**, **/.git/**
+

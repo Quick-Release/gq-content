@@ -1,9 +1,9 @@
 import { load } from "./candidate.mjs";
-import { test } from "node:test";
+import { test } from "vite-plus/test";
 import assert from "node:assert/strict";
 import { resume } from "./pipeline.mjs";
 
-await test("interrupted publication resumes verified stages and blocks partial availability", async () => {
+test("interrupted publication resumes verified stages and blocks partial availability", async () => {
   const remote = { tag: null, assets: {}, npm: null, composer: null };
   const writes = [];
   const candidate = process.env.GQ_RELEASE_BUNDLE
@@ -66,7 +66,7 @@ const mismatches = [
   ["composer", "repacked-zip", /Composer artifact/],
 ];
 for (const [stage, value, error] of mismatches) {
-  await test(`refuses mismatched published ${stage} without overwriting`, async () => {
+  test(`refuses mismatched published ${stage} without overwriting`, async () => {
     const writes = [];
     const service = {
       gate: async () => {},
@@ -93,7 +93,7 @@ for (const [stage, value, error] of mismatches) {
     assert.deepEqual(writes, []);
   });
 }
-await test("missing proofs/enrollment/access refuse before creating any remote state", async () => {
+test("missing proofs/enrollment/access refuse before creating any remote state", async () => {
   await assert.rejects(
     resume(
       {},

@@ -1,0 +1,10 @@
+note: You are running `vp test` as a Vite+ built-in command. If you meant to run the test npm script, use `vpr test` instead.
+
+ RUN  v5.0.3 /data/code/getquick/gq-content
+
+
+ Test Files  1 passed | 2 skipped (3)
+      Tests  5 passed | 3 skipped (8)
+   Start at  05:53:32
+   Duration  127ms (transform 50%, import 36%, worker 8%, tests 7%)
+

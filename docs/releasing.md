@@ -87,6 +87,19 @@ Inspect/retry the same candidate to resolve that uncertainty. Only live matching
 npm **and** Composer archives yield `status: complete`, `handoff: true`, exit 0.
 No local journal or cached proof can mark a registry complete.
 
+The repository's `vp test` discovers Frontend tests and the eight release cases in
+`scripts/release/*.test.mjs`. Without `GQ_RELEASE_BUNDLE`, the five publication
+boundary cases run without credentials or retained artifacts; three real-pair
+cases explicitly skip. Run just the release suites with:
+
+```sh
+vp test scripts/release/pipeline.test.mjs scripts/release/candidate.test.mjs scripts/release/services.test.mjs
+```
+
+Validation supplies its selected bundle to that same P7 command and runs all eight
+cases without skips. The clean installed consumer discovers only its copied
+Frontend tests; release scripts and test helpers are not shipped or exported.
+
 P7's controlled service-boundary tests inject interruption immediately after npm
 accepts the retained candidate, then retry, observe no repeated tag/asset/npm write,
 block on missing Composer availability, and complete only on matching identities.

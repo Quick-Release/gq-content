@@ -1,11 +1,10 @@
-import { test } from "node:test";
+import { test } from "vite-plus/test";
 import assert from "node:assert/strict";
 import { load } from "./candidate.mjs";
 import { services } from "./services.mjs";
 
-await test(
+test.skipIf(!process.env.GQ_RELEASE_BUNDLE)(
   "live service verification rejects npm integrity and Composer archive substitution",
-  { skip: !process.env.GQ_RELEASE_BUNDLE },
   async () => {
     const candidate = load(process.env.GQ_RELEASE_BUNDLE);
     const original = globalThis.fetch;

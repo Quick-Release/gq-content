@@ -1,4 +1,4 @@
-import { test } from "node:test";
+import { test } from "vite-plus/test";
 import assert from "node:assert/strict";
 import { chmodSync, mkdtempSync, cpSync, readFileSync, writeFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
@@ -7,9 +7,8 @@ import { load, hash } from "./candidate.mjs";
 import { verifyRecord } from "./validate.mjs";
 
 // A real retained pair is supplied by the validation runner, never synthetic tar/ZIP bytes.
-await test(
+test.skipIf(!process.env.GQ_RELEASE_BUNDLE)(
   "retained inputs reject substituted archives and source-mismatched validation",
-  { skip: !process.env.GQ_RELEASE_BUNDLE },
   () => {
     const temp = mkdtempSync(join(tmpdir(), "gq-candidate-test-"));
     try {
@@ -51,9 +50,8 @@ await test(
   },
 );
 
-await test(
+test.skipIf(!process.env.GQ_RELEASE_BUNDLE)(
   "release CLI refuses replaced retained bytes and missing publication credentials",
-  { skip: !process.env.GQ_RELEASE_BUNDLE },
   async () => {
     const { spawnSync } = await import("node:child_process");
     const candidate = load(process.env.GQ_RELEASE_BUNDLE);

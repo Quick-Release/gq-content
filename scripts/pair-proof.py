@@ -10,6 +10,7 @@ import subprocess
 import sys
 
 sys.dont_write_bytecode = True
+from proof_package import prepare_npm
 import time
 import urllib.request
 
@@ -23,12 +24,7 @@ consumer = WORK / 'consumer'
 if consumer.exists():
     shutil.rmtree(consumer)
 consumer.mkdir()
-# Pack/install public artifact using the repository's declared Vite+/pnpm toolchain.
-if os.environ.get('GQ_RELEASE_BUNDLE'):
-    retained = subprocess.check_output(['node', 'scripts/release/candidate.mjs', 'npm'], cwd=ROOT, text=True).strip()
-    shutil.copyfile(retained, WORK / 'getquick-content-0.1.0.tgz')
-else:
-    subprocess.run(['vp', 'pm', 'pack', '--pack-destination', str(WORK)], cwd=ROOT / 'frontend', check=True)
+prepare_npm(ROOT, WORK)
 (consumer / 'package.json').write_text(json.dumps({'private': True, 'type': 'module', 'packageManager': 'pnpm@12.11.2', 'dependencies': {'@getquick/content': 'file:' + str(WORK / 'getquick-content-0.1.0.tgz')}}))
 subprocess.run(['vp', 'install', '--ignore-scripts'], cwd=consumer, check=True)
 shutil.copy(ROOT / 'scripts/pair-receiver.mjs', consumer)

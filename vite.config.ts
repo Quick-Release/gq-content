@@ -70,7 +70,7 @@ export default defineConfig({
       },
     },
   },
-  test: { include: ["frontend/tests/**/*.test.ts"] },
+  test: { include: ["frontend/tests/**/*.test.ts", "scripts/release/*.test.mjs"] },
   lint: {
     ignorePatterns: [
       "scripts/fixtures/alchemy-p1/worker.ts",

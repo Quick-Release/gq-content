@@ -21,9 +21,9 @@ export const checks = [
   ["P5", "node", ["scripts/consumer.mjs", "--design-fixtures"]],
   [
     "P7",
-    "node",
+    "vp",
     [
-      "--test",
+      "test",
       "scripts/release/pipeline.test.mjs",
       "scripts/release/candidate.test.mjs",
       "scripts/release/services.test.mjs",

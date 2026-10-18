@@ -1,0 +1,93 @@
+package: @getquick/content@0.1.0
+Tarball Contents
+dist/formatting-wOk2jz6J.js
+dist/index.d.ts
+dist/index.js
+dist/migrations.d.ts
+dist/migrations.js
+dist/server.d.ts
+dist/server.js
+dist/wordpress-Bq1Hr1pV.d.ts
+migrations/0001_publications.sql
+migrations/0002_entries.sql
+migrations/0003_publication_events.sql
+migrations/0004_withdrawals.sql
+migrations/0005_reconciliation.sql
+package.json
+README.md
+Tarball Details
+/data/code/getquick/gq-content/.proofs/consumer-tKqxE6/artifacts/getquick-content-0.1.0.tgz
+Installed candidate artifact: {"proof":"consumer","filename":"getquick-content-0.1.0.tgz","sha256":"b04512cf229f14ce2364e2c52bab1f6ece8f735a09b2b7d0b073e5af60e4e848","integrity":"sha512-xUEEf6Ld5vap262axzK2jvC+aRbV+b+ctSmtb38x7lT/jpRJDc2DDJ1WbNfgz0F4+YRF88QACZYUi+KqTv0JAw=="}
+{
+  "npm": {
+    "files": [
+      "package/dist/formatting-wOk2jz6J.js",
+      "package/dist/index.js",
+      "package/dist/migrations.js",
+      "package/dist/server.js",
+      "package/package.json",
+      "package/README.md",
+      "package/migrations/0001_publications.sql",
+      "package/migrations/0002_entries.sql",
+      "package/migrations/0003_publication_events.sql",
+      "package/migrations/0004_withdrawals.sql",
+      "package/migrations/0005_reconciliation.sql",
+      "package/dist/index.d.ts",
+      "package/dist/migrations.d.ts",
+      "package/dist/server.d.ts",
+      "package/dist/wordpress-Bq1Hr1pV.d.ts"
+    ],
+    "sha256": "b04512cf229f14ce2364e2c52bab1f6ece8f735a09b2b7d0b073e5af60e4e848"
+  },
+  "cms": {
+    "files": [
+      "composer.json",
+      "gq-content.php",
+      "README.md",
+      "LICENSE",
+      "modules/delivery-retries.php",
+      "modules/publication-events.php",
+      "modules/settings-events.php"
+    ],
+    "sha256": "0b4efa51940f474b5dcc8b4c403024352a3d543b44096f9142af41af8a861a8a"
+  }
+}
+[WARN] The store at /home/valerio/.local/share/pnpm/store/v11 is not used because packages cannot be hard linked from it into this project. Using the store at /data/.pnpm-store/v11 instead. Set storeDir to choose the store.
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /data/.pnpm-store/v11
+  Virtual store is at:             node_modules/.pnpm
+[WARN] 24 deprecated subdependencies found: @yuku-codegen/binding-android-arm64@0.9.5, @yuku-codegen/binding-darwin-arm64@0.9.5, @yuku-codegen/binding-darwin-x64@0.9.5, @yuku-codegen/binding-freebsd-x64@0.9.5, @yuku-codegen/binding-linux-arm-gnu@0.9.5, @yuku-codegen/binding-linux-arm-musl@0.9.5, @yuku-codegen/binding-linux-arm64-gnu@0.9.5, @yuku-codegen/binding-linux-arm64-musl@0.9.5, @yuku-codegen/binding-linux-x64-gnu@0.9.5, @yuku-codegen/binding-linux-x64-musl@0.9.5, @yuku-codegen/binding-win32-arm64@0.9.5, @yuku-codegen/binding-win32-x64@0.9.5, @yuku-parser/binding-android-arm64@0.9.5, @yuku-parser/binding-darwin-arm64@0.9.5, @yuku-parser/binding-darwin-x64@0.9.5, @yuku-parser/binding-freebsd-x64@0.9.5, @yuku-parser/binding-linux-arm-gnu@0.9.5, @yuku-parser/binding-linux-arm-musl@0.9.5, @yuku-parser/binding-linux-arm64-gnu@0.9.5, @yuku-parser/binding-linux-arm64-musl@0.9.5, @yuku-parser/binding-linux-x64-gnu@0.9.5, @yuku-parser/binding-linux-x64-musl@0.9.5, @yuku-parser/binding-win32-arm64@0.9.5, @yuku-parser/binding-win32-x64@0.9.5
+Packages: +85
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 85, reused 85, downloaded 0, added 85, done
+[WARN] Issues with peer dependencies found. Run "pnpm peers check" to list them.
+
+dependencies:
++ @getquick/content 0.1.0
+
+devDependencies:
++ typescript 6.0.3
++ vite-plus 1.1.0
+
+Done in 123ms using pnpm v12.11.2
+Installed ESM imports, pure helpers and real HTTP client integration passed.
+
+ RUN  v5.0.3 /data/code/getquick/gq-content/.proofs/consumer-tKqxE6/consumer
+
+
+ Test Files  15 passed (15)
+      Tests  296 passed (296)
+   Start at  05:54:23
+   Duration  5.61s (tests 89%, transform 7%, import 3%)
+
+note: You are running `vp test` as a Vite+ built-in command. If you meant to run the test npm script, use `vpr test` instead.
+
+ RUN  v5.0.3 /data/code/getquick/gq-content
+
+
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  05:54:29
+   Duration  126ms (transform 47%, import 29%, tests 18%, worker 6%)
+
+P3/P4 issues #3/#4: inspected 15 packed files; public declarations and all package-boundary suites passed in a clean installed consumer.

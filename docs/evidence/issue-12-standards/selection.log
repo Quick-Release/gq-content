@@ -1,0 +1,21 @@
+node:fs:621
+  return binding.open(
+                 ^
+
+Error: ENOENT: no such file or directory, open '/nonexistent/gq-release-standards-input/release-manifest.json'
+    at Object.openSync (node:fs:621:18)
+    at readFileSync (node:fs:487:35)
+    at load (file:///data/code/getquick/gq-content/scripts/release/candidate.mjs:23:17)
+    at retained (file:///data/code/getquick/gq-content/scripts/release/candidate.mjs:109:21)
+    at file:///data/code/getquick/gq-content/scripts/release/candidate.mjs:112:59
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/nonexistent/gq-release-standards-input/release-manifest.json'
+}
+
+Node.js v24.21.0
+PASS: invalid retained selection fails before copying or packing; destination stays empty
