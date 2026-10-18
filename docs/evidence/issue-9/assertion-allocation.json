@@ -1,0 +1,2167 @@
+{
+  "checkpoint": "eaec13488d57b3d04059309b5b36de5d016f3de1",
+  "note": "Per-assertion overlay over immutable #3 inventory. Source presentation stays Blueprint-owned. P2/P6 integrated installed WordPress→workerd evidence is added, not substituted by disjoint Node and workerd proofs. Full release gate remains #11.",
+  "files": [
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/reconciliation.test.ts",
+      "sourceBlob": "0d5baaf010247e07a6df21f08f3772e3dac9819a",
+      "assertions": [
+        {
+          "sourceLines": [311, 311],
+          "context": "shared helper",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: signed reconciliation repairs a missed publication",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [356, 356],
+          "context": "a publication and an update whose events were lost are public within five minutes, without a visit or a republish",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: signed reconciliation repairs a missed publication",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [357, 357],
+          "context": "a publication and an update whose events were lost are public within five minutes, without a visit or a republish",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: signed reconciliation repairs a missed publication",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [358, 370],
+          "context": "a publication and an update whose events were lost are public within five minutes, without a visit or a republish",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: signed reconciliation repairs a missed publication",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [372, 375],
+          "context": "a publication and an update whose events were lost are public within five minutes, without a visit or a republish",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: signed reconciliation repairs a missed publication",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [376, 376],
+          "context": "a publication and an update whose events were lost are public within five minutes, without a visit or a republish",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: signed reconciliation repairs a missed publication",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [393, 393],
+          "context": "a lost move redirects the route it left, and a lost removal is a 404 once WordPress confirms it",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: missed changes, moves and confirmed removals",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [394, 400],
+          "context": "a lost move redirects the route it left, and a lost removal is a 404 once WordPress confirms it",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: missed changes, moves and confirmed removals",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [401, 401],
+          "context": "a lost move redirects the route it left, and a lost removal is a 404 once WordPress confirms it",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: missed changes, moves and confirmed removals",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [402, 402],
+          "context": "a lost move redirects the route it left, and a lost removal is a 404 once WordPress confirms it",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: missed changes, moves and confirmed removals",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [403, 403],
+          "context": "a lost move redirects the route it left, and a lost removal is a 404 once WordPress confirms it",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: missed changes, moves and confirmed removals",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [417, 417],
+          "context": "on a CMS that gives absolute URIs, an unchanged site is reconciled as unchanged",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: canonical shared comparisons report unchanged",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [420, 420],
+          "context": "on a CMS that gives absolute URIs, an unchanged site is reconciled as unchanged",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: canonical shared comparisons report unchanged",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [423, 423],
+          "context": "on a CMS that gives absolute URIs, an unchanged site is reconciled as unchanged",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: canonical shared comparisons report unchanged",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [424, 424],
+          "context": "on a CMS that gives absolute URIs, an unchanged site is reconciled as unchanged",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: canonical shared comparisons report unchanged",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [425, 425],
+          "context": "on a CMS that gives absolute URIs, an unchanged site is reconciled as unchanged",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: canonical shared comparisons report unchanged",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [446, 446],
+          "context": "on a CMS that gives absolute URIs, lost publications, moves and removals reach their paths",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: missed changes, moves and confirmed removals",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [447, 454],
+          "context": "on a CMS that gives absolute URIs, lost publications, moves and removals reach their paths",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: missed changes, moves and confirmed removals",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [455, 455],
+          "context": "on a CMS that gives absolute URIs, lost publications, moves and removals reach their paths",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: missed changes, moves and confirmed removals",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [456, 456],
+          "context": "on a CMS that gives absolute URIs, lost publications, moves and removals reach their paths",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: missed changes, moves and confirmed removals",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [457, 457],
+          "context": "on a CMS that gives absolute URIs, lost publications, moves and removals reach their paths",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: missed changes, moves and confirmed removals",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [481, 481],
+          "context": "lost changes to every shared setting reach the homepage and every entry",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/settings-languages.test.ts :: missed home, menu, logo, icon, identity and design changes",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [482, 489],
+          "context": "lost changes to every shared setting reach the homepage and every entry",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/settings-languages.test.ts :: missed home, menu, logo, icon, identity and design changes",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [490, 490],
+          "context": "lost changes to every shared setting reach the homepage and every entry",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/settings-languages.test.ts :: missed home, menu, logo, icon, identity and design changes",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [491, 491],
+          "context": "lost changes to every shared setting reach the homepage and every entry",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/settings-languages.test.ts :: missed home, menu, logo, icon, identity and design changes",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [509, 518],
+          "context": "with nothing changed, a run reads only the shared rows, the list and a few stored entries, and rewrites nothing shared",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: canonical shared comparisons report unchanged",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [519, 519],
+          "context": "with nothing changed, a run reads only the shared rows, the list and a few stored entries, and rewrites nothing shared",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: canonical shared comparisons report unchanged",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [520, 520],
+          "context": "with nothing changed, a run reads only the shared rows, the list and a few stored entries, and rewrites nothing shared",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: canonical shared comparisons report unchanged",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [521, 521],
+          "context": "with nothing changed, a run reads only the shared rows, the list and a few stored entries, and rewrites nothing shared",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: canonical shared comparisons report unchanged",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [522, 522],
+          "context": "with nothing changed, a run reads only the shared rows, the list and a few stored entries, and rewrites nothing shared",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: canonical shared comparisons report unchanged",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [533, 533],
+          "context": "a change that left the modification time alone is caught as stored entries are re-read in turn",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: canonical shared comparisons report unchanged",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [554, 554],
+          "context": "during an outage of any length a run fails, keeps every page and withdraws nothing; recovery then catches up",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: outages preserve public content",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [555, 560],
+          "context": "during an outage of any length a run fails, keeps every page and withdraws nothing; recovery then catches up",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: outages preserve public content",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [561, 561],
+          "context": "during an outage of any length a run fails, keeps every page and withdraws nothing; recovery then catches up",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: outages preserve public content",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [562, 562],
+          "context": "during an outage of any length a run fails, keeps every page and withdraws nothing; recovery then catches up",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: outages preserve public content",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [564, 564],
+          "context": "during an outage of any length a run fails, keeps every page and withdraws nothing; recovery then catches up",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: outages preserve public content",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [574, 574],
+          "context": "during an outage of any length a run fails, keeps every page and withdraws nothing; recovery then catches up",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: outages preserve public content",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [575, 575],
+          "context": "during an outage of any length a run fails, keeps every page and withdraws nothing; recovery then catches up",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: outages preserve public content",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [585, 588],
+          "context": "a list WordPress fails to give removes nothing, and an entry it fails to read keeps its stored version until a later run",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: incomplete paginated lists cannot remove",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [589, 589],
+          "context": "a list WordPress fails to give removes nothing, and an entry it fails to read keeps its stored version until a later run",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: incomplete paginated lists cannot remove",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [598, 604],
+          "context": "a list WordPress fails to give removes nothing, and an entry it fails to read keeps its stored version until a later run",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: incomplete paginated lists cannot remove",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [605, 605],
+          "context": "a list WordPress fails to give removes nothing, and an entry it fails to read keeps its stored version until a later run",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: incomplete paginated lists cannot remove",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [606, 606],
+          "context": "a list WordPress fails to give removes nothing, and an entry it fails to read keeps its stored version until a later run",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: incomplete paginated lists cannot remove",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [612, 612],
+          "context": "a list WordPress fails to give removes nothing, and an entry it fails to read keeps its stored version until a later run",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: incomplete paginated lists cannot remove",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [613, 613],
+          "context": "a list WordPress fails to give removes nothing, and an entry it fails to read keeps its stored version until a later run",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: incomplete paginated lists cannot remove",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [615, 617],
+          "context": "a list WordPress fails to give removes nothing, and an entry it fails to read keeps its stored version until a later run",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: incomplete paginated lists cannot remove",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [634, 634],
+          "context": "an accepted withdrawal isn't undone by a scan of a WordPress that still lists the entry from before it",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: withdrawals survive older scans",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [635, 637],
+          "context": "an accepted withdrawal isn't undone by a scan of a WordPress that still lists the entry from before it",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: withdrawals survive older scans",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [638, 640],
+          "context": "an accepted withdrawal isn't undone by a scan of a WordPress that still lists the entry from before it",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: withdrawals survive older scans",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [641, 641],
+          "context": "an accepted withdrawal isn't undone by a scan of a WordPress that still lists the entry from before it",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: withdrawals survive older scans",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [674, 674],
+          "context": "a reconciliation read in flight when a withdrawal is accepted doesn't bring the entry back",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: a withdrawal accepted during reconciliation",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [675, 675],
+          "context": "a reconciliation read in flight when a withdrawal is accepted doesn't bring the entry back",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: a withdrawal accepted during reconciliation",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [676, 676],
+          "context": "a reconciliation read in flight when a withdrawal is accepted doesn't bring the entry back",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: a withdrawal accepted during reconciliation",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [679, 679],
+          "context": "a reconciliation read in flight when a withdrawal is accepted doesn't bring the entry back",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: a withdrawal accepted during reconciliation",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [691, 691],
+          "context": "a republication whose event was lost is public again once WordPress modified it after the withdrawal",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: withdrawals survive older scans",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [692, 695],
+          "context": "a republication whose event was lost is public again once WordPress modified it after the withdrawal",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: withdrawals survive older scans",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [696, 696],
+          "context": "a republication whose event was lost is public again once WordPress modified it after the withdrawal",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: withdrawals survive older scans",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [729, 729],
+          "context": "a run while another holds the lease reads nothing; an interrupted run's lease expires and its work is retried as the same change",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: D1 lease excludes overlapping runs",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [730, 730],
+          "context": "a run while another holds the lease reads nothing; an interrupted run's lease expires and its work is retried as the same change",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: D1 lease excludes overlapping runs",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [731, 731],
+          "context": "a run while another holds the lease reads nothing; an interrupted run's lease expires and its work is retried as the same change",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: D1 lease excludes overlapping runs",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [732, 732],
+          "context": "a run while another holds the lease reads nothing; an interrupted run's lease expires and its work is retried as the same change",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: D1 lease excludes overlapping runs",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [733, 736],
+          "context": "a run while another holds the lease reads nothing; an interrupted run's lease expires and its work is retried as the same change",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: D1 lease excludes overlapping runs",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [737, 737],
+          "context": "a run while another holds the lease reads nothing; an interrupted run's lease expires and its work is retried as the same change",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: D1 lease excludes overlapping runs",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [738, 738],
+          "context": "a run while another holds the lease reads nothing; an interrupted run's lease expires and its work is retried as the same change",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: D1 lease excludes overlapping runs",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [739, 741],
+          "context": "a run while another holds the lease reads nothing; an interrupted run's lease expires and its work is retried as the same change",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: D1 lease excludes overlapping runs",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [764, 764],
+          "context": "more changes than one run's budget are caught up over the next runs, each within Workers' subrequest limit",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: budgeted partial runs persist pending evidence",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [765, 765],
+          "context": "more changes than one run's budget are caught up over the next runs, each within Workers' subrequest limit",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: budgeted partial runs persist pending evidence",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [766, 766],
+          "context": "more changes than one run's budget are caught up over the next runs, each within Workers' subrequest limit",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: budgeted partial runs persist pending evidence",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [767, 767],
+          "context": "more changes than one run's budget are caught up over the next runs, each within Workers' subrequest limit",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: budgeted partial runs persist pending evidence",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [795, 795],
+          "context": "the report says when a run is behind, and the check shows how the last run went",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: budgeted partial runs persist pending evidence",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [796, 796],
+          "context": "the report says when a run is behind, and the check shows how the last run went",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: budgeted partial runs persist pending evidence",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [797, 801],
+          "context": "the report says when a run is behind, and the check shows how the last run went",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: budgeted partial runs persist pending evidence",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [802, 802],
+          "context": "the report says when a run is behind, and the check shows how the last run went",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: budgeted partial runs persist pending evidence",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [803, 806],
+          "context": "the report says when a run is behind, and the check shows how the last run went",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: budgeted partial runs persist pending evidence",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [829, 831],
+          "context": "refused reconcile requests read nothing and change nothing",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: preserves strict envelope validation",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [832, 832],
+          "context": "refused reconcile requests read nothing and change nothing",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: preserves strict envelope validation",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [833, 833],
+          "context": "refused reconcile requests read nothing and change nothing",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: preserves strict envelope validation",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        },
+        {
+          "sourceLines": [835, 835],
+          "context": "refused reconcile requests read nothing and change nothing",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/reconciliation.test.ts :: preserves strict envelope validation",
+          "note": "Public signed handlers/delivery DTOs replace Astro markup and private module calls. Complete row and attempt persistence comparisons live only in the disposable installed Alchemy consumer. Timing is controlled, not a live production guarantee."
+        }
+      ]
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/language-updates.test.ts",
+      "sourceBlob": "cb7dbfe9b65aac1bfd4e52f43dd9707493d3da3c",
+      "assertions": [
+        {
+          "sourceLines": [324, 324],
+          "context": "shared helper",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [361, 361],
+          "context": "publishing an English page refreshes only its /en/… entry",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [362, 365],
+          "context": "publishing an English page refreshes only its /en/… entry",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [366, 366],
+          "context": "publishing an English page refreshes only its /en/… entry",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [367, 367],
+          "context": "publishing an English page refreshes only its /en/… entry",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [368, 368],
+          "context": "publishing an English page refreshes only its /en/… entry",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [369, 369],
+          "context": "publishing an English page refreshes only its /en/… entry",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [370, 370],
+          "context": "publishing an English page refreshes only its /en/… entry",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [371, 371],
+          "context": "publishing an English page refreshes only its /en/… entry",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [386, 386],
+          "context": "publishing the English front page refreshes home:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [387, 391],
+          "context": "publishing the English front page refreshes home:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [392, 392],
+          "context": "publishing the English front page refreshes home:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [393, 393],
+          "context": "publishing the English front page refreshes home:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [394, 394],
+          "context": "publishing the English front page refreshes home:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [395, 395],
+          "context": "publishing the English front page refreshes home:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [396, 396],
+          "context": "publishing the English front page refreshes home:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [397, 397],
+          "context": "publishing the English front page refreshes home:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [411, 411],
+          "context": "publishing the Portuguese front page refreshes only home, as a monolingual Site's does",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [412, 412],
+          "context": "publishing the Portuguese front page refreshes only home, as a monolingual Site's does",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [413, 413],
+          "context": "publishing the Portuguese front page refreshes only home, as a monolingual Site's does",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [424, 424],
+          "context": "withdrawing the English front page withdraws home:en only",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [425, 425],
+          "context": "withdrawing the English front page withdraws home:en only",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [426, 426],
+          "context": "withdrawing the English front page withdraws home:en only",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [427, 427],
+          "context": "withdrawing the English front page withdraws home:en only",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [443, 443],
+          "context": "an entry whose language isn't its URI's is refused, and nothing is read",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [444, 444],
+          "context": "an entry whose language isn't its URI's is refused, and nothing is read",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [445, 445],
+          "context": "an entry whose language isn't its URI's is refused, and nothing is read",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [446, 446],
+          "context": "an entry whose language isn't its URI's is refused, and nothing is read",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [464, 464],
+          "context": "reassigning the English primary menu refreshes only chrome:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [465, 470],
+          "context": "reassigning the English primary menu refreshes only chrome:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [471, 471],
+          "context": "reassigning the English primary menu refreshes only chrome:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [472, 472],
+          "context": "reassigning the English primary menu refreshes only chrome:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [473, 473],
+          "context": "reassigning the English primary menu refreshes only chrome:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [474, 474],
+          "context": "reassigning the English primary menu refreshes only chrome:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [475, 477],
+          "context": "reassigning the English primary menu refreshes only chrome:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [478, 478],
+          "context": "reassigning the English primary menu refreshes only chrome:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [494, 494],
+          "context": "changing the English tagline refreshes only home:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [495, 498],
+          "context": "changing the English tagline refreshes only home:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [499, 499],
+          "context": "changing the English tagline refreshes only home:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [500, 500],
+          "context": "changing the English tagline refreshes only home:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [501, 501],
+          "context": "changing the English tagline refreshes only home:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [502, 504],
+          "context": "changing the English tagline refreshes only home:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [505, 505],
+          "context": "changing the English tagline refreshes only home:en",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [517, 517],
+          "context": "changing the logo refreshes every language's chrome",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [518, 522],
+          "context": "changing the logo refreshes every language's chrome",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [523, 526],
+          "context": "changing the logo refreshes every language's chrome",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [527, 527],
+          "context": "changing the logo refreshes every language's chrome",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [529, 529],
+          "context": "changing the logo refreshes every language's chrome",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [541, 541],
+          "context": "a change to the site's own title refreshes every language's home and chrome",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [542, 542],
+          "context": "a change to the site's own title refreshes every language's home and chrome",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [553, 553],
+          "context": "a menu change in the default language refreshes only its chrome",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [554, 554],
+          "context": "a menu change in the default language refreshes only its chrome",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [555, 555],
+          "context": "a menu change in the default language refreshes only its chrome",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [556, 556],
+          "context": "a menu change in the default language refreshes only its chrome",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [571, 571],
+          "context": "a failed English menu read is recorded failed and keeps the stored English menu",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [572, 575],
+          "context": "a failed English menu read is recorded failed and keeps the stored English menu",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [576, 576],
+          "context": "a failed English menu read is recorded failed and keeps the stored English menu",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [586, 586],
+          "context": "a language the Site doesn't serve, or one a shared setting can't have, is refused",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [587, 587],
+          "context": "a language the Site doesn't serve, or one a shared setting can't have, is refused",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [588, 588],
+          "context": "a language the Site doesn't serve, or one a shared setting can't have, is refused",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [589, 589],
+          "context": "a language the Site doesn't serve, or one a shared setting can't have, is refused",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [606, 606],
+          "context": "each language's settings are ordered apart: an older English menu event isn't superseded by a newer Portuguese one",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [619, 626],
+          "context": "the refresh is ready only once every language's home and chrome are stored",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [627, 627],
+          "context": "the refresh is ready only once every language's home and chrome are stored",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [639, 639],
+          "context": "a targeted refresh of a language's home is refused: it is refreshed with the whole Site",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [640, 640],
+          "context": "a targeted refresh of a language's home is refused: it is refreshed with the whole Site",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [641, 641],
+          "context": "a targeted refresh of a language's home is refused: it is refreshed with the whole Site",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [652, 656],
+          "context": "the signed check reports each language's home and chrome",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [670, 678],
+          "context": "a run reads every language's front page and chrome, and the entries of every language",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/settings-languages.test.ts :: reconciliation compares every language; reconciliation repairs missed English; multilingual reconciliation reserves language shared reads",
+          "note": "Shared rows, ALL-language listing, bilingual budget and public language delivery; rendering stays gq-site #77."
+        },
+        {
+          "sourceLines": [679, 679],
+          "context": "a run reads every language's front page and chrome, and the entries of every language",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/settings-languages.test.ts :: reconciliation compares every language; reconciliation repairs missed English; multilingual reconciliation reserves language shared reads",
+          "note": "Shared rows, ALL-language listing, bilingual budget and public language delivery; rendering stays gq-site #77."
+        },
+        {
+          "sourceLines": [680, 683],
+          "context": "a run reads every language's front page and chrome, and the entries of every language",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/settings-languages.test.ts :: reconciliation compares every language; reconciliation repairs missed English; multilingual reconciliation reserves language shared reads",
+          "note": "Shared rows, ALL-language listing, bilingual budget and public language delivery; rendering stays gq-site #77."
+        },
+        {
+          "sourceLines": [686, 686],
+          "context": "a run reads every language's front page and chrome, and the entries of every language",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/settings-languages.test.ts :: reconciliation compares every language; reconciliation repairs missed English; multilingual reconciliation reserves language shared reads",
+          "note": "Shared rows, ALL-language listing, bilingual budget and public language delivery; rendering stays gq-site #77."
+        },
+        {
+          "sourceLines": [704, 712],
+          "context": "a missed English change, to a page and to the tagline, is restored at the next run",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/settings-languages.test.ts :: reconciliation compares every language; reconciliation repairs missed English; multilingual reconciliation reserves language shared reads",
+          "note": "Shared rows, ALL-language listing, bilingual budget and public language delivery; rendering stays gq-site #77."
+        },
+        {
+          "sourceLines": [713, 713],
+          "context": "a missed English change, to a page and to the tagline, is restored at the next run",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/settings-languages.test.ts :: reconciliation compares every language; reconciliation repairs missed English; multilingual reconciliation reserves language shared reads",
+          "note": "Shared rows, ALL-language listing, bilingual budget and public language delivery; rendering stays gq-site #77."
+        },
+        {
+          "sourceLines": [714, 714],
+          "context": "a missed English change, to a page and to the tagline, is restored at the next run",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/settings-languages.test.ts :: reconciliation compares every language; reconciliation repairs missed English; multilingual reconciliation reserves language shared reads",
+          "note": "Shared rows, ALL-language listing, bilingual budget and public language delivery; rendering stays gq-site #77."
+        },
+        {
+          "sourceLines": [715, 717],
+          "context": "a missed English change, to a page and to the tagline, is restored at the next run",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/settings-languages.test.ts :: reconciliation compares every language; reconciliation repairs missed English; multilingual reconciliation reserves language shared reads",
+          "note": "Shared rows, ALL-language listing, bilingual budget and public language delivery; rendering stays gq-site #77."
+        },
+        {
+          "sourceLines": [744, 748],
+          "context": "with two languages a run stays within its budget, catching up fewer entries per run",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/settings-languages.test.ts :: reconciliation compares every language; reconciliation repairs missed English; multilingual reconciliation reserves language shared reads",
+          "note": "Shared rows, ALL-language listing, bilingual budget and public language delivery; rendering stays gq-site #77."
+        },
+        {
+          "sourceLines": [749, 749],
+          "context": "with two languages a run stays within its budget, catching up fewer entries per run",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/settings-languages.test.ts :: reconciliation compares every language; reconciliation repairs missed English; multilingual reconciliation reserves language shared reads",
+          "note": "Shared rows, ALL-language listing, bilingual budget and public language delivery; rendering stays gq-site #77."
+        },
+        {
+          "sourceLines": [750, 750],
+          "context": "with two languages a run stays within its budget, catching up fewer entries per run",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "runtime projection #9",
+          "destination": "frontend/tests/settings-languages.test.ts :: reconciliation compares every language; reconciliation repairs missed English; multilingual reconciliation reserves language shared reads",
+          "note": "Shared rows, ALL-language listing, bilingual budget and public language delivery; rendering stays gq-site #77."
+        }
+      ]
+    },
+    {
+      "sourcePath": "scripts/smoke/frontend-runtime.mjs",
+      "sourceBlob": "3cfce6e0a0572479f281e63c425c38b146aa2f0b",
+      "assertions": [
+        {
+          "sourceLines": [104, 108],
+          "context": "the Frontend's migrations apply to the local D1 store",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [113, 113],
+          "context": "a never-refreshed homepage is a 503",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [115, 119],
+          "context": "a never-refreshed Site's entry is a 503",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [126, 130],
+          "context": "a refresh without the token is refused",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [131, 131],
+          "context": "and the homepage is still not served",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [134, 138],
+          "context": "gq frontend refresh stores the homepage",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [140, 144],
+          "context": "the homepage is served with its menu, logo and design presets",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [146, 152],
+          "context": "and so is the published entry",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [156, 160],
+          "context": "with the CMS down the homepage is still served",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [162, 166],
+          "context": "and so is the entry",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [168, 172],
+          "context": "an entry the store never held is a 503, not a 404",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [174, 178],
+          "context": "a refresh during the outage fails and keeps it",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [179, 179],
+          "context": "and the homepage is still served",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [187, 187],
+          "context": "the store's rows are aged by a year",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [190, 194],
+          "context": "after a Worker restart, with the CMS still down and its content a year old, it is still served",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [196, 200],
+          "context": "and so is the entry",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [208, 212],
+          "context": "after a rebuilt redeploy, with the CMS still down, it is still served",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [219, 223],
+          "context": "once the CMS is back, a refresh serves its changes",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [227, 231],
+          "context": "an entry the store never held is looked up while the CMS is healthy",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [233, 233],
+          "context": "a URL WordPress has nothing at is a 404",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [244, 248],
+          "context": "gq frontend refresh --uri serves a new publication through an outage",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [249, 256],
+          "context": "and a moved entry's old route redirects to its new one",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [265, 269],
+          "context": "gq frontend events check: the Worker accepts this Site's signed events",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [275, 279],
+          "context": "and refuses events signed with another key",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [311, 321],
+          "context": "another Site's, malformed, unsupported and stale events are refused, changing and reading nothing",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [336, 344],
+          "context": "a signed withdrawal, with the CMS down, makes the entry a 404 at once",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [346, 350],
+          "context": "and the other entries are still served",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [356, 360],
+          "context": "after a Worker restart it is still a 404, and a delayed older publication is superseded",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [366, 370],
+          "context": "a whole-Site refresh from a CMS that still returns it doesn't restore it",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [376, 383],
+          "context": "a later republication serves it again, through an outage",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [404, 414],
+          "context": "a signed reconcile event brings a lost publication, update, removal and menu change to visitors",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "installed workerd runtime projection #9",
+          "destination": "scripts/reconciliation-proof.py; scripts/fixtures/alchemy-p1/reconciliation.mjs; frontend/tests/reconciliation.test.ts",
+          "note": "Integrated real WordPress snapshot projected through GraphQL into installed workerd. Budget continuation, changes/removals, outages and recovery retained; skeleton HTML stays gq-site #77."
+        },
+        {
+          "sourceLines": [420, 426],
+          "context": "with the CMS down a reconciliation fails and keeps every page",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; installed real-runtime proof #11",
+          "status": "installed workerd runtime projection #9",
+          "destination": "scripts/reconciliation-proof.py; scripts/fixtures/alchemy-p1/reconciliation.mjs; frontend/tests/reconciliation.test.ts",
+          "note": "Integrated real WordPress snapshot projected through GraphQL into installed workerd. Budget continuation, changes/removals, outages and recovery retained; skeleton HTML stays gq-site #77."
+        },
+        {
+          "sourceLines": [446, 453],
+          "context": "60 lost publications are caught up over a few runs, each within 40 CMS requests",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; installed real-runtime proof #11",
+          "status": "installed workerd runtime projection #9",
+          "destination": "scripts/reconciliation-proof.py; scripts/fixtures/alchemy-p1/reconciliation.mjs; frontend/tests/reconciliation.test.ts",
+          "note": "Integrated real WordPress snapshot projected through GraphQL into installed workerd. Budget continuation, changes/removals, outages and recovery retained; skeleton HTML stays gq-site #77."
+        }
+      ]
+    },
+    {
+      "sourcePath": "scripts/smoke/frontend-runtime-lib.mjs",
+      "sourceBlob": "504f7c54563b36578525b5c4f2a9e99d90a01f4a",
+      "assertions": []
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-events.mjs",
+      "sourceBlob": "70687d07e44f3d1738133f58918ffe53258dbe2c",
+      "assertions": [
+        {
+          "sourceLines": [264, 270],
+          "context": "gq site check: WordPress running but not installed is not ready, and its installer is named",
+          "home": "gq-site#77 readiness orchestration/provisioning; retain runtime response obligation in #9/#11",
+          "status": "runtime evidence #9 with Blueprint handoff",
+          "destination": "frontend/tests/reconciliation.test.ts :: signed check distinguishes an unprepared store; scripts/cms-proof.py; scripts/reconciliation-proof.py; gq-site #77",
+          "note": "Runtime store/check metadata and installed CMS checks are covered; gq site check command, real GETQUICK GraphQL schema validation, installer guidance and orchestration stay Blueprint-owned. No claim of running the Site CLI."
+        },
+        {
+          "sourceLines": [285, 290],
+          "context": "gq site check: WordPress installed without WPGraphQL active is not ready",
+          "home": "gq-site#77 readiness orchestration/provisioning; retain runtime response obligation in #9/#11",
+          "status": "runtime evidence #9 with Blueprint handoff",
+          "destination": "frontend/tests/reconciliation.test.ts :: signed check distinguishes an unprepared store; scripts/cms-proof.py; scripts/reconciliation-proof.py; gq-site #77",
+          "note": "Runtime store/check metadata and installed CMS checks are covered; gq site check command, real GETQUICK GraphQL schema validation, installer guidance and orchestration stay Blueprint-owned. No claim of running the Site CLI."
+        },
+        {
+          "sourceLines": [307, 315],
+          "context": "gq site check: real WPGraphQL without the GETQUICK plugins is not ready, naming what adds the missing fields",
+          "home": "gq-site#77 readiness orchestration/provisioning; retain runtime response obligation in #9/#11",
+          "status": "runtime evidence #9 with Blueprint handoff",
+          "destination": "frontend/tests/reconciliation.test.ts :: signed check distinguishes an unprepared store; scripts/cms-proof.py; scripts/reconciliation-proof.py; gq-site #77",
+          "note": "Runtime store/check metadata and installed CMS checks are covered; gq site check command, real GETQUICK GraphQL schema validation, installer guidance and orchestration stay Blueprint-owned. No claim of running the Site CLI."
+        },
+        {
+          "sourceLines": [316, 320],
+          "context": "and every other field the Frontend reads is valid on real WPGraphQL",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "runtime evidence #9 with Blueprint handoff",
+          "destination": "frontend/tests/reconciliation.test.ts :: signed check distinguishes an unprepared store; scripts/cms-proof.py; scripts/reconciliation-proof.py; gq-site #77",
+          "note": "Runtime store/check metadata and installed CMS checks are covered; gq site check command, real GETQUICK GraphQL schema validation, installer guidance and orchestration stay Blueprint-owned. No claim of running the Site CLI."
+        },
+        {
+          "sourceLines": [332, 336],
+          "context": "the Frontend's migrations apply to the local D1 store",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "runtime evidence #9 with Blueprint handoff",
+          "destination": "frontend/tests/reconciliation.test.ts :: signed check distinguishes an unprepared store; scripts/cms-proof.py; scripts/reconciliation-proof.py; gq-site #77",
+          "note": "Runtime store/check metadata and installed CMS checks are covered; gq site check command, real GETQUICK GraphQL schema validation, installer guidance and orchestration stay Blueprint-owned. No claim of running the Site CLI."
+        },
+        {
+          "sourceLines": [347, 356],
+          "context": "gq site check: the Worker answering, with its secrets bound, is not ready before a refresh prepares it",
+          "home": "gq-site#77 readiness orchestration/provisioning; retain runtime response obligation in #9/#11",
+          "status": "runtime evidence #9 with Blueprint handoff",
+          "destination": "frontend/tests/reconciliation.test.ts :: signed check distinguishes an unprepared store; scripts/cms-proof.py; scripts/reconciliation-proof.py; gq-site #77",
+          "note": "Runtime store/check metadata and installed CMS checks are covered; gq site check command, real GETQUICK GraphQL schema validation, installer guidance and orchestration stay Blueprint-owned. No claim of running the Site CLI."
+        },
+        {
+          "sourceLines": [360, 360],
+          "context": "the Site is prepared",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "runtime evidence #9 with Blueprint handoff",
+          "destination": "frontend/tests/reconciliation.test.ts :: signed check distinguishes an unprepared store; scripts/cms-proof.py; scripts/reconciliation-proof.py; gq-site #77",
+          "note": "Runtime store/check metadata and installed CMS checks are covered; gq site check command, real GETQUICK GraphQL schema validation, installer guidance and orchestration stay Blueprint-owned. No claim of running the Site CLI."
+        },
+        {
+          "sourceLines": [363, 370],
+          "context": "gq site check: prepared but never reconciled by the CMS's scheduler is still not ready",
+          "home": "gq-site#77 readiness orchestration/provisioning; retain runtime response obligation in #9/#11",
+          "status": "runtime evidence #9 with Blueprint handoff",
+          "destination": "frontend/tests/reconciliation.test.ts :: signed check distinguishes an unprepared store; scripts/cms-proof.py; scripts/reconciliation-proof.py; gq-site #77",
+          "note": "Runtime store/check metadata and installed CMS checks are covered; gq site check command, real GETQUICK GraphQL schema validation, installer guidance and orchestration stay Blueprint-owned. No claim of running the Site CLI."
+        },
+        {
+          "sourceLines": [373, 377],
+          "context": "wp gq-events check: the Frontend accepts the CMS's signed events",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "runtime evidence #9 with Blueprint handoff",
+          "destination": "frontend/tests/reconciliation.test.ts :: signed check distinguishes an unprepared store; scripts/cms-proof.py; scripts/reconciliation-proof.py; gq-site #77",
+          "note": "Runtime store/check metadata and installed CMS checks are covered; gq site check command, real GETQUICK GraphQL schema validation, installer guidance and orchestration stay Blueprint-owned. No claim of running the Site CLI."
+        },
+        {
+          "sourceLines": [392, 392],
+          "context": "saving a draft sends no event",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [399, 407],
+          "context": "publishing the page sends a signed event, and the Frontend serves it through a CMS outage",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [414, 418],
+          "context": "an update reaches visitors without a deploy",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [426, 432],
+          "context": "a rename sends the route it left, which then redirects",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [443, 452],
+          "context": "a menu shown nowhere sends nothing; assigning it to the primary location sends a settings event, and every page shows it through an outage",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [460, 466],
+          "context": "editing the primary menu sends a new event, and every page shows it",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [474, 479],
+          "context": "changing the site logo sends a settings event, and every page shows it",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [489, 497],
+          "context": "changing the tagline and the site icon sends identity events: the homepage shows the tagline, every page the icon",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [517, 526],
+          "context": "saving the palette through the global-styles REST route sends a design event, and every page uses it",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [533, 543],
+          "context": "a settings refresh that fails on the Frontend is recorded, listed, and every page keeps its menu",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [551, 559],
+          "context": "wp gq-events settings retry delivers the same event once the CMS is back",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [569, 573],
+          "context": "with the Frontend down, publishing still succeeds, within the event's time bound",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [574, 580],
+          "context": "and the entry records the failed delivery for a retry",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [582, 588],
+          "context": "wp gq-events status lists it",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [592, 596],
+          "context": "meanwhile visitors get the last good publication",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [600, 608],
+          "context": "wp gq-events retry delivers the same event once the Frontend is back",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [614, 622],
+          "context": "a refresh that fails on the Frontend is recorded, and the stored version stays served",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [633, 641],
+          "context": "an event signed with another key is rejected and changes nothing",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [649, 654],
+          "context": "in production without the key, publishing succeeds and records why nothing was sent",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [680, 687],
+          "context": "the retry scheduler delivers a publication recorded before the CMS was configured, once it is",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [705, 708],
+          "context": "a new page is delivered at once",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [715, 728],
+          "context": "a publication the Frontend didn't receive is reported to its editor and listed as retrying",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [734, 741],
+          "context": "before its delay has passed, the scheduler leaves it, and visitors keep the last good version",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [748, 758],
+          "context": "once it is due, the scheduler delivers the same event, without republishing or visits, and the editor sees it recovered",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [769, 776],
+          "context": "a refresh failure records the Frontend's reason, without any secret",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [784, 793],
+          "context": "while the CMS can't be read, retries fail with a growing delay, and every page keeps its last good version",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [801, 810],
+          "context": "once the CMS is back, the next due run delivers both, through a later outage",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [829, 836],
+          "context": "a pending event is left to its own request for a while, then sent by the scheduler if that request was interrupted",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [854, 865],
+          "context": "after its last attempt, a delivery isn't retried again; it is reported as failed to the editor, by delays and in Site Health",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [867, 871],
+          "context": "an operator's retry delivers it",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [882, 886],
+          "context": "a run while another holds the lock sends nothing",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [889, 893],
+          "context": "wp gq-events delays shows when the scheduler last ran",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [900, 903],
+          "context": "the entry is served before it is withdrawn",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [910, 920],
+          "context": "unpublishing sends a withdrawal, and the entry is a 404 at once and through a CMS outage",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [925, 929],
+          "context": "republishing serves it again",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [934, 938],
+          "context": "password-protecting it withdraws it",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [940, 940],
+          "context": "removing the password publishes it again",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [945, 952],
+          "context": "trashing it sends a withdrawal at the URI it had, and it is a 404",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [980, 980],
+          "context": "a second page is published",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [983, 987],
+          "context": "deleting a published page outright withdraws it, and leaves no record once refreshed",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [994, 1002],
+          "context": "with the Frontend down, deleting succeeds and keeps the failed withdrawal for a retry",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [1007, 1014],
+          "context": "wp gq-events retry delivers it once the Frontend is back, and the page is a 404",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [1029, 1044],
+          "context": "the scheduler delivers a withdrawal the Frontend missed, and the page is a 404",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [1075, 1075],
+          "context": "a page to unpublish quietly is served",
+          "home": "gq-content#6 handleEvent/handleRefresh and CMS publication/withdrawal: public boundary equivalent; installed real-runtime proof #11",
+          "status": "integrated installed runtime projection #9; orchestration remains Blueprint",
+          "destination": "scripts/reconciliation-proof.py; scripts/fixtures/alchemy-p1/reconciliation.mjs; frontend/tests/reconciliation.test.ts",
+          "note": "Actual installed WordPress/Polylang/hooks/CLI/scheduler HTTP to installed workerd/D1, snapshot GraphQL boundary. Signed check evidence and CMS health/CLI are runtime-owned; gq site check orchestration, independent media and live provisioning stay gq-site #77."
+        },
+        {
+          "sourceLines": [1090, 1103],
+          "context": "changes no event was recorded for reach visitors at the scheduler's next run, which reconciles",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "integrated installed runtime projection #9; orchestration remains Blueprint",
+          "destination": "scripts/reconciliation-proof.py; scripts/fixtures/alchemy-p1/reconciliation.mjs; frontend/tests/reconciliation.test.ts",
+          "note": "Actual installed WordPress/Polylang/hooks/CLI/scheduler HTTP to installed workerd/D1, snapshot GraphQL boundary. Signed check evidence and CMS health/CLI are runtime-owned; gq site check orchestration, independent media and live provisioning stay gq-site #77."
+        },
+        {
+          "sourceLines": [1106, 1111],
+          "context": "gq site check: once the scheduler has reconciled, the Frontend and its delivery are ready, through the CMS outage",
+          "home": "gq-site#77 readiness orchestration/provisioning; retain runtime response obligation in #9/#11",
+          "status": "integrated installed runtime projection #9; orchestration remains Blueprint",
+          "destination": "scripts/reconciliation-proof.py; scripts/fixtures/alchemy-p1/reconciliation.mjs; frontend/tests/reconciliation.test.ts",
+          "note": "Actual installed WordPress/Polylang/hooks/CLI/scheduler HTTP to installed workerd/D1, snapshot GraphQL boundary. Signed check evidence and CMS health/CLI are runtime-owned; gq site check orchestration, independent media and live provisioning stay gq-site #77."
+        },
+        {
+          "sourceLines": [1128, 1143],
+          "context": "with the CMS unreadable a reconciliation fails without changing a page, and is reported once stale",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "integrated installed runtime projection #9; orchestration remains Blueprint",
+          "destination": "scripts/reconciliation-proof.py; scripts/fixtures/alchemy-p1/reconciliation.mjs; frontend/tests/reconciliation.test.ts",
+          "note": "Actual installed WordPress/Polylang/hooks/CLI/scheduler HTTP to installed workerd/D1, snapshot GraphQL boundary. Signed check evidence and CMS health/CLI are runtime-owned; gq site check orchestration, independent media and live provisioning stay gq-site #77."
+        },
+        {
+          "sourceLines": [1147, 1151],
+          "context": "wp gq-events reconcile reconciles at once once the CMS is back",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent; installed real-runtime proof #11",
+          "status": "integrated installed runtime projection #9; orchestration remains Blueprint",
+          "destination": "scripts/reconciliation-proof.py; scripts/fixtures/alchemy-p1/reconciliation.mjs; frontend/tests/reconciliation.test.ts",
+          "note": "Actual installed WordPress/Polylang/hooks/CLI/scheduler HTTP to installed workerd/D1, snapshot GraphQL boundary. Signed check evidence and CMS health/CLI are runtime-owned; gq site check orchestration, independent media and live provisioning stay gq-site #77."
+        },
+        {
+          "sourceLines": [1210, 1210],
+          "context": "the cron container starts",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior scheduler invocation retained; daemon/provisioning handoff",
+          "destination": "docs/evidence/issue-8/README.md; gq-content #11; gq-site #77",
+          "note": "Actual CLI scheduler and shell invocation retained; no new claim of cron daemon/Ploi provisioning."
+        },
+        {
+          "sourceLines": [1231, 1242],
+          "context": "a real cron running the crontab gq ploi events installs delivers a missed publication, without visits or a retry by hand",
+          "home": "gq-content#8 CMS retry scheduler: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior scheduler invocation retained; daemon/provisioning handoff",
+          "destination": "docs/evidence/issue-8/README.md; gq-content #11; gq-site #77",
+          "note": "Actual CLI scheduler and shell invocation retained; no new claim of cron daemon/Ploi provisioning."
+        }
+      ]
+    },
+    {
+      "sourcePath": "scripts/smoke/frontend-languages.mjs",
+      "sourceBlob": "354ee63d42c1c50d829b929ee61f062a25bae4a4",
+      "assertions": [
+        {
+          "sourceLines": [161, 165],
+          "context": "the Frontend's migrations apply to a bilingual Site's store",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [171, 178],
+          "context": "gq frontend refresh stores each language's front page and chrome",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [215, 219],
+          "context": "/en/sobre/ is a 404 in English: no fallback to the Portuguese page",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        }
+      ]
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-polylang.mjs",
+      "sourceBlob": "e5e0f301cea9c16e782eb57394fadad8ceb55101",
+      "assertions": [
+        {
+          "sourceLines": [235, 239],
+          "context": "the generated deploy script passes Portuguese (AO90) and English under /en/",
+          "home": "gq-site#77 readiness orchestration/provisioning; retain runtime response obligation in #9/#11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [242, 242],
+          "context": "polylang.sh configures Polylang on a monolingual Site",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [244, 252],
+          "context": "Portuguese is the default language, then English",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [253, 259],
+          "context": "each language is a URL directory, the default's hidden",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [263, 268],
+          "context": "the content without a language is the default language's",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [301, 305],
+          "context": "nodeByUri(\"/en/\") is the English front page",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [306, 310],
+          "context": "language(code: EN) has the English title",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [311, 315],
+          "context": "an English page's uri is /en/<its slug>/",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [316, 320],
+          "context": "a Portuguese page's uri has no prefix",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [426, 432],
+          "context": "wp gq-events settings status lists English's own menus and identity",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [438, 444],
+          "context": "running polylang.sh again changes nothing",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [448, 454],
+          "context": "a language gq.ops.json no longer lists stops it, named, and changes nothing",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        },
+        {
+          "sourceLines": [458, 465],
+          "context": "it never deletes a language, even one without content",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; installed real-runtime proof #11",
+          "status": "prior allocation retained",
+          "destination": "docs/evidence/issue-6/assertion-allocation.json; docs/evidence/issue-7/assertion-allocation.json; docs/evidence/issue-8/assertion-allocation.json",
+          "note": "This overlay does not change prior completed allocations."
+        }
+      ]
+    }
+  ]
+}

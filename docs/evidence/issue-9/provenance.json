@@ -1,0 +1,120 @@
+{
+  "sourceRepository": "Quick-Release/gq-site",
+  "checkpoint": "eaec13488d57b3d04059309b5b36de5d016f3de1",
+  "observedUpstream": "497a3ae11b5d15df3619f71ff24f095d9b5e8cbe",
+  "base": "0c939635e27e40cbb6fb47565f270461ee03adfe",
+  "verifiedRelevantRoots": [
+    "blueprint/templates/apps/frontend/src",
+    "blueprint/templates/apps/frontend/migrations",
+    "blueprint/templates/apps/cms/web/app/mu-plugins",
+    "scripts/smoke",
+    "docs/adr"
+  ],
+  "reviewedRootDelta": ["scripts/smoke/ci-composer.mjs", "scripts/smoke/ci-composer.sh"],
+  "rootDeltaReview": "Only two added CI Composer installer proof scripts in scripts/smoke; neither changes runtime/reconciliation/readiness source. Both reviewed explicitly; no runtime extraction from upstream.",
+  "relevantDelta": "none: accepted runtime paths unchanged (broad roots reviewed) through latest upstream and source working tree",
+  "upstreamChangedPaths": [
+    ".github/workflows/ci.yml",
+    "CHANGELOG.md",
+    "blueprint/templates/infra/ci/Dockerfile",
+    "docs/development.md",
+    "docs/guides/dependency-patches.md",
+    "package.json",
+    "scripts/smoke/ci-composer.mjs",
+    "scripts/smoke/ci-composer.sh",
+    "test/fixtures/README.md",
+    "test/fixtures/content-site/infra/ci/Dockerfile"
+  ],
+  "files": [
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/reconciliation.test.ts",
+      "sourceBlob": "0d5baaf010247e07a6df21f08f3772e3dac9819a",
+      "sha256": "8a07a30c8fe9a6cf944ace687367ec8c97b5703152d7acbcaa5144091fbe095c"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/language-updates.test.ts",
+      "sourceBlob": "cb7dbfe9b65aac1bfd4e52f43dd9707493d3da3c",
+      "sha256": "955085e5945da10a03c9c97748978147560ec29a1e77c44c037780e7658fbed6"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/reconciliation.ts",
+      "sourceBlob": "0382eeb5bee834526b77dd720e1e05ea7d4180ef",
+      "sha256": "2e3f65e8ebf47a1c8ce06a10a2f1df21575cdaf6821337c698f8a729ee7a53e8"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/delivery.ts",
+      "sourceBlob": "52008447469c4be16ad84b348c4d5548edcc2c6c",
+      "sha256": "d68d04c261ad55a6bf1ea152e7b35364195c0c92b6f3fea3b7f229b6313f9e52"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/publications.ts",
+      "sourceBlob": "08d6889a95daa5f5b27822fd3dad673584da728f",
+      "sha256": "e14ddc183b0e4416669e61f64ad0b9e79cee820291d9487dbb8119c6b7418824"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/events.ts",
+      "sourceBlob": "9479d9a85c58cc88aae1d75923048530a3801759",
+      "sha256": "ba3ff815cd45d1cf475a5191217bb838d706ad97c9d6642161eb7503feafa4fd"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/wordpress.ts",
+      "sourceBlob": "f89dc75208fa9d90825e3765731af02bf9f956a6",
+      "sha256": "f2282c1667ad2974b8432b22a9fc3b33dcc3d35d90bb01e0fbc2974eee830fd8"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/pages/gq/events.ts",
+      "sourceBlob": "aa5a4d7eae51b8e1fc5491ee1bd767aa8d7f2f59",
+      "sha256": "03932f71ae9a28fe21e73a9b5a6c3e23c35b02e50c0866a94f63371a9e81ce4a"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/pages/gq/refresh.ts",
+      "sourceBlob": "75b4166591c4c2efbdff268c490661c4dadc51b1",
+      "sha256": "d32bcb6f0cf0e6180732fd6340727da068879f5f85e4ff180d5dbf71404d5b9d"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/cms/web/app/mu-plugins/delivery-retries.php",
+      "sourceBlob": "5486b5559b0119de587d9241f2c2f36ec216a83a",
+      "sha256": "9299d777e81191abb191459155760ef6876ba8a7a7eb1df770f733a07042214f"
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-events.mjs",
+      "sourceBlob": "70687d07e44f3d1738133f58918ffe53258dbe2c",
+      "sha256": "26ece12f6b9a707f7679f3e3f305467f4597f877bc56058c3c04ff3143b2bd2c"
+    },
+    {
+      "sourcePath": "scripts/smoke/frontend-runtime.mjs",
+      "sourceBlob": "3cfce6e0a0572479f281e63c425c38b146aa2f0b",
+      "sha256": "775c8f0e475abff589507ce87ebd45dcb52031ef078f5d407e87e9ff35c47593"
+    },
+    {
+      "sourcePath": "scripts/smoke/frontend-runtime-lib.mjs",
+      "sourceBlob": "504f7c54563b36578525b5c4f2a9e99d90a01f4a",
+      "sha256": "face238abaabfbd1da95e2caa7ecfad7c05e2d621eef39c4af0d699bd78fbdc4"
+    },
+    {
+      "sourcePath": "scripts/smoke/frontend-languages.mjs",
+      "sourceBlob": "354ee63d42c1c50d829b929ee61f062a25bae4a4",
+      "sha256": "88d7264edf3c6209ade7541a5022e4404161ce98dce9bc20f22eb14d483bedd3"
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-polylang.mjs",
+      "sourceBlob": "e5e0f301cea9c16e782eb57394fadad8ceb55101",
+      "sha256": "a1ba4b7a766f08c3a2cdd61dc5a1a03026531d97a29011744027ee26709f93ac"
+    },
+    {
+      "sourcePath": "docs/adr/0009-reconcile-missed-changes-on-the-cms-scheduler.md",
+      "sourceBlob": "3084727760e9b9adf0baa8f4a49968bd1c1e6f7f",
+      "sha256": "06df8144a2f40d3b75752b27f5ec186c8e8590b93f2771c05ad48defa68b5424"
+    },
+    {
+      "sourcePath": "docs/adr/0010-declare-a-new-content-site-ready-through-one-readiness-gate.md",
+      "sourceBlob": "e098092d7683d81c2f7e67fb90aa0391c562e9d3",
+      "sha256": "7adbae3130ba9a022bc4f272e83599fa3bda21b3cbfd002459699161c0bda6e2"
+    },
+    {
+      "sourcePath": "docs/adr/0013-serve-each-language-from-its-own-shared-rows.md",
+      "sourceBlob": "546d15f2b5a9bff2c40ac45980ad5ec4d4cc9abc",
+      "sha256": "22529f09af67d89e273aa07f292ac0ca13b7d8fa3d6205ed440f12b6af0461ff"
+    }
+  ]
+}

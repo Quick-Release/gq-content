@@ -29,7 +29,7 @@ export function createContentRuntime(input: ContentConfig) {
   const languages = siteLanguages(config.wordpress);
   const wordpress = configuredWordPress(config, languages);
   const delivery = configuredDelivery(config, languages, wordpress);
-  const events = configuredEvents(config, languages, delivery);
+  const events = configuredEvents(config, languages, delivery, wordpress);
   const refresh = configuredRefresh(languages, delivery);
   const answer = (status: number, error: string, headers: Record<string, string> = {}) =>
     Response.json({ error }, { status, headers: { "Cache-Control": "no-store", ...headers } });

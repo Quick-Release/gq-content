@@ -728,3 +728,158 @@ test("a failed English menu event keeps its own chrome and default-menu events r
   ).toBeUndefined();
   expect(variables(fetch, "SiteChrome")).toEqual([{ location: "PRIMARY" }]);
 });
+
+test("reconciliation compares every language home and chrome and reads published entries in ALL languages", async () => {
+  await prepare();
+  vi.setSystemTime(Date.now() + 60000);
+  const fetch = wordpress();
+  const run = await deliver(event({ action: "reconcile" }));
+  expect(run.body).toMatchObject({
+    status: "reconciled",
+    shared: {
+      home: { outcome: "unchanged" },
+      chrome: { outcome: "unchanged" },
+      design: { outcome: "unchanged" },
+      languages: { en: { home: { outcome: "unchanged" }, chrome: { outcome: "unchanged" } } },
+    },
+  });
+  expect(variables(fetch, "HomePage")).toEqual([{}, { uri: "/en/", language: "EN" }]);
+  expect(variables(fetch, "SiteChrome")).toEqual([
+    { location: "PRIMARY" },
+    { location: "PRIMARY", language: "EN" },
+  ]);
+  expect(queries(fetch, "PublishedRoutes")[0]![1].body).toContain("language: ALL");
+});
+test("reconciliation repairs missed English home, identity and menu changes without changing Portuguese", async () => {
+  await prepare();
+  const portuguese = await home();
+  fronts.en!.content = "<h1>Changed</h1>";
+  fronts.en!.description = "Better things";
+  fronts.en!.menu = "Who we are";
+  vi.setSystemTime(Date.now() + 60000);
+  const changed = {
+    ...entries["/en/about/"],
+    content: "<p>Missed English update</p>",
+    modifiedGmt: "2026-10-18T10:00:00",
+  };
+  wordpress({
+    routes: () =>
+      data({
+        contentNodes: {
+          nodes: [
+            { id: changed.id, uri: changed.uri, modifiedGmt: changed.modifiedGmt },
+            { uri: "/sobre/" },
+          ],
+          pageInfo: { hasNextPage: false, endCursor: null },
+        },
+      }),
+    entry: (v) =>
+      v.uri === "/en/about/"
+        ? data({ pageBy: changed, postBy: null, designTokens: presets() })
+        : handlers.entry(v),
+  });
+  const run = await deliver(event({ action: "reconcile" }));
+  expect(run.body.shared).toMatchObject({
+    home: { outcome: "unchanged" },
+    chrome: { outcome: "unchanged" },
+    languages: { en: { home: { outcome: "promoted" }, chrome: { outcome: "promoted" } } },
+  });
+  expect(run.body.entries["/en/about/"]).toEqual({ change: "changed", outcome: "refreshed" });
+  expect((await entry()).entry.content).toBe("<p>Missed English update</p>");
+  expect(await home()).toEqual(portuguese);
+  const english = await home("en");
+  expect(english.home.settings.description).toBe("Better things");
+  expect(english.home.page.content).toBe("<h1>Changed</h1>");
+  expect(english.chrome.menuItems[0]?.label).toBe("Who we are");
+});
+test("reconciliation preserves an unavailable English home without default-language fallback and shares design changes", async () => {
+  await prepare();
+  vi.setSystemTime(Date.now() + 60000);
+  color = "#123456";
+  wordpress({ home: (v) => (v.language === "EN" ? httpError(502) : handlers.home(v)) });
+  expect((await deliver(event({ action: "reconcile" }))).status).toBe(503);
+  const en = await home("en");
+  expect(en.home.page.content).toBe("<h1>Welcome</h1>");
+  expect(en.home.colors).toEqual([{ slug: "brand", color: "#123456" }]);
+  expect((await home()).home.colors).toEqual(en.home.colors);
+});
+
+test("multilingual reconciliation reserves language shared reads and continues forty missed entries within budget", async () => {
+  await prepare();
+  const newEntries = Array.from({ length: 40 }, (_, n) => ({
+    id: `missed-${n}`,
+    uri: `/en/news-${n}/`,
+    modifiedGmt: "2026-10-18T09:00:00",
+    title: "Story",
+    content: `<p>Story ${n}</p>`,
+    status: "publish",
+    isRestricted: false,
+    featuredImage: null,
+    language: { slug: "en" },
+    translations: [],
+  }));
+  const answers = {
+    routes: () =>
+      data({
+        contentNodes: { nodes: newEntries, pageInfo: { hasNextPage: false, endCursor: null } },
+      }),
+    entry: (v: Record<string, unknown>) =>
+      data({
+        pageBy: newEntries.find((e) => e.uri === v.uri) ?? null,
+        postBy: null,
+        designTokens: presets(),
+      }),
+  };
+  // The two previously stored entries are now confirmed missing as well.
+  const runs = [];
+  for (let n = 0; n < 3; n++) {
+    vi.setSystemTime(Date.now() + 60000);
+    const fetch = wordpress(answers);
+    const run = await deliver(event({ action: "reconcile" }));
+    runs.push(run.body);
+    expect(fetch.mock.calls.length).toBeLessThanOrEqual(40);
+  }
+  expect(runs.map((r) => [r.status, r.pending])).toEqual([
+    ["behind", 25],
+    ["behind", 8],
+    ["reconciled", 0],
+  ]);
+  expect((await entry("/en/news-39/")).entry.content).toBe("<p>Story 39</p>");
+});
+
+test("missed home, menu, logo, icon, identity and design changes reach both language homes and stored entries", async () => {
+  await prepare();
+  vi.setSystemTime(Date.now() + 60000);
+  fronts.pt!.title = "Identidade";
+  fronts.pt!.description = "Coisas novas";
+  fronts.pt!.content = "<h1>Nova página</h1>";
+  fronts.pt!.menu = "Quem somos";
+  fronts.en!.menu = "Who we are";
+  logo = "https://media.test/new-logo.svg";
+  icon = "https://media.test/new-icon.png";
+  color = "#abcdef";
+  wordpress();
+  const run = await deliver(event({ action: "reconcile" }));
+  expect(run.body.shared).toMatchObject({
+    home: { outcome: "promoted" },
+    chrome: { outcome: "promoted" },
+    design: { outcome: "promoted" },
+    languages: { en: { chrome: { outcome: "promoted" } } },
+  });
+  for (const page of [
+    await home(),
+    await home("en"),
+    await entry("/sobre/"),
+    await entry("/en/about/"),
+  ]) {
+    expect(page.chrome.siteLogo?.sourceUrl).toBe(logo);
+    expect(page.chrome.siteIcon?.sourceUrl).toBe(icon);
+  }
+  const pt = await home();
+  expect(pt.home.settings).toEqual({ title: "Identidade", description: "Coisas novas" });
+  expect(pt.home.page.content).toBe("<h1>Nova página</h1>");
+  expect(pt.home.colors).toEqual([{ slug: "brand", color }]);
+  expect(pt.chrome.menuItems[0]?.label).toBe("Quem somos");
+  expect((await home("en")).chrome.menuItems[0]?.label).toBe("Who we are");
+  expect((await entry()).entry.colors).toEqual([{ slug: "brand", color }]);
+});

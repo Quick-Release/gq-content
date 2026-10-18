@@ -103,11 +103,27 @@ require a whole-Site refresh. A signed withdrawal hides every stored route of
 that entry immediately, without reading the CMS. Refreshes cannot lift it;
 only a later publication can.
 
-The source dispatcher is retained for settings and signed checks; their broader
-proofs belong to subsequent slices. Until issue #9 implements reconciliation,
-valid signed reconciliation requests return 503 with `status: "failed"` and
-make no CMS reads or store changes. They are never acknowledged as applied.
-`vp run pair` runs the installed WordPress/package transport proof after fresh
-P2 installation; the GraphQL boundary is stubbed. `vp run alchemy` also exercises
-signed publish/withdraw/refresh behavior under local workerd. Full P6 remains
-issue #11.
+Signed `reconcile` events compare canonical shared rows and the complete
+published-entry list, repair differences through normal publication rules, and
+rotate rereads of unchanged entries. Runs hold a D1 lease, reserve a bounded CMS
+request budget, and persist outcomes and pending counts for continuation.
+Responses retain the source protocol: 200 for `reconciled`, `behind` or `busy`;
+503 for `failed`, preserving last-known-good content. Incomplete lists remove
+nothing. Every configured language has separate home/chrome rows; design is
+shared.
+
+Signed `check` events return `{ status: "checked", site, reconciliation, store }`.
+`store` reports shared row states, entry-state counts, active withdrawals and
+failed events, plus other language row states under `languages`. It is null
+when unavailable. `reconciliation` reports the last run, counts, failure and
+last matched time, or null before any run. These are runtime evidence for the
+Blueprint readiness gate; readiness orchestration, media checks and provisioning
+remain Blueprint-owned. No storage or reconciliation helpers are public exports.
+
+`vp run pair` exercises installed WordPress/package transport; `vp run alchemy`
+retains the local installed-package/workerd migration and protocol proof.
+`vp run reconciliation` additionally installs the pair and runs actual
+WordPress/Polylang CLI and scheduler HTTP into the installed workerd consumer,
+using GraphQL answers projected from real CMS state. It verifies convergence,
+partial runs, outages/recovery and complete pending/failed records across Worker
+updates. Full P6 release evidence remains issue #11.

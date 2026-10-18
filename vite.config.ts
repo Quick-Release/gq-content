@@ -53,16 +53,24 @@ export default defineConfig({
         dependsOn: ["compile"],
         cache: false,
       },
+      reconciliation: {
+        command: "node scripts/alchemy-consumer.mjs --reconciliation",
+        dependsOn: ["multilingual"],
+        cache: false,
+      },
       verification: {
         command: "vp exec tsc --noEmit",
-        dependsOn: ["unit", "quality", "installed", "alchemy", "multilingual"],
+        dependsOn: ["unit", "quality", "installed", "alchemy", "reconciliation"],
         cache: false,
       },
     },
   },
   test: { include: ["frontend/tests/**/*.test.ts"] },
   lint: {
-    ignorePatterns: ["scripts/fixtures/alchemy-p1/worker.ts"],
+    ignorePatterns: [
+      "scripts/fixtures/alchemy-p1/worker.ts",
+      "scripts/fixtures/alchemy-p1/reconciliation-worker.ts",
+    ],
     options: { typeAware: true, typeCheck: true },
   },
 });

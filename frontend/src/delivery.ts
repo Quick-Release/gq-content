@@ -714,6 +714,103 @@ export function configuredDelivery(
     );
   }
 
+  type SharedOutcome = RecordOutcome | { outcome: "unchanged" };
+  interface SharedReconciliation {
+    home: SharedOutcome;
+    chrome: SharedOutcome;
+    design: SharedOutcome;
+    languages?: Record<string, { home: SharedOutcome; chrome: SharedOutcome }>;
+  }
+  /**
+   * Reconciles the shared rows with WordPress: reads each language's front page
+   * (with its title and tagline) and chrome, and the design presets, compares
+   * each read with what is stored, and promotes the ones that differ, by the
+   * same rules as any refresh. A failed read keeps what is stored. Comparing
+   * what WordPress returns, rather than asking it what changed, catches a change
+   * to any shared setting, in any language, whatever saved it.
+   */
+  async function reconcileShared(
+    store: PublicationStore,
+    siteOrigin?: string,
+  ): Promise<SharedReconciliation> {
+    const readStartedAt = Date.now();
+    const [reads, design] = await Promise.all([
+      Promise.all(
+        languages.map((language) =>
+          Promise.all([getHomeContent(language), getSiteChrome(siteOrigin, { language })]),
+        ),
+      ),
+      getDesignPresets(),
+    ]);
+    const unchanged = async <T>(
+      key: string,
+      parse: (body: unknown) => T | undefined,
+      read: { state: "published"; content: unknown } | { state: "missing" } | null,
+    ) => {
+      if (!read) return false;
+      try {
+        const stored = await store.read(key, parse);
+        if (!stored || stored.state !== read.state) return false;
+        return (
+          stored.state !== "published" ||
+          ("content" in read && canonicalJson(stored.content) === canonicalJson(read.content))
+        );
+      } catch (error) {
+        if (!(error instanceof StoreFailure)) throw error;
+        return false;
+      }
+    };
+
+    const homeRead = (
+      home: Delivery<HomeContent>,
+    ): { state: "published"; content: HomePublication } | { state: "missing" } | null => {
+      if (home.kind === "missing") return { state: "missing" };
+      if (home.kind !== "found" || home.content.blocksOmitted) return null;
+      const { blocksOmitted: _, nodeId: __, ...content } = home.content;
+      return { state: "published", content };
+    };
+    const sharedRead = (read: SharedRead<SiteChrome> | SharedRead<DesignPresets>) =>
+      read.kind === "found" ? ({ state: "published", content: read.content } as const) : null;
+
+    const outcomes: Array<{ home: SharedOutcome; chrome: SharedOutcome }> = [];
+    for (const [index, language] of languages.entries()) {
+      const [home, chrome] = reads[index]!;
+      outcomes.push({
+        home: (await unchanged(homeKey(language), parseHome, homeRead(home)))
+          ? { outcome: "unchanged" }
+          : await promoteHome(store, home, readStartedAt, language),
+        chrome: (await unchanged(chromeKey(language), parseChrome, sharedRead(chrome)))
+          ? { outcome: "unchanged" }
+          : await promoteChrome(store, chrome, readStartedAt, language),
+      });
+    }
+    const [own, ...others] = outcomes;
+    return {
+      ...own!,
+      design: (await unchanged(DESIGN, parseDesign, sharedRead(design)))
+        ? { outcome: "unchanged" }
+        : await promoteDesign(store, design, readStartedAt),
+      ...(multilingual
+        ? {
+            languages: Object.fromEntries(
+              others.map((outcome, index) => [languages[index + 1]!.slug, outcome]),
+            ),
+          }
+        : {}),
+    };
+  }
+
+  /** JSON with its object keys sorted, so two equal values compare equal. */
+  function canonicalJson(value: unknown): string {
+    return JSON.stringify(value, (_key, item: unknown) =>
+      item && typeof item === "object" && !Array.isArray(item)
+        ? Object.fromEntries(
+            Object.entries(item as Record<string, unknown>).sort(([a], [b]) => (a < b ? -1 : 1)),
+          )
+        : item,
+    );
+  }
+
   type SharedRead<T> = Found<T> | { kind: "unavailable"; failure: RefreshFailure };
 
   /** Promotes a read of a shared row. */
@@ -1079,6 +1176,8 @@ export function configuredDelivery(
     }
   };
   return {
+    reconcileShared,
+    eachLimited,
     refreshSite,
     refreshEntries,
     refreshHome,

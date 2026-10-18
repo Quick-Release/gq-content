@@ -13,8 +13,7 @@
 // "withdraw" for one that stopped being public, "settings" for a shared
 // setting (menus, logo, site identity, design presets), and "reconcile", which
 // the CMS's scheduler sends every minute to have the Frontend catch up with
-// any change whose own event never arrived. Execution is deferred to issue #9;
-// this slice explicitly refuses reconciliation with 503. On a
+// any change whose own event never arrived. On a
 // multilingual Site an event names the language its change is in, so only
 // that language's rows are refreshed.
 //
@@ -23,6 +22,8 @@
 // so it holds while WordPress is unreachable, and only a publication that
 // happened after it can make the entry public again.
 import { z } from "zod";
+import { configuredReconciliation } from "./reconciliation";
+import type { WordPressClient } from "./wordpress";
 import type { configuredDelivery } from "./delivery";
 import type { ContentConfig } from "./server";
 import { routeOf } from "./formatting";
@@ -42,7 +43,9 @@ export function configuredEvents(
   config: ContentConfig,
   languages: SiteLanguage[],
   delivery: ReturnType<typeof configuredDelivery>,
+  wordpress: WordPressClient,
 ) {
+  const { reconcile } = configuredReconciliation(languages, delivery, wordpress);
   const SITE = config.site;
   const isLanguageHome = (route: string) => homeAt(route, languages);
   const routeLanguage = (route: string) => languageAt(route, languages);
@@ -573,23 +576,27 @@ export function configuredEvents(
     };
   }
 
-  /** Retain source reconciliation validation; execution arrives in issue #9. */
+  /**
+   * A reconciliation run (reconciliation.ts): 200 when the store now matches
+   * WordPress ("reconciled"), when changes are left for the next run within its
+   * budget ("behind"), or when another run is under way ("busy"); 503 when a
+   * read or a refresh failed, which kept what was stored.
+   */
   async function handleReconcile(
     store: PublicationStore,
     event: z.infer<typeof reconcileEvent>,
     { siteOrigin }: EventContext,
   ): Promise<EventAnswer> {
-    // Reconciliation is implemented in issue #9. Never acknowledge unapplied work.
-    void store;
-    void siteOrigin;
+    const report = await reconcile(store, {
+      runId: event.id,
+      siteOrigin,
+      publish: applyPublication,
+    });
     return {
-      status: 503,
-      body: {
-        event: event.id,
-        status: "failed",
-        failure: { reason: "not-ready", message: "Reconciliation is not available." },
-      },
+      status: report.status === "failed" ? 503 : 200,
+      body: { event: event.id, ...report },
     };
   }
+
   return { receiveEvent };
 }

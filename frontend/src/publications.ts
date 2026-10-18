@@ -72,6 +72,23 @@ export type EventOutcome =
   | { status: "refreshed" | "superseded" }
   | { status: "failed"; reason: string; message: string };
 
+/** A stored entry row, as reconciliation compares it with WordPress's list. */
+export interface StoredEntry {
+  key: string;
+  state: string;
+  nodeId: string | null;
+  modifiedAt: number | null;
+  /** When it was last refreshed or looked at (ms), 0 if never. */
+  attemptedAt: number;
+}
+
+/** What the store holds that reconciliation compares with WordPress. */
+export interface EntryIndex {
+  entries: StoredEntry[];
+  /** The withdrawals in force: the entry's id and when it was withdrawn (the CMS's clock). */
+  withdrawals: Map<string, number>;
+}
+
 /** How a reconciliation run ended, as it is recorded. */
 export interface ReconciliationRecord {
   outcome: "reconciled" | "behind" | "failed";
@@ -174,6 +191,15 @@ export interface PublicationStore {
   liftWithdrawal(event: PublicationEvent): Promise<string | null>;
   /** Counts a processing attempt of the event. */
   startEvent(id: string): Promise<void>;
+  /** The stored entries and the withdrawals in force, for a reconciliation. */
+  entryIndex(): Promise<EntryIndex>;
+  /**
+   * Takes the reconciliation's lease for this run until `now + leaseMs`,
+   * unless another run holds it. Resolves to whether it was taken.
+   */
+  startReconciliation(runId: string, now: number, leaseMs: number): Promise<boolean>;
+  /** Records how the run ended and releases its lease. */
+  finishReconciliation(runId: string, record: ReconciliationRecord): Promise<void>;
   /** The last reconciliation, null if none ever ran. */
   reconciliation(): Promise<ReconciliationState | null>;
   /** What the store holds, in states and counts. */
@@ -516,6 +542,87 @@ export function publicationStore(db: SqlDatabase): PublicationStore {
           .first<{ event_id: string }>(),
       );
       return row?.event_id ?? null;
+    },
+
+    async entryIndex() {
+      const [entries, withdrawals] = await guard("be read", () =>
+        db.batch([
+          db.prepare(
+            `SELECT p.key, p.state, p.node_id, p.modified_at, coalesce(a.attempted_at, 0) AS attempted_at
+             FROM publications p LEFT JOIN refresh_attempts a ON a.key = p.key
+             WHERE substr(p.key, 1, 6) = 'entry:'
+             ORDER BY p.key`,
+          ),
+          db.prepare("SELECT node_id, withdrawn_at FROM withdrawals WHERE republished_at IS NULL"),
+        ]),
+      );
+      return {
+        entries: (
+          entries!.results as Array<{
+            key: string;
+            state: string;
+            node_id: string | null;
+            modified_at: number | null;
+            attempted_at: number;
+          }>
+        ).map((row) => ({
+          key: row.key,
+          state: row.state,
+          nodeId: row.node_id,
+          modifiedAt: row.modified_at,
+          attemptedAt: row.attempted_at,
+        })),
+        withdrawals: new Map(
+          (withdrawals!.results as Array<{ node_id: string; withdrawn_at: number }>).map((row) => [
+            row.node_id,
+            row.withdrawn_at,
+          ]),
+        ),
+      };
+    },
+
+    async startReconciliation(runId, now, leaseMs) {
+      const { results } = await guard("record a reconciliation", () =>
+        db
+          .prepare(
+            `INSERT INTO reconciliation (id, run_id, lease_until, started_at)
+             VALUES (1, ?1, ?2, ?3)
+             ON CONFLICT (id) DO UPDATE SET
+               run_id = excluded.run_id,
+               lease_until = excluded.lease_until,
+               started_at = excluded.started_at
+             WHERE reconciliation.lease_until <= ?3
+             RETURNING run_id`,
+          )
+          .bind(runId, now + leaseMs, now)
+          .all<{ run_id: string }>(),
+      );
+      return results.length > 0;
+    },
+
+    async finishReconciliation(runId, record) {
+      await guard("record a reconciliation", () =>
+        db
+          .prepare(
+            `UPDATE reconciliation SET
+               lease_until = 0, finished_at = ?2, outcome = ?3, checked = ?4, changed = ?5,
+               pending = ?6, failed = ?7, reason = ?8, message = ?9,
+               reconciled_at = CASE WHEN ?3 = 'reconciled' THEN started_at ELSE reconciled_at END
+             WHERE id = 1 AND run_id = ?1`,
+          )
+          .bind(
+            runId,
+            Date.now(),
+            record.outcome,
+            record.checked,
+            record.changed,
+            record.pending,
+            record.failed,
+            record.reason ?? null,
+            record.message ?? null,
+          )
+          .run(),
+      );
     },
 
     async reconciliation() {

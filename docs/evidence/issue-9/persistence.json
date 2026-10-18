@@ -1,0 +1,3793 @@
+{
+  "pending": {
+    "revision": "first",
+    "reconciliation": [
+      {
+        "id": 1,
+        "run_id": "5923f2ed-d76b-4ba2-9926-bc77aa4a8ff9",
+        "lease_until": 0,
+        "started_at": 1792294579945,
+        "finished_at": 1792294580245,
+        "outcome": "behind",
+        "checked": 40,
+        "changed": 22,
+        "pending": 23,
+        "failed": 0,
+        "reason": null,
+        "message": null,
+        "reconciled_at": null
+      }
+    ],
+    "events": [
+      {
+        "id": "reconcile-00204c17d4b85ff9529955d004fc51d51cc2e889",
+        "action": "publish",
+        "node_id": "cG9zdDo1NQ==",
+        "uri": "/en/reconcile-story-3/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580114,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580165,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-20cf339d1d3b49d03f4effee6bf1387ad879fb17",
+        "action": "publish",
+        "node_id": "cG9zdDo2Nw==",
+        "uri": "/en/reconcile-story-15/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580043,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-25840a783eb3d9d305976f3cf9ef4001da143eb1",
+        "action": "publish",
+        "node_id": "cG9zdDo5MQ==",
+        "uri": "/en/reconcile-story-39/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580204,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580241,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-26bc926233089c5f747fddcd66fe9b4cfa2ea8b5",
+        "action": "publish",
+        "node_id": "cG9zdDo3Nw==",
+        "uri": "/en/reconcile-story-25/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580083,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580140,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-55257eb4370d8587c2f7414f33de068ef37173e3",
+        "action": "publish",
+        "node_id": "cG9zdDo2OQ==",
+        "uri": "/en/reconcile-story-17/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580021,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580079,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-5f56049227abb7b2d33f2f27059403cd5c4c32bd",
+        "action": "publish",
+        "node_id": "cG9zdDo4NQ==",
+        "uri": "/en/reconcile-story-33/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580174,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580227,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-689a72beee1d9ca6a2336153b3217830f9f8a95f",
+        "action": "publish",
+        "node_id": "cG9zdDo4MQ==",
+        "uri": "/en/reconcile-story-29/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580113,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580165,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-6c539ea97c2dd00a248f601dd36a5d6191061ab1",
+        "action": "publish",
+        "node_id": "cG9zdDo2Mw==",
+        "uri": "/en/reconcile-story-11/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580043,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-9afa7781dc9fd1edf78f5cdcbfe5335d37078f67",
+        "action": "publish",
+        "node_id": "cG9zdDo3Mw==",
+        "uri": "/en/reconcile-story-21/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580052,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580104,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-9ed3c4d67f69f5076754eb43f544f47e38848bdb",
+        "action": "publish",
+        "node_id": "cG9zdDo3MQ==",
+        "uri": "/en/reconcile-story-19/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580052,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580104,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-a355731e91bd92c324ce731a2d99e3d41ce30965",
+        "action": "publish",
+        "node_id": "cG9zdDo2NQ==",
+        "uri": "/en/reconcile-story-13/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580043,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-af40ac7f1d5c54797c551da6d7192917484513ff",
+        "action": "publish",
+        "node_id": "cG9zdDo4Nw==",
+        "uri": "/en/reconcile-story-35/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580174,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580227,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-bbc509a103d2defd5e91cee43c41ef17735621a4",
+        "action": "publish",
+        "node_id": "cG9zdDo3NQ==",
+        "uri": "/en/reconcile-story-23/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580052,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580105,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-c47254bc3572b7a2e47b0a52e9a99c60b51ab027",
+        "action": "publish",
+        "node_id": "cG9zdDo1Mw==",
+        "uri": "/en/reconcile-story-1/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580018,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-cd4b4f9542ad10952492c5f960e98ab1884455d2",
+        "action": "publish",
+        "node_id": "cG9zdDo4Mw==",
+        "uri": "/en/reconcile-story-31/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580143,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580201,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-ed67b49d243e52f788235a7946e6e2d1b9f33dca",
+        "action": "publish",
+        "node_id": "cG9zdDo3OQ==",
+        "uri": "/en/reconcile-story-27/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580113,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580165,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-fda8e1d9615ea3e8a3a5e813116e6ef151601d50",
+        "action": "publish",
+        "node_id": "cG9zdDo4OQ==",
+        "uri": "/en/reconcile-story-37/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580174,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580227,
+        "reason": null,
+        "message": null
+      }
+    ],
+    "ledger": [
+      {
+        "id": 1,
+        "hash": "0c0fdcef981c58169a092f68f77a36f741e599d6ebc84314ea2d5a6e792fa706",
+        "created_at": null,
+        "name": "0001_publications.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 2,
+        "hash": "6e0289cb3a6ed6f9fff20a3a1365a496d18b1ee36f0efcd8f91efd655dc6c0f4",
+        "created_at": null,
+        "name": "0002_entries.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 3,
+        "hash": "0a87d08c233fad167c67b35f1fa588c8eadeac67074fb7d2f6b3cd5a4daa8e6c",
+        "created_at": null,
+        "name": "0003_publication_events.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 4,
+        "hash": "b77aefdd632b0b4666cd74c849916f9d368b1c6e35e6db7578279f555f3391b5",
+        "created_at": null,
+        "name": "0004_withdrawals.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 5,
+        "hash": "4b62e25c24940ae59dd97d9b4d7fc9cc658c2c1f2819adafa5bbc8a16151a00e",
+        "created_at": null,
+        "name": "0005_reconciliation.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      }
+    ],
+    "attempts": [
+      {
+        "key": "chrome",
+        "attempted_at": 1792294579963,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "chrome:en",
+        "attempted_at": 1792294579973,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "design",
+        "attempted_at": 1792294579977,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-1/",
+        "attempted_at": 1792294580015,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-11/",
+        "attempted_at": 1792294580034,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-13/",
+        "attempted_at": 1792294580034,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-15/",
+        "attempted_at": 1792294580034,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-17/",
+        "attempted_at": 1792294580076,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-19/",
+        "attempted_at": 1792294580095,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-21/",
+        "attempted_at": 1792294580095,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-23/",
+        "attempted_at": 1792294580096,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-25/",
+        "attempted_at": 1792294580137,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-27/",
+        "attempted_at": 1792294580155,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-29/",
+        "attempted_at": 1792294580156,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-3/",
+        "attempted_at": 1792294580156,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-31/",
+        "attempted_at": 1792294580197,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-33/",
+        "attempted_at": 1792294580218,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-35/",
+        "attempted_at": 1792294580218,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-37/",
+        "attempted_at": 1792294580219,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-39/",
+        "attempted_at": 1792294580238,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "home",
+        "attempted_at": 1792294579958,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "home:en",
+        "attempted_at": 1792294579968,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      }
+    ]
+  },
+  "pendingAfter": {
+    "revision": "second",
+    "reconciliation": [
+      {
+        "id": 1,
+        "run_id": "5923f2ed-d76b-4ba2-9926-bc77aa4a8ff9",
+        "lease_until": 0,
+        "started_at": 1792294579945,
+        "finished_at": 1792294580245,
+        "outcome": "behind",
+        "checked": 40,
+        "changed": 22,
+        "pending": 23,
+        "failed": 0,
+        "reason": null,
+        "message": null,
+        "reconciled_at": null
+      }
+    ],
+    "events": [
+      {
+        "id": "reconcile-00204c17d4b85ff9529955d004fc51d51cc2e889",
+        "action": "publish",
+        "node_id": "cG9zdDo1NQ==",
+        "uri": "/en/reconcile-story-3/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580114,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580165,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-20cf339d1d3b49d03f4effee6bf1387ad879fb17",
+        "action": "publish",
+        "node_id": "cG9zdDo2Nw==",
+        "uri": "/en/reconcile-story-15/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580043,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-25840a783eb3d9d305976f3cf9ef4001da143eb1",
+        "action": "publish",
+        "node_id": "cG9zdDo5MQ==",
+        "uri": "/en/reconcile-story-39/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580204,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580241,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-26bc926233089c5f747fddcd66fe9b4cfa2ea8b5",
+        "action": "publish",
+        "node_id": "cG9zdDo3Nw==",
+        "uri": "/en/reconcile-story-25/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580083,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580140,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-55257eb4370d8587c2f7414f33de068ef37173e3",
+        "action": "publish",
+        "node_id": "cG9zdDo2OQ==",
+        "uri": "/en/reconcile-story-17/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580021,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580079,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-5f56049227abb7b2d33f2f27059403cd5c4c32bd",
+        "action": "publish",
+        "node_id": "cG9zdDo4NQ==",
+        "uri": "/en/reconcile-story-33/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580174,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580227,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-689a72beee1d9ca6a2336153b3217830f9f8a95f",
+        "action": "publish",
+        "node_id": "cG9zdDo4MQ==",
+        "uri": "/en/reconcile-story-29/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580113,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580165,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-6c539ea97c2dd00a248f601dd36a5d6191061ab1",
+        "action": "publish",
+        "node_id": "cG9zdDo2Mw==",
+        "uri": "/en/reconcile-story-11/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580043,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-9afa7781dc9fd1edf78f5cdcbfe5335d37078f67",
+        "action": "publish",
+        "node_id": "cG9zdDo3Mw==",
+        "uri": "/en/reconcile-story-21/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580052,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580104,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-9ed3c4d67f69f5076754eb43f544f47e38848bdb",
+        "action": "publish",
+        "node_id": "cG9zdDo3MQ==",
+        "uri": "/en/reconcile-story-19/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580052,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580104,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-a355731e91bd92c324ce731a2d99e3d41ce30965",
+        "action": "publish",
+        "node_id": "cG9zdDo2NQ==",
+        "uri": "/en/reconcile-story-13/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580043,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-af40ac7f1d5c54797c551da6d7192917484513ff",
+        "action": "publish",
+        "node_id": "cG9zdDo4Nw==",
+        "uri": "/en/reconcile-story-35/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580174,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580227,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-bbc509a103d2defd5e91cee43c41ef17735621a4",
+        "action": "publish",
+        "node_id": "cG9zdDo3NQ==",
+        "uri": "/en/reconcile-story-23/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580052,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580105,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-c47254bc3572b7a2e47b0a52e9a99c60b51ab027",
+        "action": "publish",
+        "node_id": "cG9zdDo1Mw==",
+        "uri": "/en/reconcile-story-1/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580018,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-cd4b4f9542ad10952492c5f960e98ab1884455d2",
+        "action": "publish",
+        "node_id": "cG9zdDo4Mw==",
+        "uri": "/en/reconcile-story-31/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580143,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580201,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-ed67b49d243e52f788235a7946e6e2d1b9f33dca",
+        "action": "publish",
+        "node_id": "cG9zdDo3OQ==",
+        "uri": "/en/reconcile-story-27/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580113,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580165,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-fda8e1d9615ea3e8a3a5e813116e6ef151601d50",
+        "action": "publish",
+        "node_id": "cG9zdDo4OQ==",
+        "uri": "/en/reconcile-story-37/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580174,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580227,
+        "reason": null,
+        "message": null
+      }
+    ],
+    "ledger": [
+      {
+        "id": 1,
+        "hash": "0c0fdcef981c58169a092f68f77a36f741e599d6ebc84314ea2d5a6e792fa706",
+        "created_at": null,
+        "name": "0001_publications.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 2,
+        "hash": "6e0289cb3a6ed6f9fff20a3a1365a496d18b1ee36f0efcd8f91efd655dc6c0f4",
+        "created_at": null,
+        "name": "0002_entries.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 3,
+        "hash": "0a87d08c233fad167c67b35f1fa588c8eadeac67074fb7d2f6b3cd5a4daa8e6c",
+        "created_at": null,
+        "name": "0003_publication_events.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 4,
+        "hash": "b77aefdd632b0b4666cd74c849916f9d368b1c6e35e6db7578279f555f3391b5",
+        "created_at": null,
+        "name": "0004_withdrawals.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 5,
+        "hash": "4b62e25c24940ae59dd97d9b4d7fc9cc658c2c1f2819adafa5bbc8a16151a00e",
+        "created_at": null,
+        "name": "0005_reconciliation.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      }
+    ],
+    "attempts": [
+      {
+        "key": "chrome",
+        "attempted_at": 1792294579963,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "chrome:en",
+        "attempted_at": 1792294579973,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "design",
+        "attempted_at": 1792294579977,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-1/",
+        "attempted_at": 1792294580015,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-11/",
+        "attempted_at": 1792294580034,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-13/",
+        "attempted_at": 1792294580034,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-15/",
+        "attempted_at": 1792294580034,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-17/",
+        "attempted_at": 1792294580076,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-19/",
+        "attempted_at": 1792294580095,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-21/",
+        "attempted_at": 1792294580095,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-23/",
+        "attempted_at": 1792294580096,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-25/",
+        "attempted_at": 1792294580137,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-27/",
+        "attempted_at": 1792294580155,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-29/",
+        "attempted_at": 1792294580156,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-3/",
+        "attempted_at": 1792294580156,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-31/",
+        "attempted_at": 1792294580197,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-33/",
+        "attempted_at": 1792294580218,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-35/",
+        "attempted_at": 1792294580218,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-37/",
+        "attempted_at": 1792294580219,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-39/",
+        "attempted_at": 1792294580238,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "home",
+        "attempted_at": 1792294579958,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "home:en",
+        "attempted_at": 1792294579968,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      }
+    ]
+  },
+  "failed": {
+    "revision": "second",
+    "reconciliation": [
+      {
+        "id": 1,
+        "run_id": "07bbc15b-1c4a-40cc-8bf3-7c393430711d",
+        "lease_until": 0,
+        "started_at": 1792294583145,
+        "finished_at": 1792294583157,
+        "outcome": "failed",
+        "checked": 0,
+        "changed": 0,
+        "pending": 0,
+        "failed": 6,
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502",
+        "reconciled_at": 1792294581809
+      }
+    ],
+    "events": [
+      {
+        "id": "reconcile-00204c17d4b85ff9529955d004fc51d51cc2e889",
+        "action": "publish",
+        "node_id": "cG9zdDo1NQ==",
+        "uri": "/en/reconcile-story-3/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580114,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580165,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-04adfc4911d265b536930b63cb18e62f2f769591",
+        "action": "publish",
+        "node_id": "cG9zdDo4Mg==",
+        "uri": "/reconcile-story-30/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580989,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581042,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-04b229851ea2651754e101dca786f5a76c5b7de5",
+        "action": "publish",
+        "node_id": "cG9zdDo2NA==",
+        "uri": "/reconcile-story-12/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580867,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580919,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-077257b44d26c3bdcd74a5cc56fa71583b281bbb",
+        "action": "publish",
+        "node_id": "cG9zdDo4OA==",
+        "uri": "/reconcile-story-36/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294581343,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581377,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-0b46ef54e981c2503530b84b91c430775740aefc",
+        "action": "publish",
+        "node_id": "cG9zdDo3OA==",
+        "uri": "/reconcile-story-26/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580988,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581042,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-12c233ab40d0b10707b23f966817f6c223f73262",
+        "action": "publish",
+        "node_id": "cG9zdDo2Mg==",
+        "uri": "/reconcile-story-10/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580833,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580895,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-14c10a87a3dda1ca1dd5482c97bbc4cc5cf35219",
+        "action": "publish",
+        "node_id": "cG9zdDo3MA==",
+        "uri": "/reconcile-story-18/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580898,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580955,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-20cf339d1d3b49d03f4effee6bf1387ad879fb17",
+        "action": "publish",
+        "node_id": "cG9zdDo2Nw==",
+        "uri": "/en/reconcile-story-15/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580043,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-25840a783eb3d9d305976f3cf9ef4001da143eb1",
+        "action": "publish",
+        "node_id": "cG9zdDo5MQ==",
+        "uri": "/en/reconcile-story-39/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580204,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580241,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-26bc926233089c5f747fddcd66fe9b4cfa2ea8b5",
+        "action": "publish",
+        "node_id": "cG9zdDo3Nw==",
+        "uri": "/en/reconcile-story-25/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580083,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580140,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-494d3b480b673c5b148cbdf8473040bc67365eaa",
+        "action": "publish",
+        "node_id": "cG9zdDo1Nw==",
+        "uri": "/en/reconcile-story-5/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580794,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580830,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-52eaf8905f304a872f274f5bb2733dd8b52dbf09",
+        "action": "publish",
+        "node_id": "cG9zdDo1NA==",
+        "uri": "/reconcile-story-2/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580928,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580979,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-545250ac9573cfb72ecbee59329e0396e8cc371b",
+        "action": "publish",
+        "node_id": "cG9zdDo4MA==",
+        "uri": "/reconcile-story-28/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580988,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581042,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-55257eb4370d8587c2f7414f33de068ef37173e3",
+        "action": "publish",
+        "node_id": "cG9zdDo2OQ==",
+        "uri": "/en/reconcile-story-17/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580021,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580079,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-5df42b9125d774f370097d6b8c204036024383db",
+        "action": "publish",
+        "node_id": "cG9zdDo1Ng==",
+        "uri": "/reconcile-story-4/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294581343,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581401,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-5f56049227abb7b2d33f2f27059403cd5c4c32bd",
+        "action": "publish",
+        "node_id": "cG9zdDo4NQ==",
+        "uri": "/en/reconcile-story-33/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580174,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580227,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-60d09fb4149cb12ae9af3c69ab296ff674f49c17",
+        "action": "publish",
+        "node_id": "cG9zdDo3Mg==",
+        "uri": "/reconcile-story-20/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580928,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580979,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-611c575d44004377ad8c88d68e76ddb274dcf592",
+        "action": "publish",
+        "node_id": "cG9zdDo1OQ==",
+        "uri": "/en/reconcile-story-7/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580794,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580858,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-689a72beee1d9ca6a2336153b3217830f9f8a95f",
+        "action": "publish",
+        "node_id": "cG9zdDo4MQ==",
+        "uri": "/en/reconcile-story-29/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580113,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580165,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-6c539ea97c2dd00a248f601dd36a5d6191061ab1",
+        "action": "publish",
+        "node_id": "cG9zdDo2Mw==",
+        "uri": "/en/reconcile-story-11/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580043,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-785c12f2872886565c08e2ba83ca6d91ae68745c",
+        "action": "publish",
+        "node_id": "cG9zdDo5MA==",
+        "uri": "/reconcile-story-38/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294581343,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581401,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-8ddbece0ce23141b73de087a930f53c4e52577e3",
+        "action": "publish",
+        "node_id": "cG9zdDo2MQ==",
+        "uri": "/en/reconcile-story-9/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580794,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580858,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-9afa7781dc9fd1edf78f5cdcbfe5335d37078f67",
+        "action": "publish",
+        "node_id": "cG9zdDo3Mw==",
+        "uri": "/en/reconcile-story-21/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580052,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580104,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-9ed3c4d67f69f5076754eb43f544f47e38848bdb",
+        "action": "publish",
+        "node_id": "cG9zdDo3MQ==",
+        "uri": "/en/reconcile-story-19/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580052,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580104,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-a355731e91bd92c324ce731a2d99e3d41ce30965",
+        "action": "publish",
+        "node_id": "cG9zdDo2NQ==",
+        "uri": "/en/reconcile-story-13/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580043,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-af40ac7f1d5c54797c551da6d7192917484513ff",
+        "action": "publish",
+        "node_id": "cG9zdDo4Nw==",
+        "uri": "/en/reconcile-story-35/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580174,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580227,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-b22735ef1ae482e6bfc7d3a04e6ddfc233acdcb4",
+        "action": "publish",
+        "node_id": "cG9zdDo4Ng==",
+        "uri": "/reconcile-story-34/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294581343,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581401,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-b4394540e8431ae746b9f3ca6905d6532c76e0f2",
+        "action": "publish",
+        "node_id": "cG9zdDo4NA==",
+        "uri": "/reconcile-story-32/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294581021,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581056,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-b6367c5f090d8acd94deb3a5bdbd10edb5384089",
+        "action": "publish",
+        "node_id": "cG9zdDo2Ng==",
+        "uri": "/reconcile-story-14/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580867,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580919,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-bbc509a103d2defd5e91cee43c41ef17735621a4",
+        "action": "publish",
+        "node_id": "cG9zdDo3NQ==",
+        "uri": "/en/reconcile-story-23/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580052,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580105,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-c47254bc3572b7a2e47b0a52e9a99c60b51ab027",
+        "action": "publish",
+        "node_id": "cG9zdDo1Mw==",
+        "uri": "/en/reconcile-story-1/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580018,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-cd4b4f9542ad10952492c5f960e98ab1884455d2",
+        "action": "publish",
+        "node_id": "cG9zdDo4Mw==",
+        "uri": "/en/reconcile-story-31/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580143,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580201,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-d052bcf0f785d887531f8995292c9fe2c291b44a",
+        "action": "publish",
+        "node_id": "cG9zdDo2MA==",
+        "uri": "/reconcile-story-8/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294581410,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581432,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-d264d2b8c8697d733353507ab515f52e58619b7f",
+        "action": "publish",
+        "node_id": "cG9zdDo1Mg==",
+        "uri": "/reconcile-story-0/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580795,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580858,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-d2d48384c5b1adf32fde72cdb7aaca93f8dd4fdf",
+        "action": "publish",
+        "node_id": "cG9zdDo1Mg==",
+        "uri": "/reconcile-story-0/",
+        "previous_uri": null,
+        "occurred_at": 1792294584000,
+        "received_at": 1792294582859,
+        "status": "failed",
+        "attempts": 1,
+        "processed_at": 1792294582870,
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502"
+      },
+      {
+        "id": "reconcile-d3cb2a51e97fb5dbe065845978972ce1be4cd261",
+        "action": "publish",
+        "node_id": "cG9zdDo1OA==",
+        "uri": "/reconcile-story-6/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294581380,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581424,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-d4edbd8f5ec679d68db5f75ebb4adad8e3b3978b",
+        "action": "publish",
+        "node_id": "cG9zdDo2OA==",
+        "uri": "/reconcile-story-16/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580867,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580919,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-dfa57494cc888c036f0f34fd69a58cebffc8e91f",
+        "action": "publish",
+        "node_id": "cG9zdDo3Ng==",
+        "uri": "/reconcile-story-24/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580958,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581017,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-ed67b49d243e52f788235a7946e6e2d1b9f33dca",
+        "action": "publish",
+        "node_id": "cG9zdDo3OQ==",
+        "uri": "/en/reconcile-story-27/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580113,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580165,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-fc7db66eba1264e55c05492785fecb2dd1b26714",
+        "action": "publish",
+        "node_id": "cG9zdDo3NA==",
+        "uri": "/reconcile-story-22/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580928,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580979,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-fda8e1d9615ea3e8a3a5e813116e6ef151601d50",
+        "action": "publish",
+        "node_id": "cG9zdDo4OQ==",
+        "uri": "/en/reconcile-story-37/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580174,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580227,
+        "reason": null,
+        "message": null
+      }
+    ],
+    "ledger": [
+      {
+        "id": 1,
+        "hash": "0c0fdcef981c58169a092f68f77a36f741e599d6ebc84314ea2d5a6e792fa706",
+        "created_at": null,
+        "name": "0001_publications.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 2,
+        "hash": "6e0289cb3a6ed6f9fff20a3a1365a496d18b1ee36f0efcd8f91efd655dc6c0f4",
+        "created_at": null,
+        "name": "0002_entries.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 3,
+        "hash": "0a87d08c233fad167c67b35f1fa588c8eadeac67074fb7d2f6b3cd5a4daa8e6c",
+        "created_at": null,
+        "name": "0003_publication_events.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 4,
+        "hash": "b77aefdd632b0b4666cd74c849916f9d368b1c6e35e6db7578279f555f3391b5",
+        "created_at": null,
+        "name": "0004_withdrawals.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 5,
+        "hash": "4b62e25c24940ae59dd97d9b4d7fc9cc658c2c1f2819adafa5bbc8a16151a00e",
+        "created_at": null,
+        "name": "0005_reconciliation.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      }
+    ],
+    "attempts": [
+      {
+        "key": "chrome",
+        "attempted_at": 1792294583151,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502"
+      },
+      {
+        "key": "chrome:en",
+        "attempted_at": 1792294583154,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502"
+      },
+      {
+        "key": "design",
+        "attempted_at": 1792294583155,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502"
+      },
+      {
+        "key": "entry:/en/reconcile-story-1/",
+        "attempted_at": 1792294581437,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-11/",
+        "attempted_at": 1792294581440,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-13/",
+        "attempted_at": 1792294582327,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-15/",
+        "attempted_at": 1792294582330,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-17/",
+        "attempted_at": 1792294582873,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502"
+      },
+      {
+        "key": "entry:/en/reconcile-story-19/",
+        "attempted_at": 1792294582875,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502"
+      },
+      {
+        "key": "entry:/en/reconcile-story-21/",
+        "attempted_at": 1792294580095,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-23/",
+        "attempted_at": 1792294580096,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-25/",
+        "attempted_at": 1792294580137,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-27/",
+        "attempted_at": 1792294580155,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-29/",
+        "attempted_at": 1792294580156,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-3/",
+        "attempted_at": 1792294580156,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-31/",
+        "attempted_at": 1792294580197,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-33/",
+        "attempted_at": 1792294580218,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-35/",
+        "attempted_at": 1792294580218,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-37/",
+        "attempted_at": 1792294580219,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-39/",
+        "attempted_at": 1792294580238,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-5/",
+        "attempted_at": 1792294580827,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-7/",
+        "attempted_at": 1792294580849,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-9/",
+        "attempted_at": 1792294580849,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-0/",
+        "attempted_at": 1792294582869,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502"
+      },
+      {
+        "key": "entry:/reconcile-story-10/",
+        "attempted_at": 1792294580891,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-12/",
+        "attempted_at": 1792294580910,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-14/",
+        "attempted_at": 1792294580910,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-16/",
+        "attempted_at": 1792294580911,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-18/",
+        "attempted_at": 1792294580952,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-2/",
+        "attempted_at": 1792294580970,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-20/",
+        "attempted_at": 1792294580970,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-22/",
+        "attempted_at": 1792294580970,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-24/",
+        "attempted_at": 1792294581014,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-26/",
+        "attempted_at": 1792294581033,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-28/",
+        "attempted_at": 1792294581033,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-30/",
+        "attempted_at": 1792294581034,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-32/",
+        "attempted_at": 1792294581053,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-34/",
+        "attempted_at": 1792294581392,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-36/",
+        "attempted_at": 1792294581374,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-38/",
+        "attempted_at": 1792294581392,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-4/",
+        "attempted_at": 1792294581392,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-6/",
+        "attempted_at": 1792294581420,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-8/",
+        "attempted_at": 1792294581429,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "home",
+        "attempted_at": 1792294583149,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502"
+      },
+      {
+        "key": "home:en",
+        "attempted_at": 1792294583152,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502"
+      }
+    ]
+  },
+  "failedAfter": {
+    "revision": "third",
+    "reconciliation": [
+      {
+        "id": 1,
+        "run_id": "07bbc15b-1c4a-40cc-8bf3-7c393430711d",
+        "lease_until": 0,
+        "started_at": 1792294583145,
+        "finished_at": 1792294583157,
+        "outcome": "failed",
+        "checked": 0,
+        "changed": 0,
+        "pending": 0,
+        "failed": 6,
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502",
+        "reconciled_at": 1792294581809
+      }
+    ],
+    "events": [
+      {
+        "id": "reconcile-00204c17d4b85ff9529955d004fc51d51cc2e889",
+        "action": "publish",
+        "node_id": "cG9zdDo1NQ==",
+        "uri": "/en/reconcile-story-3/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580114,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580165,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-04adfc4911d265b536930b63cb18e62f2f769591",
+        "action": "publish",
+        "node_id": "cG9zdDo4Mg==",
+        "uri": "/reconcile-story-30/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580989,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581042,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-04b229851ea2651754e101dca786f5a76c5b7de5",
+        "action": "publish",
+        "node_id": "cG9zdDo2NA==",
+        "uri": "/reconcile-story-12/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580867,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580919,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-077257b44d26c3bdcd74a5cc56fa71583b281bbb",
+        "action": "publish",
+        "node_id": "cG9zdDo4OA==",
+        "uri": "/reconcile-story-36/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294581343,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581377,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-0b46ef54e981c2503530b84b91c430775740aefc",
+        "action": "publish",
+        "node_id": "cG9zdDo3OA==",
+        "uri": "/reconcile-story-26/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580988,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581042,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-12c233ab40d0b10707b23f966817f6c223f73262",
+        "action": "publish",
+        "node_id": "cG9zdDo2Mg==",
+        "uri": "/reconcile-story-10/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580833,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580895,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-14c10a87a3dda1ca1dd5482c97bbc4cc5cf35219",
+        "action": "publish",
+        "node_id": "cG9zdDo3MA==",
+        "uri": "/reconcile-story-18/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580898,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580955,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-20cf339d1d3b49d03f4effee6bf1387ad879fb17",
+        "action": "publish",
+        "node_id": "cG9zdDo2Nw==",
+        "uri": "/en/reconcile-story-15/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580043,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-25840a783eb3d9d305976f3cf9ef4001da143eb1",
+        "action": "publish",
+        "node_id": "cG9zdDo5MQ==",
+        "uri": "/en/reconcile-story-39/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580204,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580241,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-26bc926233089c5f747fddcd66fe9b4cfa2ea8b5",
+        "action": "publish",
+        "node_id": "cG9zdDo3Nw==",
+        "uri": "/en/reconcile-story-25/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580083,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580140,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-494d3b480b673c5b148cbdf8473040bc67365eaa",
+        "action": "publish",
+        "node_id": "cG9zdDo1Nw==",
+        "uri": "/en/reconcile-story-5/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580794,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580830,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-52eaf8905f304a872f274f5bb2733dd8b52dbf09",
+        "action": "publish",
+        "node_id": "cG9zdDo1NA==",
+        "uri": "/reconcile-story-2/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580928,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580979,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-545250ac9573cfb72ecbee59329e0396e8cc371b",
+        "action": "publish",
+        "node_id": "cG9zdDo4MA==",
+        "uri": "/reconcile-story-28/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580988,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581042,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-55257eb4370d8587c2f7414f33de068ef37173e3",
+        "action": "publish",
+        "node_id": "cG9zdDo2OQ==",
+        "uri": "/en/reconcile-story-17/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580021,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580079,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-5df42b9125d774f370097d6b8c204036024383db",
+        "action": "publish",
+        "node_id": "cG9zdDo1Ng==",
+        "uri": "/reconcile-story-4/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294581343,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581401,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-5f56049227abb7b2d33f2f27059403cd5c4c32bd",
+        "action": "publish",
+        "node_id": "cG9zdDo4NQ==",
+        "uri": "/en/reconcile-story-33/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580174,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580227,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-60d09fb4149cb12ae9af3c69ab296ff674f49c17",
+        "action": "publish",
+        "node_id": "cG9zdDo3Mg==",
+        "uri": "/reconcile-story-20/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580928,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580979,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-611c575d44004377ad8c88d68e76ddb274dcf592",
+        "action": "publish",
+        "node_id": "cG9zdDo1OQ==",
+        "uri": "/en/reconcile-story-7/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580794,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580858,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-689a72beee1d9ca6a2336153b3217830f9f8a95f",
+        "action": "publish",
+        "node_id": "cG9zdDo4MQ==",
+        "uri": "/en/reconcile-story-29/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580113,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580165,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-6c539ea97c2dd00a248f601dd36a5d6191061ab1",
+        "action": "publish",
+        "node_id": "cG9zdDo2Mw==",
+        "uri": "/en/reconcile-story-11/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580043,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-785c12f2872886565c08e2ba83ca6d91ae68745c",
+        "action": "publish",
+        "node_id": "cG9zdDo5MA==",
+        "uri": "/reconcile-story-38/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294581343,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581401,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-8ddbece0ce23141b73de087a930f53c4e52577e3",
+        "action": "publish",
+        "node_id": "cG9zdDo2MQ==",
+        "uri": "/en/reconcile-story-9/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580794,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580858,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-9afa7781dc9fd1edf78f5cdcbfe5335d37078f67",
+        "action": "publish",
+        "node_id": "cG9zdDo3Mw==",
+        "uri": "/en/reconcile-story-21/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580052,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580104,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-9ed3c4d67f69f5076754eb43f544f47e38848bdb",
+        "action": "publish",
+        "node_id": "cG9zdDo3MQ==",
+        "uri": "/en/reconcile-story-19/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580052,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580104,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-a355731e91bd92c324ce731a2d99e3d41ce30965",
+        "action": "publish",
+        "node_id": "cG9zdDo2NQ==",
+        "uri": "/en/reconcile-story-13/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580043,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-af40ac7f1d5c54797c551da6d7192917484513ff",
+        "action": "publish",
+        "node_id": "cG9zdDo4Nw==",
+        "uri": "/en/reconcile-story-35/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580174,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580227,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-b22735ef1ae482e6bfc7d3a04e6ddfc233acdcb4",
+        "action": "publish",
+        "node_id": "cG9zdDo4Ng==",
+        "uri": "/reconcile-story-34/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294581343,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581401,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-b4394540e8431ae746b9f3ca6905d6532c76e0f2",
+        "action": "publish",
+        "node_id": "cG9zdDo4NA==",
+        "uri": "/reconcile-story-32/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294581021,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581056,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-b6367c5f090d8acd94deb3a5bdbd10edb5384089",
+        "action": "publish",
+        "node_id": "cG9zdDo2Ng==",
+        "uri": "/reconcile-story-14/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580867,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580919,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-bbc509a103d2defd5e91cee43c41ef17735621a4",
+        "action": "publish",
+        "node_id": "cG9zdDo3NQ==",
+        "uri": "/en/reconcile-story-23/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580052,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580105,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-c47254bc3572b7a2e47b0a52e9a99c60b51ab027",
+        "action": "publish",
+        "node_id": "cG9zdDo1Mw==",
+        "uri": "/en/reconcile-story-1/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580018,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-cd4b4f9542ad10952492c5f960e98ab1884455d2",
+        "action": "publish",
+        "node_id": "cG9zdDo4Mw==",
+        "uri": "/en/reconcile-story-31/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580143,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580201,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-d052bcf0f785d887531f8995292c9fe2c291b44a",
+        "action": "publish",
+        "node_id": "cG9zdDo2MA==",
+        "uri": "/reconcile-story-8/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294581410,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581432,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-d264d2b8c8697d733353507ab515f52e58619b7f",
+        "action": "publish",
+        "node_id": "cG9zdDo1Mg==",
+        "uri": "/reconcile-story-0/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580795,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580858,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-d2d48384c5b1adf32fde72cdb7aaca93f8dd4fdf",
+        "action": "publish",
+        "node_id": "cG9zdDo1Mg==",
+        "uri": "/reconcile-story-0/",
+        "previous_uri": null,
+        "occurred_at": 1792294584000,
+        "received_at": 1792294582859,
+        "status": "failed",
+        "attempts": 1,
+        "processed_at": 1792294582870,
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502"
+      },
+      {
+        "id": "reconcile-d3cb2a51e97fb5dbe065845978972ce1be4cd261",
+        "action": "publish",
+        "node_id": "cG9zdDo1OA==",
+        "uri": "/reconcile-story-6/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294581380,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581424,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-d4edbd8f5ec679d68db5f75ebb4adad8e3b3978b",
+        "action": "publish",
+        "node_id": "cG9zdDo2OA==",
+        "uri": "/reconcile-story-16/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580867,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580919,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-dfa57494cc888c036f0f34fd69a58cebffc8e91f",
+        "action": "publish",
+        "node_id": "cG9zdDo3Ng==",
+        "uri": "/reconcile-story-24/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580958,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581017,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-ed67b49d243e52f788235a7946e6e2d1b9f33dca",
+        "action": "publish",
+        "node_id": "cG9zdDo3OQ==",
+        "uri": "/en/reconcile-story-27/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580113,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580165,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-fc7db66eba1264e55c05492785fecb2dd1b26714",
+        "action": "publish",
+        "node_id": "cG9zdDo3NA==",
+        "uri": "/reconcile-story-22/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580928,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580979,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-fda8e1d9615ea3e8a3a5e813116e6ef151601d50",
+        "action": "publish",
+        "node_id": "cG9zdDo4OQ==",
+        "uri": "/en/reconcile-story-37/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580174,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580227,
+        "reason": null,
+        "message": null
+      }
+    ],
+    "ledger": [
+      {
+        "id": 1,
+        "hash": "0c0fdcef981c58169a092f68f77a36f741e599d6ebc84314ea2d5a6e792fa706",
+        "created_at": null,
+        "name": "0001_publications.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 2,
+        "hash": "6e0289cb3a6ed6f9fff20a3a1365a496d18b1ee36f0efcd8f91efd655dc6c0f4",
+        "created_at": null,
+        "name": "0002_entries.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 3,
+        "hash": "0a87d08c233fad167c67b35f1fa588c8eadeac67074fb7d2f6b3cd5a4daa8e6c",
+        "created_at": null,
+        "name": "0003_publication_events.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 4,
+        "hash": "b77aefdd632b0b4666cd74c849916f9d368b1c6e35e6db7578279f555f3391b5",
+        "created_at": null,
+        "name": "0004_withdrawals.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 5,
+        "hash": "4b62e25c24940ae59dd97d9b4d7fc9cc658c2c1f2819adafa5bbc8a16151a00e",
+        "created_at": null,
+        "name": "0005_reconciliation.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      }
+    ],
+    "attempts": [
+      {
+        "key": "chrome",
+        "attempted_at": 1792294583151,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502"
+      },
+      {
+        "key": "chrome:en",
+        "attempted_at": 1792294583154,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502"
+      },
+      {
+        "key": "design",
+        "attempted_at": 1792294583155,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502"
+      },
+      {
+        "key": "entry:/en/reconcile-story-1/",
+        "attempted_at": 1792294581437,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-11/",
+        "attempted_at": 1792294581440,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-13/",
+        "attempted_at": 1792294582327,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-15/",
+        "attempted_at": 1792294582330,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-17/",
+        "attempted_at": 1792294582873,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502"
+      },
+      {
+        "key": "entry:/en/reconcile-story-19/",
+        "attempted_at": 1792294582875,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502"
+      },
+      {
+        "key": "entry:/en/reconcile-story-21/",
+        "attempted_at": 1792294580095,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-23/",
+        "attempted_at": 1792294580096,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-25/",
+        "attempted_at": 1792294580137,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-27/",
+        "attempted_at": 1792294580155,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-29/",
+        "attempted_at": 1792294580156,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-3/",
+        "attempted_at": 1792294580156,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-31/",
+        "attempted_at": 1792294580197,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-33/",
+        "attempted_at": 1792294580218,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-35/",
+        "attempted_at": 1792294580218,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-37/",
+        "attempted_at": 1792294580219,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-39/",
+        "attempted_at": 1792294580238,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-5/",
+        "attempted_at": 1792294580827,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-7/",
+        "attempted_at": 1792294580849,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-9/",
+        "attempted_at": 1792294580849,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-0/",
+        "attempted_at": 1792294582869,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502"
+      },
+      {
+        "key": "entry:/reconcile-story-10/",
+        "attempted_at": 1792294580891,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-12/",
+        "attempted_at": 1792294580910,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-14/",
+        "attempted_at": 1792294580910,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-16/",
+        "attempted_at": 1792294580911,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-18/",
+        "attempted_at": 1792294580952,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-2/",
+        "attempted_at": 1792294580970,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-20/",
+        "attempted_at": 1792294580970,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-22/",
+        "attempted_at": 1792294580970,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-24/",
+        "attempted_at": 1792294581014,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-26/",
+        "attempted_at": 1792294581033,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-28/",
+        "attempted_at": 1792294581033,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-30/",
+        "attempted_at": 1792294581034,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-32/",
+        "attempted_at": 1792294581053,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-34/",
+        "attempted_at": 1792294581392,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-36/",
+        "attempted_at": 1792294581374,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-38/",
+        "attempted_at": 1792294581392,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-4/",
+        "attempted_at": 1792294581392,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-6/",
+        "attempted_at": 1792294581420,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-8/",
+        "attempted_at": 1792294581429,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "home",
+        "attempted_at": 1792294583149,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502"
+      },
+      {
+        "key": "home:en",
+        "attempted_at": 1792294583152,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502"
+      }
+    ]
+  },
+  "recovered": {
+    "revision": "third",
+    "reconciliation": [
+      {
+        "id": 1,
+        "run_id": "60bea34b-ce6a-4005-8a81-e154854a8e63",
+        "lease_until": 0,
+        "started_at": 1792294585861,
+        "finished_at": 1792294585908,
+        "outcome": "reconciled",
+        "checked": 39,
+        "changed": 4,
+        "pending": 0,
+        "failed": 0,
+        "reason": null,
+        "message": null,
+        "reconciled_at": 1792294585861
+      }
+    ],
+    "events": [
+      {
+        "id": "5e87a89a-ef89-437c-b9ca-41a8cdbbb1e6",
+        "action": "publish",
+        "node_id": "cG9zdDo1Mg==",
+        "uri": "/reconcile-story-0/",
+        "previous_uri": null,
+        "occurred_at": 1792294584519,
+        "received_at": 1792294584540,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294584552,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-00204c17d4b85ff9529955d004fc51d51cc2e889",
+        "action": "publish",
+        "node_id": "cG9zdDo1NQ==",
+        "uri": "/en/reconcile-story-3/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580114,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580165,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-04adfc4911d265b536930b63cb18e62f2f769591",
+        "action": "publish",
+        "node_id": "cG9zdDo4Mg==",
+        "uri": "/reconcile-story-30/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580989,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581042,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-04b229851ea2651754e101dca786f5a76c5b7de5",
+        "action": "publish",
+        "node_id": "cG9zdDo2NA==",
+        "uri": "/reconcile-story-12/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580867,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580919,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-077257b44d26c3bdcd74a5cc56fa71583b281bbb",
+        "action": "publish",
+        "node_id": "cG9zdDo4OA==",
+        "uri": "/reconcile-story-36/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294581343,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581377,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-0b46ef54e981c2503530b84b91c430775740aefc",
+        "action": "publish",
+        "node_id": "cG9zdDo3OA==",
+        "uri": "/reconcile-story-26/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580988,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581042,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-12c233ab40d0b10707b23f966817f6c223f73262",
+        "action": "publish",
+        "node_id": "cG9zdDo2Mg==",
+        "uri": "/reconcile-story-10/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580833,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580895,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-14c10a87a3dda1ca1dd5482c97bbc4cc5cf35219",
+        "action": "publish",
+        "node_id": "cG9zdDo3MA==",
+        "uri": "/reconcile-story-18/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580898,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580955,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-20cf339d1d3b49d03f4effee6bf1387ad879fb17",
+        "action": "publish",
+        "node_id": "cG9zdDo2Nw==",
+        "uri": "/en/reconcile-story-15/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580043,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-25840a783eb3d9d305976f3cf9ef4001da143eb1",
+        "action": "publish",
+        "node_id": "cG9zdDo5MQ==",
+        "uri": "/en/reconcile-story-39/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580204,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580241,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-26bc926233089c5f747fddcd66fe9b4cfa2ea8b5",
+        "action": "publish",
+        "node_id": "cG9zdDo3Nw==",
+        "uri": "/en/reconcile-story-25/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580083,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580140,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-494d3b480b673c5b148cbdf8473040bc67365eaa",
+        "action": "publish",
+        "node_id": "cG9zdDo1Nw==",
+        "uri": "/en/reconcile-story-5/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580794,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580830,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-52eaf8905f304a872f274f5bb2733dd8b52dbf09",
+        "action": "publish",
+        "node_id": "cG9zdDo1NA==",
+        "uri": "/reconcile-story-2/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580928,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580979,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-545250ac9573cfb72ecbee59329e0396e8cc371b",
+        "action": "publish",
+        "node_id": "cG9zdDo4MA==",
+        "uri": "/reconcile-story-28/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580988,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581042,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-55257eb4370d8587c2f7414f33de068ef37173e3",
+        "action": "publish",
+        "node_id": "cG9zdDo2OQ==",
+        "uri": "/en/reconcile-story-17/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580021,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580079,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-5df42b9125d774f370097d6b8c204036024383db",
+        "action": "publish",
+        "node_id": "cG9zdDo1Ng==",
+        "uri": "/reconcile-story-4/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294581343,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581401,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-5f56049227abb7b2d33f2f27059403cd5c4c32bd",
+        "action": "publish",
+        "node_id": "cG9zdDo4NQ==",
+        "uri": "/en/reconcile-story-33/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580174,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580227,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-60d09fb4149cb12ae9af3c69ab296ff674f49c17",
+        "action": "publish",
+        "node_id": "cG9zdDo3Mg==",
+        "uri": "/reconcile-story-20/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580928,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580979,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-611c575d44004377ad8c88d68e76ddb274dcf592",
+        "action": "publish",
+        "node_id": "cG9zdDo1OQ==",
+        "uri": "/en/reconcile-story-7/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580794,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580858,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-689a72beee1d9ca6a2336153b3217830f9f8a95f",
+        "action": "publish",
+        "node_id": "cG9zdDo4MQ==",
+        "uri": "/en/reconcile-story-29/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580113,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580165,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-6c539ea97c2dd00a248f601dd36a5d6191061ab1",
+        "action": "publish",
+        "node_id": "cG9zdDo2Mw==",
+        "uri": "/en/reconcile-story-11/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580043,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-785c12f2872886565c08e2ba83ca6d91ae68745c",
+        "action": "publish",
+        "node_id": "cG9zdDo5MA==",
+        "uri": "/reconcile-story-38/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294581343,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581401,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-8ddbece0ce23141b73de087a930f53c4e52577e3",
+        "action": "publish",
+        "node_id": "cG9zdDo2MQ==",
+        "uri": "/en/reconcile-story-9/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580794,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580858,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-9afa7781dc9fd1edf78f5cdcbfe5335d37078f67",
+        "action": "publish",
+        "node_id": "cG9zdDo3Mw==",
+        "uri": "/en/reconcile-story-21/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580052,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580104,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-9ed3c4d67f69f5076754eb43f544f47e38848bdb",
+        "action": "publish",
+        "node_id": "cG9zdDo3MQ==",
+        "uri": "/en/reconcile-story-19/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580052,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580104,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-a355731e91bd92c324ce731a2d99e3d41ce30965",
+        "action": "publish",
+        "node_id": "cG9zdDo2NQ==",
+        "uri": "/en/reconcile-story-13/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580043,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-af40ac7f1d5c54797c551da6d7192917484513ff",
+        "action": "publish",
+        "node_id": "cG9zdDo4Nw==",
+        "uri": "/en/reconcile-story-35/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580174,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580227,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-b22735ef1ae482e6bfc7d3a04e6ddfc233acdcb4",
+        "action": "publish",
+        "node_id": "cG9zdDo4Ng==",
+        "uri": "/reconcile-story-34/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294581343,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581401,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-b4394540e8431ae746b9f3ca6905d6532c76e0f2",
+        "action": "publish",
+        "node_id": "cG9zdDo4NA==",
+        "uri": "/reconcile-story-32/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294581021,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581056,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-b6367c5f090d8acd94deb3a5bdbd10edb5384089",
+        "action": "publish",
+        "node_id": "cG9zdDo2Ng==",
+        "uri": "/reconcile-story-14/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580867,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580919,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-bbc509a103d2defd5e91cee43c41ef17735621a4",
+        "action": "publish",
+        "node_id": "cG9zdDo3NQ==",
+        "uri": "/en/reconcile-story-23/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580052,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580105,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-c04f28b45e95f905f664759edd325621c0aac0f2",
+        "action": "publish",
+        "node_id": "cG9zdDo1Mw==",
+        "uri": "/en/reconcile-moved/",
+        "previous_uri": "/en/reconcile-story-1/",
+        "occurred_at": 1792294588000,
+        "received_at": 1792294585881,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294585893,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-c47254bc3572b7a2e47b0a52e9a99c60b51ab027",
+        "action": "publish",
+        "node_id": "cG9zdDo1Mw==",
+        "uri": "/en/reconcile-story-1/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294579982,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580018,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-cd4b4f9542ad10952492c5f960e98ab1884455d2",
+        "action": "publish",
+        "node_id": "cG9zdDo4Mw==",
+        "uri": "/en/reconcile-story-31/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580143,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580201,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-d052bcf0f785d887531f8995292c9fe2c291b44a",
+        "action": "publish",
+        "node_id": "cG9zdDo2MA==",
+        "uri": "/reconcile-story-8/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294581410,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581432,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-d264d2b8c8697d733353507ab515f52e58619b7f",
+        "action": "publish",
+        "node_id": "cG9zdDo1Mg==",
+        "uri": "/reconcile-story-0/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580795,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580858,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-d2d48384c5b1adf32fde72cdb7aaca93f8dd4fdf",
+        "action": "publish",
+        "node_id": "cG9zdDo1Mg==",
+        "uri": "/reconcile-story-0/",
+        "previous_uri": null,
+        "occurred_at": 1792294584000,
+        "received_at": 1792294582859,
+        "status": "refreshed",
+        "attempts": 2,
+        "processed_at": 1792294584217,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-d3cb2a51e97fb5dbe065845978972ce1be4cd261",
+        "action": "publish",
+        "node_id": "cG9zdDo1OA==",
+        "uri": "/reconcile-story-6/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294581380,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581424,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-d4edbd8f5ec679d68db5f75ebb4adad8e3b3978b",
+        "action": "publish",
+        "node_id": "cG9zdDo2OA==",
+        "uri": "/reconcile-story-16/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580867,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580919,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-dfa57494cc888c036f0f34fd69a58cebffc8e91f",
+        "action": "publish",
+        "node_id": "cG9zdDo3Ng==",
+        "uri": "/reconcile-story-24/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580958,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294581017,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-ed67b49d243e52f788235a7946e6e2d1b9f33dca",
+        "action": "publish",
+        "node_id": "cG9zdDo3OQ==",
+        "uri": "/en/reconcile-story-27/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580113,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580165,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-fc7db66eba1264e55c05492785fecb2dd1b26714",
+        "action": "publish",
+        "node_id": "cG9zdDo3NA==",
+        "uri": "/reconcile-story-22/",
+        "previous_uri": null,
+        "occurred_at": 1792294578000,
+        "received_at": 1792294580928,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580979,
+        "reason": null,
+        "message": null
+      },
+      {
+        "id": "reconcile-fda8e1d9615ea3e8a3a5e813116e6ef151601d50",
+        "action": "publish",
+        "node_id": "cG9zdDo4OQ==",
+        "uri": "/en/reconcile-story-37/",
+        "previous_uri": null,
+        "occurred_at": 1792294579000,
+        "received_at": 1792294580174,
+        "status": "refreshed",
+        "attempts": 1,
+        "processed_at": 1792294580227,
+        "reason": null,
+        "message": null
+      }
+    ],
+    "ledger": [
+      {
+        "id": 1,
+        "hash": "0c0fdcef981c58169a092f68f77a36f741e599d6ebc84314ea2d5a6e792fa706",
+        "created_at": null,
+        "name": "0001_publications.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 2,
+        "hash": "6e0289cb3a6ed6f9fff20a3a1365a496d18b1ee36f0efcd8f91efd655dc6c0f4",
+        "created_at": null,
+        "name": "0002_entries.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 3,
+        "hash": "0a87d08c233fad167c67b35f1fa588c8eadeac67074fb7d2f6b3cd5a4daa8e6c",
+        "created_at": null,
+        "name": "0003_publication_events.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 4,
+        "hash": "b77aefdd632b0b4666cd74c849916f9d368b1c6e35e6db7578279f555f3391b5",
+        "created_at": null,
+        "name": "0004_withdrawals.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      },
+      {
+        "id": 5,
+        "hash": "4b62e25c24940ae59dd97d9b4d7fc9cc658c2c1f2819adafa5bbc8a16151a00e",
+        "created_at": null,
+        "name": "0005_reconciliation.sql",
+        "applied_at": "2026-10-18 03:36:17"
+      }
+    ],
+    "attempts": [
+      {
+        "key": "chrome",
+        "attempted_at": 1792294583151,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502"
+      },
+      {
+        "key": "chrome:en",
+        "attempted_at": 1792294583154,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502"
+      },
+      {
+        "key": "design",
+        "attempted_at": 1792294583155,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502"
+      },
+      {
+        "key": "entry:/en/reconcile-moved/",
+        "attempted_at": 1792294585890,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-1/",
+        "attempted_at": 1792294581437,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-11/",
+        "attempted_at": 1792294581440,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-13/",
+        "attempted_at": 1792294582327,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-15/",
+        "attempted_at": 1792294582330,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-17/",
+        "attempted_at": 1792294582873,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502"
+      },
+      {
+        "key": "entry:/en/reconcile-story-19/",
+        "attempted_at": 1792294582875,
+        "outcome": "kept",
+        "reason": "http",
+        "message": "WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502"
+      },
+      {
+        "key": "entry:/en/reconcile-story-21/",
+        "attempted_at": 1792294584222,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-23/",
+        "attempted_at": 1792294584225,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-25/",
+        "attempted_at": 1792294585898,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-27/",
+        "attempted_at": 1792294585901,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-29/",
+        "attempted_at": 1792294580156,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-3/",
+        "attempted_at": 1792294580156,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-31/",
+        "attempted_at": 1792294580197,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-33/",
+        "attempted_at": 1792294580218,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-35/",
+        "attempted_at": 1792294580218,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-37/",
+        "attempted_at": 1792294580219,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-39/",
+        "attempted_at": 1792294580238,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-5/",
+        "attempted_at": 1792294580827,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-7/",
+        "attempted_at": 1792294580849,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/en/reconcile-story-9/",
+        "attempted_at": 1792294580849,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-0/",
+        "attempted_at": 1792294584550,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-10/",
+        "attempted_at": 1792294580891,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-12/",
+        "attempted_at": 1792294580910,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-14/",
+        "attempted_at": 1792294580910,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-16/",
+        "attempted_at": 1792294580911,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-18/",
+        "attempted_at": 1792294580952,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-2/",
+        "attempted_at": 1792294585907,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-20/",
+        "attempted_at": 1792294580970,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-22/",
+        "attempted_at": 1792294580970,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-24/",
+        "attempted_at": 1792294581014,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-26/",
+        "attempted_at": 1792294581033,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-28/",
+        "attempted_at": 1792294581033,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-30/",
+        "attempted_at": 1792294581034,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-32/",
+        "attempted_at": 1792294581053,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-34/",
+        "attempted_at": 1792294581392,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-36/",
+        "attempted_at": 1792294581374,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-38/",
+        "attempted_at": 1792294581392,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-4/",
+        "attempted_at": 1792294581392,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-6/",
+        "attempted_at": 1792294581420,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "entry:/reconcile-story-8/",
+        "attempted_at": 1792294581429,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "home",
+        "attempted_at": 1792294585869,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      },
+      {
+        "key": "home:en",
+        "attempted_at": 1792294585874,
+        "outcome": "promoted",
+        "reason": null,
+        "message": null
+      }
+    ]
+  }
+}

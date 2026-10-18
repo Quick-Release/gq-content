@@ -1,0 +1,73 @@
+$ vp pack ⊘ cache disabled
+ℹ entry: frontend/src/index.ts, frontend/src/server.ts, frontend/src/migrations.ts
+ℹ target: es2022
+ℹ tsconfig: tsconfig.json
+ℹ Build start
+ℹ Cleaning 8 files
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- zod
+ℹ frontend/dist/server.js                202.31 kB │ gzip: 42.64 kB
+ℹ frontend/dist/index.js                   1.62 kB │ gzip:  0.72 kB
+ℹ frontend/dist/migrations.js              0.28 kB │ gzip:  0.21 kB
+ℹ frontend/dist/formatting-wOk2jz6J.js    12.60 kB │ gzip:  4.60 kB
+ℹ frontend/dist/index.d.ts                 4.14 kB │ gzip:  1.58 kB
+ℹ frontend/dist/server.d.ts                0.26 kB │ gzip:  0.16 kB
+ℹ frontend/dist/migrations.d.ts            0.17 kB │ gzip:  0.15 kB
+ℹ frontend/dist/wordpress-Bq1Hr1pV.d.ts   10.49 kB │ gzip:  3.40 kB
+ℹ 8 files, total: 231.88 kB
+✔ Build complete in 750ms
+
+$ node scripts/consumer.mjs ⊘ cache disabled
+package: @getquick/content@0.1.0
+Tarball Contents
+dist/formatting-wOk2jz6J.js
+dist/index.d.ts
+dist/index.js
+dist/migrations.d.ts
+dist/migrations.js
+dist/server.d.ts
+dist/server.js
+dist/wordpress-Bq1Hr1pV.d.ts
+migrations/0001_publications.sql
+migrations/0002_entries.sql
+migrations/0003_publication_events.sql
+migrations/0004_withdrawals.sql
+migrations/0005_reconciliation.sql
+package.json
+README.md
+Tarball Details
+/data/code/getquick/gq-content/.proofs/consumer-YXlNMQ/artifacts/getquick-content-0.1.0.tgz
+[WARN] The store at /home/valerio/.local/share/pnpm/store/v11 is not used because packages cannot be hard linked from it into this project. Using the store at /data/.pnpm-store/v11 instead. Set storeDir to choose the store.
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /data/.pnpm-store/v11
+  Virtual store is at:             node_modules/.pnpm
+[WARN] 24 deprecated subdependencies found: @yuku-codegen/binding-android-arm64@0.9.5, @yuku-codegen/binding-darwin-arm64@0.9.5, @yuku-codegen/binding-darwin-x64@0.9.5, @yuku-codegen/binding-freebsd-x64@0.9.5, @yuku-codegen/binding-linux-arm-gnu@0.9.5, @yuku-codegen/binding-linux-arm-musl@0.9.5, @yuku-codegen/binding-linux-arm64-gnu@0.9.5, @yuku-codegen/binding-linux-arm64-musl@0.9.5, @yuku-codegen/binding-linux-x64-gnu@0.9.5, @yuku-codegen/binding-linux-x64-musl@0.9.5, @yuku-codegen/binding-win32-arm64@0.9.5, @yuku-codegen/binding-win32-x64@0.9.5, @yuku-parser/binding-android-arm64@0.9.5, @yuku-parser/binding-darwin-arm64@0.9.5, @yuku-parser/binding-darwin-x64@0.9.5, @yuku-parser/binding-freebsd-x64@0.9.5, @yuku-parser/binding-linux-arm-gnu@0.9.5, @yuku-parser/binding-linux-arm-musl@0.9.5, @yuku-parser/binding-linux-arm64-gnu@0.9.5, @yuku-parser/binding-linux-arm64-musl@0.9.5, @yuku-parser/binding-linux-x64-gnu@0.9.5, @yuku-parser/binding-linux-x64-musl@0.9.5, @yuku-parser/binding-win32-arm64@0.9.5, @yuku-parser/binding-win32-x64@0.9.5
+Packages: +85
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 85, reused 85, downloaded 0, added 85, done
+[WARN] Issues with peer dependencies found. Run "pnpm peers check" to list them.
+
+dependencies:
++ @getquick/content 0.1.0
+
+devDependencies:
++ typescript 6.0.3
++ vite-plus 1.1.0
+
+Done in 130ms using pnpm v12.11.2
+Installed ESM imports, pure helpers and real HTTP client integration passed.
+
+ RUN  v5.0.3 /data/code/getquick/gq-content/.proofs/consumer-YXlNMQ/consumer
+
+
+ Test Files  15 passed (15)
+      Tests  289 passed (289)
+   Start at  04:36:45
+   Duration  5.67s (tests 91%, transform 6%, import 3%)
+
+P3/P4 issues #3/#4: inspected 15 packed files; public declarations and all package-boundary suites passed in a clean installed consumer.
+
+---
+vp run: 0/2 cache hit (0%). (Run `vp run --last-details` for full details)

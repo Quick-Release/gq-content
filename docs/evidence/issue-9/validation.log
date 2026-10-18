@@ -1,0 +1,1094 @@
+$ python3 scripts/cms-proof.py ⊘ cache disabled
+$ vp pack ⊘ cache disabled
+ℹ entry: frontend/src/index.ts, frontend/src/server.ts, frontend/src/migrations.ts
+ℹ target: es2022
+ℹ tsconfig: tsconfig.json
+ℹ Build start
+ℹ Cleaning 8 files
+PASS PHP syntax for entry, modules and proof fixtures
+PASS Composer package metadata validation
+PASS plugin-root archive with one public PHP entry
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- zod
+ℹ frontend/dist/server.js                202.31 kB │ gzip: 42.64 kB
+ℹ frontend/dist/index.js                   1.62 kB │ gzip:  0.72 kB
+ℹ frontend/dist/migrations.js              0.28 kB │ gzip:  0.21 kB
+ℹ frontend/dist/formatting-wOk2jz6J.js    12.60 kB │ gzip:  4.60 kB
+ℹ frontend/dist/index.d.ts                 4.14 kB │ gzip:  1.58 kB
+ℹ frontend/dist/server.d.ts                0.26 kB │ gzip:  0.16 kB
+ℹ frontend/dist/migrations.d.ts            0.17 kB │ gzip:  0.15 kB
+ℹ frontend/dist/wordpress-Bq1Hr1pV.d.ts   10.49 kB │ gzip:  3.40 kB
+ℹ 8 files, total: 231.88 kB
+✔ Build complete in 751ms
+
+$ node scripts/consumer.mjs ⊘ cache disabled
+$ node scripts/alchemy-consumer.mjs ⊘ cache disabled
+$ vp test ⊘ cache disabled
+package: @getquick/content@0.1.0
+Tarball Contents
+dist/formatting-wOk2jz6J.js
+dist/index.d.ts
+dist/index.js
+dist/migrations.d.ts
+dist/migrations.js
+dist/server.d.ts
+dist/server.js
+dist/wordpress-Bq1Hr1pV.d.ts
+migrations/0001_publications.sql
+migrations/0002_entries.sql
+migrations/0003_publication_events.sql
+migrations/0004_withdrawals.sql
+migrations/0005_reconciliation.sql
+package.json
+README.md
+Tarball Details
+/data/code/getquick/gq-content/.proofs/consumer-FGF6E8/artifacts/getquick-content-0.1.0.tgz
+package: @getquick/content@0.1.0
+Tarball Contents
+dist/formatting-wOk2jz6J.js
+dist/index.d.ts
+dist/index.js
+dist/migrations.d.ts
+dist/migrations.js
+dist/server.d.ts
+dist/server.js
+dist/wordpress-Bq1Hr1pV.d.ts
+migrations/0001_publications.sql
+migrations/0002_entries.sql
+migrations/0003_publication_events.sql
+migrations/0004_withdrawals.sql
+migrations/0005_reconciliation.sql
+package.json
+README.md
+Tarball Details
+/data/code/getquick/gq-content/.proofs/alchemy-p1-EFTWke/getquick-content-0.1.0.tgz
+[WARN] The store at /home/valerio/.local/share/pnpm/store/v11 is not used because packages cannot be hard linked from it into this project. Using the store at /data/.pnpm-store/v11 instead. Set storeDir to choose the store.
+? Verifying lockfile against supply-chain policies (299 entries)...
+[WARN] The store at /home/valerio/.local/share/pnpm/store/v11 is not used because packages cannot be hard linked from it into this project. Using the store at /data/.pnpm-store/v11 instead. Set storeDir to choose the store.
+
+ RUN  v5.0.3 /data/code/getquick/gq-content
+
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /data/.pnpm-store/v11
+  Virtual store is at:             node_modules/.pnpm
+[WARN] 24 deprecated subdependencies found: @yuku-codegen/binding-android-arm64@0.9.5, @yuku-codegen/binding-darwin-arm64@0.9.5, @yuku-codegen/binding-darwin-x64@0.9.5, @yuku-codegen/binding-freebsd-x64@0.9.5, @yuku-codegen/binding-linux-arm-gnu@0.9.5, @yuku-codegen/binding-linux-arm-musl@0.9.5, @yuku-codegen/binding-linux-arm64-gnu@0.9.5, @yuku-codegen/binding-linux-arm64-musl@0.9.5, @yuku-codegen/binding-linux-x64-gnu@0.9.5, @yuku-codegen/binding-linux-x64-musl@0.9.5, @yuku-codegen/binding-win32-arm64@0.9.5, @yuku-codegen/binding-win32-x64@0.9.5, @yuku-parser/binding-android-arm64@0.9.5, @yuku-parser/binding-darwin-arm64@0.9.5, @yuku-parser/binding-darwin-x64@0.9.5, @yuku-parser/binding-freebsd-x64@0.9.5, @yuku-parser/binding-linux-arm-gnu@0.9.5, @yuku-parser/binding-linux-arm-musl@0.9.5, @yuku-parser/binding-linux-arm64-gnu@0.9.5, @yuku-parser/binding-linux-arm64-musl@0.9.5, @yuku-parser/binding-linux-x64-gnu@0.9.5, @yuku-parser/binding-linux-x64-musl@0.9.5, @yuku-parser/binding-win32-arm64@0.9.5, @yuku-parser/binding-win32-x64@0.9.5
+Packages: +85
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 85, reused 84, downloaded 1, added 85, done
+[WARN] Issues with peer dependencies found. Run "pnpm peers check" to list them.
+
+dependencies:
++ @getquick/content 0.1.0
+
+devDependencies:
++ typescript 6.0.3
++ vite-plus 1.1.0
+
+Done in 151ms using pnpm v12.11.2
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /data/.pnpm-store/v11
+  Virtual store is at:             node_modules/.pnpm
+✓ Lockfile passes supply-chain policies (299 entries in 1.1s)
+Lockfile is up to date, resolution step is skipped
+Packages: +223
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 223, reused 222, downloaded 1, added 223, done
+
+dependencies:
++ @effect/platform-node 4.0.0-rc.115
++ @getquick/content 0.1.0
++ alchemy 2.0.0-beta.79
++ effect 4.0.0-rc.115
+
+Done in 1.1s using pnpm v12.11.2
+Installed ESM imports, pure helpers and real HTTP client integration passed.
+
+ RUN  v5.0.3 /data/code/getquick/gq-content/.proofs/consumer-FGF6E8/consumer
+
+[04:33:57.570] INFO (#4): Plan: no resources
+[04:33:57.570] INFO (#4):
+[04:33:57.572] INFO (#4):
+[04:33:57.572] INFO (#4): Done: 0 succeeded (2ms)
+[04:33:57.624] INFO (#4): Plan: 2 to create, 4 binding changes
+[04:33:57.624] INFO (#4): [Frontend] create (local)
+[04:33:57.625] INFO (#4): [Frontend/FRONTEND_REFRESH_TOKEN] create
+[04:33:57.625] INFO (#4): [Frontend/PUBLICATION_DB] create
+[04:33:57.625] INFO (#4): [Frontend/PUBLICATION_EVENT_SECRET] create
+[04:33:57.625] INFO (#4): [Frontend/REVISION] create
+[04:33:57.625] INFO (#4): [Publications] create (local)
+[04:33:57.625] INFO (#4):
+[04:33:57.628] INFO (#156): [Publications] creating (local)
+[04:33:57.629] INFO (#157): [Frontend] pre-creating (local)
+[04:33:57.802] INFO (#157): [Frontend] creating (local)
+[04:33:57.804] INFO (#156): [Publications] created (local) (176ms)
+[04:33:57.824] INFO (#157): [Frontend] ready at http://localhost:1337
+[04:33:57.824] INFO (#157): [Frontend] created (local) (195ms)
+[04:33:57.846] INFO (#232): [Publications] created (local) (218ms)
+[04:33:57.846] INFO (#233): [Frontend] created (local) (217ms)
+[04:33:57.847] INFO (#4):
+[04:33:57.847] INFO (#4): Done: 2 succeeded (222ms)
+[04:33:57.931] INFO (#222): [Frontend] Started in 124ms → http://localhost:1337/ (logs: /data/code/getquick/gq-content/.proofs/alchemy-p1-EFTWke/.alchemy/log/p1/Frontend)
+[Frontend] Delivery: the front page can't be served (not-ready): the front page and its chrome haven't been refreshed into the publication store yet
+P1 first lifecycle: all five migrations precede the package-consuming Worker; stored delivery passes without CMS/secrets.
+[Frontend] Refresh: the entry /entry/ promoted (published)
+[Frontend] Events: workerd-publish-0001 (publish /entry/) refreshed
+[Frontend] Withdrawal: workerd-withdraw-0001 withdrew /entry/
+[Frontend] Refresh: the en front page promoted (published)
+[Frontend] Events: workerd-home-en (publish /en/) refreshed
+[Frontend] Refresh: the shared design presets promoted (published)
+[Frontend] Events: workerd-design (settings design) refreshed
+[Frontend] WordPress: the design presets is unavailable (network): WordPress couldn't be reached
+[Frontend] Refresh: the shared design presets kept its last stored version (network): WordPress couldn't be reached
+[Frontend] Events: workerd-retry-0008 (settings design) failed
+[04:33:58.366] INFO (#4): Plan: 1 to update, 1 binding changes
+[04:33:58.366] INFO (#4): [Frontend] update (local)
+[04:33:58.366] INFO (#4): [Frontend/FRONTEND_REFRESH_TOKEN] noop
+[04:33:58.367] INFO (#4): [Frontend/PUBLICATION_DB] noop
+[04:33:58.367] INFO (#4): [Frontend/PUBLICATION_EVENT_SECRET] noop
+[04:33:58.367] INFO (#4): [Frontend/REVISION] update
+[04:33:58.367] INFO (#4): [Publications] noop (local)
+[04:33:58.367] INFO (#4):
+[04:33:58.368] INFO (#439): [Frontend] updating (local)
+[04:33:58.370] WARN (#444): Port 1337 is in use by another process; serving on 1338 instead. Stop the other process, pick a different port, or set `strictPort: true` to fail instead.
+[04:33:58.371] INFO (#439): [Frontend] ready at http://localhost:1338
+[04:33:58.371] INFO (#439): [Frontend] updated (local) (3ms)
+[04:33:58.387] INFO (#457): [Frontend] updated (local) (19ms)
+[04:33:58.388] INFO (#4):
+[04:33:58.388] INFO (#4): Done: 1 succeeded (21ms)
+[04:33:58.468] INFO (#447): [Frontend] Started in 98ms → http://localhost:1338/ (logs: /data/code/getquick/gq-content/.proofs/alchemy-p1-EFTWke/.alchemy/log/p1/Frontend)
+[Frontend] Events: workerd-design is a duplicate of a refreshed event
+P6 #7 workerd: language-specific home, shared design, canonical alternates and signed settings duplicate persist across Worker update.
+{
+  "migrationsDirectory": "/data/code/getquick/gq-content/.proofs/alchemy-p1-EFTWke/node_modules/.pnpm/@getquick+content@file+getquick-content-0.1.0.tgz/node_modules/@getquick/content/migrations/",
+  "databaseId": "dev:2ec1cfde-cf22-4f31-8b56-e3a1f95400bb",
+  "migrationHashes": {
+    "0001_publications.sql": "0c0fdcef981c58169a092f68f77a36f741e599d6ebc84314ea2d5a6e792fa706",
+    "0002_entries.sql": "6e0289cb3a6ed6f9fff20a3a1365a496d18b1ee36f0efcd8f91efd655dc6c0f4",
+    "0003_publication_events.sql": "0a87d08c233fad167c67b35f1fa588c8eadeac67074fb7d2f6b3cd5a4daa8e6c",
+    "0004_withdrawals.sql": "b77aefdd632b0b4666cd74c849916f9d368b1c6e35e6db7578279f555f3391b5",
+    "0005_reconciliation.sql": "4b62e25c24940ae59dd97d9b4d7fc9cc658c2c1f2819adafa5bbc8a16151a00e"
+  },
+  "ledger": [
+    {
+      "id": 1,
+      "hash": "0c0fdcef981c58169a092f68f77a36f741e599d6ebc84314ea2d5a6e792fa706",
+      "created_at": null,
+      "name": "0001_publications.sql",
+      "applied_at": "2026-10-18 03:33:57"
+    },
+    {
+      "id": 2,
+      "hash": "6e0289cb3a6ed6f9fff20a3a1365a496d18b1ee36f0efcd8f91efd655dc6c0f4",
+      "created_at": null,
+      "name": "0002_entries.sql",
+      "applied_at": "2026-10-18 03:33:57"
+    },
+    {
+      "id": 3,
+      "hash": "0a87d08c233fad167c67b35f1fa588c8eadeac67074fb7d2f6b3cd5a4daa8e6c",
+      "created_at": null,
+      "name": "0003_publication_events.sql",
+      "applied_at": "2026-10-18 03:33:57"
+    },
+    {
+      "id": 4,
+      "hash": "b77aefdd632b0b4666cd74c849916f9d368b1c6e35e6db7578279f555f3391b5",
+      "created_at": null,
+      "name": "0004_withdrawals.sql",
+      "applied_at": "2026-10-18 03:33:57"
+    },
+    {
+      "id": 5,
+      "hash": "4b62e25c24940ae59dd97d9b4d7fc9cc658c2c1f2819adafa5bbc8a16151a00e",
+      "created_at": null,
+      "name": "0005_reconciliation.sql",
+      "applied_at": "2026-10-18 03:33:57"
+    }
+  ],
+  "tables": [
+    {
+      "name": "__alchemy_migrations"
+    },
+    {
+      "name": "_cf_METADATA"
+    },
+    {
+      "name": "publication_events"
+    },
+    {
+      "name": "publications"
+    },
+    {
+      "name": "reconciliation"
+    },
+    {
+      "name": "refresh_attempts"
+    },
+    {
+      "name": "withdrawals"
+    }
+  ],
+  "publicationRows": [
+    {
+      "key": "chrome",
+      "state": "published",
+      "format": 1,
+      "body": "{\"menuItems\":[],\"siteIcon\":null,\"siteLogo\":null}",
+      "read_started_at": 1,
+      "promoted_at": 1,
+      "node_id": null,
+      "modified_at": null
+    },
+    {
+      "key": "chrome:en",
+      "state": "published",
+      "format": 1,
+      "body": "{\"menuItems\":[],\"siteIcon\":null,\"siteLogo\":null}",
+      "read_started_at": 1,
+      "promoted_at": 1,
+      "node_id": null,
+      "modified_at": null
+    },
+    {
+      "key": "design",
+      "state": "published",
+      "format": 1,
+      "body": "{\"spacingSizes\":[],\"colors\":[{\"slug\":\"brand\",\"color\":\"#0a0\"}]}",
+      "read_started_at": 1792294438181,
+      "promoted_at": 1792294438181,
+      "node_id": null,
+      "modified_at": null
+    },
+    {
+      "key": "entry:/entry/",
+      "state": "withdrawn",
+      "format": 1,
+      "body": null,
+      "read_started_at": 1792294438085,
+      "promoted_at": 1792294438085,
+      "node_id": "workerd-page-1",
+      "modified_at": null
+    },
+    {
+      "key": "home",
+      "state": "published",
+      "format": 1,
+      "body": "{\"settings\":{\"title\":\"P1 durable Site\",\"description\":\"Installed package\"},\"page\":{\"title\":\"Home\",\"content\":\"<h1>Survives Worker update</h1>\",\"hasVideoHero\":false},\"colors\":[],\"spacingSizes\":[]}",
+      "read_started_at": 1,
+      "promoted_at": 1,
+      "node_id": null,
+      "modified_at": null
+    },
+    {
+      "key": "home:en",
+      "state": "published",
+      "format": 1,
+      "body": "{\"settings\":{\"title\":\"English\",\"description\":\"Shared rows\"},\"page\":{\"title\":\"Home\",\"content\":\"<h1>English workerd home</h1>\",\"hasVideoHero\":false},\"spacingSizes\":[],\"colors\":[]}",
+      "read_started_at": 1792294438158,
+      "promoted_at": 1792294438158,
+      "node_id": "front-en",
+      "modified_at": null
+    }
+  ],
+  "delivery": {
+    "kind": "found",
+    "content": {
+      "home": {
+        "settings": {
+          "title": "P1 durable Site",
+          "description": "Installed package"
+        },
+        "page": {
+          "title": "Home",
+          "content": "<h1>Survives Worker update</h1>",
+          "hasVideoHero": false
+        },
+        "spacingSizes": [],
+        "colors": [
+          {
+            "slug": "brand",
+            "color": "#0a0"
+          }
+        ]
+      },
+      "chrome": {
+        "menuItems": [],
+        "siteIcon": null,
+        "siteLogo": null
+      },
+      "alternates": [
+        {
+          "language": {
+            "locale": "en_US",
+            "slug": "en",
+            "code": "EN",
+            "lang": "en-US",
+            "isDefault": false,
+            "home": "/en/"
+          },
+          "route": "/en/",
+          "translation": true
+        }
+      ]
+    }
+  }
+}
+P1 repeat lifecycle: database identity, five complete ledger identities, publication bytes and public delivery preserved; database noop, Worker updated.
+[Frontend] Events: workerd-publish-0001 is a duplicate of a refreshed event
+[Frontend] Refresh: the entry /entry/ isn't promoted: its entry is withdrawn
+[Frontend] Events: workerd-publish-0002 lifts the withdrawal workerd-withdraw-0001
+[Frontend] Refresh: the entry /entry/ promoted (published)
+[Frontend] Events: workerd-publish-0002 (publish /entry/) refreshed
+P6 #6 workerd: real HMAC verification, publication/withdrawal SQL, restart persistence, duplicate ordering, refresh protection and later republication passed.
+[Frontend] Refresh: the shared design presets promoted (published)
+[Frontend] Events: workerd-retry-0008 (settings design) refreshed
+[Frontend] Events: workerd-retry-0008 is a duplicate of a refreshed event
+{
+  "failedRetryRecord": {
+    "id": "workerd-retry-0008",
+    "action": "settings",
+    "node_id": "setting:design",
+    "uri": "/",
+    "previous_uri": null,
+    "occurred_at": 1792294438156,
+    "received_at": 1792294438258,
+    "status": "failed",
+    "attempts": 1,
+    "processed_at": 1792294438270,
+    "reason": "network",
+    "message": "WordPress couldn't be reached"
+  },
+  "recoveredRetryRecord": {
+    "id": "workerd-retry-0008",
+    "action": "settings",
+    "node_id": "setting:design",
+    "uri": "/",
+    "previous_uri": null,
+    "occurred_at": 1792294438156,
+    "received_at": 1792294438258,
+    "status": "refreshed",
+    "attempts": 2,
+    "processed_at": 1792294438694,
+    "reason": null,
+    "message": null
+  }
+}
+P6 #8 workerd: failed signed event survives Worker update and retries same identity to public delivery; duplicate is durable.
+[04:33:58.916] INFO (#4): Plan: 2 to delete, 4 binding changes
+[04:33:58.916] INFO (#4): [Frontend] delete (local)
+[04:33:58.916] INFO (#4): [Frontend/FRONTEND_REFRESH_TOKEN] unbind
+[04:33:58.916] INFO (#4): [Frontend/PUBLICATION_DB] unbind
+[04:33:58.916] INFO (#4): [Frontend/PUBLICATION_EVENT_SECRET] unbind
+[04:33:58.916] INFO (#4): [Frontend/REVISION] unbind
+[04:33:58.916] INFO (#4): [Publications] delete (local)
+[04:33:58.916] INFO (#4):
+[04:33:58.917] INFO (#559): [Frontend] deleting (local)
+[04:33:58.919] INFO (#559): [Frontend] deleted (local) (2ms)
+[04:33:58.919] INFO (#560): [Publications] deleting (local)
+[04:33:58.921] INFO (#560): [Publications] deleted (local) (2ms)
+[04:33:58.922] INFO (#4):
+[04:33:58.922] INFO (#4): Done: 2 succeeded (6ms)
+
+$ vp check ⊘ cache disabled
+pass: All 92 files are correctly formatted (127ms, 32 threads)
+pass: Found no warnings, lint errors, or type errors in 48 files (481ms, 32 threads)
+
+
+ Test Files  15 passed (15)
+      Tests  289 passed (289)
+   Start at  04:33:54
+   Duration  7.62s (tests 88%, transform 9%, import 3%)
+
+
+
+ Test Files  15 passed (15)
+      Tests  289 passed (289)
+   Start at  04:33:56
+   Duration  6.86s (tests 91%, transform 6%, import 2%)
+
+P3/P4 issues #3/#4: inspected 15 packed files; public declarations and all package-boundary suites passed in a clean installed consumer.
+
+PASS Composer installed the current ZIP bytes without stale cache
+PASS real WordPress boots Composer-installed MU plugin
+PASS bare version works without event configuration
+PASS JSON version works without event configuration
+PASS production Site Health reports missing configuration safely
+PASS all three modules load once in dependency order through Bedrock
+PASS absent: unconfigured and critical in production
+PASS absent: saves work without retaining malformed publication/settings events
+PASS absent: CLI check safely refuses configuration
+PASS absent: CLI retry 4 safely refuses configuration
+PASS absent: CLI settings retry identity safely refuses configuration
+PASS absent: CLI reconcile safely refuses configuration
+PASS absent: CLI retry-due --quiet safely refuses configuration
+PASS absent: no guessed or malformed event sent
+PASS empty environment: unconfigured and critical in production
+PASS empty environment: saves work without retaining malformed publication/settings events
+PASS empty environment: CLI check safely refuses configuration
+PASS empty environment: CLI retry 5 safely refuses configuration
+PASS empty environment: CLI settings retry identity safely refuses configuration
+PASS empty environment: CLI reconcile safely refuses configuration
+PASS empty environment: CLI retry-due --quiet safely refuses configuration
+PASS empty environment: no guessed or malformed event sent
+PASS blank environment: unconfigured and critical in production
+PASS blank environment: saves work without retaining malformed publication/settings events
+PASS blank environment: CLI check safely refuses configuration
+PASS blank environment: CLI retry 6 safely refuses configuration
+PASS blank environment: CLI settings retry identity safely refuses configuration
+PASS blank environment: CLI reconcile safely refuses configuration
+PASS blank environment: CLI retry-due --quiet safely refuses configuration
+PASS blank environment: no guessed or malformed event sent
+PASS invalid constant '': unconfigured and critical in production
+PASS invalid constant '': saves work without retaining malformed publication/settings events
+PASS invalid constant '': CLI check safely refuses configuration
+PASS invalid constant '': CLI retry 7 safely refuses configuration
+PASS invalid constant '': CLI settings retry identity safely refuses configuration
+PASS invalid constant '': CLI reconcile safely refuses configuration
+PASS invalid constant '': CLI retry-due --quiet safely refuses configuration
+PASS invalid constant '': no guessed or malformed event sent
+PASS invalid constant '  ': unconfigured and critical in production
+PASS invalid constant '  ': saves work without retaining malformed publication/settings events
+PASS invalid constant '  ': CLI check safely refuses configuration
+PASS invalid constant '  ': CLI retry 8 safely refuses configuration
+PASS invalid constant '  ': CLI settings retry identity safely refuses configuration
+PASS invalid constant '  ': CLI reconcile safely refuses configuration
+PASS invalid constant '  ': CLI retry-due --quiet safely refuses configuration
+PASS invalid constant '  ': no guessed or malformed event sent
+PASS invalid constant 123: unconfigured and critical in production
+PASS invalid constant 123: saves work without retaining malformed publication/settings events
+PASS invalid constant 123: CLI check safely refuses configuration
+PASS invalid constant 123: CLI retry 9 safely refuses configuration
+PASS invalid constant 123: CLI settings retry identity safely refuses configuration
+PASS invalid constant 123: CLI reconcile safely refuses configuration
+PASS invalid constant 123: CLI retry-due --quiet safely refuses configuration
+PASS invalid constant 123: no guessed or malformed event sent
+PASS invalid constant true: unconfigured and critical in production
+PASS invalid constant true: saves work without retaining malformed publication/settings events
+PASS invalid constant true: CLI check safely refuses configuration
+PASS invalid constant true: CLI retry 10 safely refuses configuration
+PASS invalid constant true: CLI settings retry identity safely refuses configuration
+PASS invalid constant true: CLI reconcile safely refuses configuration
+PASS invalid constant true: CLI retry-due --quiet safely refuses configuration
+PASS invalid constant true: no guessed or malformed event sent
+PASS invalid constant false: unconfigured and critical in production
+PASS invalid constant false: saves work without retaining malformed publication/settings events
+PASS invalid constant false: CLI check safely refuses configuration
+PASS invalid constant false: CLI retry 11 safely refuses configuration
+PASS invalid constant false: CLI settings retry identity safely refuses configuration
+PASS invalid constant false: CLI reconcile safely refuses configuration
+PASS invalid constant false: CLI retry-due --quiet safely refuses configuration
+PASS invalid constant false: no guessed or malformed event sent
+PASS invalid constant null: unconfigured and critical in production
+PASS invalid constant null: saves work without retaining malformed publication/settings events
+PASS invalid constant null: CLI check safely refuses configuration
+PASS invalid constant null: CLI retry 12 safely refuses configuration
+PASS invalid constant null: CLI settings retry identity safely refuses configuration
+PASS invalid constant null: CLI reconcile safely refuses configuration
+PASS invalid constant null: CLI retry-due --quiet safely refuses configuration
+PASS invalid constant null: no guessed or malformed event sent
+PASS invalid constant []: unconfigured and critical in production
+PASS invalid constant []: saves work without retaining malformed publication/settings events
+PASS invalid constant []: CLI check safely refuses configuration
+PASS invalid constant []: CLI retry 13 safely refuses configuration
+PASS invalid constant []: CLI settings retry identity safely refuses configuration
+PASS invalid constant []: CLI reconcile safely refuses configuration
+PASS invalid constant []: CLI retry-due --quiet safely refuses configuration
+PASS invalid constant []: no guessed or malformed event sent
+PASS unconfigured development saves without sending or retaining events
+PASS process environment: Site Health debug package/version/configured
+PASS process environment: publication/settings preserve identities and delivery record keys
+PASS process environment: real HTTP envelopes are trimmed, signed and use existing endpoint
+PASS process environment: retry/reconcile commands and quiet cron contract remain usable
+PASS process environment: status retains JSON rows
+PASS process environment: settings status retains JSON rows
+PASS process environment: delays retains JSON rows
+PASS constant precedence: Site Health debug package/version/configured
+PASS constant precedence: publication/settings preserve identities and delivery record keys
+PASS constant precedence: real HTTP envelopes are trimmed, signed and use existing endpoint
+PASS constant precedence: retry/reconcile commands and quiet cron contract remain usable
+PASS constant precedence: status retains JSON rows
+PASS constant precedence: settings status retains JSON rows
+PASS constant precedence: delays retains JSON rows
+PASS gq-config helper endpoint takes precedence
+PASS empty helper falls back to GETQUICK_FRONTEND_URL
+PASS missing endpoint: production retains valid failed records and reports unconfigured
+PASS missing secret: production retains valid failed records and reports unconfigured
+PASS short secret: production retains valid failed records and reports unconfigured
+PASS version remains available with an invalid defined identity
+PHP 8.5.10 (cli) (built: Aug 25 2026 21:09:32) (NTS)
+Composer version 2.10.3 2026-08-27 13:34:23
+WP-CLI 2.12.0
+WordPress 7.1.3
+Bedrock project 1.31.7; SQLite integration 3.1.0
+composer/installers v2.3.0
+getquick/gq-content 0.1.0
+graham-campbell/result-type v1.2.0
+oscarotero/env v2.1.1
+phpoption/phpoption 1.10.0
+roots/bedrock-autoloader 1.1.0
+roots/bedrock-disallow-indexing 2.1.0
+roots/wordpress 7.1.3
+roots/wordpress-core-installer v4.0.0
+roots/wordpress-no-content 7.1.3
+roots/wp-config 1.0.0
+symfony/polyfill-ctype v1.37.0
+symfony/polyfill-mbstring v1.43.0
+symfony/polyfill-php80 v1.43.0
+vlucas/phpdotenv v5.7.0
+wp-theme/twentytwentyfive 1.5
+
+$ python3 scripts/pair-proof.py ⊘ cache disabled
+package: @getquick/content@0.1.0
+Tarball Contents
+dist/formatting-wOk2jz6J.js
+dist/index.d.ts
+dist/index.js
+dist/migrations.d.ts
+dist/migrations.js
+dist/server.d.ts
+dist/server.js
+dist/wordpress-Bq1Hr1pV.d.ts
+migrations/0001_publications.sql
+migrations/0002_entries.sql
+migrations/0003_publication_events.sql
+migrations/0004_withdrawals.sql
+migrations/0005_reconciliation.sql
+package.json
+README.md
+Tarball Details
+/data/code/getquick/gq-content/.proofs/pair/getquick-content-0.1.0.tgz
+[WARN] The store at /home/valerio/.local/share/pnpm/store/v11 is not used because packages cannot be hard linked from it into this project. Using the store at /data/.pnpm-store/v11 instead. Set storeDir to choose the store.
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /data/.pnpm-store/v11
+  Virtual store is at:             node_modules/.pnpm
+Packages: +2
+++
+Progress: resolved 2, reused 1, downloaded 1, added 2, done
+
+dependencies:
++ @getquick/content 0.1.0
+
+Done in 27ms using pnpm v12.11.2
+PASS pair: refresh installs usable chrome through public handler
+PASS pair: actual CMS signature and configured Site accepted by installed handler
+PASS pair: record key and source event wire fields retained
+PASS pair: default publication HTTP timeout is 15 seconds
+PASS pair: public delivery contains CMS publication from GraphQL boundary
+PASS pair: update has fresh event identity and changes stored public delivery
+PASS pair: timeout filter receives 15 and its numeric result controls transport
+PASS pair: actual rename retains previousUri and moves the old stored route
+PASS pair: stored publication survives CMS outage
+PASS pair: retry retains event identity and duplicate acceptance reads no CMS
+PASS pair: actual withdrawal changes public delivery without CMS read
+PASS pair: withdrawal retains source record/wire shape and node identity
+PASS pair: actual withdrawal also hides the moved route without reading CMS
+PASS pair: actual later republication restores public delivery
+PASS pair: password protection sends real withdrawal without CMS reads
+PASS pair: removing password sends real later publication
+PASS pair: permanent deletion withdraws all stored routes without CMS reads
+PASS pair: successfully delivered deletion leaves no dangling deleted-entry record
+P2/P6 #6 installed pair passed: real Bedrock/WordPress transport; GraphQL boundary stub; Node SQLite publication store.
+
+$ python3 scripts/pair-proof.py --retries ⊘ cache disabled
+package: @getquick/content@0.1.0
+Tarball Contents
+dist/formatting-wOk2jz6J.js
+dist/index.d.ts
+dist/index.js
+dist/migrations.d.ts
+dist/migrations.js
+dist/server.d.ts
+dist/server.js
+dist/wordpress-Bq1Hr1pV.d.ts
+migrations/0001_publications.sql
+migrations/0002_entries.sql
+migrations/0003_publication_events.sql
+migrations/0004_withdrawals.sql
+migrations/0005_reconciliation.sql
+package.json
+README.md
+Tarball Details
+/data/code/getquick/gq-content/.proofs/pair/getquick-content-0.1.0.tgz
+[WARN] The store at /home/valerio/.local/share/pnpm/store/v11 is not used because packages cannot be hard linked from it into this project. Using the store at /data/.pnpm-store/v11 instead. Set storeDir to choose the store.
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /data/.pnpm-store/v11
+  Virtual store is at:             node_modules/.pnpm
+Packages: +2
+++
+Progress: resolved 2, reused 2, downloaded 0, added 2, done
+
+dependencies:
++ @getquick/content 0.1.0
+
+Done in 24ms using pnpm v12.11.2
+PASS pair: refresh installs usable chrome through public handler
+PASS pair: actual CMS signature and configured Site accepted by installed handler
+PASS pair: record key and source event wire fields retained
+PASS pair: default publication HTTP timeout is 15 seconds
+PASS pair: public delivery contains CMS publication from GraphQL boundary
+PASS pair: update has fresh event identity and changes stored public delivery
+PASS pair: timeout filter receives 15 and its numeric result controls transport
+PASS pair: actual rename retains previousUri and moves the old stored route
+PASS pair: stored publication survives CMS outage
+PASS pair: retry retains event identity and duplicate acceptance reads no CMS
+PASS pair: actual withdrawal changes public delivery without CMS read
+PASS pair: withdrawal retains source record/wire shape and node identity
+PASS pair: actual withdrawal also hides the moved route without reading CMS
+PASS pair: actual later republication restores public delivery
+PASS pair: password protection sends real withdrawal without CMS reads
+PASS pair: removing password sends real later publication
+PASS pair: permanent deletion withdraws all stored routes without CMS reads
+PASS pair: successfully delivered deletion leaves no dangling deleted-entry record
+PASS retry: explicit reconciliation reaches the installed handler
+PASS retry: invalid configuration retains failed record without claiming public success
+PASS retry: server-cron invocation preserves quiet CLI output contract
+PASS retry: scheduler recovers retained record after configuration is repaired
+PASS retry: WordPress saves while public delivery remains last-known-good
+PASS retry: editor REST report separates save and delivery without secrets
+PASS retry: editor delivery route requires edit permission
+PASS retry: scheduler leaves an early retry alone
+PASS retry: due retry persists failure and same event identity
+PASS retry: bounded backoff after attempt 2
+PASS retry: bounded backoff after attempt 3
+PASS retry: bounded backoff after attempt 4
+PASS retry: bounded backoff after attempt 5
+PASS retry: bounded backoff after attempt 6
+PASS retry: bounded backoff after attempt 7
+PASS retry: bounded backoff after attempt 8
+PASS retry: bounded backoff after attempt 9
+PASS retry: bounded backoff after attempt 10
+PASS retry: bounded backoff after attempt 11
+PASS retry: twelve failures stop automatic sends
+PASS retry: Site Health reports exhausted delivery critically and safely
+PASS retry: operator retry recovers exhausted same event without another save
+PASS retry: recovery is visible to editor
+PASS retry: server-cron invocation preserves quiet CLI output contract
+PASS retry: cron retry delivers the saved event to package public reads
+PASS retry: retry preserves envelope identity with a fresh timestamp/signature
+PASS retry: killed real CMS save leaves a new persistent pending identity
+PASS retry: pending record survives commands during request grace
+PASS retry: interrupted pending record recovers after grace
+PASS retry: new save supersedes failed scheduled work
+PASS retry: failed settings record persists with its own identity
+PASS retry: server-cron invocation preserves quiet CLI output contract
+PASS retry: settings retry recovers same event across real commands
+PASS retry: failed permanent deletion retains withdrawal after post is gone
+PASS retry: server-cron invocation preserves quiet CLI output contract
+PASS retry: cron retries deleted withdrawal and removes only confirmed record
+PASS retry: first scheduler starts a real extension callback under lease
+PASS retry: overlapping actual CLI run sends nothing while first callback is active
+PASS retry: 45-second budget bounds real callback HTTP work and defers remainder
+PASS retry: filter retains row fields and callback-owned persistent outcomes
+PASS retry: deferred callback runs on next invocation and completed rows stay complete
+PASS retry: expired lease from killed process can be recovered
+PASS retry: delays table retains scheduler report and JSON retains columns
+P2/P6 #8: real installed CMS/CLI, shell server-cron invocation, callback HTTP work and public package reads passed. No cron daemon claimed.
+P2/P6 #6 installed pair passed: real Bedrock/WordPress transport; GraphQL boundary stub; Node SQLite publication store.
+
+$ python3 scripts/multilingual-proof.py ⊘ cache disabled
+package: @getquick/content@0.1.0
+Tarball Contents
+dist/formatting-wOk2jz6J.js
+dist/index.d.ts
+dist/index.js
+dist/migrations.d.ts
+dist/migrations.js
+dist/server.d.ts
+dist/server.js
+dist/wordpress-Bq1Hr1pV.d.ts
+migrations/0001_publications.sql
+migrations/0002_entries.sql
+migrations/0003_publication_events.sql
+migrations/0004_withdrawals.sql
+migrations/0005_reconciliation.sql
+package.json
+README.md
+Tarball Details
+/data/code/getquick/gq-content/.proofs/multilingual/getquick-content-0.1.0.tgz
+[WARN] The store at /home/valerio/.local/share/pnpm/store/v11 is not used because packages cannot be hard linked from it into this project. Using the store at /data/.pnpm-store/v11 instead. Set storeDir to choose the store.
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /data/.pnpm-store/v11
+  Virtual store is at:             node_modules/.pnpm
+Packages: +2
+++
+Progress: resolved 2, reused 2, downloaded 0, added 2, done
+
+dependencies:
++ @getquick/content 0.1.0
+
+Done in 25ms using pnpm v12.11.2
+PASS pair: real Polylang normalizes language routes and resolves translated homes
+PASS pair: whole refresh prepares both language rows through installed handler
+PASS pair: editing a menu shown nowhere emits no settings event
+PASS pair: English menu reassignment: signed settings event and durable source record/wire shape
+PASS pair: English menu reassignment: no entry republish/read or route listing
+PASS pair: real Polylang menu reassignment reads only English chrome
+PASS pair: English menu edit: signed settings event and durable source record/wire shape
+PASS pair: English menu edit: no entry republish/read or route listing
+PASS pair: English menu changes only English chrome
+PASS pair: settings CLI retry retains output and identity without CMS read
+PASS pair: English translated tagline: signed settings event and durable source record/wire shape
+PASS pair: English translated tagline: no entry republish/read or route listing
+PASS pair: canonical alternate objects retained for en
+PASS pair: canonical alternate objects retained for pt
+PASS pair: translated identity reaches only English home
+PASS pair: Shared logo: signed settings event and durable source record/wire shape
+PASS pair: Shared logo: no entry republish/read or route listing
+PASS pair: shared logo reaches both languages and stored entries
+PASS pair: failed real setting retains its identity, failure record and last-known-good public logo
+PASS pair: real failed setting retry completes the same identity
+PASS pair: Shared identity: signed settings event and durable source record/wire shape
+PASS pair: Shared identity: no entry republish/read or route listing
+PASS pair: canonical alternate objects retained for pt
+PASS pair: canonical alternate objects retained for en
+PASS pair: shared identity updates both homes without entry republishing
+PASS pair: Shared site icon: signed settings event and durable source record/wire shape
+PASS pair: Shared site icon: no entry republish/read or route listing
+PASS pair: actual site icon reaches both language chrome rows
+PASS pair: actual global-styles save sends shared design event
+PASS pair: canonical alternate objects retained for pt
+PASS pair: canonical alternate objects retained for en
+PASS pair: shared presets persist on both homes and entries during outage
+PASS pair: canonical alternate objects retained for en
+PASS pair: real English home save preserves language and home route identity
+PASS pair: canonical alternate objects retained for en
+PASS pair: canonical alternate objects retained for pt
+PASS pair: real English withdrawal hides only its home
+PASS pair: Identity after withdrawal: signed settings event and durable source record/wire shape
+PASS pair: Identity after withdrawal: no entry republish/read or route listing
+PASS pair: canonical alternate objects retained for en
+PASS pair: settings refresh cannot lift actual withdrawn English home
+PASS pair: canonical alternate objects retained for en
+PASS pair: later actual publication restores English home
+PASS pair: withdrawn translation becomes a home alternate without cross-language fallback
+PASS pair: unavailable English content never falls back to Portuguese
+PASS pair: actual language reassignment retains node identity with new route and language
+PASS pair: language reassignment moves old route and serves new route with English chrome
+PASS pair: settings CLI lists shared and both language subjects with source output fields
+P2/P6 #7 multilingual installed pair passed: real WordPress/Polylang API and HTTP transport; GraphQL boundary fixtures; durable installed-consumer SQLite reads.
+
+$ node scripts/alchemy-consumer.mjs --reconciliation ⊘ cache disabled
+package: @getquick/content@0.1.0
+Tarball Contents
+dist/formatting-wOk2jz6J.js
+dist/index.d.ts
+dist/index.js
+dist/migrations.d.ts
+dist/migrations.js
+dist/server.d.ts
+dist/server.js
+dist/wordpress-Bq1Hr1pV.d.ts
+migrations/0001_publications.sql
+migrations/0002_entries.sql
+migrations/0003_publication_events.sql
+migrations/0004_withdrawals.sql
+migrations/0005_reconciliation.sql
+package.json
+README.md
+Tarball Details
+/data/code/getquick/gq-content/.proofs/alchemy-p1-qslHXr/getquick-content-0.1.0.tgz
+[WARN] The store at /home/valerio/.local/share/pnpm/store/v11 is not used because packages cannot be hard linked from it into this project. Using the store at /data/.pnpm-store/v11 instead. Set storeDir to choose the store.
+✓ Lockfile passes supply-chain policies (verified 2m ago)
+Lockfile is up to date, resolution step is skipped
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /data/.pnpm-store/v11
+  Virtual store is at:             node_modules/.pnpm
+Packages: +223
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 223, reused 223, downloaded 0, added 223, done
+
+dependencies:
++ @effect/platform-node 4.0.0-rc.115
++ @getquick/content 0.1.0
++ alchemy 2.0.0-beta.79
++ effect 4.0.0-rc.115
+
+Done in 497ms using pnpm v12.11.2
+[04:36:17.533] INFO (#4): Plan: no resources
+[04:36:17.533] INFO (#4):
+[04:36:17.535] INFO (#4):
+[04:36:17.535] INFO (#4): Done: 0 succeeded (2ms)
+[04:36:17.581] INFO (#4): Plan: 2 to create, 5 binding changes
+[04:36:17.581] INFO (#4): [Frontend] create (local)
+[04:36:17.581] INFO (#4): [Frontend/CMS_GRAPHQL] create
+[04:36:17.581] INFO (#4): [Frontend/FRONTEND_REFRESH_TOKEN] create
+[04:36:17.581] INFO (#4): [Frontend/PUBLICATION_DB] create
+[04:36:17.581] INFO (#4): [Frontend/PUBLICATION_EVENT_SECRET] create
+[04:36:17.581] INFO (#4): [Frontend/REVISION] create
+[04:36:17.581] INFO (#4): [Publications] create (local)
+[04:36:17.581] INFO (#4):
+[04:36:17.584] INFO (#168): [Frontend] pre-creating (local)
+[04:36:17.585] INFO (#167): [Publications] creating (local)
+[04:36:17.712] INFO (#168): [Frontend] creating (local)
+[04:36:17.714] INFO (#167): [Publications] created (local) (129ms)
+[04:36:17.733] INFO (#168): [Frontend] ready at http://localhost:1337
+[04:36:17.734] INFO (#168): [Frontend] created (local) (150ms)
+[04:36:17.756] INFO (#243): [Publications] created (local) (171ms)
+[04:36:17.756] INFO (#244): [Frontend] created (local) (172ms)
+[04:36:17.757] INFO (#4):
+[04:36:17.757] INFO (#4): Done: 2 succeeded (176ms)
+[04:36:17.849] INFO (#233): [Frontend] Started in 133ms → http://localhost:1337/ (logs: /data/code/getquick/gq-content/.proofs/alchemy-p1-qslHXr/.alchemy/log/p9/Frontend)
+[Frontend] Refresh: the front page promoted (published)
+[Frontend] Refresh: the site chrome promoted (published)
+[Frontend] Refresh: the en front page promoted (published)
+[Frontend] Refresh: the en site chrome promoted (published)
+[Frontend] Refresh: the shared design presets promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-1/ promoted (published)
+[Frontend] Events: reconcile-c47254bc3572b7a2e47b0a52e9a99c60b51ab027 (publish /en/reconcile-story-1/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-11/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-13/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-15/ promoted (published)
+[Frontend] Events: reconcile-6c539ea97c2dd00a248f601dd36a5d6191061ab1 (publish /en/reconcile-story-11/) refreshed
+[Frontend] Events: reconcile-a355731e91bd92c324ce731a2d99e3d41ce30965 (publish /en/reconcile-story-13/) refreshed
+[Frontend] Events: reconcile-20cf339d1d3b49d03f4effee6bf1387ad879fb17 (publish /en/reconcile-story-15/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-17/ promoted (published)
+[Frontend] Events: reconcile-55257eb4370d8587c2f7414f33de068ef37173e3 (publish /en/reconcile-story-17/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-19/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-21/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-23/ promoted (published)
+[Frontend] Events: reconcile-9ed3c4d67f69f5076754eb43f544f47e38848bdb (publish /en/reconcile-story-19/) refreshed
+[Frontend] Events: reconcile-9afa7781dc9fd1edf78f5cdcbfe5335d37078f67 (publish /en/reconcile-story-21/) refreshed
+[Frontend] Events: reconcile-bbc509a103d2defd5e91cee43c41ef17735621a4 (publish /en/reconcile-story-23/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-25/ promoted (published)
+[Frontend] Events: reconcile-26bc926233089c5f747fddcd66fe9b4cfa2ea8b5 (publish /en/reconcile-story-25/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-27/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-29/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-3/ promoted (published)
+[Frontend] Events: reconcile-ed67b49d243e52f788235a7946e6e2d1b9f33dca (publish /en/reconcile-story-27/) refreshed
+[Frontend] Events: reconcile-689a72beee1d9ca6a2336153b3217830f9f8a95f (publish /en/reconcile-story-29/) refreshed
+[Frontend] Events: reconcile-00204c17d4b85ff9529955d004fc51d51cc2e889 (publish /en/reconcile-story-3/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-31/ promoted (published)
+[Frontend] Events: reconcile-cd4b4f9542ad10952492c5f960e98ab1884455d2 (publish /en/reconcile-story-31/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-33/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-35/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-37/ promoted (published)
+[Frontend] Events: reconcile-5f56049227abb7b2d33f2f27059403cd5c4c32bd (publish /en/reconcile-story-33/) refreshed
+[Frontend] Events: reconcile-af40ac7f1d5c54797c551da6d7192917484513ff (publish /en/reconcile-story-35/) refreshed
+[Frontend] Events: reconcile-fda8e1d9615ea3e8a3a5e813116e6ef151601d50 (publish /en/reconcile-story-37/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-39/ promoted (published)
+[Frontend] Events: reconcile-25840a783eb3d9d305976f3cf9ef4001da143eb1 (publish /en/reconcile-story-39/) refreshed
+[Frontend] Reconciliation: 5923f2ed-d76b-4ba2-9926-bc77aa4a8ff9 behind (40 checked, 22 changed, 23 left, 0 failed)
+PASS integrated reconciliation: Composer-installed CMS is 0.1.0
+PASS integrated reconciliation: actual Polylang is active
+PASS integrated reconciliation: 40 actual WordPress entries with modification times and both languages exported
+PASS integrated reconciliation: supported false filter skips reconciliation
+PASS integrated reconciliation: run remains within 40 CMS requests
+PASS integrated reconciliation: CLI reports partial completion without claiming a complete match
+PASS integrated reconciliation: signed check reports durable partial state
+PASS integrated reconciliation: shared rows for every language prepared
+[04:36:20.352] INFO (#4): Plan: 1 to update, 1 binding changes
+[04:36:20.353] INFO (#4): [Frontend] update (local)
+[04:36:20.353] INFO (#4): [Frontend/CMS_GRAPHQL] noop
+[04:36:20.353] INFO (#4): [Frontend/FRONTEND_REFRESH_TOKEN] noop
+[04:36:20.353] INFO (#4): [Frontend/PUBLICATION_DB] noop
+[04:36:20.353] INFO (#4): [Frontend/PUBLICATION_EVENT_SECRET] noop
+[04:36:20.353] INFO (#4): [Frontend/REVISION] update
+[04:36:20.353] INFO (#4): [Publications] noop (local)
+[04:36:20.353] INFO (#4):
+[04:36:20.354] INFO (#480): [Frontend] updating (local)
+[04:36:20.365] WARN (#485): Port 1337 is in use by another process; serving on 1338 instead. Stop the other process, pick a different port, or set `strictPort: true` to fail instead.
+[04:36:20.367] INFO (#480): [Frontend] ready at http://localhost:1338
+[04:36:20.367] INFO (#480): [Frontend] updated (local) (13ms)
+[04:36:20.374] INFO (#498): [Frontend] updated (local) (20ms)
+[04:36:20.375] INFO (#4):
+[04:36:20.375] INFO (#4): Done: 1 succeeded (22ms)
+[04:36:20.452] INFO (#488): [Frontend] Started in 87ms → http://localhost:1338/ (logs: /data/code/getquick/gq-content/.proofs/alchemy-p1-qslHXr/.alchemy/log/p9/Frontend)
+[Frontend] Refresh: the entry /en/reconcile-story-5/ promoted (published)
+[Frontend] Events: reconcile-494d3b480b673c5b148cbdf8473040bc67365eaa (publish /en/reconcile-story-5/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-7/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-9/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-0/ promoted (published)
+[Frontend] Events: reconcile-611c575d44004377ad8c88d68e76ddb274dcf592 (publish /en/reconcile-story-7/) refreshed
+[Frontend] Events: reconcile-8ddbece0ce23141b73de087a930f53c4e52577e3 (publish /en/reconcile-story-9/) refreshed
+[Frontend] Events: reconcile-d264d2b8c8697d733353507ab515f52e58619b7f (publish /reconcile-story-0/) refreshed
+[Frontend] Refresh: the entry /reconcile-story-10/ promoted (published)
+[Frontend] Events: reconcile-12c233ab40d0b10707b23f966817f6c223f73262 (publish /reconcile-story-10/) refreshed
+[Frontend] Refresh: the entry /reconcile-story-12/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-14/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-16/ promoted (published)
+[Frontend] Events: reconcile-04b229851ea2651754e101dca786f5a76c5b7de5 (publish /reconcile-story-12/) refreshed
+[Frontend] Events: reconcile-b6367c5f090d8acd94deb3a5bdbd10edb5384089 (publish /reconcile-story-14/) refreshed
+[Frontend] Events: reconcile-d4edbd8f5ec679d68db5f75ebb4adad8e3b3978b (publish /reconcile-story-16/) refreshed
+[Frontend] Refresh: the entry /reconcile-story-18/ promoted (published)
+[Frontend] Events: reconcile-14c10a87a3dda1ca1dd5482c97bbc4cc5cf35219 (publish /reconcile-story-18/) refreshed
+[Frontend] Refresh: the entry /reconcile-story-2/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-20/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-22/ promoted (published)
+[Frontend] Events: reconcile-52eaf8905f304a872f274f5bb2733dd8b52dbf09 (publish /reconcile-story-2/) refreshed
+[Frontend] Events: reconcile-60d09fb4149cb12ae9af3c69ab296ff674f49c17 (publish /reconcile-story-20/) refreshed
+[Frontend] Events: reconcile-fc7db66eba1264e55c05492785fecb2dd1b26714 (publish /reconcile-story-22/) refreshed
+[Frontend] Refresh: the entry /reconcile-story-24/ promoted (published)
+[Frontend] Events: reconcile-dfa57494cc888c036f0f34fd69a58cebffc8e91f (publish /reconcile-story-24/) refreshed
+[Frontend] Refresh: the entry /reconcile-story-26/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-28/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-30/ promoted (published)
+[Frontend] Events: reconcile-0b46ef54e981c2503530b84b91c430775740aefc (publish /reconcile-story-26/) refreshed
+[Frontend] Events: reconcile-545250ac9573cfb72ecbee59329e0396e8cc371b (publish /reconcile-story-28/) refreshed
+[Frontend] Events: reconcile-04adfc4911d265b536930b63cb18e62f2f769591 (publish /reconcile-story-30/) refreshed
+[Frontend] Refresh: the entry /reconcile-story-32/ promoted (published)
+[Frontend] Events: reconcile-b4394540e8431ae746b9f3ca6905d6532c76e0f2 (publish /reconcile-story-32/) refreshed
+[Frontend] Reconciliation: 734022ae-47ba-4d0b-bb8d-25b37f7ac429 behind (40 checked, 17 changed, 6 left, 0 failed)
+[Frontend] Refresh: the entry /reconcile-story-36/ promoted (published)
+[Frontend] Events: reconcile-077257b44d26c3bdcd74a5cc56fa71583b281bbb (publish /reconcile-story-36/) refreshed
+[Frontend] Refresh: the entry /reconcile-story-34/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-38/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-4/ promoted (published)
+[Frontend] Events: reconcile-b22735ef1ae482e6bfc7d3a04e6ddfc233acdcb4 (publish /reconcile-story-34/) refreshed
+[Frontend] Events: reconcile-785c12f2872886565c08e2ba83ca6d91ae68745c (publish /reconcile-story-38/) refreshed
+[Frontend] Events: reconcile-5df42b9125d774f370097d6b8c204036024383db (publish /reconcile-story-4/) refreshed
+[Frontend] Refresh: the entry /reconcile-story-6/ promoted (published)
+[Frontend] Events: reconcile-d3cb2a51e97fb5dbe065845978972ce1be4cd261 (publish /reconcile-story-6/) refreshed
+[Frontend] Refresh: the entry /reconcile-story-8/ promoted (published)
+[Frontend] Events: reconcile-d052bcf0f785d887531f8995292c9fe2c291b44a (publish /reconcile-story-8/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-1/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-11/ promoted (published)
+[Frontend] Reconciliation: 345140bb-16dd-47ea-8b60-2a3a83f423b7 reconciled (40 checked, 6 changed, 0 left, 0 failed)
+[Frontend] Reconciliation: proof-1792294581819575283 found another run under way
+[Frontend] Refresh: the entry /en/reconcile-story-13/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-15/ promoted (published)
+[Frontend] Reconciliation: proof-1792294581808653317 reconciled (40 checked, 0 changed, 0 left, 0 failed)
+[Frontend] WordPress: the entry /reconcile-story-0/ is unavailable (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] Refresh: the entry /reconcile-story-0/ kept its last stored version (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] Events: reconcile-d2d48384c5b1adf32fde72cdb7aaca93f8dd4fdf (publish /reconcile-story-0/) failed
+[Frontend] WordPress: the entry /en/reconcile-story-17/ is unavailable (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] WordPress: the entry /en/reconcile-story-19/ is unavailable (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] Refresh: the entry /en/reconcile-story-17/ kept its last stored version (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] Refresh: the entry /en/reconcile-story-19/ kept its last stored version (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] Reconciliation: be867e60-8ccd-4607-8530-9ea2bc09cf01 failed (40 checked, 0 changed, 0 left, 3 failed): http: WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] WordPress: the en site chrome is unavailable (http): WordPress responded with HTTP 502
+[Frontend] WordPress: the design presets is unavailable (http): WordPress responded with HTTP 502
+[Frontend] WordPress: the published routes is unavailable (http): WordPress responded with HTTP 502
+[Frontend] WordPress: the site chrome is unavailable (http): WordPress responded with HTTP 502
+[Frontend] WordPress: the en front page is unavailable (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] WordPress: the front page is unavailable (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] Refresh: the front page kept its last stored version (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] Refresh: the site chrome kept its last stored version (http): WordPress responded with HTTP 502
+[Frontend] Refresh: the en front page kept its last stored version (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] Refresh: the en site chrome kept its last stored version (http): WordPress responded with HTTP 502
+[Frontend] Refresh: the shared design presets kept its last stored version (http): WordPress responded with HTTP 502
+[Frontend] Reconciliation: 07bbc15b-1c4a-40cc-8bf3-7c393430711d failed (0 checked, 0 changed, 0 left, 6 failed): http: WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+PASS integrated reconciliation: pending evidence still visible before continuation
+PASS integrated reconciliation: run remains within 40 CMS requests
+PASS integrated reconciliation: real scheduler continues unfinished work
+PASS integrated reconciliation: run remains within 40 CMS requests
+PASS integrated reconciliation: scheduler converges complete published list
+PASS integrated reconciliation: stored story Story 31
+PASS integrated reconciliation: stored story Story 32
+PASS integrated reconciliation: stored story Story 33
+PASS integrated reconciliation: stored story Story 34
+PASS integrated reconciliation: stored story Story 35
+PASS integrated reconciliation: stored story Story 36
+PASS integrated reconciliation: stored story Story 37
+PASS integrated reconciliation: stored story Story 38
+PASS integrated reconciliation: stored story Story 39
+PASS integrated reconciliation: stored story Story 0
+PASS integrated reconciliation: stored story Story 1
+PASS integrated reconciliation: stored story Story 2
+PASS integrated reconciliation: stored story Story 3
+PASS integrated reconciliation: stored story Story 4
+PASS integrated reconciliation: stored story Story 5
+PASS integrated reconciliation: stored story Story 6
+PASS integrated reconciliation: stored story Story 7
+PASS integrated reconciliation: stored story Story 8
+PASS integrated reconciliation: stored story Story 9
+PASS integrated reconciliation: stored story Story 10
+PASS integrated reconciliation: stored story Story 11
+PASS integrated reconciliation: stored story Story 12
+PASS integrated reconciliation: stored story Story 13
+PASS integrated reconciliation: stored story Story 14
+PASS integrated reconciliation: stored story Story 15
+PASS integrated reconciliation: stored story Story 16
+PASS integrated reconciliation: stored story Story 17
+PASS integrated reconciliation: stored story Story 18
+PASS integrated reconciliation: stored story Story 19
+PASS integrated reconciliation: stored story Story 20
+PASS integrated reconciliation: stored story Story 21
+PASS integrated reconciliation: stored story Story 22
+PASS integrated reconciliation: stored story Story 23
+PASS integrated reconciliation: stored story Story 24
+PASS integrated reconciliation: stored story Story 25
+PASS integrated reconciliation: stored story Story 26
+PASS integrated reconciliation: stored story Story 27
+PASS integrated reconciliation: stored story Story 28
+PASS integrated reconciliation: stored story Story 29
+PASS integrated reconciliation: stored story Story 30
+PASS integrated reconciliation: real D1 lease rejects overlap with exact busy wire answer
+PASS integrated reconciliation: leased run completes
+PASS integrated reconciliation: run remains within 40 CMS requests
+PASS integrated reconciliation: actual CMS CLI reports failed entry reconciliation
+PASS integrated reconciliation: failed synthetic publication is persisted
+PASS integrated reconciliation: run remains within 40 CMS requests
+PASS integrated reconciliation: CMS outage reports failure and retains last matched time
+PASS integrated reconciliation: last-known-good language homes remain served
+PASS integrated reconciliation: stale failed reconciliation reported safely through real Site Health and CLI
+[04:36:23.780] INFO (#4): Plan: 1 to update, 1 binding changes
+[04:36:23.780] INFO (#4): [Frontend] update (local)
+[04:36:23.780] INFO (#4): [Frontend/CMS_GRAPHQL] noop
+[04:36:23.780] INFO (#4): [Frontend/FRONTEND_REFRESH_TOKEN] noop
+[04:36:23.780] INFO (#4): [Frontend/PUBLICATION_DB] noop
+[04:36:23.780] INFO (#4): [Frontend/PUBLICATION_EVENT_SECRET] noop
+[04:36:23.780] INFO (#4): [Frontend/REVISION] update
+[04:36:23.780] INFO (#4): [Publications] noop (local)
+[04:36:23.780] INFO (#4):
+[04:36:23.781] INFO (#956): [Frontend] updating (local)
+[04:36:23.782] WARN (#961): Port 1337 is in use by another process; serving on 1339 instead. Stop the other process, pick a different port, or set `strictPort: true` to fail instead.
+[04:36:23.783] INFO (#956): [Frontend] ready at http://localhost:1339
+[04:36:23.783] INFO (#956): [Frontend] updated (local) (2ms)
+[04:36:23.788] INFO (#974): [Frontend] updated (local) (7ms)
+[04:36:23.789] INFO (#4):
+[04:36:23.789] INFO (#4): Done: 1 succeeded (9ms)
+[04:36:23.865] INFO (#964): [Frontend] Started in 83ms → http://localhost:1339/ (logs: /data/code/getquick/gq-content/.proofs/alchemy-p1-qslHXr/.alchemy/log/p9/Frontend)
+[Frontend] Refresh: the entry /reconcile-story-0/ promoted (published)
+[Frontend] Events: reconcile-d2d48384c5b1adf32fde72cdb7aaca93f8dd4fdf (publish /reconcile-story-0/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-21/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-23/ promoted (published)
+[Frontend] Reconciliation: 73984449-6843-464e-ab73-1c82d6cfab94 reconciled (40 checked, 1 changed, 0 left, 0 failed)
+[Frontend] Refresh: the entry /reconcile-story-0/ promoted (published)
+[Frontend] Events: 5e87a89a-ef89-437c-b9ca-41a8cdbbb1e6 (publish /reconcile-story-0/) refreshed
+[Frontend] Refresh: the en front page promoted (published)
+[Frontend] WordPress: the published routes is unavailable (schema): WordPress said there are more published routes without a cursor to them
+[Frontend] Reconciliation: 299bda13-b4d9-45cc-968d-84ae8bc49b58 failed (0 checked, 1 changed, 0 left, 1 failed): schema: WordPress said there are more published routes without a cursor to them
+[Frontend] Refresh: the front page promoted (published)
+[Frontend] Refresh: the en front page promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-moved/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-1/ moved to /en/reconcile-moved/
+[Frontend] Events: reconcile-c04f28b45e95f905f664759edd325621c0aac0f2 (publish /en/reconcile-moved/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-25/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-27/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-2/ promoted (missing)
+[Frontend] Reconciliation: 60bea34b-ce6a-4005-8a81-e154854a8e63 reconciled (39 checked, 4 changed, 0 left, 0 failed)
+PASS integrated reconciliation: failed evidence visible BEFORE recovery
+PASS integrated reconciliation: run remains within 40 CMS requests
+PASS integrated reconciliation: scheduler repairs missed change after outage
+PASS integrated reconciliation: recovered content publicly served
+PASS integrated reconciliation: actual WordPress publication hook/signature/HTTP reaches installed workerd handler
+PASS integrated reconciliation: run remains within 40 CMS requests
+PASS integrated reconciliation: incomplete list fails without removing stored entry
+PASS integrated reconciliation: run remains within 40 CMS requests
+PASS integrated reconciliation: lost move redirects old English route
+PASS integrated reconciliation: confirmed removal becomes missing
+PASS integrated reconciliation: English home repaired without Portuguese leakage
+PASS integrated reconciliation: check exposes only accepted evidence
+P2/P6 #9 integrated WordPress CLI/scheduler → installed package/workerd: convergence, partial continuation, outage/recovery, complete failed/pending records and event attempt progression across Worker updates passed.
+[04:36:26.262] INFO (#4): Plan: 2 to delete, 5 binding changes
+[04:36:26.262] INFO (#4): [Frontend] delete (local)
+[04:36:26.262] INFO (#4): [Frontend/CMS_GRAPHQL] unbind
+[04:36:26.262] INFO (#4): [Frontend/FRONTEND_REFRESH_TOKEN] unbind
+[04:36:26.262] INFO (#4): [Frontend/PUBLICATION_DB] unbind
+[04:36:26.262] INFO (#4): [Frontend/PUBLICATION_EVENT_SECRET] unbind
+[04:36:26.262] INFO (#4): [Frontend/REVISION] unbind
+[04:36:26.262] INFO (#4): [Publications] delete (local)
+[04:36:26.262] INFO (#4):
+[04:36:26.263] INFO (#1142): [Frontend] deleting (local)
+[04:36:26.264] INFO (#1142): [Frontend] deleted (local) (1ms)
+[04:36:26.265] INFO (#1143): [Publications] deleting (local)
+[04:36:26.265] INFO (#1143): [Publications] deleted (local) (0ms)
+[04:36:26.267] INFO (#4):
+[04:36:26.267] INFO (#4): Done: 2 succeeded (5ms)
+
+$ vp exec tsc --noEmit ⊘ cache disabled
+
+---
+vp run: 0/11 cache hit (0%). (Run `vp run --last-details` for full details)

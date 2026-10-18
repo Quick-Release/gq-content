@@ -16,7 +16,7 @@ writeFileSync(join(consumer, "global.npmrc"), "");
 env.NPM_CONFIG_USERCONFIG = join(consumer, "user.npmrc");
 env.NPM_CONFIG_GLOBALCONFIG = join(consumer, "global.npmrc");
 function run(command, args, cwd = consumer) {
-  execFileSync(command, args, { cwd, env, stdio: "inherit", timeout: 120000 });
+  execFileSync(command, args, { cwd, env, stdio: "inherit", timeout: 600000 });
 }
 try {
   cpSync(join(repo, "scripts/fixtures/alchemy-p1"), consumer, { recursive: true });
@@ -41,11 +41,15 @@ try {
         lib: ["ES2022", "DOM"],
         types: [],
       },
-      include: ["worker.ts"],
+      include: ["worker.ts", "reconciliation-worker.ts"],
     }),
   );
   run(join(repo, "node_modules/.bin/tsc"), ["--project", join(consumer, "tsconfig.json")]);
-  run(process.execPath, ["proof.mjs"]);
+  if (process.argv.includes("--reconciliation")) {
+    mkdirSync(join(repo, ".proofs/reconciliation"), { recursive: true });
+    env.RECONCILIATION_REPO = repo;
+    run(process.execPath, ["reconciliation.mjs"]);
+  } else run(process.execPath, ["proof.mjs"]);
 } finally {
   rmSync(consumer, { recursive: true, force: true });
 }

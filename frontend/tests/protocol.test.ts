@@ -350,27 +350,6 @@ test("refresh observes new credentials on a long-lived instance and never expose
     db.close();
   }
 });
-test("signed reconciliation reports unavailable without acknowledging unimplemented work", async () => {
-  const db = openTestD1(),
-    fetch = vi.fn();
-  try {
-    const api = configured(() => ({ PUBLICATION_DB: db, PUBLICATION_EVENT_SECRET: secret }), {
-      fetch,
-    });
-    const result = await api.handleEvent(
-      signed({ site: "Acme", id: "reconcile-0001", action: "reconcile", occurredAt: Date.now() }),
-    );
-    expect(result.status).toBe(503);
-    expect(await result.json()).toEqual({
-      event: "reconcile-0001",
-      status: "failed",
-      failure: { reason: "not-ready", message: "Reconciliation is not available." },
-    });
-    expect(fetch).not.toHaveBeenCalled();
-  } finally {
-    db.close();
-  }
-});
 
 test("invalid event and refresh requests never access the publication store", async () => {
   const db = openTestD1(),
