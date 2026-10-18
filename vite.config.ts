@@ -27,6 +27,8 @@ export default defineConfig({
   },
   run: {
     tasks: {
+      "cms-package": { command: "python3 scripts/cms-package.py", cache: false },
+      cms: { command: "python3 scripts/cms-proof.py", cache: false },
       compile: { command: "vp pack", cache: false },
       unit: { command: "vp test", dependsOn: ["compile"], cache: false },
       quality: { command: "vp check", dependsOn: ["compile"], cache: false },
@@ -38,7 +40,7 @@ export default defineConfig({
       },
       verification: {
         command: "vp exec tsc --noEmit",
-        dependsOn: ["unit", "quality", "installed", "alchemy"],
+        dependsOn: ["unit", "quality", "installed", "alchemy", "cms"],
         cache: false,
       },
     },

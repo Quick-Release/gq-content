@@ -1,0 +1,449 @@
+{
+  "checkpoint": "eaec13488d57b3d04059309b5b36de5d016f3de1",
+  "overlayOf": "../issue-3/assertion-allocation.json",
+  "issue5Proof": "scripts/cms-proof.py with cms/tests/{loading,diagnostics,save}.php: real installed plugin loading, version/configuration, signed transport, CLI shape/quiet smoke, and health registration; does not replace cross-pair source assertions.",
+  "files": [
+    {
+      "sourcePath": "scripts/smoke/cms-events.mjs",
+      "assertions": [
+        {
+          "sourceLines": [264, 270],
+          "context": "gq site check: WordPress running but not installed is not ready, and its installer is named",
+          "destination": "gq-site #77 readiness orchestration, with runtime readiness evidence in #11",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [285, 290],
+          "context": "gq site check: WordPress installed without WPGraphQL active is not ready",
+          "destination": "gq-site #77 readiness orchestration, with runtime readiness evidence in #11",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [307, 315],
+          "context": "gq site check: real WPGraphQL without the GETQUICK plugins is not ready, naming what adds the missing fields",
+          "destination": "gq-site #77 readiness orchestration, with runtime readiness evidence in #11",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [316, 320],
+          "context": "and every other field the Frontend reads is valid on real WPGraphQL",
+          "destination": "gq-site #77 readiness orchestration, with runtime readiness evidence in #11",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [332, 336],
+          "context": "the Frontend's migrations apply to the local D1 store",
+          "destination": "gq-site #77 readiness orchestration, with runtime readiness evidence in #11",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [347, 356],
+          "context": "gq site check: the Worker answering, with its secrets bound, is not ready before a refresh prepares it",
+          "destination": "gq-site #77 readiness orchestration, with runtime readiness evidence in #11",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [360, 360],
+          "context": "the Site is prepared",
+          "destination": "gq-site #77 readiness orchestration, with runtime readiness evidence in #11",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [363, 370],
+          "context": "gq site check: prepared but never reconciled by the CMS's scheduler is still not ready",
+          "destination": "gq-site #77 readiness orchestration, with runtime readiness evidence in #11",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [373, 377],
+          "context": "wp gq-events check: the Frontend accepts the CMS's signed events",
+          "destination": "#6 publication/withdrawal cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [392, 392],
+          "context": "saving a draft sends no event",
+          "destination": "#6 publication/withdrawal cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [399, 407],
+          "context": "publishing the page sends a signed event, and the Frontend serves it through a CMS outage",
+          "destination": "#6 publication/withdrawal cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [414, 418],
+          "context": "an update reaches visitors without a deploy",
+          "destination": "#6 publication/withdrawal cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [426, 432],
+          "context": "a rename sends the route it left, which then redirects",
+          "destination": "#6 publication/withdrawal cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [443, 452],
+          "context": "a menu shown nowhere sends nothing; assigning it to the primary location sends a settings event, and every page shows it through an outage",
+          "destination": "#6 publication/withdrawal cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [460, 466],
+          "context": "editing the primary menu sends a new event, and every page shows it",
+          "destination": "#6 publication/withdrawal cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [474, 479],
+          "context": "changing the site logo sends a settings event, and every page shows it",
+          "destination": "#7 settings cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [489, 497],
+          "context": "changing the tagline and the site icon sends identity events: the homepage shows the tagline, every page the icon",
+          "destination": "#7 settings cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [517, 526],
+          "context": "saving the palette through the global-styles REST route sends a design event, and every page uses it",
+          "destination": "#7 settings cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [533, 543],
+          "context": "a settings refresh that fails on the Frontend is recorded, listed, and every page keeps its menu",
+          "destination": "#7 settings cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [551, 559],
+          "context": "wp gq-events settings retry delivers the same event once the CMS is back",
+          "destination": "#7 settings cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [569, 573],
+          "context": "with the Frontend down, publishing still succeeds, within the event's time bound",
+          "destination": "#6 publication failure cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [574, 580],
+          "context": "and the entry records the failed delivery for a retry",
+          "destination": "#6 publication failure cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [582, 588],
+          "context": "wp gq-events status lists it",
+          "destination": "#6 publication failure cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [592, 596],
+          "context": "meanwhile visitors get the last good publication",
+          "destination": "#6 publication failure cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [600, 608],
+          "context": "wp gq-events retry delivers the same event once the Frontend is back",
+          "destination": "#6 publication failure cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [614, 622],
+          "context": "a refresh that fails on the Frontend is recorded, and the stored version stays served",
+          "destination": "#6 publication failure cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [633, 641],
+          "context": "an event signed with another key is rejected and changes nothing",
+          "destination": "#6 publication failure cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [649, 654],
+          "context": "in production without the key, publishing succeeds and records why nothing was sent",
+          "destination": "#6 publication failure cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [680, 687],
+          "context": "the retry scheduler delivers a publication recorded before the CMS was configured, once it is",
+          "destination": "#8 retry/scheduler/editor reporting proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [705, 708],
+          "context": "a new page is delivered at once",
+          "destination": "#8 retry/scheduler/editor reporting proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [715, 728],
+          "context": "a publication the Frontend didn't receive is reported to its editor and listed as retrying",
+          "destination": "#8 retry/scheduler/editor reporting proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [734, 741],
+          "context": "before its delay has passed, the scheduler leaves it, and visitors keep the last good version",
+          "destination": "#8 retry/scheduler/editor reporting proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [748, 758],
+          "context": "once it is due, the scheduler delivers the same event, without republishing or visits, and the editor sees it recovered",
+          "destination": "#8 retry/scheduler/editor reporting proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [769, 776],
+          "context": "a refresh failure records the Frontend's reason, without any secret",
+          "destination": "#8 retry/scheduler/editor reporting proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [784, 793],
+          "context": "while the CMS can't be read, retries fail with a growing delay, and every page keeps its last good version",
+          "destination": "#8 retry/scheduler/editor reporting proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [801, 810],
+          "context": "once the CMS is back, the next due run delivers both, through a later outage",
+          "destination": "#8 retry/scheduler/editor reporting proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [829, 836],
+          "context": "a pending event is left to its own request for a while, then sent by the scheduler if that request was interrupted",
+          "destination": "#8 retry/scheduler/editor reporting proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [854, 865],
+          "context": "after its last attempt, a delivery isn't retried again; it is reported as failed to the editor, by delays and in Site Health",
+          "destination": "#8 retry/scheduler/editor reporting proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [867, 871],
+          "context": "an operator's retry delivers it",
+          "destination": "#8 retry/scheduler/editor reporting proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [882, 886],
+          "context": "a run while another holds the lock sends nothing",
+          "destination": "#8 retry/scheduler/editor reporting proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [889, 893],
+          "context": "wp gq-events delays shows when the scheduler last ran",
+          "destination": "#8 retry/scheduler/editor reporting proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [900, 903],
+          "context": "the entry is served before it is withdrawn",
+          "destination": "#6 withdrawals and #8 deleted-entry retry proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [910, 920],
+          "context": "unpublishing sends a withdrawal, and the entry is a 404 at once and through a CMS outage",
+          "destination": "#6 withdrawals and #8 deleted-entry retry proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [925, 929],
+          "context": "republishing serves it again",
+          "destination": "#6 withdrawals and #8 deleted-entry retry proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [934, 938],
+          "context": "password-protecting it withdraws it",
+          "destination": "#6 withdrawals and #8 deleted-entry retry proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [940, 940],
+          "context": "removing the password publishes it again",
+          "destination": "#6 withdrawals and #8 deleted-entry retry proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [945, 952],
+          "context": "trashing it sends a withdrawal at the URI it had, and it is a 404",
+          "destination": "#6 withdrawals and #8 deleted-entry retry proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [980, 980],
+          "context": "a second page is published",
+          "destination": "#6 withdrawals and #8 deleted-entry retry proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [983, 987],
+          "context": "deleting a published page outright withdraws it, and leaves no record once refreshed",
+          "destination": "#6 withdrawals and #8 deleted-entry retry proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [994, 1002],
+          "context": "with the Frontend down, deleting succeeds and keeps the failed withdrawal for a retry",
+          "destination": "#6 withdrawals and #8 deleted-entry retry proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [1007, 1014],
+          "context": "wp gq-events retry delivers it once the Frontend is back, and the page is a 404",
+          "destination": "#6 withdrawals and #8 deleted-entry retry proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [1029, 1044],
+          "context": "the scheduler delivers a withdrawal the Frontend missed, and the page is a 404",
+          "destination": "#6 withdrawals and #8 deleted-entry retry proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [1075, 1075],
+          "context": "a page to unpublish quietly is served",
+          "destination": "#9 reconciliation cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [1090, 1103],
+          "context": "changes no event was recorded for reach visitors at the scheduler's next run, which reconciles",
+          "destination": "#9 reconciliation cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [1106, 1111],
+          "context": "gq site check: once the scheduler has reconciled, the Frontend and its delivery are ready, through the CMS outage",
+          "destination": "#9 reconciliation cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [1128, 1143],
+          "context": "with the CMS unreadable a reconciliation fails without changing a page, and is reported once stale",
+          "destination": "#9 reconciliation cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [1147, 1151],
+          "context": "wp gq-events reconcile reconciles at once once the CMS is back",
+          "destination": "#9 reconciliation cross-pair proofs",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [1210, 1210],
+          "context": "the cron container starts",
+          "destination": "#8/#11 real cron proof; crontab installation remains gq-site #77",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [1231, 1242],
+          "context": "a real cron running the crontab gq ploi events installs delivers a missed publication, without visits or a retry by hand",
+          "destination": "#8/#11 real cron proof; crontab installation remains gq-site #77",
+          "status": "pending, not claimed by #5"
+        }
+      ]
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-polylang.mjs",
+      "assertions": [
+        {
+          "sourceLines": [235, 239],
+          "context": "the generated deploy script passes Portuguese (AO90) and English under /en/",
+          "destination": "#11 multilingual installed-plugin smoke; Blueprint provisioning remains gq-site #77",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [242, 242],
+          "context": "polylang.sh configures Polylang on a monolingual Site",
+          "destination": "#11 multilingual installed-plugin smoke; Blueprint provisioning remains gq-site #77",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [244, 252],
+          "context": "Portuguese is the default language, then English",
+          "destination": "#11 multilingual installed-plugin smoke; Blueprint provisioning remains gq-site #77",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [253, 259],
+          "context": "each language is a URL directory, the default's hidden",
+          "destination": "#11 multilingual installed-plugin smoke; Blueprint provisioning remains gq-site #77",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [263, 268],
+          "context": "the content without a language is the default language's",
+          "destination": "#11 multilingual installed-plugin smoke; Blueprint provisioning remains gq-site #77",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [301, 305],
+          "context": "nodeByUri(\"/en/\") is the English front page",
+          "destination": "#11 multilingual installed-plugin smoke; Blueprint provisioning remains gq-site #77",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [306, 310],
+          "context": "language(code: EN) has the English title",
+          "destination": "#11 multilingual installed-plugin smoke; Blueprint provisioning remains gq-site #77",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [311, 315],
+          "context": "an English page's uri is /en/<its slug>/",
+          "destination": "#11 multilingual installed-plugin smoke; Blueprint provisioning remains gq-site #77",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [316, 320],
+          "context": "a Portuguese page's uri has no prefix",
+          "destination": "#11 multilingual installed-plugin smoke; Blueprint provisioning remains gq-site #77",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [426, 432],
+          "context": "wp gq-events settings status lists English's own menus and identity",
+          "destination": "#11 multilingual installed-plugin smoke; Blueprint provisioning remains gq-site #77",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [438, 444],
+          "context": "running polylang.sh again changes nothing",
+          "destination": "#11 multilingual installed-plugin smoke; Blueprint provisioning remains gq-site #77",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [448, 454],
+          "context": "a language gq.ops.json no longer lists stops it, named, and changes nothing",
+          "destination": "#11 multilingual installed-plugin smoke; Blueprint provisioning remains gq-site #77",
+          "status": "pending, not claimed by #5"
+        },
+        {
+          "sourceLines": [458, 465],
+          "context": "it never deletes a language, even one without content",
+          "destination": "#11 multilingual installed-plugin smoke; Blueprint provisioning remains gq-site #77",
+          "status": "pending, not claimed by #5"
+        }
+      ]
+    }
+  ]
+}

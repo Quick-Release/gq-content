@@ -1,0 +1,150 @@
+{
+  "reviewedCheckpoint": "eaec13488d57b3d04059309b5b36de5d016f3de1",
+  "verifiedUpstreamMain": "497a3ae11b5d15df3619f71ff24f095d9b5e8cbe",
+  "verificationDate": "2026-10-18",
+  "relevantDelta": [],
+  "upstreamDeltaReview": "The sole newer commit is gq-site #96 (site 0.18.3): CI Composer-root plugin policy, CI proof, fixture and release documentation/version. None of the 20 relevant paths differs. Extracted the reviewed checkpoint bytes, then adapted locally.",
+  "history": "Fresh ordinary source addition in gq-content; no imported/filter-repo history. Existing gq-content history retained.",
+  "files": [
+    {
+      "sourcePath": "blueprint/templates/apps/cms/web/app/mu-plugins/publication-events.php",
+      "sourceBlob": "2757630775b673a5aa1330bb5799478168086e77",
+      "sha256": "80fd0875541192fe8d696ec0fc7af849db225c6772e68126f69e8f04440ee892",
+      "sourceLastCommit": "033d53addb5e24a077ac969daf7683e456906844",
+      "destination": "cms/modules/publication-events.php"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/cms/web/app/mu-plugins/settings-events.php",
+      "sourceBlob": "a0ac20a1577fd3636dad934e9d678745227df5f3",
+      "sha256": "83e8cd66ff7b9812920d38ec0ede21fb96c6691fb6ab531b86df788124abf5d1",
+      "sourceLastCommit": "033d53addb5e24a077ac969daf7683e456906844",
+      "destination": "cms/modules/settings-events.php"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/cms/web/app/mu-plugins/delivery-retries.php",
+      "sourceBlob": "5486b5559b0119de587d9241f2c2f36ec216a83a",
+      "sha256": "9299d777e81191abb191459155760ef6876ba8a7a7eb1df770f733a07042214f",
+      "sourceLastCommit": "033d53addb5e24a077ac969daf7683e456906844",
+      "destination": "cms/modules/delivery-retries.php"
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-events.sh",
+      "sourceBlob": "51a28d41094e2fd02d4e677f25d337e069b685d7",
+      "sha256": "35fc6c8d9d4ddd1e030a80f755f43b8afb8a430b6bbe48dd574b432a12cb017e",
+      "sourceLastCommit": "20e47e6b4ade577cd9daaedfe170960220c6a219",
+      "destination": "source evidence / allocation; not copied wholesale"
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-events.mjs",
+      "sourceBlob": "70687d07e44f3d1738133f58918ffe53258dbe2c",
+      "sha256": "26ece12f6b9a707f7679f3e3f305467f4597f877bc56058c3c04ff3143b2bd2c",
+      "sourceLastCommit": "d50bb8804d234f84627fa50d61fb8b76152513c8",
+      "destination": "source evidence / allocation; not copied wholesale"
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-polylang.sh",
+      "sourceBlob": "bef1871437c22b207769edab2876b7c06c199374",
+      "sha256": "06cc589a84035edef90222259f25ab5a664468c59574a6ea54b3ed845760136c",
+      "sourceLastCommit": "37b6f52c0a27d4bc6d7640ab7faf0993cef8555b",
+      "destination": "source evidence / allocation; not copied wholesale"
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-polylang.mjs",
+      "sourceBlob": "e5e0f301cea9c16e782eb57394fadad8ceb55101",
+      "sha256": "a1ba4b7a766f08c3a2cdd61dc5a1a03026531d97a29011744027ee26709f93ac",
+      "sourceLastCommit": "033d53addb5e24a077ac969daf7683e456906844",
+      "destination": "source evidence / allocation; not copied wholesale"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/cms/composer.json",
+      "sourceBlob": "a28edcf9e5c53b926cf5ae3f661a3bdcfecab5d1",
+      "sha256": "f7f8f445cfeb6b4a0a96afd685e0224c54425aef563e182bb9faef92afcc4a04",
+      "sourceLastCommit": "eaec13488d57b3d04059309b5b36de5d016f3de1",
+      "destination": "source evidence / allocation; not copied wholesale"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/cms/web/wp-config.php",
+      "sourceBlob": "da66d87ec4abd2b97e331d103901785f5192b731",
+      "sha256": "85a08fb0034d8f0425445670c463f63e3c91628e86f29abcb059e7bd76bc425b",
+      "sourceLastCommit": "53f0393d7a2e47236378628045fff7a732f1d9a2",
+      "destination": "source evidence / allocation; not copied wholesale"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/cms/config/application.php",
+      "sourceBlob": "512546d1d19ac162f46b3aad58b4c962ce2e7852",
+      "sha256": "5e00075a68b45a833d4c2d52b0edd31c1bdf8467c493682b4f50ff080794552d",
+      "sourceLastCommit": "38aacfa94684e769abcd86faa5fa29a6b74b2dbb",
+      "destination": "source evidence / allocation; not copied wholesale"
+    },
+    {
+      "sourcePath": "docs/adr/0003-serve-published-content-from-a-durable-store.md",
+      "sourceBlob": "9453b9b9d779ad4d096b995b1ce2194b1cb9ec45",
+      "sha256": "59fa1d7d292595d4a4671853c9642eebbbd1f1806b4116fa007a2b9885ddd93b",
+      "sourceLastCommit": "09ba42443f294b10d22577c4b69ebb903a365497",
+      "destination": "source evidence / allocation; not copied wholesale"
+    },
+    {
+      "sourcePath": "docs/adr/0004-serve-entries-from-the-store-with-a-cold-lookup.md",
+      "sourceBlob": "7322deedcb1b52e063622c2f83b8106b9b74a4cb",
+      "sha256": "dd691aa1e7769ac51a0c0edf1844dbdca53b9818d864e5f4614ac4ef0ecd6523",
+      "sourceLastCommit": "3db4f2cc55d476afe77d6d7c584fd4c505e8cbe4",
+      "destination": "source evidence / allocation; not copied wholesale"
+    },
+    {
+      "sourcePath": "docs/adr/0005-refresh-publications-through-signed-cms-events.md",
+      "sourceBlob": "5aac5221e8fdbae75374019fd1fef048d3865180",
+      "sha256": "071b40157f784ed587cc98a17f57fe6ae98d7fb909fef496220032fbc68d737f",
+      "sourceLastCommit": "09ba42443f294b10d22577c4b69ebb903a365497",
+      "destination": "source evidence / allocation; not copied wholesale"
+    },
+    {
+      "sourcePath": "docs/adr/0006-withdraw-publications-through-signed-cms-events.md",
+      "sourceBlob": "e69380c23c5aaf0cbee0aa80764cb9d40ccfa546",
+      "sha256": "ee67c035a3dcd8be37820654dd73c5b975a04ff0d441298e94b659b166c7580b",
+      "sourceLastCommit": "3db4f2cc55d476afe77d6d7c584fd4c505e8cbe4",
+      "destination": "source evidence / allocation; not copied wholesale"
+    },
+    {
+      "sourcePath": "docs/adr/0007-refresh-shared-settings-through-settings-events.md",
+      "sourceBlob": "88a2c1321d8bb24c874356712d4a3a297be32113",
+      "sha256": "f1ad981613edcec30247faae8c0d57fa360382836f4f7069294773ebf56d2970",
+      "sourceLastCommit": "09ba42443f294b10d22577c4b69ebb903a365497",
+      "destination": "source evidence / allocation; not copied wholesale"
+    },
+    {
+      "sourcePath": "docs/adr/0008-retry-event-delivery-from-the-cms-on-a-server-cron.md",
+      "sourceBlob": "7b05b6aacc615266b7ca9837008a0ecea1566ce5",
+      "sha256": "409c18efa6749cd1f6524333c2a5fa900d52edb48b1a4207300ce60d4a5da197",
+      "sourceLastCommit": "3db4f2cc55d476afe77d6d7c584fd4c505e8cbe4",
+      "destination": "source evidence / allocation; not copied wholesale"
+    },
+    {
+      "sourcePath": "docs/adr/0009-reconcile-missed-changes-on-the-cms-scheduler.md",
+      "sourceBlob": "3084727760e9b9adf0baa8f4a49968bd1c1e6f7f",
+      "sha256": "06df8144a2f40d3b75752b27f5ec186c8e8590b93f2771c05ad48defa68b5424",
+      "sourceLastCommit": "3db4f2cc55d476afe77d6d7c584fd4c505e8cbe4",
+      "destination": "source evidence / allocation; not copied wholesale"
+    },
+    {
+      "sourcePath": "docs/adr/0010-declare-a-new-content-site-ready-through-one-readiness-gate.md",
+      "sourceBlob": "e098092d7683d81c2f7e67fb90aa0391c562e9d3",
+      "sha256": "7adbae3130ba9a022bc4f272e83599fa3bda21b3cbfd002459699161c0bda6e2",
+      "sourceLastCommit": "3db4f2cc55d476afe77d6d7c584fd4c505e8cbe4",
+      "destination": "source evidence / allocation; not copied wholesale"
+    },
+    {
+      "sourcePath": "docs/adr/0013-serve-each-language-from-its-own-shared-rows.md",
+      "sourceBlob": "546d15f2b5a9bff2c40ac45980ad5ec4d4cc9abc",
+      "sha256": "22529f09af67d89e273aa07f292ac0ca13b7d8fa3d6205ed440f12b6af0461ff",
+      "sourceLastCommit": "3db4f2cc55d476afe77d6d7c584fd4c505e8cbe4",
+      "destination": "source evidence / allocation; not copied wholesale"
+    },
+    {
+      "sourcePath": "docs/adr/0018-ship-gq-designs-contract-and-renderer-as-lockstep-packages.md",
+      "sourceBlob": "95a9a3cc161a13fe6d760ad4120d847244dc45b8",
+      "sha256": "a25c3388bc7d885c25ba40fb3a99acd611b7e0a4867406be8cf7dd90f708b3ce",
+      "sourceLastCommit": "f639a2fd274ae07d52ced25fcb40ad2ab4aa1f3a",
+      "destination": "source evidence / allocation; not copied wholesale"
+    }
+  ]
+}

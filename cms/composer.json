@@ -1,0 +1,11 @@
+{
+  "name": "getquick/gq-content",
+  "description": "GETQUICK content publication events, delivery and diagnostics",
+  "type": "wordpress-muplugin",
+  "version": "0.1.0",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "php": ">=8.4.1",
+    "composer/installers": "^2.0"
+  }
+}

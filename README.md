@@ -10,7 +10,8 @@ protocol, released together under one version:
   publication store, reconciliation, WPGraphQL client, HTML block helpers,
   language helpers and its D1 migrations).
 
-This repository holds no code yet. The code arrives through
+The Frontend helpers, configured client, durable delivery and CMS plugin are
+implemented locally; the paired release gates remain pending. Work follows
 [#1](https://github.com/Quick-Release/gq-content/issues/1), which extracts it
 from gq-site's app skeleton in one cut
 ([gq-platform ADR 0001](https://github.com/Quick-Release/gq-platform/blob/main/docs/adr/0001-ownership-of-work-across-getquick-repositories.md)).
@@ -21,3 +22,6 @@ gq-site ADR 0018. [Extraction decisions](docs/adr/0001-release-the-content-runti
 [runtime decisions](docs/adr/0002-preserve-publication-delivery-and-withdrawal-through-extraction.md)
 and the [readiness investigation](docs/planning/issue-1-readiness.md) record the
 accepted scope and the runnable proofs still required before release.
+
+The [CMS installation instructions](cms/README.md) describe its single entry
+point, configuration, diagnostics and supported filters.
