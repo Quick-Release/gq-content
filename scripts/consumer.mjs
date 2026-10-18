@@ -1,3 +1,4 @@
+import { retained } from "./release/candidate.mjs";
 import { recordArtifact } from "./proof-artifact.mjs";
 import { execFileSync } from "node:child_process";
 import {
@@ -30,8 +31,9 @@ function run(command, args, cwd) {
 try {
   const artifacts = join(temporary, "artifacts");
   mkdirSync(artifacts);
-  run("vp", ["pm", "pack", "--pack-destination", artifacts], join(repo, "frontend"));
-  const tarball = join(artifacts, "getquick-content-0.1.0.tgz");
+  const selected = retained("npm");
+  if (!selected) run("vp", ["pm", "pack", "--pack-destination", artifacts], join(repo, "frontend"));
+  const tarball = selected ?? join(artifacts, "getquick-content-0.1.0.tgz");
   recordArtifact(tarball, "consumer");
   const listing = execFileSync("tar", ["-tzf", tarball], { encoding: "utf8" }).trim().split("\n");
   for (const file of listing) {
@@ -43,7 +45,11 @@ try {
   if (process.argv.includes("--design-fixtures")) {
     run(
       process.execPath,
-      ["scripts/inspect-artifacts.mjs", tarball, join(repo, ".artifacts/gq-content-0.1.0.zip")],
+      [
+        "scripts/inspect-artifacts.mjs",
+        tarball,
+        retained("cms") ?? join(repo, ".artifacts/gq-content-0.1.0.zip"),
+      ],
       repo,
     );
   }

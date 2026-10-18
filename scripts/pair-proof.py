@@ -24,7 +24,11 @@ if consumer.exists():
     shutil.rmtree(consumer)
 consumer.mkdir()
 # Pack/install public artifact using the repository's declared Vite+/pnpm toolchain.
-subprocess.run(['vp', 'pm', 'pack', '--pack-destination', str(WORK)], cwd=ROOT / 'frontend', check=True)
+if os.environ.get('GQ_RELEASE_BUNDLE'):
+    retained = subprocess.check_output(['node', 'scripts/release/candidate.mjs', 'npm'], cwd=ROOT, text=True).strip()
+    shutil.copyfile(retained, WORK / 'getquick-content-0.1.0.tgz')
+else:
+    subprocess.run(['vp', 'pm', 'pack', '--pack-destination', str(WORK)], cwd=ROOT / 'frontend', check=True)
 (consumer / 'package.json').write_text(json.dumps({'private': True, 'type': 'module', 'packageManager': 'pnpm@12.11.2', 'dependencies': {'@getquick/content': 'file:' + str(WORK / 'getquick-content-0.1.0.tgz')}}))
 subprocess.run(['vp', 'install', '--ignore-scripts'], cwd=consumer, check=True)
 shutil.copy(ROOT / 'scripts/pair-receiver.mjs', consumer)

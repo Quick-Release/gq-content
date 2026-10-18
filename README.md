@@ -30,3 +30,8 @@ Published Design fixture compatibility (P5) is opt-in so ordinary development
 and the public consumer remain credential-free. See
 [the compatibility workspace](compatibility/README.md) for installation,
 scoped registry access and `vp run design-fixtures`.
+
+[Paired release operations](docs/releasing.md) describe building one retained
+candidate, validating its exact bytes, and safely resuming publication. Publication
+requires exact-revision CI proofs and owner-provided registry enrollment/access;
+local checks alone cannot declare the pair released.

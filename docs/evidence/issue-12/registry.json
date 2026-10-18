@@ -1,0 +1,13 @@
+{
+  "name": "@quick-release/design-contract",
+  "version": "0.4.0",
+  "dist": {
+    "integrity": "sha512-BnMqr09gF1tqXBqh92T7rezUHqQef0Pp3HYizZz3JZw7hGTrAEOa71GQ3aKHjMrgxSMRoAa1i/p59Ged9Hld7A==",
+    "shasum": "f39fa58691872f927f8a14af6f680a6e2a77265b",
+    "tarball": "https://npm.pkg.github.com/download/@quick-release/design-contract/0.4.0/f39fa58691872f927f8a14af6f680a6e2a77265b"
+  },
+  "verifiedAt": "2026-10-18T04:35:38.109Z",
+  "repository": null,
+  "runId": null,
+  "access": "local approved token helper; CI access unverified"
+}

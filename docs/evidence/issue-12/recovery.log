@@ -1,0 +1,16 @@
+﹣ retained inputs reject substituted archives and source-mismatched validation (0.493346ms) # SKIP
+﹣ release CLI refuses replaced retained bytes and missing publication credentials (0.098641ms) # SKIP
+✔ interrupted publication resumes verified stages and blocks partial availability (2.068336ms)
+✔ refuses mismatched published assets without overwriting (0.636058ms)
+✔ refuses mismatched published npm without overwriting (0.848461ms)
+✔ refuses mismatched published composer without overwriting (0.181642ms)
+✔ missing proofs/enrollment/access refuse before creating any remote state (0.215243ms)
+﹣ live service verification rejects npm integrity and Composer archive substitution (0.481196ms) # SKIP
+ℹ tests 8
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 3
+ℹ todo 0
+ℹ duration_ms 54.597766

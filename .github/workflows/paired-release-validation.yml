@@ -1,0 +1,51 @@
+name: Retained paired release validation
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  packages: read
+jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      VP_GIT_HOOKS: "0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: voidzero-dev/setup-vp@v1
+        with:
+          version: "1.1.0"
+          node-version-file: .node-version
+          run-install: false
+          cache: false
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.5"
+          extensions: sqlite3, pdo_sqlite
+          tools: composer:2.10.3
+      - run: vp install --frozen-lockfile
+      - name: Install published fixtures using this repository token
+        working-directory: compatibility
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+        run: |
+          umask 077
+          printf '%s\n' '@quick-release:registry=https://npm.pkg.github.com' '//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}' > "$RUNNER_TEMP/design.npmrc"
+          NPM_CONFIG_USERCONFIG="$RUNNER_TEMP/design.npmrc" vp install --frozen-lockfile --ignore-scripts
+      - name: Build exactly once
+        run: node scripts/release.mjs build .artifacts/release-candidate
+      - name: Run every proof against retained bytes
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+        run: |
+          NPM_CONFIG_USERCONFIG="$RUNNER_TEMP/design.npmrc" node scripts/release.mjs validate .artifacts/release-candidate
+      - name: Remove credential configuration
+        if: always()
+        run: rm -f "$RUNNER_TEMP/design.npmrc"
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: paired-release-candidate
+          path: .artifacts/release-candidate/
+          if-no-files-found: error
+          retention-days: 90
