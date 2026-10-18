@@ -1,0 +1,72 @@
+{
+  "checkpoint": "eaec13488d57b3d04059309b5b36de5d016f3de1",
+  "observedUpstream": "497a3ae11b5d15df3619f71ff24f095d9b5e8cbe",
+  "note": "Relevant paths unchanged upstream; extraction source remains reviewed checkpoint. Private configured adaptations, standard protocol wrappers and public DTO tests; no source history imported.",
+  "files": [
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/events.ts",
+      "sourceBlob": "9479d9a85c58cc88aae1d75923048530a3801759",
+      "sha256": "ba3ff815cd45d1cf475a5191217bb838d706ad97c9d6642161eb7503feafa4fd"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/reconciliation.ts",
+      "sourceBlob": "0382eeb5bee834526b77dd720e1e05ea7d4180ef",
+      "sha256": "2e3f65e8ebf47a1c8ce06a10a2f1df21575cdaf6821337c698f8a729ee7a53e8"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/delivery.ts",
+      "sourceBlob": "52008447469c4be16ad84b348c4d5548edcc2c6c",
+      "sha256": "d68d04c261ad55a6bf1ea152e7b35364195c0c92b6f3fea3b7f229b6313f9e52"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/publications.ts",
+      "sourceBlob": "08d6889a95daa5f5b27822fd3dad673584da728f",
+      "sha256": "e14ddc183b0e4416669e61f64ad0b9e79cee820291d9487dbb8119c6b7418824"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/pages/gq/events.ts",
+      "sourceBlob": "aa5a4d7eae51b8e1fc5491ee1bd767aa8d7f2f59",
+      "sha256": "03932f71ae9a28fe21e73a9b5a6c3e23c35b02e50c0866a94f63371a9e81ce4a"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/pages/gq/refresh.ts",
+      "sourceBlob": "75b4166591c4c2efbdff268c490661c4dadc51b1",
+      "sha256": "d32bcb6f0cf0e6180732fd6340727da068879f5f85e4ff180d5dbf71404d5b9d"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/events.test.ts",
+      "sourceBlob": "d9043bf91167e501799073de55c4aaeb52cb3514",
+      "sha256": "a984626e7c0709b03fc645fbfdb4a92e818625f15cf294b65672b499994789ac"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/withdrawals.test.ts",
+      "sourceBlob": "4f99da5ffca134c0f5b24311bde2498acb03b3a2",
+      "sha256": "40ba8e0c2da1c176e2dc7becdc429933b2e95adf94fdbfa423d483367cc728db"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/homepage.test.ts",
+      "sourceBlob": "1eec5dda406e2c9f9222b707aa91e51f321ba827",
+      "sha256": "ce96ce85602a5a3df4acf7fd9abc14e7958df4e948b0b0e7424aa549c61fb172"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/entries.test.ts",
+      "sourceBlob": "7e93de68df63954d39c6781e14b8923a27189ac1",
+      "sha256": "4d09b0a37123a35dbb6e69e612bf358f2461707c4dec2b16b3b7733ce60880b9"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/cms/web/app/mu-plugins/publication-events.php",
+      "sourceBlob": "2757630775b673a5aa1330bb5799478168086e77",
+      "sha256": "80fd0875541192fe8d696ec0fc7af849db225c6772e68126f69e8f04440ee892"
+    },
+    {
+      "sourcePath": "scripts/smoke/cms-events.mjs",
+      "sourceBlob": "70687d07e44f3d1738133f58918ffe53258dbe2c",
+      "sha256": "26ece12f6b9a707f7679f3e3f305467f4597f877bc56058c3c04ff3143b2bd2c"
+    },
+    {
+      "sourcePath": "scripts/smoke/frontend-runtime.mjs",
+      "sourceBlob": "3cfce6e0a0572479f281e63c425c38b146aa2f0b",
+      "sha256": "775c8f0e475abff589507ce87ebd45dcb52031ef078f5d407e87e9ff35c47593"
+    }
+  ]
+}

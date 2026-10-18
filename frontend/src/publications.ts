@@ -30,6 +30,86 @@ export interface RefreshAttempt {
   message?: string;
 }
 
+/** A CMS event about one WordPress entry, as the Frontend records it. */
+export interface PublicationEvent {
+  /** The event's identity, chosen by the CMS. */
+  id: string;
+  action: string;
+  /** The WordPress entry it is about (WPGraphQL's global id). */
+  nodeId: string;
+  uri: string;
+  previousUri: string | null;
+  /** When it happened in the CMS (ms since the epoch). */
+  occurredAt: number;
+}
+
+/**
+ * Where an event stands: not processed yet (or interrupted), refreshed, failed
+ * (a retry may process it again) or superseded by a newer refreshed event for
+ * the same entry.
+ */
+export type EventStatus = "received" | "refreshed" | "failed" | "superseded";
+
+export interface RecordedEvent extends PublicationEvent {
+  status: EventStatus;
+  attempts: number;
+  receivedAt: number;
+  processedAt: number | null;
+  reason: string | null;
+  message: string | null;
+}
+
+/**
+ * What a withdraw event did: withdrew the entry (the keys now withdrawn), or
+ * nothing, because a publication or withdrawal of the entry that happened
+ * later was already accepted (`by`, when it is known).
+ */
+export type WithdrawalOutcome =
+  | { status: "withdrawn"; keys: string[] }
+  | { status: "superseded"; by: string | null };
+
+export type EventOutcome =
+  | { status: "refreshed" | "superseded" }
+  | { status: "failed"; reason: string; message: string };
+
+/** How a reconciliation run ended, as it is recorded. */
+export interface ReconciliationRecord {
+  outcome: "reconciled" | "behind" | "failed";
+  checked: number;
+  changed: number;
+  pending: number;
+  failed: number;
+  reason?: string;
+  message?: string;
+}
+
+/** The last reconciliation: when it ran, how it ended, and when the store last matched WordPress. */
+export interface ReconciliationState extends Partial<ReconciliationRecord> {
+  startedAt: number | null;
+  finishedAt: number | null;
+  reconciledAt: number | null;
+  /** Whether a run holds the lease now. */
+  running: boolean;
+}
+
+/**
+ * What the store holds, in states and counts only (no content): whether the
+ * Site has been prepared, for the signed check. A shared row's state is
+ * "unusable" when it is in a format this Worker doesn't serve, null when
+ * nothing was ever stored there.
+ */
+export interface StoreStatus {
+  home: string | null;
+  chrome: string | null;
+  design: string | null;
+  /** The stored entry routes, by state ("published", "missing", "moved", "withdrawn", "unusable"). */
+  entries: Record<string, number>;
+  /** The withdrawals in force. */
+  withdrawals: number;
+  /** Recorded events whose processing failed: delayed until the CMS delivers them again. */
+  failedEvents: number;
+}
+
 /** The store couldn't be read or written. Says nothing about the content. */
 export class StoreFailure extends Error {}
 
@@ -69,7 +149,73 @@ export interface PublicationStore {
    */
   states(keys: string[]): Promise<Map<string, string>>;
   recordAttempt(key: string, attempt: RefreshAttempt): Promise<void>;
+  /**
+   * Records a CMS event unless one with its id already is. Resolves to the
+   * recorded event, the earlier one for a duplicate.
+   */
+  receiveEvent(event: PublicationEvent): Promise<{ recorded: RecordedEvent; duplicate: boolean }>;
+  /**
+   * The id of an event about the same entry that happened after this one and
+   * was refreshed, null if there is none.
+   */
+  newerRefreshedEvent(event: PublicationEvent): Promise<string | null>;
+  /**
+   * Withdraws the event's entry, in one transaction, unless a publication or
+   * withdrawal of it that happened later was already accepted: every row
+   * holding it, and the row at key unless it holds another entry, become
+   * withdrawn, and nothing promotes the entry again until a later
+   * publication lifts the withdrawal.
+   */
+  withdraw(event: PublicationEvent, key: string, acceptedAt: number): Promise<WithdrawalOutcome>;
+  /**
+   * Lifts the entry's withdrawal if it happened before this publication.
+   * Resolves to the withdraw event lifted, null if none was.
+   */
+  liftWithdrawal(event: PublicationEvent): Promise<string | null>;
+  /** Counts a processing attempt of the event. */
+  startEvent(id: string): Promise<void>;
+  /** The last reconciliation, null if none ever ran. */
+  reconciliation(): Promise<ReconciliationState | null>;
+  /** What the store holds, in states and counts. */
+  status(): Promise<StoreStatus>;
+  /**
+   * Records how processing the event ended. A refreshed event supersedes the
+   * older ones about the same entry that weren't refreshed, so a retry skips
+   * them.
+   */
+  finishEvent(event: PublicationEvent, outcome: EventOutcome): Promise<void>;
 }
+
+interface EventRow {
+  id: string;
+  action: string;
+  node_id: string;
+  uri: string;
+  previous_uri: string | null;
+  occurred_at: number;
+  received_at: number;
+  status: EventStatus;
+  attempts: number;
+  processed_at: number | null;
+  reason: string | null;
+  message: string | null;
+}
+
+const eventOf = (row: EventRow): RecordedEvent => ({
+  id: row.id,
+  action: row.action,
+  nodeId: row.node_id,
+  uri: row.uri,
+  previousUri: row.previous_uri,
+  occurredAt: row.occurred_at,
+  receivedAt: row.received_at,
+  status: row.status,
+  attempts: row.attempts,
+  processedAt: row.processed_at,
+  reason: row.reason,
+  message: row.message,
+});
+
 async function guard<T>(action: string, work: () => Promise<T>): Promise<T> {
   try {
     return await work();
@@ -230,8 +376,264 @@ export function publicationStore(db: SqlDatabase): PublicationStore {
           .run(),
       );
     },
+
+    async receiveEvent(event) {
+      const { results } = await guard("record an event", () =>
+        db
+          .prepare(
+            `INSERT INTO publication_events
+               (id, action, node_id, uri, previous_uri, occurred_at, received_at, status)
+             VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, 'received')
+             ON CONFLICT (id) DO NOTHING
+             RETURNING id`,
+          )
+          .bind(
+            event.id,
+            event.action,
+            event.nodeId,
+            event.uri,
+            event.previousUri,
+            event.occurredAt,
+            Date.now(),
+          )
+          .all<{ id: string }>(),
+      );
+      const row = await guard("read an event", () =>
+        db
+          .prepare("SELECT * FROM publication_events WHERE id = ?")
+          .bind(event.id)
+          .first<EventRow>(),
+      );
+      if (!row) throw new StoreFailure(`The publication store lost the event ${event.id}`);
+      return { recorded: eventOf(row), duplicate: results.length === 0 };
+    },
+
+    async newerRefreshedEvent(event) {
+      const row = await guard("read the events", () =>
+        db
+          .prepare(
+            `SELECT id FROM publication_events
+             WHERE node_id = ?1 AND occurred_at > ?2 AND status = 'refreshed'
+             ORDER BY occurred_at DESC LIMIT 1`,
+          )
+          .bind(event.nodeId, event.occurredAt)
+          .first<{ id: string }>(),
+      );
+      return row?.id ?? null;
+    },
+
+    async withdraw(event, key, acceptedAt) {
+      const inForce = `EXISTS (SELECT 1 FROM withdrawals
+        WHERE node_id = ?1 AND event_id = ?2 AND republished_at IS NULL)`;
+      const now = Date.now();
+      const [, , , [current], [newer], withdrawn] = await guard("record a withdrawal", () =>
+        db
+          .batch([
+            // Accepted unless a publication that happened later is recorded,
+            // or a later withdrawal is in force.
+            db
+              .prepare(
+                `INSERT INTO withdrawals (node_id, event_id, uri, withdrawn_at, accepted_at)
+                 SELECT ?1, ?2, ?3, ?4, ?5
+                 WHERE NOT EXISTS (SELECT 1 FROM publication_events
+                   WHERE node_id = ?1 AND action = 'publish' AND occurred_at > ?4)
+                 ON CONFLICT (node_id) DO UPDATE SET
+                   event_id = excluded.event_id,
+                   uri = excluded.uri,
+                   withdrawn_at = excluded.withdrawn_at,
+                   accepted_at = excluded.accepted_at,
+                   republished_by = NULL,
+                   republished_at = NULL
+                 WHERE excluded.withdrawn_at > withdrawals.withdrawn_at
+                   AND excluded.withdrawn_at > coalesce(withdrawals.republished_at, 0)`,
+              )
+              .bind(event.nodeId, event.id, event.uri, event.occurredAt, acceptedAt),
+            // Every route serving the entry, or redirecting for it.
+            db
+              .prepare(
+                `UPDATE publications SET
+                   state = 'withdrawn', format = ?3, body = NULL,
+                   read_started_at = max(read_started_at, ?4), promoted_at = ?5
+                 WHERE node_id = ?1 AND state <> 'withdrawn' AND ${inForce}`,
+              )
+              .bind(event.nodeId, event.id, PUBLICATION_FORMAT, acceptedAt, now),
+            // The URI it was withdrawn at, even if the store never held it
+            // there, so a cold lookup can't bring it back; unless another
+            // entry is stored there.
+            db
+              .prepare(
+                `INSERT INTO publications (key, state, format, body, read_started_at, promoted_at, node_id)
+                 SELECT ?3, 'withdrawn', ?4, NULL, ?5, ?6, ?1 WHERE ${inForce}
+                 ON CONFLICT (key) DO UPDATE SET
+                   state = 'withdrawn', format = excluded.format, body = NULL,
+                   read_started_at = max(publications.read_started_at, excluded.read_started_at),
+                   promoted_at = excluded.promoted_at, node_id = excluded.node_id
+                 WHERE publications.node_id IS NULL AND publications.state <> 'withdrawn'`,
+              )
+              .bind(event.nodeId, event.id, key, PUBLICATION_FORMAT, acceptedAt, now),
+            db
+              .prepare(
+                "SELECT event_id FROM withdrawals WHERE node_id = ? AND republished_at IS NULL",
+              )
+              .bind(event.nodeId),
+            db
+              .prepare(
+                `SELECT id FROM publication_events
+                 WHERE node_id = ?1 AND action = 'publish' AND occurred_at > ?2
+                 ORDER BY occurred_at DESC LIMIT 1`,
+              )
+              .bind(event.nodeId, event.occurredAt),
+            db
+              .prepare(
+                "SELECT key FROM publications WHERE node_id = ? AND state = 'withdrawn' ORDER BY key",
+              )
+              .bind(event.nodeId),
+          ])
+          .then((results) => results.map((result) => result.results)),
+      );
+      const inForceBy = (current as { event_id?: string } | undefined)?.event_id;
+      if (inForceBy === event.id) {
+        return {
+          status: "withdrawn",
+          keys: (withdrawn as Array<{ key: string }>).map((row) => row.key),
+        };
+      }
+      return {
+        status: "superseded",
+        by: (newer as { id?: string } | undefined)?.id ?? inForceBy ?? null,
+      };
+    },
+
+    async liftWithdrawal(event) {
+      const row = await guard("record a publication", () =>
+        db
+          .prepare(
+            `UPDATE withdrawals SET republished_by = ?2, republished_at = ?3
+             WHERE node_id = ?1 AND republished_at IS NULL AND withdrawn_at < ?3
+             RETURNING event_id`,
+          )
+          .bind(event.nodeId, event.id, event.occurredAt)
+          .first<{ event_id: string }>(),
+      );
+      return row?.event_id ?? null;
+    },
+
+    async reconciliation() {
+      const row = await guard("be read", () =>
+        db.prepare("SELECT * FROM reconciliation WHERE id = 1").first<{
+          lease_until: number;
+          started_at: number | null;
+          finished_at: number | null;
+          outcome: ReconciliationRecord["outcome"] | null;
+          checked: number | null;
+          changed: number | null;
+          pending: number | null;
+          failed: number | null;
+          reason: string | null;
+          message: string | null;
+          reconciled_at: number | null;
+        }>(),
+      );
+      if (!row) return null;
+      return {
+        running: row.lease_until > Date.now(),
+        startedAt: row.started_at,
+        finishedAt: row.finished_at,
+        reconciledAt: row.reconciled_at,
+        ...(row.outcome
+          ? {
+              outcome: row.outcome,
+              checked: row.checked ?? 0,
+              changed: row.changed ?? 0,
+              pending: row.pending ?? 0,
+              failed: row.failed ?? 0,
+            }
+          : {}),
+        ...(row.reason ? { reason: row.reason } : {}),
+        ...(row.message ? { message: row.message } : {}),
+      };
+    },
+
+    async status() {
+      const [shared, entries, withdrawals, failed] = await guard("be read", () =>
+        db.batch([
+          db.prepare(
+            "SELECT key, state, format FROM publications WHERE key IN ('home', 'chrome', 'design')",
+          ),
+          db
+            .prepare(
+              `SELECT CASE WHEN format = ?1 THEN state ELSE 'unusable' END AS state, count(*) AS count
+               FROM publications WHERE substr(key, 1, 6) = 'entry:' GROUP BY 1`,
+            )
+            .bind(PUBLICATION_FORMAT),
+          db.prepare("SELECT count(*) AS count FROM withdrawals WHERE republished_at IS NULL"),
+          db.prepare("SELECT count(*) AS count FROM publication_events WHERE status = 'failed'"),
+        ]),
+      );
+      const rows = shared!.results as Array<{ key: string; state: string; format: number }>;
+      const state = (key: string) => {
+        const row = rows.find((candidate) => candidate.key === key);
+        if (!row) return null;
+        return row.format === PUBLICATION_FORMAT ? row.state : "unusable";
+      };
+      const count = (result: { results: unknown[] } | undefined) =>
+        Number((result?.results[0] as { count?: number } | undefined)?.count ?? 0);
+      return {
+        home: state("home"),
+        chrome: state("chrome"),
+        design: state("design"),
+        entries: Object.fromEntries(
+          (entries!.results as Array<{ state: string; count: number }>).map((row) => [
+            row.state,
+            Number(row.count),
+          ]),
+        ),
+        withdrawals: count(withdrawals),
+        failedEvents: count(failed),
+      };
+    },
+
+    async startEvent(id) {
+      await guard("record an event", () =>
+        db
+          .prepare("UPDATE publication_events SET attempts = attempts + 1 WHERE id = ?")
+          .bind(id)
+          .run(),
+      );
+    },
+
+    async finishEvent(event, outcome) {
+      const failure = outcome.status === "failed" ? outcome : null;
+      await guard("record an event", () =>
+        db
+          .prepare(
+            `UPDATE publication_events
+             SET status = ?2, processed_at = ?3, reason = ?4, message = ?5
+             WHERE id = ?1`,
+          )
+          .bind(
+            event.id,
+            outcome.status,
+            Date.now(),
+            failure?.reason ?? null,
+            failure?.message ?? null,
+          )
+          .run(),
+      );
+      if (outcome.status !== "refreshed") return;
+      await guard("record an event", () =>
+        db
+          .prepare(
+            `UPDATE publication_events SET status = 'superseded'
+             WHERE node_id = ?1 AND occurred_at < ?2 AND status IN ('received', 'failed')`,
+          )
+          .bind(event.nodeId, event.occurredAt)
+          .run(),
+      );
+    },
   };
 }
+
 function movedTo(body: string | null) {
   try {
     const uri = (JSON.parse(body ?? "null") as { uri?: unknown } | null)?.uri;

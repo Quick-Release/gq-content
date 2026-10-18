@@ -3,6 +3,7 @@ import {
   publicationStore,
   StoreFailure,
   type PublicationStore,
+  type PublicationEvent,
   type Promotion,
   type StoredPublication,
   type Unusable,
@@ -18,6 +19,9 @@ import type { ContentConfig } from "./server";
 import type { WordPressClient } from "./wordpress";
 import type {
   Delivery,
+  CmsFailureReason,
+  Found,
+  HomeContent,
   DesignPresets,
   EntryContent,
   SiteChrome,
@@ -42,15 +46,8 @@ export function configuredDelivery(
   const multilingual = languages.length > 1;
   const routeLanguage = (route: string) => languageAt(route, languages);
   const isLanguageHome = (route: string) => homeAt(route, languages);
-  const { getHomeContent, getEntryByUri, getSiteChrome } = wordpress;
-  type RefreshFailure = {
-    reason: import("./content-types").CmsFailureReason | "partial" | "store";
-    message: string;
-  };
-  type RecordOutcome =
-    | { outcome: "promoted" | "superseded"; state: "published" | "missing" | "moved"; uri?: string }
-    | { outcome: "withdrawn" }
-    | { outcome: "kept"; failure: RefreshFailure };
+  const { getHomeContent, getEntryByUri, getSiteChrome, getDesignPresets, getPublishedRoutes } =
+    wordpress;
   const HOME = "home";
   const CHROME = "chrome";
   /**
@@ -70,6 +67,10 @@ export function configuredDelivery(
   /** The row a route is served from: its language's home, or its entry. */
   const routeKey = (route: string) =>
     isLanguageHome(route) ? homeKey(routeLanguage(route)) : entryKey(route);
+  const keyRoute = (key: string) =>
+    key.startsWith(ENTRY)
+      ? key.slice(ENTRY.length)
+      : (languages.find((language) => homeKey(language) === key)?.home ?? key);
   // The stored shapes. A body that doesn't parse is unusable, not served.
   const image = z.object({ sourceUrl: z.string(), altText: z.string() }).nullable();
   interface StoredMenuItem {
@@ -469,6 +470,374 @@ export function configuredDelivery(
     }
   }
 
+  type RefreshFailureReason = CmsFailureReason | "partial" | "store";
+
+  interface RefreshFailure {
+    reason: RefreshFailureReason;
+    message: string;
+  }
+
+  /**
+   * What a refresh did with one row. `uri` is where a moved row now points, or
+   * where WordPress keeps an entry requested at another route. "withdrawn": the
+   * read found an entry whose withdrawal is in force, so nothing was promoted.
+   */
+  type RecordOutcome =
+    | { outcome: "promoted" | "superseded"; state: "published" | "missing" | "moved"; uri?: string }
+    | { outcome: "withdrawn" }
+    | { outcome: "kept"; failure: RefreshFailure };
+
+  /** Whether WordPress listed every published route, and how many. */
+  type RoutesOutcome =
+    | { outcome: "listed"; count: number }
+    | { outcome: "failed"; failure: RefreshFailure };
+
+  interface EntriesRefreshReport {
+    /** Whether every read was promoted (or superseded by a newer one). */
+    refreshed: boolean;
+    /** Each refreshed route's outcome. */
+    entries: Record<string, RecordOutcome>;
+    /** Routes whose entry was found at another URI, and that URI. */
+    moved: Record<string, string>;
+  }
+
+  interface RefreshReport extends EntriesRefreshReport {
+    /** Whether every language's front page can be served from the store after this refresh. */
+    ready: boolean;
+    home: RecordOutcome;
+    chrome: RecordOutcome;
+    design: RecordOutcome;
+    routes: RoutesOutcome;
+    /** A multilingual Site's other languages, by slug: their front page and chrome. */
+    languages?: Record<string, { home: RecordOutcome; chrome: RecordOutcome }>;
+  }
+
+  /**
+   * Refreshes the whole Site, the explicit preparation of its store: each
+   * language's front page and chrome, the shared design presets, and every
+   * entry WordPress lists as published or the store already holds (so one
+   * deleted or moved since is reconciled). Each read that
+   * is complete and valid is promoted; a failed one keeps what is stored, so a
+   * failed chrome read doesn't touch the front page or the entries, nor the
+   * reverse. Reads are anonymous, as a visitor's would be, so only published
+   * content can enter the store.
+   */
+  async function refreshSite(store: PublicationStore, siteOrigin?: string): Promise<RefreshReport> {
+    const readStartedAt = Date.now();
+    const others = languages.filter((language) => !language.isDefault);
+    const [home, chrome, design, listing, ...otherReads] = await Promise.all([
+      getHomeContent(),
+      getSiteChrome(siteOrigin),
+      getDesignPresets(),
+      getPublishedRoutes(),
+      ...others.map((language) =>
+        Promise.all([getHomeContent(language), getSiteChrome(siteOrigin, { language })]),
+      ),
+    ]);
+
+    const homeOutcome = await promoteHome(store, home, readStartedAt);
+    const chromeOutcome = await promoteChrome(store, chrome, readStartedAt);
+    const designOutcome = await promoteDesign(store, design, readStartedAt);
+    const languageOutcomes: NonNullable<RefreshReport["languages"]> = {};
+    for (const [index, language] of others.entries()) {
+      const [languageHome, languageChrome] = otherReads[index]!;
+      languageOutcomes[language.slug] = {
+        home: await promoteHome(store, languageHome, readStartedAt, language),
+        chrome: await promoteChrome(store, languageChrome, readStartedAt, language),
+      };
+    }
+
+    let stored: string[] = [];
+    let routes: RoutesOutcome =
+      listing.kind === "found"
+        ? { outcome: "listed", count: listing.content.length }
+        : { outcome: "failed", failure: listing.failure };
+    try {
+      stored = (await store.keys(ENTRY)).map((key) => key.slice(ENTRY.length));
+    } catch (error) {
+      if (!(error instanceof StoreFailure)) throw error;
+      if (routes.outcome === "listed") {
+        routes = { outcome: "failed", failure: { reason: "store", message: error.message } };
+      }
+    }
+    if (routes.outcome === "failed") {
+      console.error(
+        `Refresh: the published routes couldn't be listed (${routes.failure.reason}): ${routes.failure.message}`,
+      );
+    }
+    const listed = listing.kind === "found" ? listing.content.map(routeOf) : [];
+    // Each language's front page is its home's, never an entry.
+    const wanted = [...new Set([...listed, ...stored])].filter((route) => !isLanguageHome(route));
+    const entries = await refreshRoutes(store, wanted, readStartedAt);
+
+    let ready = false;
+    try {
+      const stored = await Promise.all(
+        languages.map((language) =>
+          Promise.all([
+            store.read(homeKey(language), parseHome),
+            store.read(chromeKey(language), parseChrome),
+          ]),
+        ),
+      );
+      ready = stored.every(
+        ([storedHome, storedChrome]) =>
+          usable(storedHome) !== null &&
+          (storedHome?.state === "missing" ||
+            storedHome?.state === "withdrawn" ||
+            usable(storedChrome)?.state === "published"),
+      );
+    } catch (error) {
+      if (!(error instanceof StoreFailure)) throw error;
+    }
+    return {
+      ready,
+      refreshed:
+        homeOutcome.outcome !== "kept" &&
+        chromeOutcome.outcome !== "kept" &&
+        designOutcome.outcome !== "kept" &&
+        Object.values(languageOutcomes).every(
+          (outcomes) => outcomes.home.outcome !== "kept" && outcomes.chrome.outcome !== "kept",
+        ) &&
+        routes.outcome === "listed" &&
+        entries.refreshed,
+      home: homeOutcome,
+      chrome: chromeOutcome,
+      design: designOutcome,
+      routes,
+      entries: entries.entries,
+      moved: entries.moved,
+      ...(multilingual ? { languages: languageOutcomes } : {}),
+    };
+  }
+
+  /** What a shared setting's change refreshes: the rows every affected page is served with. */
+  type SharedPart = "home" | "chrome" | "design";
+
+  /**
+   * A report of the shared rows: the default language's front page and chrome,
+   * the design presets, and a multilingual Site's other languages' front page
+   * and chrome, by slug.
+   */
+  interface SharedRows<T> {
+    home?: T;
+    chrome?: T;
+    design?: T;
+    languages?: Record<string, { home?: T; chrome?: T }>;
+  }
+
+  /** Every outcome in a report of shared rows, each language's included. */
+  function sharedOutcomes<T>(rows: SharedRows<T>): T[] {
+    return [
+      rows.home,
+      rows.chrome,
+      rows.design,
+      ...Object.values(rows.languages ?? {}).flatMap((language) => [
+        language.home,
+        language.chrome,
+      ]),
+    ].filter((outcome): outcome is T => outcome !== undefined);
+  }
+
+  interface SharedRefreshReport extends SharedRows<RecordOutcome> {
+    /** Whether every part was promoted (or superseded by a newer read). */
+    refreshed: boolean;
+  }
+
+  /**
+   * Refreshes shared settings: the chrome (menu, logo, icon), the shared design
+   * presets, or the front page (which holds the site's title and tagline).
+   * Every page is served with the stored chrome and design, so promoting them
+   * reaches every page at once, without reading the entries again. With
+   * `language`, only that language's front page and chrome: its title, tagline
+   * and menus are its own. Without, every language's, since what changed (the
+   * logo, the icon, the title a language doesn't translate) is shared by them
+   * all. Each part is promoted only from a complete, valid read; a failed one
+   * keeps what is stored, so a failed read never erases navigation, branding or
+   * design.
+   */
+  async function refreshShared(
+    store: PublicationStore,
+    parts: SharedPart[],
+    siteOrigin?: string,
+    language?: SiteLanguage,
+  ): Promise<SharedRefreshReport> {
+    const readStartedAt = Date.now();
+    const wanted = new Set(parts);
+    const scope = language ? [language] : languages;
+    const [reads, design] = await Promise.all([
+      Promise.all(
+        scope.map((each) =>
+          Promise.all([
+            wanted.has("home") ? getHomeContent(each) : undefined,
+            wanted.has("chrome") ? getSiteChrome(siteOrigin, { language: each }) : undefined,
+          ]),
+        ),
+      ),
+      wanted.has("design") && !language ? getDesignPresets() : undefined,
+    ]);
+    const report: SharedRefreshReport = { refreshed: true };
+    for (const [index, each] of scope.entries()) {
+      const [home, chrome] = reads[index]!;
+      const rows: { home?: RecordOutcome; chrome?: RecordOutcome } = each.isDefault
+        ? report
+        : ((report.languages ??= {})[each.slug] = {});
+      if (home) rows.home = await promoteHome(store, home, readStartedAt, each);
+      if (chrome) rows.chrome = await promoteChrome(store, chrome, readStartedAt, each);
+    }
+    if (design) report.design = await promoteDesign(store, design, readStartedAt);
+    report.refreshed = sharedOutcomes(report).every((outcome) => outcome.outcome !== "kept");
+    return report;
+  }
+
+  /**
+   * The state of each other language's front page and chrome in the store, by
+   * slug ("unusable" in a format this Worker doesn't serve, null when nothing
+   * was ever stored); undefined on a monolingual Site.
+   */
+  async function languageRowStates(
+    store: PublicationStore,
+  ): Promise<Record<string, { home: string | null; chrome: string | null }> | undefined> {
+    if (!multilingual) return undefined;
+    const others = languages.filter((language) => !language.isDefault);
+    const states = await store.states(
+      others.flatMap((other) => [homeKey(other), chromeKey(other)]),
+    );
+    return Object.fromEntries(
+      others.map((other) => [
+        other.slug,
+        {
+          home: states.get(homeKey(other)) ?? null,
+          chrome: states.get(chromeKey(other)) ?? null,
+        },
+      ]),
+    );
+  }
+
+  type SharedRead<T> = Found<T> | { kind: "unavailable"; failure: RefreshFailure };
+
+  /** Promotes a read of a shared row. */
+  function promoteShared<T>(
+    store: PublicationStore,
+    key: string,
+    subject: string,
+    parse: (body: unknown) => T | undefined,
+    read: SharedRead<T>,
+    readStartedAt: number,
+  ) {
+    return promoteRead(store, key, subject, readStartedAt, parse, () =>
+      read.kind === "found" ? { state: "published", content: read.content } : read.failure,
+    );
+  }
+
+  /** Promotes a read of a language's chrome. */
+  function promoteChrome(
+    store: PublicationStore,
+    read: SharedRead<SiteChrome>,
+    readStartedAt: number,
+    language: SiteLanguage = defaultLanguage,
+  ) {
+    const subject = languageSubject(language, "site chrome");
+    return promoteShared(store, chromeKey(language), subject, parseChrome, read, readStartedAt);
+  }
+
+  /** Promotes a read of the shared design presets. */
+  function promoteDesign(
+    store: PublicationStore,
+    read: SharedRead<DesignPresets>,
+    readStartedAt: number,
+  ) {
+    const subject = "the shared design presets";
+    return promoteShared(store, DESIGN, subject, parseDesign, read, readStartedAt);
+  }
+
+  /**
+   * Refreshes a language's front page only (not its chrome or the entries): the
+   * front page itself was published or changed.
+   */
+  async function refreshHome(
+    store: PublicationStore,
+    language: SiteLanguage = defaultLanguage,
+  ): Promise<RecordOutcome> {
+    const readStartedAt = Date.now();
+    return promoteHome(store, await getHomeContent(language), readStartedAt, language);
+  }
+
+  function promoteHome(
+    store: PublicationStore,
+    home: Delivery<HomeContent>,
+    readStartedAt: number,
+    language: SiteLanguage = defaultLanguage,
+  ) {
+    const subject = languageSubject(language, "front page");
+    return promoteRead(store, homeKey(language), subject, readStartedAt, parseHome, () => {
+      if (home.kind === "unavailable") return home.failure;
+      if (home.kind === "missing") return { state: "missing" };
+      const { blocksOmitted, nodeId, ...content } = home.content;
+      if (blocksOmitted) {
+        return {
+          reason: "partial",
+          message: `WordPress could only return ${subject} without its blocks`,
+        };
+      }
+      return { state: "published", content, ...(nodeId ? { nodeId } : {}) };
+    });
+  }
+
+  /**
+   * Refreshes the entries at these paths only: a new publication, a changed
+   * one, or the route one left. An entry found at another URI than before is
+   * promoted there, and the routes that served it redirect to it.
+   */
+  async function refreshEntries(
+    store: PublicationStore,
+    paths: string[],
+  ): Promise<EntriesRefreshReport> {
+    const readStartedAt = Date.now();
+    return refreshRoutes(store, [...new Set(paths.map(routeOf))], readStartedAt);
+  }
+
+  async function refreshRoutes(
+    store: PublicationStore,
+    routes: string[],
+    refreshStartedAt: number,
+  ): Promise<EntriesRefreshReport> {
+    const reads = await eachLimited(routes, 4, async (route) => {
+      const readStartedAt = Date.now();
+      return { route, readStartedAt, read: await getEntryByUri(encodeURI(route)) };
+    });
+
+    // Found and failed reads first. Then the routes still serving an entry
+    // found elsewhere are marked moved, including one WordPress now confirms
+    // missing: its visitors are redirected rather than shown a 404. Only then
+    // is the rest that is confirmed missing promoted.
+    const outcomes = new Map<string, RecordOutcome>();
+    const found: Array<{ nodeId: string; route: string }> = [];
+    for (const { route, readStartedAt, read } of reads) {
+      if (read.kind === "missing") continue;
+      const promoted = await promoteEntry(store, route, read, readStartedAt, true);
+      outcomes.set(route, promoted.outcome);
+      if (promoted.found) found.push(promoted.found);
+    }
+    const { moved, failed } = await supersedeMoved(store, found, refreshStartedAt);
+    for (const { route, readStartedAt, read } of reads) {
+      if (read.kind !== "missing") continue;
+      outcomes.set(
+        route,
+        moved[route]
+          ? { outcome: "promoted", state: "moved", uri: moved[route] }
+          : (await promoteEntry(store, route, read, readStartedAt)).outcome,
+      );
+    }
+
+    const entries = Object.fromEntries(routes.map((route) => [route, outcomes.get(route)!]));
+    return {
+      refreshed: !failed && Object.values(entries).every((outcome) => outcome.outcome !== "kept"),
+      entries,
+      moved,
+    };
+  }
+
   interface EntryPromotion {
     outcome: RecordOutcome;
     /** The entry the read found, at its own route, when it was stored there. */
@@ -560,6 +929,20 @@ export function configuredDelivery(
     return { moved, failed };
   }
 
+  async function eachLimited<T, R>(items: T[], limit: number, work: (item: T) => Promise<R>) {
+    const results: R[] = [];
+    let next = 0;
+    const worker = async () => {
+      while (next < items.length) {
+        const index = next;
+        next += 1;
+        results[index] = await work(items[index]!);
+      }
+    };
+    await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));
+    return results;
+  }
+
   type ReadResult<T> = Promotion<T> | RefreshFailure;
 
   /**
@@ -628,6 +1011,66 @@ export function configuredDelivery(
     return outcome;
   }
 
+  interface WithdrawalReport {
+    status: "withdrawn" | "superseded";
+    /** The routes now withdrawn (`/` or `/en/` for a language's front page). */
+    withdrawn: string[];
+    /** The later event that already won, when it is known. */
+    by?: string;
+  }
+
+  /**
+   * Withdraws a page or post the CMS unpublished, made private or
+   * password-protected, trashed or deleted, without reading the CMS: every
+   * route the store holds it at (served or redirecting) and the URI it was
+   * withdrawn at become a 404 at once, and stay one through outages, restarts,
+   * fallbacks, delayed or duplicate events and older in-flight reads, since no
+   * read promotes it again while the withdrawal is in force. A route holding
+   * another entry is left alone. A publication that happened later wins over
+   * it, before or after.
+   */
+  async function withdrawEntry(
+    store: PublicationStore,
+    event: PublicationEvent,
+  ): Promise<WithdrawalReport> {
+    const route = routeOf(event.uri);
+    const outcome = await store.withdraw(event, routeKey(route), Date.now());
+    if (outcome.status === "superseded") {
+      console.info(
+        `Withdrawal: ${event.id} for ${route} is superseded${outcome.by ? ` by the later ${outcome.by}` : ""}`,
+      );
+      return { status: "superseded", withdrawn: [], ...(outcome.by ? { by: outcome.by } : {}) };
+    }
+    const withdrawn = outcome.keys.map(keyRoute);
+    console.info(`Withdrawal: ${event.id} withdrew ${withdrawn.join(", ") || "nothing stored"}`);
+    return { status: "withdrawn", withdrawn };
+  }
+
+  /** The refresh's credential when the Worker has one bound, and it is strong enough. */
+  async function refreshAuthority(): Promise<
+    { store: PublicationStore; token: string } | { refused: string }
+  > {
+    const { PUBLICATION_DB, FRONTEND_REFRESH_TOKEN: token } = await config.bindings();
+    if (!PUBLICATION_DB) return { refused: "this Frontend has no publication store bound" };
+    if (!token || token.length < 32) {
+      return { refused: "this Frontend has no refresh token of 32 characters or more bound" };
+    }
+    return { store: publicationStore(PUBLICATION_DB), token };
+  }
+
+  /** Compares a request's bearer token with the bound one, in constant time. */
+  async function isAuthorized(request: Request, token: string) {
+    const presented = /^Bearer (.+)$/.exec(request.headers.get("Authorization") ?? "")?.[1] ?? "";
+    const digest = async (value: string) =>
+      new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value)));
+    const [expected, actual] = await Promise.all([digest(token), digest(presented)]);
+    let difference = presented ? 0 : 1;
+    for (let index = 0; index < expected.length; index += 1) {
+      difference |= expected[index]! ^ actual[index]!;
+    }
+    return difference === 0;
+  }
+
   const safely = async <T>(read: () => Promise<T>, fallback: () => T): Promise<T> => {
     try {
       return await read();
@@ -636,6 +1079,15 @@ export function configuredDelivery(
     }
   };
   return {
+    refreshSite,
+    refreshEntries,
+    refreshHome,
+    refreshShared,
+    sharedOutcomes,
+    withdrawEntry,
+    languageRowStates,
+    refreshAuthority,
+    isAuthorized,
     publishedHome: (siteOrigin?: string, language?: SiteLanguage): Promise<HomeDelivery> =>
       safely(
         () => publishedHome(siteOrigin, language),

@@ -2,8 +2,8 @@
 
 The configured content runtime for WordPress HTML and WPGraphQL. This slice
 provides pure helpers, the configured WordPress client, durable delivery and
-installed SQL migrations. HTTP handlers arrive in subsequent extraction issues; this is not
-a completed or published 0.1.0 release pair.
+installed SQL migrations, and event/refresh HTTP handlers. This is not a
+completed or published 0.1.0 release pair.
 
 ```ts
 import { renderWordPressBlocks, htmlLang } from "@getquick/content";
@@ -87,3 +87,27 @@ graphs contain no Node migration module. `vp run alchemy` packs/installs with pn
 and exercises the pinned Alchemy local D1/Worker lifecycle, including an update
 with unchanged migration identities and publication data. This proof uses local
 workerd, no remote resources or credentials. See the repository's issue #4 evidence.
+
+The HTTP methods are `handleEvent(request, { siteOrigin? }?)` and
+`handleRefresh(request, { siteOrigin? }?)`, both returning standard `Response`s.
+Sites wire their POST routes directly to these methods; other methods return
+405 with `Allow: POST`. Responses use `Cache-Control: no-store`.
+
+Events require `PUBLICATION_EVENT_SECRET` and refresh requires
+`FRONTEND_REFRESH_TOKEN`, each at least 32 characters, plus `PUBLICATION_DB`.
+An absent or short credential disables its handler without disabling stored
+public reads. Event HMAC verification and Site/schema checks precede any CMS
+reads or store changes. Refresh uses bearer authorization; `{}` refreshes the
+whole Site and `{"uris":["/about/"]}` targets 1–100 entry paths. Language homes
+require a whole-Site refresh. A signed withdrawal hides every stored route of
+that entry immediately, without reading the CMS. Refreshes cannot lift it;
+only a later publication can.
+
+The source dispatcher is retained for settings and signed checks; their broader
+proofs belong to subsequent slices. Until issue #9 implements reconciliation,
+valid signed reconciliation requests return 503 with `status: "failed"` and
+make no CMS reads or store changes. They are never acknowledged as applied.
+`vp run pair` runs the installed WordPress/package transport proof after fresh
+P2 installation; the GraphQL boundary is stubbed. `vp run alchemy` also exercises
+signed publish/withdraw/refresh behavior under local workerd. Full P6 remains
+issue #11.

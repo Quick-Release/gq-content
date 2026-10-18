@@ -88,3 +88,12 @@ const publishedEntry: Promise<EntryDelivery> = runtime.publishedEntry(
 );
 const pageChrome: Promise<SiteChrome | null> = runtime.pageChrome("https://site.test");
 void [publishedHome, publishedEntry, pageChrome];
+
+const eventResponse: Promise<Response> = runtime.handleEvent(
+  new Request("https://site.test/gq/events"),
+  { siteOrigin: "https://site.test" },
+);
+const refreshResponse: Promise<Response> = runtime.handleRefresh(
+  new Request("https://site.test/gq/refresh"),
+);
+void [eventResponse, refreshResponse];

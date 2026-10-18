@@ -4,8 +4,9 @@ import type { ContentBindings } from "@getquick/content";
 export default {
   async fetch(request: Request, env: ContentBindings & { REVISION: string }) {
     const db = env.PUBLICATION_DB!;
+    const path = new URL(request.url).pathname;
     // A test consumer's seed action, never a production package endpoint.
-    if (request.method === "POST") {
+    if (path === "/" && request.method === "POST") {
       const home = {
         settings: { title: "P1 durable Site", description: "Installed package" },
         page: { title: "Home", content: "<h1>Survives Worker update</h1>", hasVideoHero: false },
@@ -31,10 +32,29 @@ export default {
       cmsOrigin: "https://offline.invalid",
       isServer: () => true,
       bindings: () => env,
-      fetch: async () => {
-        throw new Error("P1 must serve durable content without CMS");
+      fetch: async (_url, init) => {
+        const body = JSON.parse(String(init?.body));
+        if (!body.query.includes("EntryByUri")) throw new Error("Unexpected CMS read");
+        return Response.json({
+          data: {
+            pageBy: {
+              id: "workerd-page-1",
+              uri: "/entry/",
+              title: "Runtime proof",
+              content: "<p>Signed publication in workerd</p>",
+              status: "publish",
+              isRestricted: false,
+              featuredImage: null,
+            },
+            postBy: null,
+            designTokens: { colors: [], spacingSizes: [] },
+          },
+        });
       },
     });
+    if (path === "/gq/events") return runtime.handleEvent(request);
+    if (path === "/gq/refresh") return runtime.handleRefresh(request);
+    if (path === "/entry/") return Response.json(await runtime.publishedEntry(path));
     const ledger = await db.prepare("SELECT * FROM __alchemy_migrations ORDER BY rowid").all();
     const tables = await db
       .prepare("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name")
