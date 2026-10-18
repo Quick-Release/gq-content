@@ -34,6 +34,8 @@ const handlers = {
             status: "publish",
             isRestricted: false,
             featuredImage: null,
+            language: { slug: "pt" },
+            translations: [],
           }
         : null,
       postBy: null,
@@ -337,6 +339,134 @@ test("budgeted partial runs persist pending evidence and continue oldest attempt
   expect(statuses).toEqual(["behind", "behind", "reconciled"]);
   expect(await content("/story-44/")).toBe("<p>Story 44</p>");
 });
+
+test.each([
+  { languages: [], count: 18, firstPending: 1, firstRequests: 39, pages: 1 },
+  {
+    languages: [{ locale: "en_US", slug: "en" }],
+    count: 17,
+    firstPending: 1,
+    firstRequests: 40,
+    pages: 1,
+  },
+  {
+    languages: [
+      { locale: "en_US", slug: "en" },
+      { locale: "custom_locale_variant", slug: "custom-slug" },
+    ],
+    count: 16,
+    firstPending: 2,
+    firstRequests: 39,
+    pages: 1,
+  },
+  {
+    languages: [{ locale: "en_US", slug: "en" }],
+    count: 16,
+    firstPending: 1,
+    firstRequests: 39,
+    pages: 2,
+  },
+])(
+  "home and entry block recovery stay within 40 requests with $languages.length additional languages and $pages list pages",
+  async ({ languages, count, firstPending, firstRequests, pages }) => {
+    const options = {
+      site: "Acme",
+      graphqlEndpoint: "https://cms.test/graphql",
+      cmsOrigin: "https://cms.test",
+      wordpress: { locale: "pt_PT", languages },
+      isServer: () => true,
+      bindings: () => ({ PUBLICATION_DB: db, PUBLICATION_EVENT_SECRET: secret }),
+    };
+    api = createContentRuntime(options);
+    entries.clear();
+    for (let n = 0; n < count; n++)
+      entries.set(`/story-${String(n).padStart(2, "0")}/`, {
+        id: `story-${n}`,
+        content: `<p>Story ${n}</p>`,
+        modified: Date.now() - 1000,
+      });
+    expect(api.languages).toHaveLength(languages.length + 1);
+    const routes: Handler = (variables) =>
+      variables.after || pages === 1
+        ? handlers.routes()
+        : data({
+            contentNodes: {
+              nodes: [],
+              pageInfo: { hasNextPage: true, endCursor: "next" },
+            },
+          });
+    const fetch = wordpress({
+      routes,
+      home: (variables) => {
+        if (variables.withBlocks !== false) return { ok: false, status: 502 };
+        return data({
+          [variables.language ? "language" : "generalSettings"]: {
+            title: typeof variables.language === "string" ? variables.language : "PT",
+            description: "Things",
+          },
+          nodeByUri: {
+            __typename: "Page",
+            id: typeof variables.uri === "string" ? variables.uri : "/",
+            isFrontPage: true,
+            title: "Home",
+            content: heading,
+          },
+          designTokens: { colors: [], spacingSizes: [] },
+        });
+      },
+      entry: (variables) =>
+        variables.withBlocks === false ? handlers.entry(variables) : { ok: false, status: 502 },
+    });
+    const first = await event("reconcile");
+    // Count actual transport calls, including failed attempts and blockless retries.
+    expect(fetch.mock.calls.length).toBeLessThanOrEqual(40);
+    expect(fetch.mock.calls.length).toBe(firstRequests);
+    expect(first.body).toMatchObject({
+      status: "failed",
+      pending: firstPending,
+      failed: count - firstPending + languages.length + 1,
+    });
+    expect(Object.keys(first.body.entries)).toHaveLength(count - firstPending);
+    api = createContentRuntime(options);
+    expect((await event("check")).body.reconciliation).toMatchObject({
+      outcome: "failed",
+      pending: firstPending,
+      failed: count - firstPending + languages.length + 1,
+      running: false,
+    });
+    // Blockless recovery remains partial: retain its failed records and recover
+    // through ordinary complete reads on subsequent scheduler runs.
+    const healthyHome: Handler = (variables) =>
+      data({
+        [variables.language ? "language" : "generalSettings"]: {
+          title: "Home",
+          description: "Things",
+        },
+        nodeByUri: {
+          __typename: "Page",
+          id: "front",
+          isFrontPage: true,
+          title: "Home",
+          content: heading,
+        },
+        designTokens: { colors: [], spacingSizes: [] },
+      });
+    for (let n = 0; n < 2; n++) {
+      tick();
+      const transport = wordpress({ home: healthyHome, routes });
+      const next = await event("reconcile");
+      expect(transport.mock.calls.length).toBeLessThanOrEqual(40);
+      if (n === 0) expect(next.body.pending).toBe(firstPending);
+      else expect(next.body).toMatchObject({ status: "reconciled", pending: 0, failed: 0 });
+    }
+    for (const [uri, entry] of entries) expect(await content(uri)).toBe(entry.content);
+    expect((await event("check")).body.reconciliation).toMatchObject({
+      outcome: "reconciled",
+      pending: 0,
+      failed: 0,
+    });
+  },
+);
 
 test("signed check distinguishes an unprepared store from unavailable store evidence without CMS reads", async () => {
   const fetch = wordpress();

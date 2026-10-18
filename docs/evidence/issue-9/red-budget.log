@@ -1,0 +1,413 @@
+note: You are running `vp test` as a Vite+ built-in command. If you meant to run the test npm script, use `vpr test` instead.
+
+ RUN  v5.0.3 /data/code/getquick/gq-content
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the front page kept its last stored version (partial): WordPress could only return the front page without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the site chrome promoted (published)
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the shared design presets promoted (published)
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the entry /story-00/ kept its last stored version (partial): WordPress could only return the entry /story-00/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Events: reconcile-e4262635924e1c11982b473c53c8489e9724993a (publish /story-00/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the entry /story-02/ kept its last stored version (partial): WordPress could only return the entry /story-02/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Events: reconcile-49b8dca14db83e4ad96d1a98f4e68616ae514138 (publish /story-02/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the entry /story-01/ kept its last stored version (partial): WordPress could only return the entry /story-01/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Events: reconcile-327b4ef13c7c83f720a248d83c9d8c9827ecc6b2 (publish /story-01/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the entry /story-03/ kept its last stored version (partial): WordPress could only return the entry /story-03/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Events: reconcile-6ef8f6b3d4e3370b7a0aa38f899fe11b49c83aeb (publish /story-03/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the entry /story-04/ kept its last stored version (partial): WordPress could only return the entry /story-04/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Events: reconcile-d106cdfca0172ad8c43eb326168e65c900ad5895 (publish /story-04/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the entry /story-05/ kept its last stored version (partial): WordPress could only return the entry /story-05/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Events: reconcile-a85c169e8ab5b77221c2be2279feaa8329c5d97b (publish /story-05/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the entry /story-06/ kept its last stored version (partial): WordPress could only return the entry /story-06/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Events: reconcile-6bb3c10ce88cd3868215938043d26edccdf2ff78 (publish /story-06/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the entry /story-07/ kept its last stored version (partial): WordPress could only return the entry /story-07/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Events: reconcile-cc723d1f2f1b786f1776d7d799917e495c3fb0e6 (publish /story-07/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the entry /story-08/ kept its last stored version (partial): WordPress could only return the entry /story-08/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Events: reconcile-ae0a58bd4ebc40d6484b34d8acb107353a5f1fe1 (publish /story-08/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the entry /story-09/ kept its last stored version (partial): WordPress could only return the entry /story-09/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Events: reconcile-b548a8ae41d7f82e27513bc52756186d2a6d6662 (publish /story-09/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the entry /story-10/ kept its last stored version (partial): WordPress could only return the entry /story-10/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Events: reconcile-3206fa1ec1919bea544f13f10a1463bebfd22954 (publish /story-10/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the entry /story-11/ kept its last stored version (partial): WordPress could only return the entry /story-11/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Events: reconcile-2eb23c7c30dc9763f38baab1d56a9589c4f7f2ed (publish /story-11/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the entry /story-12/ kept its last stored version (partial): WordPress could only return the entry /story-12/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Events: reconcile-89862da39d47b4aacc182532c0d647988cd4a6f3 (publish /story-12/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the entry /story-13/ kept its last stored version (partial): WordPress could only return the entry /story-13/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Events: reconcile-f881443976aee0a42ee15d17e80cbd5f6e88b125 (publish /story-13/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the entry /story-14/ kept its last stored version (partial): WordPress could only return the entry /story-14/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Events: reconcile-801f214b01ceef940062202ed2ad487a4729913c (publish /story-14/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the entry /story-15/ kept its last stored version (partial): WordPress could only return the entry /story-15/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Events: reconcile-463edbf24c5d413c25c5544d021d5926f46a373c (publish /story-15/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the entry /story-16/ kept its last stored version (partial): WordPress could only return the entry /story-16/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Events: reconcile-d0f7fe0139a8cfa931491f0bfeff3f9f2a47af07 (publish /story-16/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Refresh: the entry /story-17/ kept its last stored version (partial): WordPress could only return the entry /story-17/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Events: reconcile-77ac05ced4cc6cee3d6c425ef9544c91c2a0f49a (publish /story-17/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+Reconciliation: 6bafae0f-9adb-4f0b-be3c-96508552a280 failed (18 checked, 2 changed, 0 left, 19 failed): partial: WordPress could only return the front page without its blocks
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the front page kept its last stored version (partial): WordPress could only return the front page without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the site chrome promoted (published)
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the en front page kept its last stored version (partial): WordPress could only return the en front page without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the en site chrome promoted (published)
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the shared design presets promoted (published)
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the entry /story-00/ kept its last stored version (partial): WordPress could only return the entry /story-00/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Events: reconcile-e4262635924e1c11982b473c53c8489e9724993a (publish /story-00/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the entry /story-01/ kept its last stored version (partial): WordPress could only return the entry /story-01/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Events: reconcile-327b4ef13c7c83f720a248d83c9d8c9827ecc6b2 (publish /story-01/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the entry /story-02/ kept its last stored version (partial): WordPress could only return the entry /story-02/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Events: reconcile-49b8dca14db83e4ad96d1a98f4e68616ae514138 (publish /story-02/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the entry /story-03/ kept its last stored version (partial): WordPress could only return the entry /story-03/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Events: reconcile-6ef8f6b3d4e3370b7a0aa38f899fe11b49c83aeb (publish /story-03/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the entry /story-04/ kept its last stored version (partial): WordPress could only return the entry /story-04/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Events: reconcile-d106cdfca0172ad8c43eb326168e65c900ad5895 (publish /story-04/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the entry /story-05/ kept its last stored version (partial): WordPress could only return the entry /story-05/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Events: reconcile-a85c169e8ab5b77221c2be2279feaa8329c5d97b (publish /story-05/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the entry /story-06/ kept its last stored version (partial): WordPress could only return the entry /story-06/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Events: reconcile-6bb3c10ce88cd3868215938043d26edccdf2ff78 (publish /story-06/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the entry /story-07/ kept its last stored version (partial): WordPress could only return the entry /story-07/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Events: reconcile-cc723d1f2f1b786f1776d7d799917e495c3fb0e6 (publish /story-07/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the entry /story-08/ kept its last stored version (partial): WordPress could only return the entry /story-08/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Events: reconcile-ae0a58bd4ebc40d6484b34d8acb107353a5f1fe1 (publish /story-08/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the entry /story-09/ kept its last stored version (partial): WordPress could only return the entry /story-09/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Events: reconcile-b548a8ae41d7f82e27513bc52756186d2a6d6662 (publish /story-09/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the entry /story-10/ kept its last stored version (partial): WordPress could only return the entry /story-10/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Events: reconcile-3206fa1ec1919bea544f13f10a1463bebfd22954 (publish /story-10/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the entry /story-11/ kept its last stored version (partial): WordPress could only return the entry /story-11/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Events: reconcile-2eb23c7c30dc9763f38baab1d56a9589c4f7f2ed (publish /story-11/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the entry /story-12/ kept its last stored version (partial): WordPress could only return the entry /story-12/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Events: reconcile-89862da39d47b4aacc182532c0d647988cd4a6f3 (publish /story-12/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the entry /story-13/ kept its last stored version (partial): WordPress could only return the entry /story-13/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Events: reconcile-f881443976aee0a42ee15d17e80cbd5f6e88b125 (publish /story-13/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the entry /story-14/ kept its last stored version (partial): WordPress could only return the entry /story-14/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Events: reconcile-801f214b01ceef940062202ed2ad487a4729913c (publish /story-14/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the entry /story-15/ kept its last stored version (partial): WordPress could only return the entry /story-15/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Events: reconcile-463edbf24c5d413c25c5544d021d5926f46a373c (publish /story-15/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Refresh: the entry /story-16/ kept its last stored version (partial): WordPress could only return the entry /story-16/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Events: reconcile-d0f7fe0139a8cfa931491f0bfeff3f9f2a47af07 (publish /story-16/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+Reconciliation: aea52da4-0d05-4c57-a942-4aa483a0cb22 failed (17 checked, 3 changed, 0 left, 19 failed): partial: WordPress could only return the front page without its blocks
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the front page kept its last stored version (partial): WordPress could only return the front page without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the site chrome promoted (published)
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the en front page kept its last stored version (partial): WordPress could only return the en front page without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the en site chrome promoted (published)
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the fr front page kept its last stored version (partial): WordPress could only return the fr front page without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the fr site chrome promoted (published)
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the shared design presets promoted (published)
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the entry /story-00/ kept its last stored version (partial): WordPress could only return the entry /story-00/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Events: reconcile-e4262635924e1c11982b473c53c8489e9724993a (publish /story-00/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the entry /story-01/ kept its last stored version (partial): WordPress could only return the entry /story-01/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Events: reconcile-327b4ef13c7c83f720a248d83c9d8c9827ecc6b2 (publish /story-01/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the entry /story-02/ kept its last stored version (partial): WordPress could only return the entry /story-02/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Events: reconcile-49b8dca14db83e4ad96d1a98f4e68616ae514138 (publish /story-02/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the entry /story-03/ kept its last stored version (partial): WordPress could only return the entry /story-03/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Events: reconcile-6ef8f6b3d4e3370b7a0aa38f899fe11b49c83aeb (publish /story-03/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the entry /story-04/ kept its last stored version (partial): WordPress could only return the entry /story-04/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Events: reconcile-d106cdfca0172ad8c43eb326168e65c900ad5895 (publish /story-04/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the entry /story-05/ kept its last stored version (partial): WordPress could only return the entry /story-05/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Events: reconcile-a85c169e8ab5b77221c2be2279feaa8329c5d97b (publish /story-05/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the entry /story-06/ kept its last stored version (partial): WordPress could only return the entry /story-06/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Events: reconcile-6bb3c10ce88cd3868215938043d26edccdf2ff78 (publish /story-06/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the entry /story-07/ kept its last stored version (partial): WordPress could only return the entry /story-07/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Events: reconcile-cc723d1f2f1b786f1776d7d799917e495c3fb0e6 (publish /story-07/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the entry /story-08/ kept its last stored version (partial): WordPress could only return the entry /story-08/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Events: reconcile-ae0a58bd4ebc40d6484b34d8acb107353a5f1fe1 (publish /story-08/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the entry /story-09/ kept its last stored version (partial): WordPress could only return the entry /story-09/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Events: reconcile-b548a8ae41d7f82e27513bc52756186d2a6d6662 (publish /story-09/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the entry /story-10/ kept its last stored version (partial): WordPress could only return the entry /story-10/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Events: reconcile-3206fa1ec1919bea544f13f10a1463bebfd22954 (publish /story-10/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the entry /story-11/ kept its last stored version (partial): WordPress could only return the entry /story-11/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Events: reconcile-2eb23c7c30dc9763f38baab1d56a9589c4f7f2ed (publish /story-11/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the entry /story-12/ kept its last stored version (partial): WordPress could only return the entry /story-12/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Events: reconcile-89862da39d47b4aacc182532c0d647988cd4a6f3 (publish /story-12/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the entry /story-13/ kept its last stored version (partial): WordPress could only return the entry /story-13/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Events: reconcile-f881443976aee0a42ee15d17e80cbd5f6e88b125 (publish /story-13/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the entry /story-14/ kept its last stored version (partial): WordPress could only return the entry /story-14/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Events: reconcile-801f214b01ceef940062202ed2ad487a4729913c (publish /story-14/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Refresh: the entry /story-15/ kept its last stored version (partial): WordPress could only return the entry /story-15/ without its blocks
+
+stdout | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Events: reconcile-463edbf24c5d413c25c5544d021d5926f46a373c (publish /story-15/) failed
+
+stderr | frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+Reconciliation: 055a5433-db52-4d38-9cac-4726b0b2b224 failed (16 checked, 4 changed, 0 left, 19 failed): partial: WordPress could only return the front page without its blocks
+
+ ❯ frontend/tests/reconciliation.test.ts (15 tests | 3 failed | 12 skipped) 70ms
+   × home and entry block recovery stay within 40 requests with 0 additional languages 43ms
+   × home and entry block recovery stay within 40 requests with 1 additional languages 12ms
+   × home and entry block recovery stay within 40 requests with 2 additional languages 14ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 0 additional languages
+AssertionError: expected 41 to be less than or equal to 40
+ ❯ frontend/tests/reconciliation.test.ts:391:37
+    389|     const first = await event("reconcile");
+    390|     // Count actual transport calls, including failed attempts and blo…
+    391|     expect(fetch.mock.calls.length).toBeLessThanOrEqual(40);
+       |                                     ^
+    392|     expect(fetch.mock.calls.length).toBe(firstRequests);
+    393|     expect(first.body).toMatchObject({ status: "failed", pending: firs…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 1 additional languages
+AssertionError: expected 42 to be less than or equal to 40
+ ❯ frontend/tests/reconciliation.test.ts:391:37
+    389|     const first = await event("reconcile");
+    390|     // Count actual transport calls, including failed attempts and blo…
+    391|     expect(fetch.mock.calls.length).toBeLessThanOrEqual(40);
+       |                                     ^
+    392|     expect(fetch.mock.calls.length).toBe(firstRequests);
+    393|     expect(first.body).toMatchObject({ status: "failed", pending: firs…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  frontend/tests/reconciliation.test.ts > home and entry block recovery stay within 40 requests with 2 additional languages
+AssertionError: expected 43 to be less than or equal to 40
+ ❯ frontend/tests/reconciliation.test.ts:391:37
+    389|     const first = await event("reconcile");
+    390|     // Count actual transport calls, including failed attempts and blo…
+    391|     expect(fetch.mock.calls.length).toBeLessThanOrEqual(40);
+       |                                     ^
+    392|     expect(fetch.mock.calls.length).toBe(firstRequests);
+    393|     expect(first.body).toMatchObject({ status: "failed", pending: firs…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 12 skipped (15)
+   Start at  04:43:41
+   Duration  271ms (transform 48%, tests 35%, import 15%, worker 2%)
+

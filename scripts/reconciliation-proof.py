@@ -98,14 +98,16 @@ if phase == 'prepare-partial':
     # No true filter installed: the supported default is enabled.
     result = reconcile()
     check('CLI reports partial completion without claiming a complete match', 'left' in result.stdout or 'next' in result.stdout)
-    check('signed check reports durable partial state', state()['reconciliation']['outcome'] == 'behind' and state()['reconciliation']['pending'] == 23)
+    # 40 candidates: 7 shared slots + 1 list request leave 16 two-request reads.
+    # Partial continuation is therefore 24 -> 8 -> 0, including home recovery.
+    check('signed check reports durable partial state', state()['reconciliation']['outcome'] == 'behind' and state()['reconciliation']['pending'] == 24)
     check('shared rows for every language prepared', state()['store']['home'] == 'published' and state()['store']['languages']['en'] == {'home': 'published', 'chrome': 'published'})
     (WORK / 'partial-cli.txt').write_text(result.stdout)
 
 elif phase == 'continue-outage':
-    check('pending evidence still visible before continuation', state()['reconciliation']['outcome'] == 'behind' and state()['reconciliation']['pending'] == 23)
+    check('pending evidence still visible before continuation', state()['reconciliation']['outcome'] == 'behind' and state()['reconciliation']['pending'] == 24)
     reconcile(scheduler=True)
-    check('real scheduler continues unfinished work', state()['reconciliation']['pending'] == 6)
+    check('real scheduler continues unfinished work', state()['reconciliation']['pending'] == 8)
     reconcile(scheduler=True)
     check('scheduler converges complete published list', state()['reconciliation']['outcome'] == 'reconciled' and state()['store']['entries']['published'] == 40)
     snapshot = json.loads(fixture.read_text())

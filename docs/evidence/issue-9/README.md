@@ -50,7 +50,7 @@ and Site-wide design. Canonical published-list comparisons repair new/changed/
 moved/republished/removed content through existing publication ordering and
 withdrawal rules. Two rotating stored-entry rereads detect unchanged modification
 times. Incomplete lists remove nothing; failed reads retain last-known-good
-content. Source request reservations, oldest-attempted continuation, D1 lease
+content. Request reservations (corrected below after Spec review), oldest-attempted continuation, D1 lease
 ownership, outcome counts/failures and last-matched time are preserved. The five
 migrations, public configuration, server guards, fresh bindings and isolation
 remain intact. CMS production code and CLI/output/filter contracts are unchanged.
@@ -162,3 +162,66 @@ real SQLite integration rather than a MySQL matrix. Source large-list/load and
 rotating-reread timing limitations remain: unchanged-time changes on large Sites
 are eventual, not a five-minute promise. Full P6 release aggregation remains
 #11; P5 and publication gates remain their later issues.
+
+## Spec review correction: reserve home block recovery
+
+Correction base: `af87902134d2913100fc547010c02a1098f9eefb` (main).
+The independent Spec review found an inherited source behavior that conflicts
+with accepted ADR 0009's forty-request guarantee: the restored reservation
+counted each language's home as one request, while the installed configured
+client's `queryWithBlockRecovery` can make two. The accepted extraction checkpoint
+and provenance above remain unchanged; this is an explicit behavior correction
+in the owning runtime, rather than a claim of byte-for-byte preservation or a
+change to the accepted contract. No source gq-site files were written.
+
+The reservation now covers one Site-wide design request, one chrome request per
+language, and two home requests per language. Entry reads still reserve two;
+moves still reserve both routes (four), and rotating rereads use the same entry
+reservation. Listing continues to charge its actual page count. Inspecting the
+configured client confirms that chrome/design/list queries do not use block
+recovery. Fallback, ordering, withdrawal protection, fresh binding lookup,
+public schemas and language normalization/validation are unchanged. Existing
+large-list/load limitations described in ADR 0009 and above remain; this narrow
+correction does not redesign list pagination or shared-language scheduling.
+
+`red-budget.log` records the new signed-handler regression against the original
+reservation: eighteen monolingual entries produced **41** actual transport
+requests, seventeen bilingual entries **42**, and sixteen entries across three
+languages **43**, including HTTP 502 attempts and successful blockless fallback.
+The assertions require at most forty, rather than accepting the overshoot.
+Blockless answers remain partial and retain failed evidence, as the established
+store promotion contract requires.
+
+`green-budget.log` records all **67** reconciliation/language cases passing.
+The fallback cases now make **39, 40, 39** requests; a two-page bilingual listing
+also makes **39**. Literal pending counts are **1, 1, 2, 1**. Each case checks
+failed/pending evidence after runtime recreation and complete recovery through
+subsequent signed runs, within budget, followed by public delivery of every
+entry. The third language uses the already accepted custom locale/slug domain;
+no language-validation policy was introduced. The retained normal partial-run
+coverage still checks continuation and eventual completion.
+
+The safer worst-case reservation reduces bilingual entry capacity from
+seventeen to sixteen even when the first reads succeed: seven shared slots and
+one list slot leave thirty-two requests for sixteen two-request entry reads.
+Thus the installed forty-entry proof independently expects **24→8→0** pending
+(previously 23→6→0); the local multilingual fixture's forty-two candidates
+(forty new plus two removed) expect **26→10→0** (previously 25→8→0).
+Actual transport assertions remain at most forty. Complete pending/failed row,
+event/attempt and migration comparisons across Worker updates are preserved,
+as are the corrected #8 retry persistence comparisons.
+
+`budget-check.log` records clean formatting/lint/type checks;
+`budget-validation.log` records the uncached full verification for the correction.
+The parent owns the requested independent re-review; no duplicate review was
+started, overriding implement's generic review step as explicitly instructed.
+
+The correction's full verification passed all eleven tasks with **zero cache
+hits**, including **293 local and 293 clean installed consumer tests**, real
+P1/P2/pair/retry/multilingual and integrated reconciliation. The independent
+readiness/type checks also passed. `budget-persistence.json` retains the new
+complete before/after pending and failed snapshots; `budget-partial-cli.txt`,
+`budget-final-check.json` and `budget-tested-artifacts.json` retain the corrected
+installed outputs and disposable artifact hashes. Historical #9 evidence is
+retained under its original filenames. No push, publication or issue edit was
+performed, and no #10 work was started.

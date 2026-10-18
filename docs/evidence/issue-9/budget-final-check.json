@@ -1,0 +1,33 @@
+{
+  "status": "checked",
+  "site": "P1",
+  "reconciliation": {
+    "running": false,
+    "startedAt": 1792295256248,
+    "finishedAt": 1792295256295,
+    "reconciledAt": 1792295256248,
+    "outcome": "reconciled",
+    "checked": 39,
+    "changed": 4,
+    "pending": 0,
+    "failed": 0
+  },
+  "store": {
+    "home": "published",
+    "chrome": "published",
+    "design": "published",
+    "entries": {
+      "missing": 1,
+      "moved": 1,
+      "published": 39
+    },
+    "withdrawals": 0,
+    "failedEvents": 0,
+    "languages": {
+      "en": {
+        "home": "published",
+        "chrome": "published"
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "note": "Disposable uncached correction proof artifacts, not release artifacts.",
+  "artifacts": [
+    {
+      "path": ".artifacts/gq-content-0.1.0.zip",
+      "sha256": "0b4efa51940f474b5dcc8b4c403024352a3d543b44096f9142af41af8a861a8a",
+      "bytes": 30021
+    },
+    {
+      "path": ".proofs/pair/getquick-content-0.1.0.tgz",
+      "sha256": "b04512cf229f14ce2364e2c52bab1f6ece8f735a09b2b7d0b073e5af60e4e848",
+      "bytes": 58149
+    }
+  ]
+}
