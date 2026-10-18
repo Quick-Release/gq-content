@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "license": "UNLICENSED",
   "files": [
-    "dist"
+    "dist",
+    "migrations"
   ],
   "type": "module",
   "sideEffects": false,
@@ -15,6 +16,10 @@
     "./server": {
       "types": "./dist/server.d.ts",
       "import": "./dist/server.js"
+    },
+    "./migrations": {
+      "types": "./dist/migrations.d.ts",
+      "import": "./dist/migrations.js"
     }
   },
   "publishConfig": {

@@ -3,3 +3,4 @@ node_modules/
 frontend/dist/
 .artifacts/
 .vite-hooks/_/
+.proofs/

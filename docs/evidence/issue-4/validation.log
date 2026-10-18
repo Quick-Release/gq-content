@@ -1,0 +1,296 @@
+$ vp pack ⊘ cache disabled
+ℹ entry: frontend/src/index.ts, frontend/src/server.ts, frontend/src/migrations.ts
+ℹ target: es2022
+ℹ tsconfig: tsconfig.json
+ℹ Build start
+ℹ Cleaning 8 files
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- zod
+ℹ frontend/dist/server.js                145.66 kB │ gzip: 28.57 kB
+ℹ frontend/dist/index.js                   1.62 kB │ gzip:  0.72 kB
+ℹ frontend/dist/migrations.js              0.28 kB │ gzip:  0.21 kB
+ℹ frontend/dist/formatting-wOk2jz6J.js    12.60 kB │ gzip:  4.60 kB
+ℹ frontend/dist/index.d.ts                 4.14 kB │ gzip:  1.58 kB
+ℹ frontend/dist/server.d.ts                0.26 kB │ gzip:  0.16 kB
+ℹ frontend/dist/migrations.d.ts            0.17 kB │ gzip:  0.15 kB
+ℹ frontend/dist/wordpress-0M0BW0Io.d.ts   10.29 kB │ gzip:  3.35 kB
+ℹ 8 files, total: 175.03 kB
+✔ Build complete in 883ms
+
+$ vp test ⊘ cache disabled
+$ node scripts/consumer.mjs ⊘ cache disabled
+$ vp check ⊘ cache disabled
+$ node scripts/alchemy-consumer.mjs ⊘ cache disabled
+package: @getquick/content@0.1.0
+Tarball Contents
+dist/formatting-wOk2jz6J.js
+dist/index.d.ts
+dist/index.js
+dist/migrations.d.ts
+dist/migrations.js
+dist/server.d.ts
+dist/server.js
+dist/wordpress-0M0BW0Io.d.ts
+migrations/0001_publications.sql
+migrations/0002_entries.sql
+migrations/0003_publication_events.sql
+migrations/0004_withdrawals.sql
+migrations/0005_reconciliation.sql
+package.json
+README.md
+Tarball Details
+/data/code/getquick/gq-content/.proofs/consumer-M6Jkqz/artifacts/getquick-content-0.1.0.tgz
+package: @getquick/content@0.1.0
+Tarball Contents
+dist/formatting-wOk2jz6J.js
+dist/index.d.ts
+dist/index.js
+dist/migrations.d.ts
+dist/migrations.js
+dist/server.d.ts
+dist/server.js
+dist/wordpress-0M0BW0Io.d.ts
+migrations/0001_publications.sql
+migrations/0002_entries.sql
+migrations/0003_publication_events.sql
+migrations/0004_withdrawals.sql
+migrations/0005_reconciliation.sql
+package.json
+README.md
+Tarball Details
+/data/code/getquick/gq-content/.proofs/alchemy-p1-LVCAw7/getquick-content-0.1.0.tgz
+[WARN] The store at /home/valerio/.local/share/pnpm/store/v11 is not used because packages cannot be hard linked from it into this project. Using the store at /data/.pnpm-store/v11 instead. Set storeDir to choose the store.
+? Verifying lockfile against supply-chain policies (299 entries)...
+[WARN] The store at /home/valerio/.local/share/pnpm/store/v11 is not used because packages cannot be hard linked from it into this project. Using the store at /data/.pnpm-store/v11 instead. Set storeDir to choose the store.
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /data/.pnpm-store/v11
+  Virtual store is at:             node_modules/.pnpm
+[WARN] 24 deprecated subdependencies found: @yuku-codegen/binding-android-arm64@0.9.5, @yuku-codegen/binding-darwin-arm64@0.9.5, @yuku-codegen/binding-darwin-x64@0.9.5, @yuku-codegen/binding-freebsd-x64@0.9.5, @yuku-codegen/binding-linux-arm-gnu@0.9.5, @yuku-codegen/binding-linux-arm-musl@0.9.5, @yuku-codegen/binding-linux-arm64-gnu@0.9.5, @yuku-codegen/binding-linux-arm64-musl@0.9.5, @yuku-codegen/binding-linux-x64-gnu@0.9.5, @yuku-codegen/binding-linux-x64-musl@0.9.5, @yuku-codegen/binding-win32-arm64@0.9.5, @yuku-codegen/binding-win32-x64@0.9.5, @yuku-parser/binding-android-arm64@0.9.5, @yuku-parser/binding-darwin-arm64@0.9.5, @yuku-parser/binding-darwin-x64@0.9.5, @yuku-parser/binding-freebsd-x64@0.9.5, @yuku-parser/binding-linux-arm-gnu@0.9.5, @yuku-parser/binding-linux-arm-musl@0.9.5, @yuku-parser/binding-linux-arm64-gnu@0.9.5, @yuku-parser/binding-linux-arm64-musl@0.9.5, @yuku-parser/binding-linux-x64-gnu@0.9.5, @yuku-parser/binding-linux-x64-musl@0.9.5, @yuku-parser/binding-win32-arm64@0.9.5, @yuku-parser/binding-win32-x64@0.9.5
+
+ RUN  v5.0.3 /data/code/getquick/gq-content
+
+Packages: +85
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 85, reused 84, downloaded 1, added 85, done
+[WARN] Issues with peer dependencies found. Run "pnpm peers check" to list them.
+
+dependencies:
++ @getquick/content 0.1.0
+
+devDependencies:
++ typescript 6.0.3
++ vite-plus 1.1.0
+
+Done in 158ms using pnpm v12.11.2
+pass: All 55 files are correctly formatted (184ms, 32 threads)
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /data/.pnpm-store/v11
+  Virtual store is at:             node_modules/.pnpm
+
+ Test Files  8 passed (8)
+      Tests  101 passed (101)
+   Start at  03:16:40
+   Duration  624ms (transform 47%, tests 34%, import 16%, worker 3%)
+
+
+pass: Found no warnings, lint errors, or type errors in 32 files (583ms, 32 threads)
+
+✓ Lockfile passes supply-chain policies (299 entries in 1.1s)
+Lockfile is up to date, resolution step is skipped
+Packages: +223
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 223, reused 222, downloaded 1, added 223, done
+
+dependencies:
++ @effect/platform-node 4.0.0-rc.115
++ @getquick/content 0.1.0
++ alchemy 2.0.0-beta.79
++ effect 4.0.0-rc.115
+
+Done in 1.2s using pnpm v12.11.2
+Installed ESM imports, pure helpers and real HTTP client integration passed.
+
+ RUN  v5.0.3 /data/code/getquick/gq-content/.proofs/consumer-M6Jkqz/consumer
+
+
+ Test Files  8 passed (8)
+      Tests  101 passed (101)
+   Start at  03:16:42
+   Duration  306ms (transform 39%, tests 35%, import 21%, worker 4%)
+
+P3/P4 issues #3/#4: inspected 15 packed files; public declarations and all package-boundary suites passed in a clean installed consumer.
+
+[03:16:43.908] INFO (#4): Plan: no resources
+[03:16:43.909] INFO (#4): 
+[03:16:43.911] INFO (#4): 
+[03:16:43.911] INFO (#4): Done: 0 succeeded (2ms)
+[03:16:43.968] INFO (#4): Plan: 2 to create, 2 binding changes
+[03:16:43.968] INFO (#4): [Frontend] create (local)
+[03:16:43.968] INFO (#4): [Frontend/PUBLICATION_DB] create
+[03:16:43.968] INFO (#4): [Frontend/REVISION] create
+[03:16:43.968] INFO (#4): [Publications] create (local)
+[03:16:43.968] INFO (#4): 
+[03:16:43.971] INFO (#134): [Publications] creating (local)
+[03:16:43.972] INFO (#135): [Frontend] pre-creating (local)
+[03:16:44.116] INFO (#135): [Frontend] creating (local)
+[03:16:44.118] INFO (#134): [Publications] created (local) (147ms)
+[03:16:44.139] INFO (#135): [Frontend] ready at http://localhost:1337
+[03:16:44.139] INFO (#135): [Frontend] created (local) (167ms)
+[03:16:44.162] INFO (#210): [Publications] created (local) (191ms)
+[03:16:44.162] INFO (#211): [Frontend] created (local) (190ms)
+[03:16:44.162] INFO (#4): 
+[03:16:44.162] INFO (#4): Done: 2 succeeded (194ms)
+[03:16:44.246] INFO (#200): [Frontend] Started in 126ms → http://localhost:1337/ (logs: /data/code/getquick/gq-content/.proofs/alchemy-p1-LVCAw7/.alchemy/log/p1/Frontend)
+[Frontend] Delivery: the front page can't be served (not-ready): the front page and its chrome haven't been refreshed into the publication store yet
+P1 first lifecycle: all five migrations precede the package-consuming Worker; stored delivery passes without CMS/secrets.
+[03:16:44.305] INFO (#4): Plan: 1 to update, 1 binding changes
+[03:16:44.306] INFO (#4): [Frontend] update (local)
+[03:16:44.306] INFO (#4): [Frontend/PUBLICATION_DB] noop
+[03:16:44.306] INFO (#4): [Frontend/REVISION] update
+[03:16:44.306] INFO (#4): [Publications] noop (local)
+[03:16:44.306] INFO (#4): 
+[03:16:44.306] INFO (#395): [Frontend] updating (local)
+[03:16:44.309] WARN (#400): Port 1337 is in use by another process; serving on 1338 instead. Stop the other process, pick a different port, or set `strictPort: true` to fail instead.
+[03:16:44.310] INFO (#395): [Frontend] ready at http://localhost:1338
+[03:16:44.310] INFO (#395): [Frontend] updated (local) (4ms)
+[03:16:44.314] INFO (#413): [Frontend] updated (local) (8ms)
+[03:16:44.315] INFO (#4): 
+[03:16:44.315] INFO (#4): Done: 1 succeeded (9ms)
+[03:16:44.388] INFO (#403): [Frontend] Started in 79ms → http://localhost:1338/ (logs: /data/code/getquick/gq-content/.proofs/alchemy-p1-LVCAw7/.alchemy/log/p1/Frontend)
+{
+  "migrationsDirectory": "/data/code/getquick/gq-content/.proofs/alchemy-p1-LVCAw7/node_modules/.pnpm/@getquick+content@file+getquick-content-0.1.0.tgz/node_modules/@getquick/content/migrations/",
+  "databaseId": "dev:13b7a375-b780-4522-89d9-4023e8498938",
+  "migrationHashes": {
+    "0001_publications.sql": "0c0fdcef981c58169a092f68f77a36f741e599d6ebc84314ea2d5a6e792fa706",
+    "0002_entries.sql": "6e0289cb3a6ed6f9fff20a3a1365a496d18b1ee36f0efcd8f91efd655dc6c0f4",
+    "0003_publication_events.sql": "0a87d08c233fad167c67b35f1fa588c8eadeac67074fb7d2f6b3cd5a4daa8e6c",
+    "0004_withdrawals.sql": "b77aefdd632b0b4666cd74c849916f9d368b1c6e35e6db7578279f555f3391b5",
+    "0005_reconciliation.sql": "4b62e25c24940ae59dd97d9b4d7fc9cc658c2c1f2819adafa5bbc8a16151a00e"
+  },
+  "ledger": [
+    {
+      "id": 1,
+      "hash": "0c0fdcef981c58169a092f68f77a36f741e599d6ebc84314ea2d5a6e792fa706",
+      "created_at": null,
+      "name": "0001_publications.sql",
+      "applied_at": "2026-10-18 02:16:44"
+    },
+    {
+      "id": 2,
+      "hash": "6e0289cb3a6ed6f9fff20a3a1365a496d18b1ee36f0efcd8f91efd655dc6c0f4",
+      "created_at": null,
+      "name": "0002_entries.sql",
+      "applied_at": "2026-10-18 02:16:44"
+    },
+    {
+      "id": 3,
+      "hash": "0a87d08c233fad167c67b35f1fa588c8eadeac67074fb7d2f6b3cd5a4daa8e6c",
+      "created_at": null,
+      "name": "0003_publication_events.sql",
+      "applied_at": "2026-10-18 02:16:44"
+    },
+    {
+      "id": 4,
+      "hash": "b77aefdd632b0b4666cd74c849916f9d368b1c6e35e6db7578279f555f3391b5",
+      "created_at": null,
+      "name": "0004_withdrawals.sql",
+      "applied_at": "2026-10-18 02:16:44"
+    },
+    {
+      "id": 5,
+      "hash": "4b62e25c24940ae59dd97d9b4d7fc9cc658c2c1f2819adafa5bbc8a16151a00e",
+      "created_at": null,
+      "name": "0005_reconciliation.sql",
+      "applied_at": "2026-10-18 02:16:44"
+    }
+  ],
+  "tables": [
+    {
+      "name": "__alchemy_migrations"
+    },
+    {
+      "name": "_cf_METADATA"
+    },
+    {
+      "name": "publication_events"
+    },
+    {
+      "name": "publications"
+    },
+    {
+      "name": "reconciliation"
+    },
+    {
+      "name": "refresh_attempts"
+    },
+    {
+      "name": "withdrawals"
+    }
+  ],
+  "publicationRows": [
+    {
+      "key": "chrome",
+      "state": "published",
+      "format": 1,
+      "body": "{\"menuItems\":[],\"siteIcon\":null,\"siteLogo\":null}",
+      "read_started_at": 1,
+      "promoted_at": 1,
+      "node_id": null,
+      "modified_at": null
+    },
+    {
+      "key": "home",
+      "state": "published",
+      "format": 1,
+      "body": "{\"settings\":{\"title\":\"P1 durable Site\",\"description\":\"Installed package\"},\"page\":{\"title\":\"Home\",\"content\":\"<h1>Survives Worker update</h1>\",\"hasVideoHero\":false},\"colors\":[],\"spacingSizes\":[]}",
+      "read_started_at": 1,
+      "promoted_at": 1,
+      "node_id": null,
+      "modified_at": null
+    }
+  ],
+  "delivery": {
+    "kind": "found",
+    "content": {
+      "home": {
+        "settings": {
+          "title": "P1 durable Site",
+          "description": "Installed package"
+        },
+        "page": {
+          "title": "Home",
+          "content": "<h1>Survives Worker update</h1>",
+          "hasVideoHero": false
+        },
+        "spacingSizes": [],
+        "colors": []
+      },
+      "chrome": {
+        "menuItems": [],
+        "siteIcon": null,
+        "siteLogo": null
+      },
+      "alternates": []
+    }
+  }
+}
+P1 repeat lifecycle: database identity, five complete ledger identities, publication bytes and public delivery preserved; database noop, Worker updated.
+[03:16:44.424] INFO (#4): Plan: 2 to delete, 2 binding changes
+[03:16:44.424] INFO (#4): [Frontend] delete (local)
+[03:16:44.424] INFO (#4): [Frontend/PUBLICATION_DB] unbind
+[03:16:44.424] INFO (#4): [Frontend/REVISION] unbind
+[03:16:44.424] INFO (#4): [Publications] delete (local)
+[03:16:44.424] INFO (#4): 
+[03:16:44.425] INFO (#511): [Frontend] deleting (local)
+[03:16:44.427] INFO (#511): [Frontend] deleted (local) (2ms)
+[03:16:44.427] INFO (#512): [Publications] deleting (local)
+[03:16:44.428] INFO (#512): [Publications] deleted (local) (1ms)
+[03:16:44.429] INFO (#4): 
+[03:16:44.429] INFO (#4): Done: 2 succeeded (5ms)
+
+$ vp exec tsc --noEmit ⊘ cache disabled
+
+---
+vp run: 0/6 cache hit (0%). (Run `vp run --last-details` for full details)

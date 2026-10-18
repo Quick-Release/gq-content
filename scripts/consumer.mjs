@@ -8,12 +8,12 @@ import {
   cpSync,
   rmSync,
 } from "node:fs";
-import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import assert from "node:assert/strict";
 
 const repo = resolve(import.meta.dirname, "..");
-const temporary = mkdtempSync(join(tmpdir(), "gq-content-consumer-"));
+mkdirSync(join(repo, ".proofs"), { recursive: true });
+const temporary = mkdtempSync(join(repo, ".proofs/consumer-"));
 const env = Object.fromEntries(
   Object.entries(process.env).filter(([key]) => !/token|secret|auth|npm_config|pnpm_/i.test(key)),
 );
@@ -29,11 +29,14 @@ function run(command, args, cwd) {
 try {
   const artifacts = join(temporary, "artifacts");
   mkdirSync(artifacts);
-  run("vp", ["pm", "pack", "--pack-destination", artifacts], join(repo, "frontend"));
+  run("pnpm", ["pack", "--pack-destination", artifacts], join(repo, "frontend"));
   const tarball = join(artifacts, "getquick-content-0.1.0.tgz");
   const listing = execFileSync("tar", ["-tzf", tarball], { encoding: "utf8" }).trim().split("\n");
   for (const file of listing) {
-    assert.match(file, /^package\/((?:package\.json|README\.md)|dist\/[\w-]+\.(js|d\.ts))$/);
+    assert.match(
+      file,
+      /^package\/((?:package\.json|README\.md)|dist\/[\w-]+\.(js|d\.ts)|migrations\/000[1-5]_[a-z_]+\.sql)$/,
+    );
   }
   const consumer = join(temporary, "consumer");
   mkdirSync(consumer);
@@ -48,17 +51,18 @@ try {
     }),
   );
   writeFileSync(join(consumer, ".npmrc"), "registry=https://registry.npmjs.org/\n");
-  run("vp", ["install", "--ignore-scripts"], consumer);
+  run("pnpm", ["install", "--ignore-scripts"], consumer);
   const installed = join(consumer, "node_modules/@getquick/content");
   const manifest = JSON.parse(readFileSync(join(installed, "package.json"), "utf8"));
   assert.deepEqual(manifest.dependencies, { zod: "3.25.76" });
-  assert.deepEqual(Object.keys(manifest.exports), [".", "./server"]);
+  assert.deepEqual(Object.keys(manifest.exports), [".", "./server", "./migrations"]);
   for (const file of readdirSync(join(installed, "dist"))) {
     const text = readFileSync(join(installed, "dist", file), "utf8");
-    assert.doesNotMatch(
-      text,
-      /astro|cloudflare:|gq\.ops|import\.meta\.env|\{\{project\}\}|@quick-release|["']node:|migrationsDirectory/,
-    );
+    if (!file.startsWith("migrations."))
+      assert.doesNotMatch(
+        text,
+        /astro|cloudflare:|gq\.ops|import\.meta\.env|\{\{project\}\}|@quick-release|["']node:|migrationsDirectory/,
+      );
     if (file.endsWith(".d.ts")) assert.doesNotMatch(text, /from ["']zod|z\.infer|ZodType/);
   }
   cpSync(join(repo, "frontend/tests"), join(consumer, "tests"), { recursive: true });
@@ -86,7 +90,7 @@ try {
   run(process.execPath, ["tests/consumer-runtime.mjs"], consumer);
   run("vp", ["test"], consumer);
   console.log(
-    `P3/P4 issue #3: inspected ${listing.length} packed files; public declarations and all package-boundary suites passed in a clean installed consumer.`,
+    `P3/P4 issues #3/#4: inspected ${listing.length} packed files; public declarations and all package-boundary suites passed in a clean installed consumer.`,
   );
 } finally {
   rmSync(temporary, { recursive: true, force: true });

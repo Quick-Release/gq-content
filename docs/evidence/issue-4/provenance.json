@@ -1,0 +1,85 @@
+{
+  "checkpoint": "eaec13488d57b3d04059309b5b36de5d016f3de1",
+  "upstream": "eaec13488d57b3d04059309b5b36de5d016f3de1",
+  "relevantDelta": "empty",
+  "files": [
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/delivery.ts",
+      "sourceBlob": "52008447469c4be16ad84b348c4d5548edcc2c6c",
+      "sha256": "d68d04c261ad55a6bf1ea152e7b35364195c0c92b6f3fea3b7f229b6313f9e52",
+      "destination": "frontend/src/lib/delivery.ts (configured private subset)"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/lib/publications.ts",
+      "sourceBlob": "08d6889a95daa5f5b27822fd3dad673584da728f",
+      "sha256": "e14ddc183b0e4416669e61f64ad0b9e79cee820291d9487dbb8119c6b7418824",
+      "destination": "frontend/src/lib/publications.ts (configured private subset)"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/test/sqlite-d1.ts",
+      "sourceBlob": "d20a089023eee646ccf7b9c907657992092e80fb",
+      "sha256": "63fa68d157e86ebd4dbddbdd0b8dd1c516a0ef2a8f4a1d20ae3f09e9b33201a8",
+      "destination": "frontend/tests/support/sqlite-d1.ts"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/test/wordpress-stub.ts",
+      "sourceBlob": "fa51ded8e81620420b5fcd66caa638a5ef86132f",
+      "sha256": "7730d9a0c266f27300c70781f87e7cd02f808ffa9fefe8763195962557f9893d",
+      "destination": "frontend/tests/support/wordpress-stub.ts"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/homepage.test.ts",
+      "sourceBlob": "1eec5dda406e2c9f9222b707aa91e51f321ba827",
+      "sha256": "ce96ce85602a5a3df4acf7fd9abc14e7958df4e948b0b0e7424aa549c61fb172",
+      "destination": "frontend/tests/delivery.test.ts (public DTO projection; protocol and presentation allocation below)"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/entries.test.ts",
+      "sourceBlob": "7e93de68df63954d39c6781e14b8923a27189ac1",
+      "sha256": "4d09b0a37123a35dbb6e69e612bf358f2461707c4dec2b16b3b7733ce60880b9",
+      "destination": "frontend/tests/delivery.test.ts (public DTO projection; protocol and presentation allocation below)"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/routes.test.ts",
+      "sourceBlob": "9f4fa26c036f9259ed029321ed71cef3cc40901b",
+      "sha256": "fe1b955fdd4458e78ab8d934bdee56d1388324d6c673399d989ce6b961062c57",
+      "destination": "frontend/tests/delivery.test.ts (public DTO projection; protocol and presentation allocation below)"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/languages.test.ts",
+      "sourceBlob": "853860da86f83fb76b187b6dc29b436ee518ca90",
+      "sha256": "66cf391b865607033706e4b2f6ef0ac98bebd4ea6e858de39331c4b4768f4e0f",
+      "destination": "frontend/tests/delivery.test.ts (public DTO projection; protocol and presentation allocation below)"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/migrations/0001_publications.sql",
+      "sourceBlob": "8fb6da2beabd6efcd4759f5ee0d68eb9af82f5de",
+      "sha256": "0c0fdcef981c58169a092f68f77a36f741e599d6ebc84314ea2d5a6e792fa706",
+      "destination": "frontend/migrations/0001_publications.sql"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/migrations/0002_entries.sql",
+      "sourceBlob": "4d36bdbf8fba2914f9fdd20ba59b2c4ae2f948f2",
+      "sha256": "6e0289cb3a6ed6f9fff20a3a1365a496d18b1ee36f0efcd8f91efd655dc6c0f4",
+      "destination": "frontend/migrations/0002_entries.sql"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/migrations/0003_publication_events.sql",
+      "sourceBlob": "9208e5e964af881440fbcfc609cb13d6826682bc",
+      "sha256": "0a87d08c233fad167c67b35f1fa588c8eadeac67074fb7d2f6b3cd5a4daa8e6c",
+      "destination": "frontend/migrations/0003_publication_events.sql"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/migrations/0004_withdrawals.sql",
+      "sourceBlob": "6869e3e1ea6020cb9e00b012a34f45d48c594513",
+      "sha256": "b77aefdd632b0b4666cd74c849916f9d368b1c6e35e6db7578279f555f3391b5",
+      "destination": "frontend/migrations/0004_withdrawals.sql"
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/migrations/0005_reconciliation.sql",
+      "sourceBlob": "d579a1ed1ff6c6e2e2e9291451bdb5e3c0de7709",
+      "sha256": "4b62e25c24940ae59dd97d9b4d7fc9cc658c2c1f2819adafa5bbc8a16151a00e",
+      "destination": "frontend/migrations/0005_reconciliation.sql"
+    }
+  ]
+}

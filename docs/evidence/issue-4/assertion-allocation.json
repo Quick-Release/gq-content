@@ -1,0 +1,2183 @@
+{
+  "checkpoint": "eaec13488d57b3d04059309b5b36de5d016f3de1",
+  "baseline": "../issue-3/assertion-allocation.json",
+  "note": "Overlay for #4. The six #3 suites remain byte/assertion-preserved. Rows describe runtime guarantee projection, not copied HTML assertion expressions. Later mutation/protocol and real-CMS proofs remain required.",
+  "files": [
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/homepage.test.ts",
+      "assertions": [
+        {
+          "sourceLines": [134, 134],
+          "context": "shared helper",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [135, 135],
+          "context": "shared helper",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [139, 139],
+          "context": "shared helper",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [140, 140],
+          "context": "shared helper",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [141, 141],
+          "context": "shared helper",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [142, 142],
+          "context": "shared helper",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [143, 143],
+          "context": "shared helper",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [151, 151],
+          "context": "a Site that was never refreshed is a 503, and a visit doesn't read the CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: unprepared store refuses home and entries before contacting CMS",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [152, 152],
+          "context": "a Site that was never refreshed is a 503, and a visit doesn't read the CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: unprepared store refuses home and entries before contacting CMS",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [153, 153],
+          "context": "a Site that was never refreshed is a 503, and a visit doesn't read the CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: unprepared store refuses home and entries before contacting CMS",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [154, 154],
+          "context": "a Site that was never refreshed is a 503, and a visit doesn't read the CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: unprepared store refuses home and entries before contacting CMS",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [155, 155],
+          "context": "a Site that was never refreshed is a 503, and a visit doesn't read the CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: unprepared store refuses home and entries before contacting CMS",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [156, 158],
+          "context": "a Site that was never refreshed is a 503, and a visit doesn't read the CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: unprepared store refuses home and entries before contacting CMS",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [168, 168],
+          "context": "after a refresh the front page, menu, logo and design presets are served from the store",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: stored home and chrome survive missing secrets and CMS outages without an age limit",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [170, 170],
+          "context": "after a refresh the front page, menu, logo and design presets are served from the store",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: stored home and chrome survive missing secrets and CMS outages without an age limit",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [171, 171],
+          "context": "after a refresh the front page, menu, logo and design presets are served from the store",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: stored home and chrome survive missing secrets and CMS outages without an age limit",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [182, 182],
+          "context": "the front page outlives a CMS outage of any length",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: publication data survives closing and reopening the database",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [193, 193],
+          "context": "the front page survives a Worker restart or redeploy while the CMS is down",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: publication data survives closing and reopening the database",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [204, 204],
+          "context": "a refresh replaces the front page and the chrome with WordPress's newer versions",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [205, 210],
+          "context": "a refresh replaces the front page and the chrome with WordPress's newer versions",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [211, 211],
+          "context": "a refresh replaces the front page and the chrome with WordPress's newer versions",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [212, 212],
+          "context": "a refresh replaces the front page and the chrome with WordPress's newer versions",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [213, 213],
+          "context": "a refresh replaces the front page and the chrome with WordPress's newer versions",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [254, 254],
+          "context": "a refresh failing on %s keeps the last good front page",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [255, 260],
+          "context": "a refresh failing on %s keeps the last good front page",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [261, 261],
+          "context": "a refresh failing on %s keeps the last good front page",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [263, 265],
+          "context": "a refresh failing on %s keeps the last good front page",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [275, 278],
+          "context": "a failed chrome read keeps the stored menu and logo and still promotes the front page",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [279, 279],
+          "context": "a failed chrome read keeps the stored menu and logo and still promotes the front page",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [280, 280],
+          "context": "a failed chrome read keeps the stored menu and logo and still promotes the front page",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [281, 281],
+          "context": "a failed chrome read keeps the stored menu and logo and still promotes the front page",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [282, 282],
+          "context": "a failed chrome read keeps the stored menu and logo and still promotes the front page",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [291, 291],
+          "context": "a first refresh whose chrome read fails doesn't make the Site ready",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [292, 292],
+          "context": "a first refresh whose chrome read fails doesn't make the Site ready",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [293, 293],
+          "context": "a first refresh whose chrome read fails doesn't make the Site ready",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [294, 294],
+          "context": "a first refresh whose chrome read fails doesn't make the Site ready",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [314, 314],
+          "context": "a refresh whose read started earlier doesn't overwrite a newer one",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [321, 321],
+          "context": "a refresh whose read started earlier doesn't overwrite a newer one",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [322, 322],
+          "context": "a refresh whose read started earlier doesn't overwrite a newer one",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [323, 323],
+          "context": "a refresh whose read started earlier doesn't overwrite a newer one",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [324, 324],
+          "context": "a refresh whose read started earlier doesn't overwrite a newer one",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [341, 341],
+          "context": "a refresh confirming no front page is set makes the front page a 404 with the hint",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [342, 342],
+          "context": "a refresh confirming no front page is set makes the front page a 404 with the hint",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [343, 343],
+          "context": "a refresh confirming no front page is set makes the front page a 404 with the hint",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [344, 344],
+          "context": "a refresh confirming no front page is set makes the front page a 404 with the hint",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [358, 358],
+          "context": "a refresh with %s is refused and changes nothing",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [359, 359],
+          "context": "a refresh with %s is refused and changes nothing",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [360, 360],
+          "context": "a refresh with %s is refused and changes nothing",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [374, 374],
+          "context": "a Site's refresh token doesn't refresh another Site",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [375, 375],
+          "context": "a Site's refresh token doesn't refresh another Site",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [376, 376],
+          "context": "a Site's refresh token doesn't refresh another Site",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [388, 388],
+          "context": "with %s, refresh is disabled",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [389, 389],
+          "context": "with %s, refresh is disabled",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [390, 390],
+          "context": "with %s, refresh is disabled",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [398, 398],
+          "context": "a refresh is a POST",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [399, 399],
+          "context": "a refresh is a POST",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [409, 409],
+          "context": "a refresh reads WordPress anonymously, so only published content is stored",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [410, 410],
+          "context": "a refresh reads WordPress anonymously, so only published content is stored",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [412, 412],
+          "context": "a refresh reads WordPress anonymously, so only published content is stored",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [413, 413],
+          "context": "a refresh reads WordPress anonymously, so only published content is stored",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [423, 423],
+          "context": "an unreadable store is a 503, not the CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: store failures never trigger live fallback even in development",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [424, 424],
+          "context": "an unreadable store is a 503, not the CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: store failures never trigger live fallback even in development",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [425, 425],
+          "context": "an unreadable store is a 503, not the CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: store failures never trigger live fallback even in development",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [426, 428],
+          "context": "an unreadable store is a 503, not the CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: store failures never trigger live fallback even in development",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [440, 440],
+          "context": "a refresh that can't write the store keeps what it holds and says so",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [441, 444],
+          "context": "a refresh that can't write the store keeps what it holds and says so",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [454, 454],
+          "context": "content stored in a format this Frontend doesn't know is not ready, never misread",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: unreadable %s format %s fails safely",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [455, 455],
+          "context": "content stored in a format this Frontend doesn't know is not ready, never misread",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: unreadable %s format %s fails safely",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [456, 458],
+          "context": "content stored in a format this Frontend doesn't know is not ready, never misread",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: unreadable %s format %s fails safely",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        }
+      ]
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/entries.test.ts",
+      "assertions": [
+        {
+          "sourceLines": [203, 203],
+          "context": "shared helper",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [204, 204],
+          "context": "shared helper",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [217, 217],
+          "context": "shared helper",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [218, 218],
+          "context": "shared helper",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [219, 219],
+          "context": "shared helper",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [220, 220],
+          "context": "shared helper",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [221, 221],
+          "context": "shared helper",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [222, 222],
+          "context": "shared helper",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [232, 232],
+          "context": "preparing a Site stores every published page and post, served with the chrome without reading the CMS",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [234, 234],
+          "context": "preparing a Site stores every published page and post, served with the chrome without reading the CMS",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [235, 235],
+          "context": "preparing a Site stores every published page and post, served with the chrome without reading the CMS",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [236, 236],
+          "context": "preparing a Site stores every published page and post, served with the chrome without reading the CMS",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [237, 237],
+          "context": "preparing a Site stores every published page and post, served with the chrome without reading the CMS",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [238, 238],
+          "context": "preparing a Site stores every published page and post, served with the chrome without reading the CMS",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [246, 246],
+          "context": "the preparation's report lists every entry it stored",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [247, 256],
+          "context": "the preparation's report lists every entry it stored",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [257, 257],
+          "context": "the preparation's report lists every entry it stored",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [269, 269],
+          "context": "entries outlive a CMS outage of any length and a Worker restart",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: publication data survives closing and reopening the database",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [278, 278],
+          "context": "a Site that was never refreshed is a 503 for an entry, and a visit doesn't read the CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: unprepared store refuses home and entries before contacting CMS",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [279, 279],
+          "context": "a Site that was never refreshed is a 503 for an entry, and a visit doesn't read the CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: unprepared store refuses home and entries before contacting CMS",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [280, 280],
+          "context": "a Site that was never refreshed is a 503 for an entry, and a visit doesn't read the CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: unprepared store refuses home and entries before contacting CMS",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [281, 281],
+          "context": "a Site that was never refreshed is a 503 for an entry, and a visit doesn't read the CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: unprepared store refuses home and entries before contacting CMS",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [282, 284],
+          "context": "a Site that was never refreshed is a 503 for an entry, and a visit doesn't read the CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: unprepared store refuses home and entries before contacting CMS",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [297, 297],
+          "context": "the healthy cold path: an entry the store never held is looked up once, stored and served",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: cold lookup reads once then serves durable content through outage",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [298, 298],
+          "context": "the healthy cold path: an entry the store never held is looked up once, stored and served",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: cold lookup reads once then serves durable content through outage",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [299, 299],
+          "context": "the healthy cold path: an entry the store never held is looked up once, stored and served",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: cold lookup reads once then serves durable content through outage",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [300, 300],
+          "context": "the healthy cold path: an entry the store never held is looked up once, stored and served",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: cold lookup reads once then serves durable content through outage",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [301, 301],
+          "context": "the healthy cold path: an entry the store never held is looked up once, stored and served",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: cold lookup reads once then serves durable content through outage",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [302, 302],
+          "context": "the healthy cold path: an entry the store never held is looked up once, stored and served",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: cold lookup reads once then serves durable content through outage",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [311, 311],
+          "context": "an uncached entry while the CMS is down is a 503, never a 404",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: cold failed lookup is unavailable, never missing",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [312, 312],
+          "context": "an uncached entry while the CMS is down is a 503, never a 404",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: cold failed lookup is unavailable, never missing",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [313, 313],
+          "context": "an uncached entry while the CMS is down is a 503, never a 404",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: cold failed lookup is unavailable, never missing",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [323, 323],
+          "context": "a URL WordPress confirms isn't published is a 404, and nothing is stored for it",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: cold confirmed missing stores no negative row and may later become published",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [324, 324],
+          "context": "a URL WordPress confirms isn't published is a 404, and nothing is stored for it",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: cold confirmed missing stores no negative row and may later become published",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [325, 325],
+          "context": "a URL WordPress confirms isn't published is a 404, and nothing is stored for it",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: cold confirmed missing stores no negative row and may later become published",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [326, 326],
+          "context": "a URL WordPress confirms isn't published is a 404, and nothing is stored for it",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: cold confirmed missing stores no negative row and may later become published",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [337, 337],
+          "context": "an unreadable store is a 503 for an entry, not a CMS read",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: store failures never trigger live fallback even in development",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [338, 338],
+          "context": "an unreadable store is a 503 for an entry, not a CMS read",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: store failures never trigger live fallback even in development",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [339, 339],
+          "context": "an unreadable store is a 503 for an entry, not a CMS read",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: store failures never trigger live fallback even in development",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [340, 342],
+          "context": "an unreadable store is a 503 for an entry, not a CMS read",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: store failures never trigger live fallback even in development",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [359, 359],
+          "context": "refreshing a new publication makes its route available, through a later outage",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [360, 364],
+          "context": "refreshing a new publication makes its route available, through a later outage",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [365, 365],
+          "context": "refreshing a new publication makes its route available, through a later outage",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [366, 366],
+          "context": "refreshing a new publication makes its route available, through a later outage",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [381, 385],
+          "context": "refreshing a moved entry redirects its old route instead of presenting the old copy",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [386, 386],
+          "context": "refreshing a moved entry redirects its old route instead of presenting the old copy",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [387, 387],
+          "context": "refreshing a moved entry redirects its old route instead of presenting the old copy",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [388, 388],
+          "context": "refreshing a moved entry redirects its old route instead of presenting the old copy",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [389, 389],
+          "context": "refreshing a moved entry redirects its old route instead of presenting the old copy",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [390, 390],
+          "context": "refreshing a moved entry redirects its old route instead of presenting the old copy",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [403, 403],
+          "context": "a full refresh reconciles a moved entry the same way, though WordPress has nothing at the old route",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [404, 408],
+          "context": "a full refresh reconciles a moved entry the same way, though WordPress has nothing at the old route",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [409, 409],
+          "context": "a full refresh reconciles a moved entry the same way, though WordPress has nothing at the old route",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [410, 410],
+          "context": "a full refresh reconciles a moved entry the same way, though WordPress has nothing at the old route",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [411, 411],
+          "context": "a full refresh reconciles a moved entry the same way, though WordPress has nothing at the old route",
+          "home": "gq-content#9 reconciliation/readiness: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [428, 428],
+          "context": "an entry moved back to its first route is served there again, and the other route redirects",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [430, 430],
+          "context": "an entry moved back to its first route is served there again, and the other route redirects",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [431, 431],
+          "context": "an entry moved back to its first route is served there again, and the other route redirects",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [443, 443],
+          "context": "a refresh confirming an entry was removed makes it a 404 that outlives an outage",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: publication data survives closing and reopening the database",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [444, 444],
+          "context": "a refresh confirming an entry was removed makes it a 404 that outlives an outage",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: publication data survives closing and reopening the database",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [445, 445],
+          "context": "a refresh confirming an entry was removed makes it a 404 that outlives an outage",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: publication data survives closing and reopening the database",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [446, 446],
+          "context": "a refresh confirming an entry was removed makes it a 404 that outlives an outage",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: publication data survives closing and reopening the database",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [453, 453],
+          "context": "a route confirmed missing becomes available when something is published there",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [459, 459],
+          "context": "a route confirmed missing becomes available when something is published there",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [460, 460],
+          "context": "a route confirmed missing becomes available when something is published there",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [461, 461],
+          "context": "a route confirmed missing becomes available when something is published there",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [495, 495],
+          "context": "an entry refresh failing on %s keeps the last good entry",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [496, 499],
+          "context": "an entry refresh failing on %s keeps the last good entry",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [500, 500],
+          "context": "an entry refresh failing on %s keeps the last good entry",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [502, 502],
+          "context": "an entry refresh failing on %s keeps the last good entry",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [503, 505],
+          "context": "an entry refresh failing on %s keeps the last good entry",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [516, 516],
+          "context": "a failed chrome read keeps the menu and logo entries are served with, and still refreshes them",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [517, 522],
+          "context": "a failed chrome read keeps the menu and logo entries are served with, and still refreshes them",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [523, 523],
+          "context": "a failed chrome read keeps the menu and logo entries are served with, and still refreshes them",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [524, 524],
+          "context": "a failed chrome read keeps the menu and logo entries are served with, and still refreshes them",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [525, 525],
+          "context": "a failed chrome read keeps the menu and logo entries are served with, and still refreshes them",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [537, 537],
+          "context": "a failed list of published routes still refreshes the stored entries, and removes none",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [538, 545],
+          "context": "a failed list of published routes still refreshes the stored entries, and removes none",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [546, 546],
+          "context": "a failed list of published routes still refreshes the stored entries, and removes none",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [547, 547],
+          "context": "a failed list of published routes still refreshes the stored entries, and removes none",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [568, 568],
+          "context": "changed menus and design presets reach every stored entry after a refresh",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [569, 569],
+          "context": "changed menus and design presets reach every stored entry after a refresh",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [570, 570],
+          "context": "changed menus and design presets reach every stored entry after a refresh",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [572, 572],
+          "context": "changed menus and design presets reach every stored entry after a refresh",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [591, 591],
+          "context": "drafts, private and password-protected entries never enter the store",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [592, 592],
+          "context": "drafts, private and password-protected entries never enter the store",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [593, 593],
+          "context": "drafts, private and password-protected entries never enter the store",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [594, 594],
+          "context": "drafts, private and password-protected entries never enter the store",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [595, 595],
+          "context": "drafts, private and password-protected entries never enter the store",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [606, 606],
+          "context": "refreshes and lookups read WordPress anonymously, whatever the visitor sends",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [609, 609],
+          "context": "refreshes and lookups read WordPress anonymously, whatever the visitor sends",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [610, 610],
+          "context": "refreshes and lookups read WordPress anonymously, whatever the visitor sends",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [617, 620],
+          "context": "each stored entry records which WordPress entry it holds and when it was read",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [643, 643],
+          "context": "an entry refresh whose read started earlier doesn't overwrite a newer one",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [650, 650],
+          "context": "an entry refresh whose read started earlier doesn't overwrite a newer one",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [651, 651],
+          "context": "an entry refresh whose read started earlier doesn't overwrite a newer one",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [652, 652],
+          "context": "an entry refresh whose read started earlier doesn't overwrite a newer one",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [663, 663],
+          "context": "a full refresh on a CMS that gives absolute URIs stores every entry at its path, moving none",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [664, 672],
+          "context": "a full refresh on a CMS that gives absolute URIs stores every entry at its path, moving none",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [673, 673],
+          "context": "a full refresh on a CMS that gives absolute URIs stores every entry at its path, moving none",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [674, 674],
+          "context": "a full refresh on a CMS that gives absolute URIs stores every entry at its path, moving none",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [689, 689],
+          "context": "an entry moved on a CMS that gives absolute URIs redirects to its new path",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [690, 690],
+          "context": "an entry moved on a CMS that gives absolute URIs redirects to its new path",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [691, 691],
+          "context": "an entry moved on a CMS that gives absolute URIs redirects to its new path",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [705, 712],
+          "context": "an entry WordPress gives an absolute URI is refreshed and served at its path",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [713, 713],
+          "context": "an entry WordPress gives an absolute URI is refreshed and served at its path",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [715, 715],
+          "context": "an entry WordPress gives an absolute URI is refreshed and served at its path",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [716, 716],
+          "context": "an entry WordPress gives an absolute URI is refreshed and served at its path",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [728, 728],
+          "context": "a percent-encoded route is the same entry as WordPress's",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: cold route aliases redirect to canonical paths including absolute and percent encoded CMS URIs",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [729, 729],
+          "context": "a percent-encoded route is the same entry as WordPress's",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: cold route aliases redirect to canonical paths including absolute and percent encoded CMS URIs",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [757, 757],
+          "context": "a refresh request with %s is a 400 and changes nothing",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [758, 758],
+          "context": "a refresh request with %s is a 400 and changes nothing",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [759, 759],
+          "context": "a refresh request with %s is a 400 and changes nothing",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [770, 770],
+          "context": "an entry refresh without the token is refused and changes nothing",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [771, 771],
+          "context": "an entry refresh without the token is refused and changes nothing",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [772, 772],
+          "context": "an entry refresh without the token is refused and changes nothing",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [787, 787],
+          "context": "one Site's entries and refresh token don't reach another Site",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [788, 788],
+          "context": "one Site's entries and refresh token don't reach another Site",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [789, 789],
+          "context": "one Site's entries and refresh token don't reach another Site",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [790, 790],
+          "context": "one Site's entries and refresh token don't reach another Site",
+          "home": "gq-content#6 handleRefresh protocol: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        }
+      ]
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/routes.test.ts",
+      "assertions": [
+        {
+          "sourceLines": [84, 84],
+          "context": "a published entry renders with the site chrome",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [85, 85],
+          "context": "a published entry renders with the site chrome",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [86, 86],
+          "context": "a published entry renders with the site chrome",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [87, 87],
+          "context": "a published entry renders with the site chrome",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [88, 88],
+          "context": "a published entry renders with the site chrome",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [96, 96],
+          "context": "an entry WordPress confirms isn't published is a 404",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [97, 97],
+          "context": "an entry WordPress confirms isn't published is a 404",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [98, 98],
+          "context": "an entry WordPress confirms isn't published is a 404",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [106, 106],
+          "context": "an entry request that times out is a 503, and isn't retried",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [107, 107],
+          "context": "an entry request that times out is a 503, and isn't retried",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [108, 108],
+          "context": "an entry request that times out is a 503, and isn't retried",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [109, 109],
+          "context": "an entry request that times out is a 503, and isn't retried",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [110, 112],
+          "context": "an entry request that times out is a 503, and isn't retried",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [152, 152],
+          "context": "%s is a 503 for an entry, not a 404",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [153, 153],
+          "context": "%s is a 503 for an entry, not a 404",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [166, 166],
+          "context": "an entry whose blocks WordPress fails to return still renders, without them",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [167, 167],
+          "context": "an entry whose blocks WordPress fails to return still renders, without them",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [168, 168],
+          "context": "an entry whose blocks WordPress fails to return still renders, without them",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [178, 178],
+          "context": "an entry whose recovery without blocks fails too is a 503, not a 404",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [179, 179],
+          "context": "an entry whose recovery without blocks fails too is a 503, not a 404",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [180, 180],
+          "context": "an entry whose recovery without blocks fails too is a 503, not a 404",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [191, 191],
+          "context": "a published entry is still served when the site chrome can't be read",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [192, 192],
+          "context": "a published entry is still served when the site chrome can't be read",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [193, 193],
+          "context": "a published entry is still served when the site chrome can't be read",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [194, 196],
+          "context": "a published entry is still served when the site chrome can't be read",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [216, 216],
+          "context": "an optional featured image left empty doesn't fail an entry",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [217, 217],
+          "context": "an optional featured image left empty doesn't fail an entry",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [218, 218],
+          "context": "an optional featured image left empty doesn't fail an entry",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [229, 229],
+          "context": "a built Frontend without a publication store is a 503 for an entry, and reads no CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: production without a database refuses every live delivery path",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [230, 230],
+          "context": "a built Frontend without a publication store is a 503 for an entry, and reads no CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: production without a database refuses every live delivery path",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [231, 231],
+          "context": "a built Frontend without a publication store is a 503 for an entry, and reads no CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: production without a database refuses every live delivery path",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [232, 232],
+          "context": "a built Frontend without a publication store is a 503 for an entry, and reads no CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: production without a database refuses every live delivery path",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [233, 235],
+          "context": "a built Frontend without a publication store is a 503 for an entry, and reads no CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: production without a database refuses every live delivery path",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [252, 252],
+          "context": "a built Frontend without a publication store is a 503 for the front page, and reads no CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: production without a database refuses every live delivery path",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [253, 253],
+          "context": "a built Frontend without a publication store is a 503 for the front page, and reads no CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: production without a database refuses every live delivery path",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [254, 254],
+          "context": "a built Frontend without a publication store is a 503 for the front page, and reads no CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: production without a database refuses every live delivery path",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [255, 255],
+          "context": "a built Frontend without a publication store is a 503 for the front page, and reads no CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: production without a database refuses every live delivery path",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [256, 256],
+          "context": "a built Frontend without a publication store is a 503 for the front page, and reads no CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: production without a database refuses every live delivery path",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [257, 259],
+          "context": "a built Frontend without a publication store is a 503 for the front page, and reads no CMS",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: production without a database refuses every live delivery path",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [275, 275],
+          "context": "local development renders WordPress's front page live",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: only explicit development permits live home, entry and chrome without a database",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [276, 276],
+          "context": "local development renders WordPress's front page live",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: only explicit development permits live home, entry and chrome without a database",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [277, 277],
+          "context": "local development renders WordPress's front page live",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: only explicit development permits live home, entry and chrome without a database",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [278, 278],
+          "context": "local development renders WordPress's front page live",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: only explicit development permits live home, entry and chrome without a database",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [290, 290],
+          "context": "local development without a CMS still shows the friendly placeholder",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [291, 291],
+          "context": "local development without a CMS still shows the friendly placeholder",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [307, 307],
+          "context": "local development with no front page set is a 404 that says how to set one",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [308, 308],
+          "context": "local development with no front page set is a 404 that says how to set one",
+          "home": "gq-content#4 publishedHome/publishedEntry/pageChrome: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        }
+      ]
+    },
+    {
+      "sourcePath": "blueprint/templates/apps/frontend/src/languages.test.ts",
+      "assertions": [
+        {
+          "sourceLines": [182, 182],
+          "context": "shared helper",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [211, 211],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [212, 212],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [213, 213],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [214, 214],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [215, 215],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [216, 216],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [217, 217],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [219, 219],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [220, 220],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [221, 221],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [222, 222],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [223, 223],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [224, 224],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [225, 225],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [226, 226],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [227, 227],
+          "context": "/ and /en/ are each language's home, with its title, menu and <html lang>",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [242, 242],
+          "context": "each home links to the other with hreflang alternates and the language switcher",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [243, 243],
+          "context": "each home links to the other with hreflang alternates and the language switcher",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [244, 246],
+          "context": "each home links to the other with hreflang alternates and the language switcher",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [247, 247],
+          "context": "each home links to the other with hreflang alternates and the language switcher",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [255, 264],
+          "context": "the refresh reads each language's front page, title, tagline and menu",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [265, 267],
+          "context": "the refresh reads each language's front page, title, tagline and menu",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [268, 270],
+          "context": "the refresh reads each language's front page, title, tagline and menu",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [272, 272],
+          "context": "the refresh reads each language's front page, title, tagline and menu",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "Refresh mutation/protocol assertions remain #6/#7/#9; #4 seeds prior stored state and proves public delivery only."
+        },
+        {
+          "sourceLines": [284, 284],
+          "context": "a language whose home was never stored is a 404, its pages too",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: language homes never held, wrong-language entries and legacy entries keep language isolation",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [285, 285],
+          "context": "a language whose home was never stored is a 404, its pages too",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: language homes never held, wrong-language entries and legacy entries keep language isolation",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [288, 288],
+          "context": "a language whose home was never stored is a 404, its pages too",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: language homes never held, wrong-language entries and legacy entries keep language isolation",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [289, 289],
+          "context": "a language whose home was never stored is a 404, its pages too",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: language homes never held, wrong-language entries and legacy entries keep language isolation",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [290, 290],
+          "context": "a language whose home was never stored is a 404, its pages too",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: language homes never held, wrong-language entries and legacy entries keep language isolation",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [302, 302],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [303, 303],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [304, 304],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [305, 305],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [306, 306],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [307, 307],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [308, 308],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [309, 309],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [310, 310],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [317, 317],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [318, 318],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [319, 319],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [320, 320],
+          "context": "/sobre/ and /en/about/ render in their language, with hreflang alternates to each other",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [329, 329],
+          "context": "an English page without a Portuguese translation has no Portuguese alternate",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [330, 330],
+          "context": "an English page without a Portuguese translation has no Portuguese alternate",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [331, 331],
+          "context": "an English page without a Portuguese translation has no Portuguese alternate",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [333, 333],
+          "context": "an English page without a Portuguese translation has no Portuguese alternate",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [351, 351],
+          "context": "/en/sobre/ is a 404 in English: no fallback across languages",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: language homes never held, wrong-language entries and legacy entries keep language isolation",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [352, 352],
+          "context": "/en/sobre/ is a 404 in English: no fallback across languages",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: language homes never held, wrong-language entries and legacy entries keep language isolation",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [353, 353],
+          "context": "/en/sobre/ is a 404 in English: no fallback across languages",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: language homes never held, wrong-language entries and legacy entries keep language isolation",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [354, 354],
+          "context": "/en/sobre/ is a 404 in English: no fallback across languages",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: language homes never held, wrong-language entries and legacy entries keep language isolation",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [355, 355],
+          "context": "/en/sobre/ is a 404 in English: no fallback across languages",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: language homes never held, wrong-language entries and legacy entries keep language isolation",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [364, 364],
+          "context": "a Portuguese 404 is in Portuguese",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [365, 365],
+          "context": "a Portuguese 404 is in Portuguese",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [366, 366],
+          "context": "a Portuguese 404 is in Portuguese",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [367, 367],
+          "context": "a Portuguese 404 is in Portuguese",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [368, 368],
+          "context": "a Portuguese 404 is in Portuguese",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent; gq-site#77 retains HTML composition, labels, metadata and CSS wiring",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [376, 376],
+          "context": "an English page the store never held is looked up and served in English",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: an English cold lookup queries and serves its own language",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [377, 377],
+          "context": "an English page the store never held is looked up and served in English",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: an English cold lookup queries and serves its own language",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [378, 378],
+          "context": "an English page the store never held is looked up and served in English",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: an English cold lookup queries and serves its own language",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [392, 392],
+          "context": "an entry stored before the Site listed its languages is the default language's",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: language homes never held, wrong-language entries and legacy entries keep language isolation",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [393, 393],
+          "context": "an entry stored before the Site listed its languages is the default language's",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: language homes never held, wrong-language entries and legacy entries keep language isolation",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [394, 394],
+          "context": "an entry stored before the Site listed its languages is the default language's",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: language homes never held, wrong-language entries and legacy entries keep language isolation",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [395, 395],
+          "context": "an entry stored before the Site listed its languages is the default language's",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: language homes never held, wrong-language entries and legacy entries keep language isolation",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [414, 414],
+          "context": "a withdrawn translation is no longer an alternate",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [415, 415],
+          "context": "a withdrawn translation is no longer an alternate",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [416, 416],
+          "context": "a withdrawn translation is no longer an alternate",
+          "status": "public delivery behavior migrated #4",
+          "destination": "frontend/tests/delivery.test.ts: two language homes and entries retain canonical alternates and their own chrome",
+          "note": "DTO/status/language behavior replaces the source's rendering projection; HTML composition, metadata, copy and CSS stay gq-site#77. Refresh setup/protocol remains #6/#7/#9."
+        },
+        {
+          "sourceLines": [438, 442],
+          "context": "a route that resolves to the English front page moves to /en/",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [444, 444],
+          "context": "a route that resolves to the English front page moves to /en/",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [462, 462],
+          "context": "withdrawing the English front page withdraws only the English home",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [463, 463],
+          "context": "withdrawing the English front page withdraws only the English home",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        },
+        {
+          "sourceLines": [464, 464],
+          "context": "withdrawing the English front page withdraws only the English home",
+          "home": "gq-content#7 shared settings and language-specific delivery: public boundary equivalent",
+          "status": "retained for later slice / Blueprint",
+          "note": "See original allocation; not claimed migrated by #4."
+        }
+      ]
+    }
+  ]
+}

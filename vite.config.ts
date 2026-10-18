@@ -1,8 +1,13 @@
 import { defineConfig } from "vite-plus";
 export default defineConfig({
   pack: {
-    entry: { index: "frontend/src/index.ts", server: "frontend/src/server.ts" },
+    entry: {
+      index: "frontend/src/index.ts",
+      server: "frontend/src/server.ts",
+      migrations: "frontend/src/migrations.ts",
+    },
     platform: "neutral",
+    deps: { neverBundle: ["node:url"] },
     target: "es2022",
     format: ["esm"],
     outDir: "frontend/dist",
@@ -26,13 +31,21 @@ export default defineConfig({
       unit: { command: "vp test", dependsOn: ["compile"], cache: false },
       quality: { command: "vp check", dependsOn: ["compile"], cache: false },
       installed: { command: "node scripts/consumer.mjs", dependsOn: ["compile"], cache: false },
+      alchemy: {
+        command: "node scripts/alchemy-consumer.mjs",
+        dependsOn: ["compile"],
+        cache: false,
+      },
       verification: {
         command: "vp exec tsc --noEmit",
-        dependsOn: ["unit", "quality", "installed"],
+        dependsOn: ["unit", "quality", "installed", "alchemy"],
         cache: false,
       },
     },
   },
   test: { include: ["frontend/tests/**/*.test.ts"] },
-  lint: { options: { typeAware: true, typeCheck: true } },
+  lint: {
+    ignorePatterns: ["scripts/fixtures/alchemy-p1/worker.ts"],
+    options: { typeAware: true, typeCheck: true },
+  },
 });

@@ -80,3 +80,11 @@ languageSubject(language, "front page");
 routeOf("about");
 responseStatus(missing);
 formatDate("2026-01-01");
+
+const publishedHome: Promise<HomeDelivery> = runtime.publishedHome("https://site.test", language);
+const publishedEntry: Promise<EntryDelivery> = runtime.publishedEntry(
+  "/about/",
+  "https://site.test",
+);
+const pageChrome: Promise<SiteChrome | null> = runtime.pageChrome("https://site.test");
+void [publishedHome, publishedEntry, pageChrome];

@@ -6,6 +6,7 @@
     "test": "vp run unit",
     "check": "vp run quality",
     "build": "vp pack",
+    "proof:p1": "vp run alchemy",
     "consumer": "vp run installed",
     "prepare": "vp config --hooks --no-agent",
     "validate": "vp run verification",
