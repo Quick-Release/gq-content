@@ -2,8 +2,8 @@
 
 The configured content runtime for WordPress HTML and WPGraphQL. This slice
 provides pure helpers, the configured WordPress client, durable delivery and
-installed SQL migrations, and event/refresh HTTP handlers. This is not a
-completed or published 0.1.0 release pair.
+installed SQL migrations, event/refresh HTTP handlers, and the Site chrome's
+designed header and footer. Release notes: [0.2.0](../docs/releases/0.2.0.md).
 
 ```ts
 import { renderWordPressBlocks, htmlLang } from "@getquick/content";
@@ -62,7 +62,7 @@ untracked. The npm tarball allowlist contains only compiled output, the five ori
 metadata (npm also includes this README).
 
 The public delivery methods are `publishedHome(siteOrigin?, language?)`,
-`publishedEntry(path, siteOrigin?)` and `pageChrome(siteOrigin?)`. Supply a
+`publishedEntry(path, siteOrigin?)` and `pageChrome(siteOrigin?, route?)`. Supply a
 `PUBLICATION_DB` structural binding to serve durable publications. Stored reads
 need no event or refresh secret and retain last-known-good content without an
 age limit. Cold entry lookups read the CMS once, preserving missing versus
@@ -71,6 +71,55 @@ Production without a store returns unavailable (chrome returns null). Only
 `development: true` enables live reads without a store. A store failure never
 activates that fallback. All public reads guard server context before bindings
 or transport.
+
+## Designed header and footer
+
+Editors design the header and footer per GQ Design route in GETQUICK → Design
+→ Header & Footer (GQ Design 0.4.2+). The chrome read fetches every built-in
+route's selection (`designPattern`) and stores it in the chrome row, so pages
+read it from the store like the menu and the logo. Each delivery returns the
+chrome with its own route's `header` and `footer` (`DesignPattern`: a title and
+its blocks as `WordPressBlock`s), absent where the route has none:
+
+| Page                                      | Route (`designRouteKey`) |
+| ----------------------------------------- | ------------------------ |
+| A language's front page (`publishedHome`) | `front-page`             |
+| The posts page                            | `home`                   |
+| A post                                    | `single-post`            |
+| A page                                    | `page`                   |
+| An entry of another post type             | `single`                 |
+| A listing / search page the Site adds     | `archive` / `search`     |
+| A 404, or `pageChrome` without a route    | `page`                   |
+
+```ts
+import { renderSiteFooter, renderSiteHeader, designMenuItems } from "@getquick/content";
+
+// A Site renders its own blocks by name, here and in content alike.
+const renderers = {
+  "getquick/header-navigation": (block) =>
+    `<nav>${designMenuItems(block.attributes?.menuItems)
+      .map((item) => `<a href="${item.href}">${item.label}</a>`)
+      .join("")}</nav>`,
+};
+const header = renderSiteHeader(chrome, { renderers }); // "<header class=\"gq-site-header\">…" or null
+const footer = renderSiteFooter(chrome, { renderers }); // "<footer class=\"gq-site-footer\">…" or null
+```
+
+Null means the page's route has no designed region, or the CMS has no
+`designPattern` field (the chrome is then read again without it): keep the
+Site's own logo-and-menu header. The [0.2.0 release notes](../docs/releases/0.2.0.md)
+give the layout change. `renderWordPressBlocks(blocks, { renderers })`
+accepts the same renderers for content. A selected pattern that GQ Design
+resolves to no blocks fails the chrome read, which keeps the stored chrome.
+
+The chrome is refreshed by a shared `patterns` settings event. The CMS sends it
+when a synced pattern, template, template part or navigation menu is saved, trashed or deleted,
+when a menu a pattern's block shows is saved, and when the theme switches. The
+Frontend then rereads every language's chrome and no entry. A `menus` or
+`logo` event rereads the chrome too, patterns included, and reconciliation
+compares it. See [ADR 0003](../docs/adr/0003-serve-each-routes-designed-header-and-footer-with-the-site-chrome.md).
+
+## Migrations
 
 Infrastructure imports the Node-only migration entry separately:
 

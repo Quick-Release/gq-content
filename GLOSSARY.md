@@ -44,6 +44,12 @@ Comparison of the publication store with what the CMS publishes, to recover
 changes whose events did not arrive.
 _Avoid_: full refresh
 
+**Design route**:
+GQ Design's name for a kind of page (`front-page`, `home`, `single-post`,
+`page`, `single`, `archive`, `search`), each with its own designed header and
+footer; the Frontend chooses a page's.
+_Avoid_: template (for the page's route)
+
 **Cold lookup**:
 A visitor's CMS read for content the publication store has never held.
 _Avoid_: cache miss

@@ -27,7 +27,7 @@
 // One run makes at most CMS_REQUEST_BUDGET requests to WordPress (Workers'
 // Free plan allows 50 subrequests per invocation); what doesn't fit is left
 // for the next run, oldest-attempted first. Each language's shared rows are
-// up to three more requests, so a multilingual Site catches up fewer entries
+// up to four more requests, so a multilingual Site catches up fewer entries
 // per run. A lease in the store keeps runs from overlapping, and an interrupted
 // run's lease expires.
 import type { configuredDelivery } from "./delivery";
@@ -56,11 +56,13 @@ export function configuredReconciliation(
   const CMS_REQUEST_BUDGET = 40;
   /**
    * Home and entry reads can take two requests: WordPress failing on blocks
-   * is asked again without them. Chrome and design have no block recovery.
+   * is asked again without them. So can chrome: a CMS without GQ Design's
+   * `designPattern` is asked again without the header and footer patterns.
+   * Design has no recovery.
    */
   const REQUESTS_PER_READ = 2;
-  /** Reserve design once, and each language's home (including recovery) and chrome. */
-  const SHARED_REQUESTS = 1 + (REQUESTS_PER_READ + 1) * languages.length;
+  /** Reserve design once, and each language's home and chrome, each with its recovery. */
+  const SHARED_REQUESTS = 1 + 2 * REQUESTS_PER_READ * languages.length;
   /** Stored entries re-read each run, when the budget allows, though WordPress lists them unchanged. */
   const VERIFIED_PER_RUN = 2;
   /** How long a run holds the lease; an interrupted run's lease is taken over after it. */

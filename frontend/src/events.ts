@@ -11,7 +11,8 @@
 // rather than processed, and one whose refresh failed stays on record, failed,
 // for a retry. Each action has its own handler: "publish" for a page or post,
 // "withdraw" for one that stopped being public, "settings" for a shared
-// setting (menus, logo, site identity, design presets), and "reconcile", which
+// setting (menus, logo, site identity, design presets, header and footer
+// patterns), and "reconcile", which
 // the CMS's scheduler sends every minute to have the Frontend catch up with
 // any change whose own event never arrived. On a
 // multilingual Site an event names the language its change is in, so only
@@ -158,13 +159,16 @@ export function configuredEvents(
    * The shared settings an event can name, and what each change refreshes: the
    * menus and the logo are in the chrome every page is served with; the site's
    * identity is its title and tagline (the front page's) and its icon (the
-   * chrome's); the design presets are the shared design every page uses.
+   * chrome's); the design presets are the shared design every page uses; the
+   * patterns are GQ Design's Header & Footer (a pattern, a route's selection,
+   * or a menu a pattern shows), which the chrome holds for every route.
    */
   const SETTINGS = {
     menus: ["chrome"],
     logo: ["chrome"],
     identity: ["home", "chrome"],
     design: ["design"],
+    patterns: ["chrome"],
   } as const satisfies Record<string, SharedPart[]>;
 
   /**

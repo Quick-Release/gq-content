@@ -839,10 +839,11 @@ test("multilingual reconciliation reserves language shared reads and continues f
     runs.push(run.body);
     expect(fetch.mock.calls.length).toBeLessThanOrEqual(40);
   }
-  // 42 candidates, 16 reads per run after reserving both language homes' recovery.
+  // 42 candidates, 15 reads per run after reserving both languages' home and
+  // chrome recovery.
   expect(runs.map((r) => [r.status, r.pending])).toEqual([
-    ["behind", 26],
-    ["behind", 10],
+    ["behind", 27],
+    ["behind", 12],
     ["reconciled", 0],
   ]);
   expect((await entry("/en/news-39/")).entry.content).toBe("<p>Story 39</p>");

@@ -17,7 +17,17 @@
  * - logo: the `site_logo` option (the Customizer's `custom_logo` syncs to it);
  * - identity: the `blogname`, `blogdescription` and `site_icon` options;
  * - design: the theme's global styles (`wp_global_styles`, where GQ Design
- *   saves the palette) or the active theme (its theme.json presets).
+ *   saves the palette) or the active theme (its theme.json presets);
+ * - patterns: GQ Design's Header & Footer, which the Frontend reads for every
+ *   design route into the chrome: a synced pattern (`wp_block`, what a
+ *   region selects or nests), a template or template part (`wp_template`,
+ *   `wp_template_part`: a route's template names the part that holds its
+ *   selection) or a navigation menu (`wp_navigation`, a core Navigation
+ *   block's) saved, trashed or deleted; a classic menu one of them shows saved (a
+ *   menu-backed block, such as `getquick/header-navigation`, saves its menu's
+ *   id, at a location or none), unless it is the primary menu of a Site
+ *   without Polylang, whose menus event refreshes the whole chrome; or the
+ *   active theme (its templates).
  *
  * On a multilingual Site (Polylang), a language has its own menus and its
  * own title and tagline, so a change to them names that language (the
@@ -29,7 +39,7 @@
  * - identity: a language's string translations (its title and tagline, in
  *   the `_pll_strings_translations` meta of its language term).
  *
- * The rest (the logo, the icon, the design, the site's own title and
+ * The rest (the logo, the icon, the design, the patterns, the site's own title and
  * tagline, which a language without a translation of them shows, and a menu
  * deleted) is shared: its event names no language, and the Frontend
  * refreshes every language's rows. Each setting, and each language's own,
@@ -57,7 +67,7 @@ use function GetQuick\Site\PublicationEvents\valid_identity;
 const OPTION_PREFIX = 'gq_settings_event_';
 
 /** The shared settings the Frontend refreshes. */
-const SETTINGS = ['menus', 'logo', 'identity', 'design'];
+const SETTINGS = ['menus', 'logo', 'identity', 'design', 'patterns'];
 
 /** The settings a language has its own of, on a multilingual Site. */
 const LANGUAGE_SETTINGS = ['menus', 'identity'];
@@ -285,7 +295,39 @@ function shown_in(int $menu_id): ?array
     return array_values(array_unique($languages));
 }
 
-/** A menu was saved: its languages' menus changed, if it is shown. */
+/**
+ * The post types GQ Design's Header & Footer selection is read from: synced
+ * patterns, templates, template parts, and the navigation menus a core
+ * Navigation block in them shows.
+ */
+const PATTERN_TYPES = ['wp_block', 'wp_template', 'wp_template_part', 'wp_navigation'];
+
+/**
+ * Whether a synced pattern, template or template part shows a menu: a
+ * menu-backed block (such as `getquick/header-navigation`) saves the menu's id
+ * as its `menuId` attribute, which GQ Design resolves wherever it is delivered.
+ */
+function shown_in_patterns(int $menu_id): bool
+{
+    global $wpdb;
+    $types = implode(', ', array_fill(0, count(PATTERN_TYPES), '%s'));
+
+    return (bool) $wpdb->get_var($wpdb->prepare(
+        "SELECT 1 FROM {$wpdb->posts} WHERE post_type IN ({$types}) AND post_status <> 'auto-draft'"
+        . ' AND (post_content LIKE %s OR post_content LIKE %s) LIMIT 1',
+        ...PATTERN_TYPES,
+        ...array_map(
+            static fn(string $end): string => '%' . $wpdb->esc_like('"menuId":' . $menu_id . $end) . '%',
+            [',', '}'],
+        ),
+    ));
+}
+
+/**
+ * A menu was saved: its languages' menus changed, if it is shown, and the
+ * patterns did, if one shows it (the patterns are in every language's
+ * chrome), unless the menus' event already refreshes every language's chrome.
+ */
 function menu_changed(int $menu_id): void
 {
     $languages = shown_in($menu_id);
@@ -296,6 +338,9 @@ function menu_changed(int $menu_id): void
     }
     foreach ($languages as $language) {
         changed('menus', $language);
+    }
+    if (shown_in_patterns($menu_id)) {
+        changed('patterns');
     }
 }
 
@@ -379,12 +424,20 @@ add_action('deleted_post', static function (int $post_id, ?WP_Post $post = null)
     if ($post instanceof WP_Post && $post->post_type === 'nav_menu_item') {
         changed('menus');
     }
+    if ($post instanceof WP_Post && in_array($post->post_type, PATTERN_TYPES, true)) {
+        changed('patterns');
+    }
 }, 10, 2);
+foreach (PATTERN_TYPES as $pattern_type) {
+    // Trashing, restoring and any status change save the post too.
+    add_action("save_post_{$pattern_type}", static fn() => changed('patterns'), 10, 0);
+}
 
 add_action('save_post_wp_global_styles', static fn() => changed('design'), 10, 0);
 add_action('switch_theme', static function (): void {
     changed('design');
     changed('menus');
+    changed('patterns');
 }, 10, 0);
 
 if (defined('WP_CLI') && WP_CLI && available()) {
@@ -426,7 +479,7 @@ if (defined('WP_CLI') && WP_CLI && available()) {
          * recognises it), or a new one if it has none.
          *
          * <setting>
-         * : menus, logo, identity or design; a language's menus or identity
+         * : menus, logo, identity, design or patterns; a language's menus or identity
          * as menus:<language> or identity:<language>.
          */
         public function retry(array $args): void

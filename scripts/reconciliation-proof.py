@@ -66,10 +66,11 @@ def reconcile(scheduler=False, ok=True):
     return result
 
 def clear_events():
-    wp('eval', "foreach(get_posts(['post_type'=>['page','post'],'post_status'=>array_values(get_post_stati()),'numberposts'=>-1,'lang'=>'']) as $p) delete_post_meta($p->ID,'_gq_publication_event'); foreach(['identity','menus','logo','design','identity:pt','identity:en','menus:pt','menus:en'] as $s) delete_option('gq_settings_event_'.$s); delete_option('gq_publication_events_deleted');", configured=False)
+    wp('eval', "foreach(get_posts(['post_type'=>['page','post'],'post_status'=>array_values(get_post_stati()),'numberposts'=>-1,'lang'=>'']) as $p) delete_post_meta($p->ID,'_gq_publication_event'); foreach(['identity','menus','logo','design','patterns','identity:pt','identity:en','menus:pt','menus:en'] as $s) delete_option('gq_settings_event_'.$s); delete_option('gq_publication_events_deleted');", configured=False)
 
 if phase == 'prepare-partial':
-    check('Composer-installed CMS is 0.1.0', wp('gq-events', 'version').stdout.strip() == '0.1.0')
+    version = json.loads((ROOT / 'frontend/package.json').read_text())['version']
+    check(f'Composer-installed CMS is {version}', wp('gq-events', 'version').stdout.strip() == version)
     check('actual Polylang is active', wp('eval', "echo function_exists('pll_set_post_language') ? 'yes' : 'no';", configured=False).stdout.strip() == 'yes')
     observer.write_text((ROOT / 'cms/tests/reconciliation-export.php').read_text())
     # Use WordPress/Polylang APIs to create real content. Omit endpoint configuration
@@ -98,16 +99,17 @@ if phase == 'prepare-partial':
     # No true filter installed: the supported default is enabled.
     result = reconcile()
     check('CLI reports partial completion without claiming a complete match', 'left' in result.stdout or 'next' in result.stdout)
-    # 40 candidates: 7 shared slots + 1 list request leave 16 two-request reads.
-    # Partial continuation is therefore 24 -> 8 -> 0, including home recovery.
-    check('signed check reports durable partial state', state()['reconciliation']['outcome'] == 'behind' and state()['reconciliation']['pending'] == 24)
+    # 40 candidates: 9 shared slots (design, and each language's home and chrome
+    # with their recovery) + 1 list request leave 15 two-request reads.
+    # Partial continuation is therefore 25 -> 10 -> 0.
+    check('signed check reports durable partial state', state()['reconciliation']['outcome'] == 'behind' and state()['reconciliation']['pending'] == 25)
     check('shared rows for every language prepared', state()['store']['home'] == 'published' and state()['store']['languages']['en'] == {'home': 'published', 'chrome': 'published'})
     (WORK / 'partial-cli.txt').write_text(result.stdout)
 
 elif phase == 'continue-outage':
-    check('pending evidence still visible before continuation', state()['reconciliation']['outcome'] == 'behind' and state()['reconciliation']['pending'] == 24)
+    check('pending evidence still visible before continuation', state()['reconciliation']['outcome'] == 'behind' and state()['reconciliation']['pending'] == 25)
     reconcile(scheduler=True)
-    check('real scheduler continues unfinished work', state()['reconciliation']['pending'] == 8)
+    check('real scheduler continues unfinished work', state()['reconciliation']['pending'] == 10)
     reconcile(scheduler=True)
     check('scheduler converges complete published list', state()['reconciliation']['outcome'] == 'reconciled' and state()['store']['entries']['published'] == 40)
     snapshot = json.loads(fixture.read_text())

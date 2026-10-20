@@ -17,6 +17,13 @@ import {
 import { routeOf } from "./formatting";
 import type { ContentConfig } from "./server";
 import type { WordPressClient } from "./wordpress";
+import type { WordPressBlock } from "./wp-block-renderer";
+import {
+  DESIGN_ROUTE_KEYS,
+  chromeForRoute,
+  type DesignPattern,
+  type DesignRouteKey,
+} from "./design-patterns";
 import type {
   Delivery,
   CmsFailureReason,
@@ -98,9 +105,12 @@ export function configuredDelivery(
     colors,
   });
   const translation = z.object({ uri: z.string(), language: z.string() });
+  const designRoute = z.enum(DESIGN_ROUTE_KEYS);
   const entryPublication = z.object({
     // A multilingual Site's entries only.
     language: z.string().optional(),
+    // Absent on an entry stored before it was recorded.
+    designRoute: designRoute.optional(),
     translations: z.array(translation).optional(),
     id: z.string(),
     title: z.string(),
@@ -113,7 +123,32 @@ export function configuredDelivery(
     spacingSizes,
     colors,
   });
-  const siteChrome = z.object({ menuItems: z.array(menuItem), siteIcon: image, siteLogo: image });
+  const block: z.ZodType<WordPressBlock> = z.lazy(() =>
+    z.object({
+      name: z.string(),
+      attributes: z.record(z.string(), z.unknown()).optional(),
+      htmlContent: z.string().optional(),
+      dynamicContent: z.string().optional(),
+      innerBlocks: z.array(block).optional(),
+    }),
+  );
+  const designPattern: z.ZodType<DesignPattern> = z.object({
+    title: z.string(),
+    blocks: z.array(block),
+  });
+  // Chrome stored before its patterns were read, or read from a CMS without
+  // Header & Footer, has none: every page keeps the Site's own header and footer.
+  const siteChrome = z.object({
+    menuItems: z.array(menuItem),
+    siteIcon: image,
+    siteLogo: image,
+    designPatterns: z
+      .record(
+        designRoute,
+        z.object({ header: designPattern.optional(), footer: designPattern.optional() }),
+      )
+      .optional(),
+  });
   const designPresets = z.object({ spacingSizes, colors });
 
   const parseWith = (schema: z.ZodType) => (body: unknown) => {
@@ -126,6 +161,23 @@ export function configuredDelivery(
   const parseDesign = parseWith(designPresets) as (body: unknown) => DesignPresets | undefined;
 
   const emptyChrome: SiteChrome = { menuItems: [], siteIcon: null, siteLogo: null };
+
+  /** A language's front page is served with the `front-page` route's header and footer. */
+  const FRONT_PAGE: DesignRouteKey = "front-page";
+  /** A page with nothing to show (a 404), or one the Site adds, is served with `page`'s. */
+  const NOT_FOUND: DesignRouteKey = "page";
+
+  /** The chrome as a page on a route is served with it: that route's header and footer only. */
+  const served = <T extends SiteChrome | null>(chrome: T, route: DesignRouteKey): T =>
+    (chrome && chromeForRoute(chrome, route)) as T;
+
+  /**
+   * The route an entry is served with: the one it was stored with. An entry
+   * stored before that was recorded is a post when it has a date (pages are
+   * read without one), else a page.
+   */
+  const entryRoute = (entry: EntryPublication): DesignRouteKey =>
+    entry.designRoute ?? (entry.date ? "single-post" : "page");
 
   async function boundStore(): Promise<PublicationStore | null> {
     const { PUBLICATION_DB } = await config.bindings();
@@ -205,7 +257,7 @@ export function configuredDelivery(
       home?.state === "withdrawn" ||
       (!home && !language.isDefault)
     ) {
-      return { kind: "missing", chrome: storedChrome };
+      return { kind: "missing", chrome: served(storedChrome, NOT_FOUND) };
     }
     if (home?.state !== "published" || !storedChrome) {
       return notServed(
@@ -218,7 +270,7 @@ export function configuredDelivery(
       kind: "found",
       content: {
         home: withDesign(home.content, sharedDesign(design)),
-        chrome: storedChrome,
+        chrome: served(storedChrome, FRONT_PAGE),
         alternates: await storedAlternates(store, language, homesOf(languages)),
       },
     };
@@ -234,13 +286,13 @@ export function configuredDelivery(
     ]);
     const liveChrome = chrome.kind === "found" ? chrome.content : null;
     if (home.kind === "unavailable") return home;
-    if (home.kind === "missing") return { kind: "missing", chrome: liveChrome };
+    if (home.kind === "missing") return { kind: "missing", chrome: served(liveChrome, NOT_FOUND) };
     const { blocksOmitted: _, nodeId: __, ...content } = home.content;
     return {
       kind: "found",
       content: {
         home: content,
-        chrome: liveChrome ?? emptyChrome,
+        chrome: served(liveChrome ?? emptyChrome, FRONT_PAGE),
         alternates: liveAlternates(language, homesOf(languages)),
       },
     };
@@ -346,7 +398,10 @@ export function configuredDelivery(
     }
 
     if (languageHome && !languageHome.has(homeKey(language))) {
-      return { kind: "missing", chrome: chrome?.state === "published" ? chrome.content : null };
+      return {
+        kind: "missing",
+        chrome: served(chrome?.state === "published" ? chrome.content : null, NOT_FOUND),
+      };
     }
     if (chrome?.state === "unusable") return notServed(subject, "not-ready", chrome.message);
     if (chrome?.state !== "published") {
@@ -360,7 +415,7 @@ export function configuredDelivery(
       kind: "found",
       content: {
         entry: withDesign(content, sharedDesign(design)),
-        chrome: chrome.content,
+        chrome: served(chrome.content, entryRoute(content)),
         alternates: await storedAlternates(store, language, content.translations ?? []),
       },
     });
@@ -373,12 +428,12 @@ export function configuredDelivery(
         return notServed(subject, "not-ready", entry.message);
       case "missing":
       case "withdrawn":
-        return { kind: "missing", chrome: chrome.content };
+        return { kind: "missing", chrome: served(chrome.content, NOT_FOUND) };
       case "moved":
         return { kind: "moved", uri: entry.uri };
       case "published":
         if (!inLanguage(entry.content, language))
-          return { kind: "missing", chrome: chrome.content };
+          return { kind: "missing", chrome: served(chrome.content, NOT_FOUND) };
         return found(entry.content);
     }
   }
@@ -410,13 +465,15 @@ export function configuredDelivery(
     const read = await getEntryByUri(encodeURI(route));
     if (read.kind === "unavailable") return read;
     if (read.kind === "missing" || !inLanguage(read.content, language)) {
-      return { kind: "missing", chrome };
+      return { kind: "missing", chrome: served(chrome, NOT_FOUND) };
     }
     const canonical = routeOf(read.content.uri);
     if (canonical !== route) return { kind: "moved", uri: canonical };
 
     const promoted = await promoteEntry(store, route, read, readStartedAt);
-    if (promoted.outcome.outcome === "withdrawn") return { kind: "missing", chrome };
+    if (promoted.outcome.outcome === "withdrawn") {
+      return { kind: "missing", chrome: served(chrome, NOT_FOUND) };
+    }
     await supersedeMoved(store, promoted.found ? [promoted.found] : [], readStartedAt);
     const { blocksOmitted: _, modifiedAt: __, ...entry } = read.content;
     return { kind: "found", content: { entry, chrome, alternates: [] } };
@@ -434,14 +491,14 @@ export function configuredDelivery(
     const liveChrome = chrome.kind === "found" ? chrome.content : null;
     if (read.kind === "unavailable") return read;
     if (read.kind === "missing" || !inLanguage(read.content, language)) {
-      return { kind: "missing", chrome: liveChrome };
+      return { kind: "missing", chrome: served(liveChrome, NOT_FOUND) };
     }
     const { blocksOmitted: _, modifiedAt: __, ...entry } = read.content;
     return {
       kind: "found",
       content: {
         entry,
-        chrome: liveChrome ?? emptyChrome,
+        chrome: served(liveChrome ?? emptyChrome, entryRoute(entry)),
         alternates: liveAlternates(language, entry.translations ?? []),
       },
     };
@@ -449,20 +506,25 @@ export function configuredDelivery(
 
   /**
    * The menu, logo and icon for a page that isn't a publication (one the site
-   * adds itself): the stored chrome when there is a store, else a live read.
-   * Null when neither has them; the page is then served without them.
+   * adds itself), with the header and footer of its design route (`page`
+   * unless the Site says, such as `archive` or `search`; see
+   * `designRouteKey`): the stored chrome when there is a store, else a live
+   * read. Null when neither has them; the page is then served without them.
    */
-  async function pageChrome(siteOrigin?: string): Promise<SiteChrome | null> {
+  async function pageChrome(
+    siteOrigin?: string,
+    route: DesignRouteKey = NOT_FOUND,
+  ): Promise<SiteChrome | null> {
     if (!config.isServer()) return null;
     const store = await boundStore();
     if (!store) {
       if (!config.development) return null;
       const chrome = await getSiteChrome(siteOrigin);
-      return chrome.kind === "found" ? chrome.content : null;
+      return chrome.kind === "found" ? served(chrome.content, route) : null;
     }
     try {
       const stored = usable(await store.read(CHROME, parseChrome));
-      return stored?.state === "published" ? stored.content : null;
+      return stored?.state === "published" ? served(stored.content, route) : null;
     } catch (error) {
       if (!(error instanceof StoreFailure)) throw error;
       console.error(`Delivery: the site chrome can't be served (store): ${error.message}`);
@@ -1197,9 +1259,9 @@ export function configuredDelivery(
         () => publishedEntry(path, siteOrigin),
         () => notServed("the entry", "store", "The publication store couldn't be loaded"),
       ),
-    pageChrome: (siteOrigin?: string): Promise<SiteChrome | null> =>
+    pageChrome: (siteOrigin?: string, route?: DesignRouteKey): Promise<SiteChrome | null> =>
       safely(
-        () => pageChrome(siteOrigin),
+        () => pageChrome(siteOrigin, route),
         () => null,
       ),
   };

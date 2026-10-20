@@ -19,6 +19,14 @@ import type {
 import { languageSubject, type SiteLanguage } from "./site-language";
 import { cmsTime, uriPath, menuItemHref } from "./formatting";
 import { hasVideoHero, parseWordPressBlocks, renderWordPressBlocks } from "./wp-block-renderer";
+import {
+  DESIGN_ROUTE_KEYS,
+  designRouteKey,
+  parseDesignBlocks,
+  type DesignPattern,
+  type DesignPatterns,
+  type DesignRouteKey,
+} from "./design-patterns";
 
 export interface WordPressClient {
   getHomeContent(this: void, language?: SiteLanguage): Promise<Types.Delivery<Types.HomeContent>>;
@@ -87,6 +95,9 @@ export function configuredWordPress(
     featuredImage: imageEdge,
     // Left out when read without blocks.
     blocks: z.unknown().optional(),
+    // A page only: the posts page has its own design route. Optional, so a
+    // WordPress that leaves it out is still served, with the page's route.
+    isPostsPage: z.boolean().nullable().optional(),
   });
   const postEntry = pageEntry.extend({
     excerpt: z.string().nullable(),
@@ -143,9 +154,22 @@ export function configuredWordPress(
     }),
   });
 
+  // GQ Design's Header & Footer selection for a route's region: null when it
+  // uses an ordinary template part. `blocksJson` is the block tree as JSON text.
+  const designPattern = z.object({ title: z.string(), blocksJson: z.string() }).nullable();
+  const patternRegions = ["header", "footer"] as const;
+  /** The field each route's region is read into ("header_single_post"). */
+  const patternAlias = (route: DesignRouteKey, region: (typeof patternRegions)[number]) =>
+    `${region}_${route.replaceAll("-", "_")}`;
+  const patternFields = DESIGN_ROUTE_KEYS.flatMap((route) =>
+    patternRegions.map((region) => ({ route, region, alias: patternAlias(route, region) })),
+  );
+
   const siteChromeData = z.object({
     generalSettings: z.object({ siteIcon: imageEdge, siteLogo: imageEdge }),
     menuItems: z.object({ nodes: z.array(menuItem) }),
+    // Absent from the answer of a CMS without the field.
+    ...Object.fromEntries(patternFields.map(({ alias }) => [alias, designPattern.optional()])),
   });
 
   type RawEntry = z.infer<typeof pageEntry> &
@@ -217,8 +241,21 @@ export function configuredWordPress(
 
   // WPGraphQL only exposes menus assigned to a theme location to anonymous callers.
   // `inLanguage`: the menu at the location in a language (GQ Polylang for
-  // WPGraphQL); without, the default language's.
-  function siteChromeQueryText(inLanguage: boolean) {
+  // WPGraphQL); without, the default language's. `withPatterns`: the header and
+  // footer GQ Design's Header & Footer selects for each built-in route
+  // (`designPattern`, which takes no language: every language gets the same).
+  function siteChromeQueryText(inLanguage: boolean, withPatterns = true) {
+    const patterns = withPatterns
+      ? patternFields
+          .map(
+            ({ route, region, alias }) => `
+    ${alias}: designPattern(template: "${route}", slot: "${region}") {
+      title
+      blocksJson
+    }`,
+          )
+          .join("")
+      : "";
     return /* GraphQL */ `
   query SiteChrome($location: MenuLocationEnum!${inLanguage ? ", $language: LanguageCodeEnum!" : ""}) {
     generalSettings {
@@ -243,12 +280,14 @@ export function configuredWordPress(
         url
         target
       }
-    }
+    }${patterns}
   }
 `;
   }
   const siteChromeQuery = siteChromeQueryText(false);
   const languageChromeQuery = siteChromeQueryText(true);
+  const classicChromeQuery = siteChromeQueryText(false, false);
+  const classicLanguageChromeQuery = siteChromeQueryText(true, false);
 
   // Blocks are left out (withBlocks: false) when WordPress fails to return them.
   // On a multilingual Site (`translated`), each entry comes with its language
@@ -304,6 +343,7 @@ export function configuredWordPress(
       blocks(attributes: true, htmlContent: true, dynamicContent: true, postTemplate: false)
         @include(if: $withBlocks)
       uri${languageFields}
+      isPostsPage
       status
       isRestricted
       modifiedGmt
@@ -631,6 +671,11 @@ export function configuredWordPress(
           hasVideoHero: containsVideoHero,
           blocksOmitted,
           modifiedAt: cmsTime(post.modifiedGmt),
+          designRoute: designRouteKey({
+            kind: "entry",
+            postType: data.postBy ? "post" : "page",
+            isPostsPage: post.isPostsPage === true,
+          }),
           spacingSizes: data.designTokens.spacingSizes,
           colors: data.designTokens.colors,
           ...(multilingual ? languageOf(post) : {}),
@@ -739,10 +784,64 @@ export function configuredWordPress(
   }
 
   /**
-   * The menu, logo and icon every page in a language shares: the logo and icon
-   * are the site's, the menu the one at the location in that language. A site
-   * without them is found with an empty menu and no images; a failed read is
-   * Unavailable, not that.
+   * A selected pattern's blocks. GQ Design answers a selected pattern it
+   * couldn't resolve (invalid attributes, a cycle, too many blocks) with an
+   * empty tree rather than an error: that fails the read, so the stored chrome
+   * is kept rather than its header or footer replaced by nothing.
+   */
+  function designPatternOf(
+    route: DesignRouteKey,
+    region: string,
+    pattern: z.infer<typeof designPattern>,
+  ): DesignPattern | undefined {
+    if (!pattern) return undefined;
+    const parsed = parseDesignBlocks(pattern.blocksJson);
+    if (!parsed) {
+      throw new CmsFailureError({
+        reason: "schema",
+        message: `The ${route} ${region} pattern's blocksJson isn't a JSON list of blocks`,
+      });
+    }
+    if (parsed.blocks.length === 0) {
+      throw new CmsFailureError({
+        reason: "schema",
+        message: `The ${route} ${region} pattern "${pattern.title}" has no blocks GQ Design could resolve`,
+      });
+    }
+    if (parsed.unsupported.length > 0) {
+      console.warn(
+        `WordPress: the ${route} ${region} pattern "${pattern.title}" has blocks GQ Design doesn't support, served without their attributes: ${parsed.unsupported.join(", ")}`,
+      );
+    }
+    return { title: pattern.title, blocks: parsed.blocks };
+  }
+
+  /** Each route's selection, or undefined when no route has one (or the CMS has no Header & Footer). */
+  function designPatternsOf(data: Record<string, unknown>): DesignPatterns | undefined {
+    const patterns: DesignPatterns = {};
+    for (const { route, region, alias } of patternFields) {
+      const pattern = designPatternOf(route, region, data[alias] as z.infer<typeof designPattern>);
+      if (pattern) (patterns[route] ??= {})[region] = pattern;
+    }
+    return Object.keys(patterns).length > 0 ? patterns : undefined;
+  }
+
+  /** Whether a read failed only because the CMS has no `designPattern` field (no GQ Design 0.4). */
+  function lacksDesignPatterns(error: unknown) {
+    return (
+      error instanceof CmsFailureError &&
+      error.failure.reason === "graphql" &&
+      /Cannot query field "designPattern"/.test(error.failure.message)
+    );
+  }
+
+  /**
+   * The menu, logo and icon every page in a language shares, and each design
+   * route's header and footer: the logo and icon are the site's, the menu the
+   * one at the location in that language, the patterns GQ Design's Header &
+   * Footer selection. A site without them is found with an empty menu, no
+   * images and no patterns; so is a CMS without the `designPattern` field,
+   * which is read again without it. A failed read is Unavailable, not that.
    */
   async function getSiteChrome(
     siteOrigin?: string,
@@ -754,9 +853,29 @@ export function configuredWordPress(
     return deliver(
       languageSubject(language, "site chrome"),
       async (): Promise<Found<SiteChrome>> => {
-        const data = language.isDefault
-          ? await query(siteChromeData, siteChromeQuery, { location })
-          : await query(siteChromeData, languageChromeQuery, { location, language: language.code });
+        const variables: Record<string, string> = language.isDefault
+          ? { location }
+          : { location, language: language.code };
+        const read = (withPatterns: boolean) =>
+          query(
+            siteChromeData,
+            language.isDefault
+              ? withPatterns
+                ? siteChromeQuery
+                : classicChromeQuery
+              : withPatterns
+                ? languageChromeQuery
+                : classicLanguageChromeQuery,
+            variables,
+          );
+        let data: z.infer<typeof siteChromeData>;
+        try {
+          data = await read(true);
+        } catch (error) {
+          if (!lacksDesignPatterns(error)) throw error;
+          data = await read(false);
+        }
+        const designPatterns = designPatternsOf(data);
         const origins = [
           new URL(config.graphqlEndpoint).origin,
           ...(siteOrigin ? [siteOrigin] : []),
@@ -768,6 +887,7 @@ export function configuredWordPress(
             menuItems: buildMenuTree(data.menuItems.nodes, origins),
             siteIcon: normalizeImage(data.generalSettings.siteIcon),
             siteLogo: normalizeImage(data.generalSettings.siteLogo),
+            ...(designPatterns ? { designPatterns } : {}),
           },
         };
       },

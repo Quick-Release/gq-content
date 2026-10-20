@@ -1,3 +1,4 @@
+import type { DesignPattern, DesignPatterns, DesignRouteKey } from "./design-patterns";
 export interface WordPressImage {
   sourceUrl: string;
   altText: string;
@@ -56,6 +57,12 @@ export interface EntryContent extends WordPressPost, DesignPresets {
   blocksOmitted: boolean;
   /** When WordPress last modified it (ms, the CMS's clock), if it said. */
   modifiedAt: number | null;
+  /**
+   * The GQ Design route it is served with (`designRouteKey`): `single-post`
+   * for a post, `page` for a page, `home` for the posts page. Absent on an
+   * entry stored before it was recorded.
+   */
+  designRoute?: DesignRouteKey;
 }
 
 /** A published page or post as WordPress lists it: its id, URI and last modification. */
@@ -71,6 +78,21 @@ export interface SiteChrome {
   menuItems: WordPressMenuItem[];
   siteIcon: WordPressImage | null;
   siteLogo: WordPressImage | null;
+  /**
+   * The header pattern an editor selected for the page's GQ Design route
+   * (render it with `renderSiteHeader`). Absent when the route uses an
+   * ordinary template part, or the CMS has no Header & Footer: the Site keeps
+   * its own header then.
+   */
+  header?: DesignPattern;
+  /** The footer pattern selected for the page's route, as `header` is. */
+  footer?: DesignPattern;
+  /**
+   * Every route's selection, as WordPress returned it and the store holds it;
+   * absent when no route has a pattern. Delivered chrome has the page's own
+   * `header` and `footer` instead (`chromeForRoute`).
+   */
+  designPatterns?: DesignPatterns;
 }
 
 /**

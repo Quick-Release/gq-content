@@ -1,6 +1,14 @@
 import assert from "node:assert/strict";
 import { createServer } from "node:http";
-import { htmlLang, parseWordPressBlocks, renderWordPressBlocks, routeOf } from "@getquick/content";
+import {
+  designMenuItems,
+  designRouteKey,
+  htmlLang,
+  parseWordPressBlocks,
+  renderSiteHeader,
+  renderWordPressBlocks,
+  routeOf,
+} from "@getquick/content";
 import { createContentRuntime } from "@getquick/content/server";
 
 assert.equal(htmlLang("pt_PT_ao90"), "pt-PT");
@@ -11,6 +19,28 @@ assert.equal(
   ),
   "<p>Installed</p>",
 );
+assert.equal(designRouteKey({ kind: "entry", postType: "post" }), "single-post");
+const navigation = {
+  name: "getquick/header-navigation",
+  attributes: { menuItems: [{ id: 1, parentId: 0, label: "About", url: "/about/", target: "" }] },
+  htmlContent: "",
+  innerBlocks: [],
+};
+const renderers = {
+  "getquick/header-navigation": (block) =>
+    `<nav>${designMenuItems(block.attributes.menuItems)
+      .map((item) => `<a href="${item.href}">${item.label}</a>`)
+      .join("")}</nav>`,
+};
+assert.equal(
+  renderSiteHeader({ header: { title: "Header", blocks: [navigation] } }, { renderers }),
+  '<header class="gq-site-header"><nav><a href="/about/">About</a></nav></header>',
+);
+assert.equal(
+  renderWordPressBlocks([navigation], { renderers }),
+  '<nav><a href="/about/">About</a></nav>',
+);
+assert.equal(renderSiteHeader({ menuItems: [], siteIcon: null, siteLogo: null }), null);
 const server = createServer(async (request, response) => {
   assert.equal(request.url, "/graphql");
   assert.equal(request.method, "POST");

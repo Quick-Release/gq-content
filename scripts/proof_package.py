@@ -1,8 +1,12 @@
 """Select the retained npm archive or pack a fresh local proof input."""
+import json
 import os
 from pathlib import Path
 import shutil
 import subprocess
+
+VERSION = json.loads((Path(__file__).resolve().parents[1] / 'frontend/package.json').read_text())['version']
+TARBALL = f'getquick-content-{VERSION}.tgz'
 
 
 def prepare_npm(root: Path, destination: Path):
@@ -11,7 +15,7 @@ def prepare_npm(root: Path, destination: Path):
         retained = subprocess.check_output(
             ['node', 'scripts/release/candidate.mjs', 'npm'], cwd=root, text=True
         ).strip()
-        shutil.copyfile(retained, destination / 'getquick-content-0.1.0.tgz')
+        shutil.copyfile(retained, destination / TARBALL)
     else:
         subprocess.run(
             ['vp', 'pm', 'pack', '--pack-destination', str(destination)],

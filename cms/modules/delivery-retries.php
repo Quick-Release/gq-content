@@ -77,6 +77,7 @@ const SETTING_NAMES = [
     'logo' => 'The logo',
     'identity' => 'The site title, tagline or icon',
     'design' => 'The design',
+    'patterns' => 'The header and footer patterns',
 ];
 
 /** How editors are told about a setting, or one language's ("menus:en": "The menus (en)"). */

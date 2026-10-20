@@ -345,8 +345,8 @@ test.each([
   {
     languages: [{ locale: "en_US", slug: "en" }],
     count: 17,
-    firstPending: 1,
-    firstRequests: 40,
+    firstPending: 2,
+    firstRequests: 38,
     pages: 1,
   },
   {
@@ -355,15 +355,15 @@ test.each([
       { locale: "custom_locale_variant", slug: "custom-slug" },
     ],
     count: 16,
-    firstPending: 2,
-    firstRequests: 39,
+    firstPending: 3,
+    firstRequests: 37,
     pages: 1,
   },
   {
     languages: [{ locale: "en_US", slug: "en" }],
     count: 16,
-    firstPending: 1,
-    firstRequests: 39,
+    firstPending: 2,
+    firstRequests: 37,
     pages: 2,
   },
 ])(

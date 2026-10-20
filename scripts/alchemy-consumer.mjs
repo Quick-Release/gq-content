@@ -1,5 +1,6 @@
 import { retained } from "./release/candidate.mjs";
 import { recordArtifact } from "./proof-artifact.mjs";
+import { npmFilename, version } from "./version.mjs";
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { cpSync, mkdirSync, mkdtempSync, rmSync, readFileSync, writeFileSync } from "node:fs";
@@ -23,19 +24,29 @@ function run(command, args, cwd = consumer) {
 try {
   cpSync(join(repo, "scripts/fixtures/alchemy-p1"), consumer, { recursive: true });
   const selected = retained("npm");
-  if (selected) cpSync(selected, join(consumer, "getquick-content-0.1.0.tgz"));
-  else run("vp", ["pm", "pack", "--pack-destination", consumer], join(repo, "frontend"));
+  // The fixture installs it as getquick-content.tgz, whatever the version.
+  if (selected) cpSync(selected, join(consumer, "getquick-content.tgz"));
+  else {
+    run("vp", ["pm", "pack", "--pack-destination", consumer], join(repo, "frontend"));
+    cpSync(join(consumer, npmFilename), join(consumer, "getquick-content.tgz"));
+    rmSync(join(consumer, npmFilename));
+  }
   recordArtifact(
-    join(consumer, "getquick-content-0.1.0.tgz"),
+    join(consumer, "getquick-content.tgz"),
     process.argv.includes("--reconciliation") ? "reconciliation" : "alchemy",
   );
   const integrity =
     "sha512-" +
     createHash("sha512")
-      .update(readFileSync(join(consumer, "getquick-content-0.1.0.tgz")))
+      .update(readFileSync(join(consumer, "getquick-content.tgz")))
       .digest("base64");
   const lockfile = join(consumer, "pnpm-lock.yaml");
-  writeFileSync(lockfile, readFileSync(lockfile, "utf8").replace("TARBALL_INTEGRITY", integrity));
+  writeFileSync(
+    lockfile,
+    readFileSync(lockfile, "utf8")
+      .replace("TARBALL_INTEGRITY", integrity)
+      .replace("TARBALL_VERSION", version),
+  );
   run("vp", ["install", "--frozen-lockfile", "--ignore-scripts"]);
   writeFileSync(
     join(consumer, "tsconfig.json"),

@@ -3,6 +3,7 @@ import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "node:fs";
 import { resolve, join, basename } from "node:path";
+import { cmsFilename, npmFilename, version } from "../version.mjs";
 
 export const root = resolve(import.meta.dirname, "../..");
 export const run = (cmd, args, options = {}) =>
@@ -23,14 +24,14 @@ export function load(directory, checkRevision = true) {
   const bytes = readFileSync(join(directory, "release-manifest.json"));
   const manifest = JSON.parse(bytes);
   assert.equal(manifest.schemaVersion, 1);
-  assert.equal(manifest.version, "0.1.0");
+  assert.equal(manifest.version, version);
   assert.equal(manifest.tag, `v${manifest.version}`);
   assert.match(manifest.sourceCommit, /^[a-f0-9]{40}$/);
   if (checkRevision) revision(manifest);
   const assets = { "release-manifest.json": bytes };
   for (const [kind, expected] of Object.entries({
-    npm: "getquick-content-0.1.0.tgz",
-    cms: "gq-content-0.1.0.zip",
+    npm: npmFilename,
+    cms: cmsFilename,
   })) {
     const item = manifest[kind];
     assert.equal(item.filename, expected);
@@ -86,15 +87,15 @@ export function build(directory) {
     filename,
     sha256: hash(readFileSync(join(directory, filename))),
   });
-  const npm = identity("getquick-content-0.1.0.tgz");
+  const npm = identity(npmFilename);
   npm.integrity = "sha512-" + hash(readFileSync(join(directory, npm.filename)), "sha512", "base64");
   const manifest = {
     schemaVersion: 1,
-    version: "0.1.0",
-    tag: "v0.1.0",
+    version,
+    tag: `v${version}`,
     sourceCommit,
     npm,
-    cms: identity("gq-content-0.1.0.zip"),
+    cms: identity(cmsFilename),
   };
   writeFileSync(
     join(directory, "release-manifest.json"),

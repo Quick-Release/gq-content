@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / '.proofs/p2'
 SITE = WORK / 'bedrock'
 CACHE = WORK / 'downloads'
+VERSION = json.loads((ROOT / 'frontend/package.json').read_text())['version']
 
 
 def run(args, cwd=ROOT, env=None, ok=True):
@@ -69,7 +70,7 @@ if __name__ == '__main__':
          '--no-install', '--no-scripts', '--no-interaction'])
     manifest = json.loads((SITE / 'composer.json').read_text())
     manifest['require']['roots/bedrock-autoloader'] = '1.1.0'
-    manifest['require']['getquick/gq-content'] = '0.1.0'
+    manifest['require']['getquick/gq-content'] = VERSION
     manifest['require-dev'] = {}
     package['dist'] = {'type': 'zip', 'url': artifact.as_uri(),
                        'reference': hashlib.sha256(artifact.read_bytes()).hexdigest(),
@@ -98,10 +99,10 @@ if __name__ == '__main__':
        '--admin_password=disposable-local-proof', '--admin_email=proof@example.test', '--skip-email')
     check('real WordPress boots Composer-installed MU plugin',
           wp('eval', "echo is_file(WPMU_PLUGIN_DIR . '/gq-content/gq-content.php') && function_exists('GetQuick\\\\Site\\\\SettingsEvents\\\\changed') ? 'loaded' : 'missing';").stdout.strip() == 'loaded')
-    check('bare version works without event configuration', wp('gq-events', 'version').stdout.strip() == '0.1.0')
+    check('bare version works without event configuration', wp('gq-events', 'version').stdout.strip() == VERSION)
     check('JSON version works without event configuration',
           json.loads(wp('gq-events', 'version', '--format=json').stdout) ==
-          {'package': 'getquick/gq-content', 'version': '0.1.0'})
+          {'package': 'getquick/gq-content', 'version': VERSION})
     diagnostics = json.loads(wp('eval-file', str(ROOT / 'cms/tests/diagnostics.php'),
                                 env={'WP_ENV': 'production'}).stdout)
     check('production Site Health reports missing configuration safely',
@@ -187,7 +188,7 @@ if __name__ == '__main__':
             diagnostics = info(env)
             check(name + ': Site Health debug package/version/configured',
                   {name: row['value'] for name, row in diagnostics['fields'].items()} ==
-                  {'package': 'getquick/gq-content', 'version': '0.1.0', 'configured': True})
+                  {'package': 'getquick/gq-content', 'version': VERSION, 'configured': True})
             start = len(received)
             wp('gq-events', 'check', env=env)
             post = wp('eval-file', str(ROOT / 'cms/tests/save.php'), env=env).stdout.strip()
@@ -210,6 +211,46 @@ if __name__ == '__main__':
             for command in [('status',), ('settings', 'status'), ('delays',)]:
                 check(name + ': ' + ' '.join(command) + ' retains JSON rows',
                       isinstance(json.loads(wp('gq-events', *command, '--format=json', env=env).stdout), list))
+        # GQ Design's Header & Footer: a route's template names a template part
+        # that selects a synced pattern, and a pattern's menu-backed block shows
+        # a classic menu by its id. Each change is one shared "patterns" event;
+        # the primary menu's own "menus" event already refreshes the chrome.
+        def sent(command):
+            start = len(received)
+            wp(*command, env=env)
+            return [(row['event'].get('setting'), row['event'].get('language')) for row in received[start:]]
+        pattern = wp('post', 'create', '--post_type=wp_block', '--post_status=publish', '--post_title=Header',
+                     '--post_content=<!-- wp:paragraph --><p>Header</p><!-- /wp:paragraph -->', '--porcelain',
+                     env=env).stdout.strip()
+        check('a synced pattern saved sends one shared patterns event',
+              json.loads(wp('option', 'get', 'gq_settings_event_patterns', '--format=json', env=env).stdout)
+              ['delivery']['status'] == 'refreshed' and
+              sent(['post', 'update', pattern, '--post_title=Header 2']) == [('patterns', None)])
+        check('a route template saved sends one shared patterns event',
+              sent(['post', 'create', '--post_type=wp_template', '--post_status=publish', '--post_name=page',
+                    '--post_title=Page', '--post_content=<!-- wp:template-part {"slug":"header-main","area":"header"} /-->']) ==
+              [('patterns', None)])
+        check('a template part saved sends one shared patterns event',
+              sent(['post', 'create', '--post_type=wp_template_part', '--post_status=publish',
+                    '--post_name=header-main', '--post_title=Header',
+                    f'--post_content=<!-- wp:block {{"ref":{pattern}}} /-->']) == [('patterns', None)])
+        check("a navigation menu (a core Navigation block's) saved sends one shared patterns event",
+              sent(['post', 'create', '--post_type=wp_navigation', '--post_status=publish',
+                    '--post_title=Navigation', '--post_content=<!-- wp:navigation-link {"label":"About","url":"/about/"} /-->']) ==
+              [('patterns', None)])
+        check('a synced pattern deleted sends one shared patterns event',
+              sent(['post', 'delete', pattern, '--force']) == [('patterns', None)])
+        menu = wp('menu', 'create', 'Header navigation', '--porcelain', env=env).stdout.strip()
+        check('a menu shown nowhere sends nothing',
+              sent(['menu', 'item', 'add-custom', menu, 'Home', '/']) == [])
+        wp('post', 'create', '--post_type=wp_block', '--post_status=publish', '--post_title=Navigation',
+           f'--post_content=<!-- wp:getquick/header-navigation {{"menuId":{menu}}} /-->', env=env)
+        check("a menu at no location that a pattern's navigation block shows sends only patterns",
+              sent(['menu', 'item', 'add-custom', menu, 'About', '/about/']) == [('patterns', None)])
+        wp('eval', f"set_theme_mod('nav_menu_locations', ['primary' => {menu}]);", env=env)
+        check("the primary location's menu sends only menus, which refreshes the chrome and its patterns",
+              sent(['menu', 'item', 'add-custom', menu, 'Team', '/team/']) == [('menus', None)])
+        wp('eval', "remove_theme_mod('nav_menu_locations');", env=env)
         configure("function getquick_config_frontend_url() { return getenv('P2_HELPER_URL'); }")
         env = base | {'GQ_CONTENT_SITE_ID': 'endpoint-proof',
                       'P2_HELPER_URL': base['GETQUICK_FRONTEND_URL'] + '/helper',
@@ -239,7 +280,7 @@ if __name__ == '__main__':
         configure("define('GQ_CONTENT_SITE_ID', false);")
         check('version remains available with an invalid defined identity',
               json.loads(wp('gq-events', 'version', '--format=json', env=base).stdout) ==
-              {'package': 'getquick/gq-content', 'version': '0.1.0'})
+              {'package': 'getquick/gq-content', 'version': VERSION})
     finally:
         configure()
         receiver.shutdown()

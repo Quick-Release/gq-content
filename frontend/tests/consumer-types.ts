@@ -34,6 +34,22 @@ import {
   type ColorPreset,
   type SpacingPreset,
   type ContainerAttributes,
+  DESIGN_ROUTE_KEYS,
+  designRouteKey,
+  isDesignRouteKey,
+  chromeForRoute,
+  parseDesignBlocks,
+  renderSiteHeader,
+  renderSiteFooter,
+  designMenuItems,
+  type DesignRouteKey,
+  type DesignRouteContent,
+  type DesignPattern,
+  type DesignPatterns,
+  type BlockRenderer,
+  type BlockRenderContext,
+  type BlockRenderOptions,
+  type WordPressMenuItem,
 } from "@getquick/content";
 import { createContentRuntime, type ContentConfig as ServerConfig } from "@getquick/content/server";
 const bindings: ContentBindings = {};
@@ -87,7 +103,32 @@ const publishedEntry: Promise<EntryDelivery> = runtime.publishedEntry(
   "https://site.test",
 );
 const pageChrome: Promise<SiteChrome | null> = runtime.pageChrome("https://site.test");
-void [publishedHome, publishedEntry, pageChrome];
+const archiveChrome: Promise<SiteChrome | null> = runtime.pageChrome(
+  "https://site.test",
+  "archive",
+);
+void [publishedHome, publishedEntry, pageChrome, archiveChrome];
+
+// GQ Design's Header & Footer: a page's route, its patterns and their rendering.
+const routeContent: DesignRouteContent = { kind: "entry", postType: "post" };
+const route: DesignRouteKey = designRouteKey(routeContent);
+const routes: readonly DesignRouteKey[] = DESIGN_ROUTE_KEYS;
+const pattern: DesignPattern = { title: "Header", blocks: parseDesignBlocks("[]")?.blocks ?? [] };
+const patterns: DesignPatterns = { [route]: { header: pattern } };
+const designed: SiteChrome = chromeForRoute(
+  { menuItems: [], siteIcon: null, siteLogo: null, designPatterns: patterns },
+  route,
+);
+const navigation: BlockRenderer = (block, context: BlockRenderContext) =>
+  `<nav>${designMenuItems(block.attributes?.menuItems).length}${context.children}</nav>`;
+const renderOptions: BlockRenderOptions = {
+  renderers: { "getquick/header-navigation": navigation },
+};
+const header: string | null = renderSiteHeader(designed, renderOptions);
+const footer: string | null = renderSiteFooter(null);
+const menu: WordPressMenuItem[] = designMenuItems([]);
+const content: string = renderWordPressBlocks(blocks, renderOptions);
+void [routes, header, footer, menu, content, isDesignRouteKey("page")];
 
 const eventResponse: Promise<Response> = runtime.handleEvent(
   new Request("https://site.test/gq/events"),

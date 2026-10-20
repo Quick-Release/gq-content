@@ -9,6 +9,29 @@ export interface WordPressBlock {
   innerBlocks?: WordPressBlock[];
 }
 
+/** What a Site's block renderer is given besides its block. */
+export interface BlockRenderContext {
+  /** The block's inner blocks, rendered in order by the same renderers. */
+  children: string;
+  /** Renders other blocks by the same renderers (a subset of the inner blocks, say). */
+  render(this: void, blocks: WordPressBlock[]): string;
+}
+
+/**
+ * A Site's renderer for a block it owns (such as `getquick/header-navigation`)
+ * or a core block it renders itself: the block's HTML. Its output isn't
+ * escaped again, so escape what the CMS supplied.
+ */
+export type BlockRenderer = (block: WordPressBlock, context: BlockRenderContext) => string;
+
+export interface BlockRenderOptions {
+  /**
+   * The Site's renderers, by block name. A block with one is rendered by it,
+   * wherever it is: in content and in the header and footer patterns alike.
+   */
+  renderers?: Record<string, BlockRenderer>;
+}
+
 export const VIDEO_HERO_BLOCK = "getquick-design/video-hero";
 
 const YOUTUBE_ID_PATTERN = /^[A-Za-z0-9_-]{11}$/;
@@ -159,7 +182,25 @@ function appendChildren(html: string, children: string): string {
   return `${html.slice(0, closingTag)}${children}${html.slice(closingTag)}`;
 }
 
-function renderBlock(block: WordPressBlock, parentContainerHtml = ""): string {
+function renderBlock(
+  block: WordPressBlock,
+  renderers: Record<string, BlockRenderer>,
+  parentContainerHtml = "",
+): string {
+  const renderer = Object.hasOwn(renderers, block.name) ? renderers[block.name] : undefined;
+  if (renderer) {
+    const render = (blocks: WordPressBlock[]) =>
+      blocks.map((child) => renderBlock(child, renderers)).join("");
+    let children: string | undefined;
+    return renderer(block, {
+      // Rendered when the renderer asks for them, once.
+      get children() {
+        return (children ??= render(block.innerBlocks ?? []));
+      },
+      render,
+    });
+  }
+
   const isContainer = block.name === "getquick-design/container";
   let html = isContainer
     ? containerLayoutHtml(block.htmlContent ?? "", block.attributes ?? {})
@@ -168,7 +209,7 @@ function renderBlock(block: WordPressBlock, parentContainerHtml = ""): string {
     html = containerChildLayoutHtml(html, parentContainerHtml);
   }
   const children = (block.innerBlocks ?? [])
-    .map((child) => renderBlock(child, isContainer ? html : ""))
+    .map((child) => renderBlock(child, renderers, isContainer ? html : ""))
     .join("");
 
   if (block.name === VIDEO_HERO_BLOCK) return renderVideoHero(block, children);
@@ -177,6 +218,14 @@ function renderBlock(block: WordPressBlock, parentContainerHtml = ""): string {
   return appendChildren(html, children);
 }
 
-export function renderWordPressBlocks(blocks: WordPressBlock[]): string {
-  return blocks.map((block) => renderBlock(block)).join("");
+/**
+ * Blocks as HTML. Without renderers, as the Frontend has always rendered
+ * them; a block the Site has a renderer for is rendered by it instead.
+ */
+export function renderWordPressBlocks(
+  blocks: WordPressBlock[],
+  options: BlockRenderOptions = {},
+): string {
+  const renderers = options.renderers ?? {};
+  return blocks.map((block) => renderBlock(block, renderers)).join("");
 }

@@ -22,10 +22,18 @@ fail safely when unconfigured, and production Site Health is critical. Existing
 valid delivery history is preserved. Site Health debug information includes
 package, version and a configured boolean, with no credentials.
 
-`wp gq-events version` prints `0.1.0`; `--format=json` prints
-`{"package":"getquick/gq-content","version":"0.1.0"}` even without configuration.
+`wp gq-events version` prints `0.2.0`; `--format=json` prints
+`{"package":"getquick/gq-content","version":"0.2.0"}` even without configuration.
 Existing commands are `status`, `check`, `retry <post-id>`, `settings status`,
 `settings retry <setting>`, `delays`, `retry-due` and `reconcile`.
+Settings are `menus`, `logo`, `identity`, `design` and `patterns`. The shared
+`patterns` event refreshes the Frontend's stored GQ Design header and footer. It
+is sent when a synced pattern (`wp_block`), template (`wp_template`), template
+part (`wp_template_part`) or navigation menu (`wp_navigation`) is saved, trashed
+or deleted. It is also sent when a
+menu that one of them shows by `menuId` is saved, unless it is the primary menu
+of a Site without Polylang, whose `menus` event already refreshes the chrome.
+And it is sent when the theme switches.
 The server cron remains `wp gq-events retry-due --quiet`; installing this package
 does not install a cron or provision/enroll a Site.
 
@@ -47,7 +55,7 @@ supported extension APIs. Supported publication post types remain page and post;
 there are no new custom emitted actions or schemas.
 
 Run `vp run cms` for the reusable P2 installed-plugin proof, or
-`vp run cms-package` to produce `.artifacts/gq-content-0.1.0.zip`. The archive
+`vp run cms-package` to produce `.artifacts/gq-content-<version>.zip`. The archive
 contains only plugin files, not tests or Frontend code. The proof uses PHP,
 Composer, Python 3, curl, SQLite and downloaded WP-CLI; it installs the archive
 through real Composer installers into a fresh public Bedrock project and boots
