@@ -3,8 +3,10 @@
 Review baseline: gq-content `d93345a24e428376f8f6f5df0b4ef158d9c628b7`,
 with the existing uncommitted SiteChrome implementation inspected first.
 This work completes that diff; it does not include a release or client Site
-changes. Existing unrelated work was preserved. The change remains uncommitted
-for review.
+changes. Existing unrelated work was preserved. The follow-up commit/push
+instruction isolated this diff on `feat/global-site-chrome`, based on main
+`e1be280`, leaving the metadata branch unchanged. Review is tracked in
+[PR #17](https://github.com/Quick-Release/gq-content/pull/17).
 
 ## Behavior and contract
 
@@ -92,3 +94,25 @@ version bump, deployment or client Site mutation was performed.
 
 Raw local run output: `/tmp/gq-content-site-chrome-verification.log` and
 `/tmp/gq-content-site-chrome-fixtures.log` (ephemeral, not checked in).
+
+## Isolated main-branch verification and merge gate
+
+The metadata commits are excluded from PR #17. The initial test totals above
+include that branch's separate metadata tests. On the isolated main-based
+branch, unit tests pass (329 tests, with three release-candidate-only skips),
+the installed consumer passes 324 tests, and published-fixture compatibility
+passes 17 tests. Compatibility types and formatting/lint/types also pass. The complete
+`vp run verification` run on this isolated branch passed (exit 0), including
+the real CMS, retry, multilingual and local Worker reconciliation proofs.
+Raw local output is retained at
+`/tmp/gq-content-site-chrome-main-verification.log` and
+`/tmp/gq-content-site-chrome-main-fixtures.log`.
+
+[GitHub Actions run 39661663943](https://github.com/Quick-Release/gq-content/actions/runs/39661663943)
+failed before fixture tests with HTTP 403 fetching
+`@quick-release/design-contract@0.4.0` using this repository's `GITHUB_TOKEN`.
+This reproduces the existing provider access blocker
+[gq-design #21](https://github.com/Quick-Release/gq-design/issues/21).
+`compatibility/README.md` treats failed registry access as a failing gate;
+local credentials are not substituted into CI. Main remains unmodified while
+that gate fails. No private package permissions were changed by this session.
