@@ -20,6 +20,18 @@
     "./migrations": {
       "types": "./dist/migrations.d.ts",
       "import": "./dist/migrations.js"
+    },
+    "./metadata": {
+      "types": "./dist/metadata.d.ts",
+      "import": "./dist/metadata.js"
+    },
+    "./metadata/testing": {
+      "types": "./dist/metadata-testing.d.ts",
+      "import": "./dist/metadata-testing.js"
+    },
+    "./metadata/content": {
+      "types": "./dist/metadata-content.d.ts",
+      "import": "./dist/metadata-content.js"
     }
   },
   "publishConfig": {

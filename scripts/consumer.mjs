@@ -70,7 +70,14 @@ try {
   const installed = join(consumer, "node_modules/@getquick/content");
   const manifest = JSON.parse(readFileSync(join(installed, "package.json"), "utf8"));
   assert.deepEqual(manifest.dependencies, { zod: "3.25.76" });
-  assert.deepEqual(Object.keys(manifest.exports), [".", "./server", "./migrations"]);
+  assert.deepEqual(Object.keys(manifest.exports), [
+    ".",
+    "./server",
+    "./migrations",
+    "./metadata",
+    "./metadata/testing",
+    "./metadata/content",
+  ]);
   for (const file of readdirSync(join(installed, "dist"))) {
     const text = readFileSync(join(installed, "dist", file), "utf8");
     if (!file.startsWith("migrations."))
@@ -80,12 +87,21 @@ try {
       );
     if (file.endsWith(".d.ts")) assert.doesNotMatch(text, /from ["']zod|z\.infer|ZodType/);
   }
+  // The neutral entrypoint is a standalone artifact: no parser, framework, CMS or Node imports.
+  assert.doesNotMatch(
+    readFileSync(join(installed, "dist/metadata.js"), "utf8"),
+    /\b(?:import|require)\s*(?:\(|[\s{*])/,
+  );
   cpSync(join(repo, "frontend/tests"), join(consumer, "tests"), { recursive: true });
   writeFileSync(
     join(consumer, "vite.config.ts"),
     'import { defineConfig } from "vite-plus"; export default defineConfig({ test: { include: ["tests/**/*.test.ts"] } });\n',
   );
   cpSync(join(repo, "frontend/tests/consumer-types.ts"), join(consumer, "consumer.ts"));
+  cpSync(
+    join(repo, "frontend/tests/metadata-consumer-types.ts"),
+    join(consumer, "metadata-consumer.ts"),
+  );
   writeFileSync(
     join(consumer, "tsconfig.json"),
     JSON.stringify({
@@ -98,7 +114,7 @@ try {
         lib: ["ES2022", "DOM"],
         types: [],
       },
-      include: ["consumer.ts"],
+      include: ["consumer.ts", "metadata-consumer.ts"],
     }),
   );
   run("vp", ["exec", "tsc", "--noEmit"], consumer);
