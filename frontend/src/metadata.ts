@@ -24,6 +24,7 @@ export interface MetadataSite extends MetadataFacts {
   /** Reviewed configuration, never an incoming Host header. One HTTPS origin, no path. */
   origin: string;
   name: string;
+  /** Configured Site default; input.language identifies the actual page language. */
   language: MetadataLocale;
   /** Only these query keys may participate in canonical identity. */
   identityQueryKeys?: readonly string[];
@@ -86,6 +87,11 @@ export function resolveMetadata(input: MetadataInput): ResolvedMetadata {
   const text = (value: string | undefined, field: string) => {
     const result = normalizeMetadataText(value ?? "");
     if (!result) fail(field, "Expected nonempty decoded plain text");
+    if (result.includes("\0") || /[\uD800-\uDFFF]/u.test(result))
+      fail(
+        field,
+        "Text contains NUL or unpaired UTF-16 surrogate and cannot survive HTML/UTF-8 serialization",
+      );
     return result;
   };
   const locale = (value: MetadataLocale, field: string) => {
@@ -219,9 +225,21 @@ export function resolveMetadata(input: MetadataInput): ResolvedMetadata {
     meta("og:image:height", String(image.height));
     if (image.type) meta("og:image:type", image.type);
   });
+  const hasPublishedTranslations = input.translations?.some((t) => t.published) ?? false;
+  const languageKey = (value: MetadataLocale) => {
+    try {
+      return new Intl.Locale(value.lang).baseName;
+    } catch {
+      return undefined;
+    }
+  };
+  if (hasPublishedTranslations && input.language) locale(input.site.language, "site.language");
+  const defaultLanguage = languageKey(input.site.language);
+  let defaultCanonical =
+    defaultLanguage && languageKey(language) === defaultLanguage ? canonical : undefined;
   const locales = new Set([ogLocale]);
   const langs = new Set([language.lang.toLowerCase()]);
-  if (input.translations?.some((t) => t.published))
+  if (hasPublishedTranslations)
     head.push({
       tag: "link",
       attrs: { rel: "alternate", hreflang: language.lang, href: canonical },
@@ -237,11 +255,18 @@ export function resolveMetadata(input: MetadataInput): ResolvedMetadata {
         return;
       }
       langs.add(translation.lang.toLowerCase());
+      if (defaultLanguage && languageKey(translation) === defaultLanguage) defaultCanonical = href;
       head.push({ tag: "link", attrs: { rel: "alternate", hreflang: translation.lang, href } });
       if (!locales.has(translatedLocale)) {
         meta("og:locale:alternate", translatedLocale);
         locales.add(translatedLocale);
       }
+    });
+  // Preserve the existing Astro default-language link, using only a current or published translation identity.
+  if (hasPublishedTranslations && defaultCanonical)
+    head.push({
+      tag: "link",
+      attrs: { rel: "alternate", hreflang: "x-default", href: defaultCanonical },
     });
   if (input.kind === "article" && input.article) {
     for (const [key, value] of [

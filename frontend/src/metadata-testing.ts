@@ -88,6 +88,19 @@ export function inspectMetadataHtml(html: string, expected: MetadataHtmlExpectat
     /^(og:|article:)/u.test(attr(node, "property") ?? attr(node, "name") ?? ""),
   );
   const canonicals = tags.filter((node) => hasRel(node, "canonical"));
+  // Attribute injection creates unexpected tags/attributes even when expected text survives.
+  for (const node of relevant) {
+    const allowedAttrs =
+      node.tagName === "meta"
+        ? ["name", "property", "content"]
+        : node.tagName === "link"
+          ? ["rel", "href", "hreflang"]
+          : [];
+    if (node.attrs.some((a) => !allowedAttrs.includes(a.name)))
+      issues.push(`Unexpected attribute on ${node.tagName}`);
+    if (node.tagName === "title" && node.childNodes.some(isElement))
+      issues.push("Markup inside title");
+  }
   if (!expected.applicable) {
     equal("excluded graph", graph.length, 0);
     equal("excluded canonical", canonicals.length, 0);
@@ -190,19 +203,6 @@ export function inspectMetadataHtml(html: string, expected: MetadataHtmlExpectat
   for (const node of graph)
     if (!allowed.has(attr(node, "property") ?? ""))
       issues.push("Unexpected graph property or name-only OG tag");
-  // Attribute injection creates unexpected tags/attributes even when expected text survives.
-  for (const node of relevant) {
-    const allowedAttrs =
-      node.tagName === "meta"
-        ? ["name", "property", "content"]
-        : node.tagName === "link"
-          ? ["rel", "href", "hreflang"]
-          : [];
-    if (node.attrs.some((a) => !allowedAttrs.includes(a.name)))
-      issues.push(`Unexpected attribute on ${node.tagName}`);
-    if (node.tagName === "title" && node.childNodes.some(isElement))
-      issues.push("Markup inside title");
-  }
   return issues;
 }
 export function assertMetadataHtml(html: string, expected: MetadataHtmlExpectation): void {

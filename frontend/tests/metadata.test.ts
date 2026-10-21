@@ -198,6 +198,7 @@ describe("metadata contract and independent final HTML acceptance", () => {
       alternates: [
         { lang: "pt-PT", url: input.canonical! },
         { lang: "en-GB", url: "https://example.com/en/about/" },
+        { lang: "x-default", url: "https://example.com/about/" },
       ],
     });
     expect(

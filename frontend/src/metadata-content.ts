@@ -4,6 +4,7 @@ import { normalizeMetadataText } from "./metadata";
 
 /** Minimal structural slice of existing HomePublication/EntryPublication; no CMS reads. */
 export interface PublishedContentMetadata {
+  /** WordPress title/excerpt are authored HTML; featuredImage.altText is already plain text. */
   title: string;
   excerpt?: string;
   date?: string;
@@ -55,7 +56,9 @@ export function mapPublishedContentMetadata(
       ...(title ? { title } : {}),
       ...(description ? { description } : {}),
       ...(image && facts
-        ? { images: [{ url: image.sourceUrl, alt: contentMetadataText(image.altText), ...facts }] }
+        ? {
+            images: [{ url: image.sourceUrl, alt: normalizeMetadataText(image.altText), ...facts }],
+          }
         : {}),
     },
     translations: options.alternates
