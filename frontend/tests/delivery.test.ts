@@ -31,7 +31,9 @@ test("stored home and chrome survive missing secrets and CMS outages without an 
       colors: [],
       spacingSizes: [],
     };
+    // Stored before chrome carried its header and footer: served without them.
     const chrome = { menuItems: [], siteIcon: null, siteLogo: null };
+    const served = { ...chrome, header: null, footer: null };
     for (const [key, body] of [
       ["home", home],
       ["chrome", chrome],
@@ -56,9 +58,9 @@ test("stored home and chrome survive missing secrets and CMS outages without an 
     });
     expect(await runtime.publishedHome()).toEqual({
       kind: "found",
-      content: { home, chrome, alternates: [] },
+      content: { home, chrome: served, alternates: [] },
     });
-    expect(await runtime.pageChrome()).toEqual(chrome);
+    expect(await runtime.pageChrome()).toEqual(served);
     expect(fetch).not.toHaveBeenCalled();
   } finally {
     db.close();
@@ -102,7 +104,7 @@ const home = {
   colors: [],
   spacingSizes: [],
 };
-const chrome = { menuItems: [], siteIcon: null, siteLogo: null };
+const chrome = { menuItems: [], siteIcon: null, siteLogo: null, header: null, footer: null };
 const entry = {
   id: "page-1",
   title: "About",

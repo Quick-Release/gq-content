@@ -210,6 +210,48 @@ if __name__ == '__main__':
             for command in [('status',), ('settings', 'status'), ('delays',)]:
                 check(name + ': ' + ' '.join(command) + ' retains JSON rows',
                       isinstance(json.loads(wp('gq-events', *command, '--format=json', env=env).stdout), list))
+        # GQ Design's Header & Footer reads synced patterns and templates: a
+        # change to either is one shared "patterns" settings event.
+        start = len(received)
+        wp('eval', "wp_insert_post(['post_type' => 'wp_block', 'post_status' => 'publish', 'post_title' => 'Header', 'post_content' => '<!-- wp:paragraph --><p>Header</p><!-- /wp:paragraph -->']);", env=env)
+        patterns = json.loads(wp('option', 'get', 'gq_settings_event_patterns', '--format=json', env=env).stdout)
+        check('a synced pattern save sends one shared patterns settings event',
+              patterns['event']['setting'] == 'patterns' and 'language' not in patterns['event'] and
+              patterns['delivery']['status'] == 'refreshed' and
+              [row['event'].get('setting') for row in received[start:]] == ['patterns'])
+        # Each source hook must work independently, not merely as part of a
+        # request where another source also changed. All use real core saves.
+        for post_type in ['wp_block', 'wp_template', 'wp_template_part']:
+            start = len(received)
+            post_id = wp('post', 'create', f'--post_type={post_type}', '--post_status=publish',
+                         '--post_title=Chrome hook fixture', '--porcelain', env=env).stdout.strip()
+            check(post_type + ': save notifies patterns',
+                  [row['event'].get('setting') for row in received[start:]] == ['patterns'])
+            for status in ['draft', 'publish', 'private', 'publish', 'trash', 'publish']:
+                start = len(received)
+                wp('post', 'update', post_id, f'--post_status={status}', env=env)
+                check(post_type + ': status ' + status + ' notifies patterns',
+                      [row['event'].get('setting') for row in received[start:]] == ['patterns'])
+            if post_type == 'wp_block':
+                for operation in [('update', 'unsynced'), ('delete',)]:
+                    start = len(received)
+                    wp('post', 'meta', operation[0], post_id, 'wp_pattern_sync_status', *operation[1:], env=env)
+                    check('pattern sync eligibility ' + operation[0] + ' notifies patterns',
+                          [row['event'].get('setting') for row in received[start:]] == ['patterns'])
+            start = len(received)
+            wp('post', 'delete', post_id, '--force', env=env)
+            check(post_type + ': deletion notifies patterns',
+                  [row['event'].get('setting') for row in received[start:]] == ['patterns'])
+        start = len(received)
+        wp('eval', "do_action('getquick_design_cache_invalidated', ['design:test'], ['post:123']); do_action('getquick_design_cache_invalidated', ['design:test'], ['attachment:123']);", env=env)
+        check('Design dependency invalidations coalesce to one signed shared patterns event',
+              len(received[start:]) == 1 and received[-1]['signed'] and
+              received[-1]['event'].get('setting') == 'patterns' and
+              'language' not in received[-1]['event'])
+        start = len(received)
+        wp('eval', "do_action('switch_theme');", env=env)
+        check('theme changes coalesce design, menus and patterns independently',
+              sorted(row['event'].get('setting') for row in received[start:]) == ['design', 'menus', 'patterns'])
         configure("function getquick_config_frontend_url() { return getenv('P2_HELPER_URL'); }")
         env = base | {'GQ_CONTENT_SITE_ID': 'endpoint-proof',
                       'P2_HELPER_URL': base['GETQUICK_FRONTEND_URL'] + '/helper',

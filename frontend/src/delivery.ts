@@ -17,6 +17,7 @@ import {
 import { routeOf } from "./formatting";
 import type { ContentConfig } from "./server";
 import type { WordPressClient } from "./wordpress";
+import type { DesignBlock } from "./design-patterns";
 import type {
   Delivery,
   CmsFailureReason,
@@ -113,7 +114,26 @@ export function configuredDelivery(
     spacingSizes,
     colors,
   });
-  const siteChrome = z.object({ menuItems: z.array(menuItem), siteIcon: image, siteLogo: image });
+  const designBlock: z.ZodType<DesignBlock> = z.lazy(() =>
+    z.object({
+      name: z.string().min(1),
+      attributes: z.record(z.string(), z.unknown()),
+      content: z.string().nullable(),
+      children: z.array(designBlock),
+    }),
+  );
+  const designPattern = z
+    .object({ title: z.string(), blocks: z.array(designBlock).min(1) })
+    .nullable();
+  // Chrome stored before its header and footer were read has neither: the Site
+  // serves its own until the next refresh or reconciliation stores them.
+  const siteChrome = z.object({
+    menuItems: z.array(menuItem),
+    siteIcon: image,
+    siteLogo: image,
+    header: designPattern.optional().transform((pattern) => pattern ?? null),
+    footer: designPattern.optional().transform((pattern) => pattern ?? null),
+  });
   const designPresets = z.object({ spacingSizes, colors });
 
   const parseWith = (schema: z.ZodType) => (body: unknown) => {
@@ -125,7 +145,13 @@ export function configuredDelivery(
   const parseEntry = parseWith(entryPublication) as (body: unknown) => EntryPublication | undefined;
   const parseDesign = parseWith(designPresets) as (body: unknown) => DesignPresets | undefined;
 
-  const emptyChrome: SiteChrome = { menuItems: [], siteIcon: null, siteLogo: null };
+  const emptyChrome: SiteChrome = {
+    menuItems: [],
+    siteIcon: null,
+    siteLogo: null,
+    header: null,
+    footer: null,
+  };
 
   async function boundStore(): Promise<PublicationStore | null> {
     const { PUBLICATION_DB } = await config.bindings();

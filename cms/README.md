@@ -26,6 +26,13 @@ package, version and a configured boolean, with no credentials.
 `{"package":"getquick/gq-content","version":"0.1.0"}` even without configuration.
 Existing commands are `status`, `check`, `retry <post-id>`, `settings status`,
 `settings retry <setting>`, `delays`, `retry-due` and `reconcile`.
+Settings are `menus`, `logo`, `identity`, `design` and `patterns`; `patterns`
+is sent when a synced pattern (`wp_block`), template or template part is saved
+or deleted, or the theme changes, so the Frontend refreshes the chrome's GQ
+Design header and footer. Pattern sync-meta changes and GQ Design's public
+`getquick_design_cache_invalidated` hook also refresh patterns, including
+linked-page/media dependencies. Hooks coalesce per request; reconciliation
+repairs missed events.
 The server cron remains `wp gq-events retry-due --quiet`; installing this package
 does not install a cron or provision/enroll a Site.
 

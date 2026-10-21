@@ -17,7 +17,11 @@
  * - logo: the `site_logo` option (the Customizer's `custom_logo` syncs to it);
  * - identity: the `blogname`, `blogdescription` and `site_icon` options;
  * - design: the theme's global styles (`wp_global_styles`, where GQ Design
- *   saves the palette) or the active theme (its theme.json presets).
+ *   saves the palette) or the active theme (its theme.json presets);
+ * - patterns: a synced pattern (`wp_block`, what GQ Design's Header & Footer
+ *   selects), a template or a template part (`wp_template`,
+ *   `wp_template_part`, where that selection is saved) saved or deleted, or
+ *   the active theme (its templates).
  *
  * On a multilingual Site (Polylang), a language has its own menus and its
  * own title and tagline, so a change to them names that language (the
@@ -29,7 +33,7 @@
  * - identity: a language's string translations (its title and tagline, in
  *   the `_pll_strings_translations` meta of its language term).
  *
- * The rest (the logo, the icon, the design, the site's own title and
+ * The rest (the logo, the icon, the design, the patterns, the site's own title and
  * tagline, which a language without a translation of them shows, and a menu
  * deleted) is shared: its event names no language, and the Frontend
  * refreshes every language's rows. Each setting, and each language's own,
@@ -57,7 +61,7 @@ use function GetQuick\Site\PublicationEvents\valid_identity;
 const OPTION_PREFIX = 'gq_settings_event_';
 
 /** The shared settings the Frontend refreshes. */
-const SETTINGS = ['menus', 'logo', 'identity', 'design'];
+const SETTINGS = ['menus', 'logo', 'identity', 'design', 'patterns'];
 
 /** The settings a language has its own of, on a multilingual Site. */
 const LANGUAGE_SETTINGS = ['menus', 'identity'];
@@ -372,6 +376,9 @@ add_action('added_term_meta', static fn(int $meta_id, int $term_id, string $meta
 add_action('updated_term_meta', static fn(int $meta_id, int $term_id, string $meta_key) => strings_changed($term_id, $meta_key), 10, 3);
 add_action('deleted_term_meta', static fn(array $meta_ids, int $term_id, string $meta_key) => strings_changed($term_id, $meta_key), 10, 3);
 
+/** The post types the chrome's header and footer patterns are read from. */
+const PATTERN_TYPES = ['wp_block', 'wp_template', 'wp_template_part'];
+
 add_action('wp_update_nav_menu', static fn(int $menu_id) => menu_changed($menu_id), 10, 1);
 add_action('wp_update_nav_menu_item', static fn(int $menu_id) => menu_changed($menu_id), 10, 1);
 add_action('wp_delete_nav_menu', static fn() => changed('menus'), 10, 0);
@@ -379,12 +386,35 @@ add_action('deleted_post', static function (int $post_id, ?WP_Post $post = null)
     if ($post instanceof WP_Post && $post->post_type === 'nav_menu_item') {
         changed('menus');
     }
+    if ($post instanceof WP_Post && in_array($post->post_type, PATTERN_TYPES, true)) {
+        changed('patterns');
+    }
 }, 10, 2);
+
+foreach (PATTERN_TYPES as $pattern_type) {
+    // Trashing, restoring and status changes save the post too.
+    add_action("save_post_{$pattern_type}", static fn() => changed('patterns'), 10, 0);
+}
+
+// GQ Design also enriches pattern trees from linked pages, media and Site
+// serializers. Its public invalidation hook covers these dependencies and
+// explicit flushes; queue coalescing keeps overlapping save hooks to one event.
+add_action('getquick_design_cache_invalidated', static fn() => changed('patterns'), 10, 0);
+
+// Changing sync eligibility can happen through post meta without a post save.
+foreach (['added_post_meta', 'updated_post_meta', 'deleted_post_meta'] as $meta_hook) {
+    add_action($meta_hook, static function (mixed $meta_id, int $post_id, string $meta_key): void {
+        if ($meta_key === 'wp_pattern_sync_status' && get_post_type($post_id) === 'wp_block') {
+            changed('patterns');
+        }
+    }, 10, 3);
+}
 
 add_action('save_post_wp_global_styles', static fn() => changed('design'), 10, 0);
 add_action('switch_theme', static function (): void {
     changed('design');
     changed('menus');
+    changed('patterns');
 }, 10, 0);
 
 if (defined('WP_CLI') && WP_CLI && available()) {

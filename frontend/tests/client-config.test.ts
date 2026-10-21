@@ -174,6 +174,8 @@ test("configured languages select the language-specific home and chrome without 
                 },
               ],
             },
+            header: null,
+            footer: null,
           },
         });
       return Response.json({
@@ -211,6 +213,6 @@ test("configured languages select the language-specific home and chrome without 
   expect(requests.map((request) => request.variables)).toEqual([
     {},
     { uri: "/en/", language: "EN" },
-    { location: "FOOTER", language: "EN" },
+    { location: "FOOTER", template: "page", language: "EN" },
   ]);
 });

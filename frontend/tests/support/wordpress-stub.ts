@@ -15,6 +15,8 @@ export const chrome = {
   menuItems: {
     nodes: [{ id: "a", parentId: null, label: "About us", url: "/about/", target: null }],
   },
+  header: null,
+  footer: null,
 };
 
 /** WordPress's list of published routes, on one page. */

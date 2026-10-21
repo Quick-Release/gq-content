@@ -21,6 +21,7 @@ let api: ReturnType<typeof createContentRuntime>;
 let color: string;
 let logo: string;
 let icon: string;
+let patternLabel: string;
 let fronts: Record<string, { title: string; description: string; content: string; menu: string }>;
 const entries = {
   "/sobre/": {
@@ -83,6 +84,18 @@ const handlers = {
           },
         ],
       },
+      header: {
+        title: "Shared header",
+        blocksJson: JSON.stringify([
+          {
+            name: "core/paragraph",
+            attributes: {},
+            content: `<p>${patternLabel}</p>`,
+            children: [],
+          },
+        ]),
+      },
+      footer: null,
     }),
   entry: (v) =>
     data({
@@ -161,6 +174,7 @@ beforeEach(() => {
   vi.useFakeTimers({ toFake: ["Date"] });
   vi.setSystemTime(new Date("2026-10-18T10:00:00Z"));
   db = openTestD1();
+  patternLabel = "Shared";
   color = "#c00";
   logo = "https://media.test/logo.svg";
   icon = "https://media.test/icon.png";
@@ -222,11 +236,34 @@ test("each language's home, chrome, routes and alternates survive an outage with
   expect(fetch).not.toHaveBeenCalled();
 });
 
-test.each(["menus", "logo", "identity", "design"])(
+test("pattern trees are shared while menus and publication-store rows remain language-specific", async () => {
+  const fetch = wordpress();
+  expect((await refresh()).status).toBe(200);
+  expect(variables(fetch, "SiteChrome")).toEqual([
+    { location: "PRIMARY", template: "page" },
+    { location: "PRIMARY", template: "page", language: "EN" },
+  ]);
+  for (const [, init] of queries(fetch, "SiteChrome")) {
+    const query = JSON.parse(init.body as string).query as string;
+    expect(query).toContain('header: designPattern(template: $template, slot: "header")');
+    expect(query).not.toMatch(/designPattern\([^)]*language/);
+  }
+  offline();
+  expect((await home()).chrome.header).toEqual((await home("en")).chrome.header);
+  expect((await home()).chrome.menuItems[0]!.href).toBe("/sobre/");
+  expect((await home("en")).chrome.menuItems[0]!.href).toBe("/en/about/");
+  // Corrupting one row cannot silently serve another language's chrome.
+  await db.prepare("UPDATE publications SET body = '{}' WHERE key = 'chrome:en'").run();
+  expect((await api.publishedHome(undefined, api.languages[1])).kind).toBe("unavailable");
+  expect((await home()).chrome.header!.title).toBe("Shared header");
+});
+
+test.each(["menus", "logo", "identity", "design", "patterns"])(
   "shared %s changes reach every stored page without republishing entries and persist through outage",
   async (setting) => {
     await prepare();
     vi.setSystemTime(Date.now() + 1000);
+    patternLabel = "Updated shared header";
     fronts.pt!.menu = "Contacto";
     fronts.en!.menu = "Contact";
     logo = "https://media.test/new.svg";
@@ -244,6 +281,8 @@ test.each(["menus", "logo", "identity", "design"])(
     offline();
     const pages = [await home(), await home("en"), await entry("/sobre/"), await entry()];
     for (const page of pages) {
+      if (setting === "patterns")
+        expect(page.chrome.header!.blocks[0]!.content).toBe("<p>Updated shared header</p>");
       if (setting === "menus") expect(page.chrome.menuItems[0]?.label).toMatch(/Contact/);
       if (setting === "logo") expect(page.chrome.siteLogo?.sourceUrl).toBe(logo);
       if (setting === "identity") expect(page.chrome.siteIcon?.sourceUrl).toBe(icon);
@@ -258,7 +297,7 @@ test.each(["menus", "logo", "identity", "design"])(
   },
 );
 
-test.each(["menus", "logo", "identity", "design"])(
+test.each(["menus", "logo", "identity", "design", "patterns"])(
   "failed %s retains last-known-good settings and the same identity can retry successfully",
   async (setting) => {
     await prepare();
@@ -291,7 +330,7 @@ test.each(["menus", "identity"])(
     expect(fetch).toHaveBeenCalledTimes(1);
     expect(variables(fetch, setting === "menus" ? "SiteChrome" : "HomePage")).toEqual([
       setting === "menus"
-        ? { location: "PRIMARY", language: "EN" }
+        ? { location: "PRIMARY", template: "page", language: "EN" }
         : { uri: "/en/", language: "EN" },
     ]);
     offline();
@@ -312,6 +351,7 @@ test.each(["menus", "identity"])(
 );
 
 test.each([
+  { setting: "patterns", language: "en" },
   { setting: "design", language: "en" },
   { setting: "logo", language: "en" },
   { setting: "menus", language: "fr" },
@@ -417,7 +457,7 @@ test.each(["pt", "en"])(
         },
       }),
     );
-    for (const setting of ["identity", "menus", "design", "logo"])
+    for (const setting of ["identity", "menus", "design", "logo", "patterns"])
       await deliver(event({ setting }));
     await refresh();
     offline();
@@ -695,8 +735,8 @@ test("whole refresh reads both languages, lists all routes and excludes language
   });
   expect(variables(fetch, "HomePage")).toEqual([{}, { uri: "/en/", language: "EN" }]);
   expect(variables(fetch, "SiteChrome")).toEqual([
-    { location: "PRIMARY" },
-    { location: "PRIMARY", language: "EN" },
+    { location: "PRIMARY", template: "page" },
+    { location: "PRIMARY", template: "page", language: "EN" },
   ]);
   expect(queries(fetch, "PublishedRoutes")[0]?.[1].body).toContain("language: ALL");
   expect(r.body.entries["/en/"]).toBeUndefined();
@@ -726,7 +766,7 @@ test("a failed English menu event keeps its own chrome and default-menu events r
   expect(
     (await deliver(event({ setting: "menus", language: "pt" }))).body.languages,
   ).toBeUndefined();
-  expect(variables(fetch, "SiteChrome")).toEqual([{ location: "PRIMARY" }]);
+  expect(variables(fetch, "SiteChrome")).toEqual([{ location: "PRIMARY", template: "page" }]);
 });
 
 test("reconciliation compares every language home and chrome and reads published entries in ALL languages", async () => {
@@ -745,8 +785,8 @@ test("reconciliation compares every language home and chrome and reads published
   });
   expect(variables(fetch, "HomePage")).toEqual([{}, { uri: "/en/", language: "EN" }]);
   expect(variables(fetch, "SiteChrome")).toEqual([
-    { location: "PRIMARY" },
-    { location: "PRIMARY", language: "EN" },
+    { location: "PRIMARY", template: "page" },
+    { location: "PRIMARY", template: "page", language: "EN" },
   ]);
   expect(queries(fetch, "PublishedRoutes")[0]![1].body).toContain("language: ALL");
 });

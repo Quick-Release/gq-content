@@ -19,6 +19,7 @@ import type {
 import { languageSubject, type SiteLanguage } from "./site-language";
 import { cmsTime, uriPath, menuItemHref } from "./formatting";
 import { hasVideoHero, parseWordPressBlocks, renderWordPressBlocks } from "./wp-block-renderer";
+import { parseDesignBlocks, type DesignPattern } from "./design-patterns";
 
 export interface WordPressClient {
   getHomeContent(this: void, language?: SiteLanguage): Promise<Types.Delivery<Types.HomeContent>>;
@@ -143,9 +144,15 @@ export function configuredWordPress(
     }),
   });
 
+  // GQ Design's Header & Footer selection; null when the region uses a
+  // template part. `blocksJson` is the block tree as JSON text.
+  const designPattern = z.object({ title: z.string(), blocksJson: z.string() }).nullable();
+
   const siteChromeData = z.object({
     generalSettings: z.object({ siteIcon: imageEdge, siteLogo: imageEdge }),
     menuItems: z.object({ nodes: z.array(menuItem) }),
+    header: designPattern,
+    footer: designPattern,
   });
 
   type RawEntry = z.infer<typeof pageEntry> &
@@ -217,10 +224,13 @@ export function configuredWordPress(
 
   // WPGraphQL only exposes menus assigned to a theme location to anonymous callers.
   // `inLanguage`: the menu at the location in a language (GQ Polylang for
-  // WPGraphQL); without, the default language's.
+  // WPGraphQL); without, the default language's. The header and footer are the
+  // patterns GQ Design's Header & Footer selects for the design route
+  // `$template`; `designPattern` takes no language, so every language is
+  // served the same selection.
   function siteChromeQueryText(inLanguage: boolean) {
     return /* GraphQL */ `
-  query SiteChrome($location: MenuLocationEnum!${inLanguage ? ", $language: LanguageCodeEnum!" : ""}) {
+  query SiteChrome($location: MenuLocationEnum!, $template: String!${inLanguage ? ", $language: LanguageCodeEnum!" : ""}) {
     generalSettings {
       siteIcon {
         node {
@@ -243,6 +253,14 @@ export function configuredWordPress(
         url
         target
       }
+    }
+    header: designPattern(template: $template, slot: "header") {
+      title
+      blocksJson
+    }
+    footer: designPattern(template: $template, slot: "footer") {
+      title
+      blocksJson
     }
   }
 `;
@@ -739,10 +757,38 @@ export function configuredWordPress(
   }
 
   /**
-   * The menu, logo and icon every page in a language shares: the logo and icon
-   * are the site's, the menu the one at the location in that language. A site
-   * without them is found with an empty menu and no images; a failed read is
-   * Unavailable, not that.
+   * A selected pattern's block tree. GQ Design answers a selected pattern it
+   * couldn't resolve (invalid attributes, a cycle, too many blocks) with an
+   * empty tree, not an error; that is a failed read, so the stored chrome is
+   * kept rather than replaced by an empty region.
+   */
+  function designPatternOf(
+    region: "header" | "footer",
+    pattern: z.infer<typeof designPattern>,
+  ): DesignPattern | null {
+    if (!pattern) return null;
+    const blocks = parseDesignBlocks(pattern.blocksJson);
+    if (!blocks) {
+      throw new CmsFailureError({
+        reason: "schema",
+        message: `The ${region} pattern's blocksJson isn't a JSON list of blocks`,
+      });
+    }
+    if (blocks.length === 0) {
+      throw new CmsFailureError({
+        reason: "schema",
+        message: `The ${region} pattern "${pattern.title}" has no blocks GQ Design could resolve`,
+      });
+    }
+    return { title: pattern.title, blocks };
+  }
+
+  /**
+   * The menu, logo, icon, header and footer every page in a language shares:
+   * the logo and icon are the site's, the menu the one at the location in that
+   * language, the header and footer the patterns selected for the configured
+   * design route. A site without them is found with an empty menu, no images
+   * and no patterns; a failed read is Unavailable, not that.
    */
   async function getSiteChrome(
     siteOrigin?: string,
@@ -754,9 +800,14 @@ export function configuredWordPress(
     return deliver(
       languageSubject(language, "site chrome"),
       async (): Promise<Found<SiteChrome>> => {
+        const template = config.designTemplate ?? "page";
         const data = language.isDefault
-          ? await query(siteChromeData, siteChromeQuery, { location })
-          : await query(siteChromeData, languageChromeQuery, { location, language: language.code });
+          ? await query(siteChromeData, siteChromeQuery, { location, template })
+          : await query(siteChromeData, languageChromeQuery, {
+              location,
+              template,
+              language: language.code,
+            });
         const origins = [
           new URL(config.graphqlEndpoint).origin,
           ...(siteOrigin ? [siteOrigin] : []),
@@ -768,6 +819,8 @@ export function configuredWordPress(
             menuItems: buildMenuTree(data.menuItems.nodes, origins),
             siteIcon: normalizeImage(data.generalSettings.siteIcon),
             siteLogo: normalizeImage(data.generalSettings.siteLogo),
+            header: designPatternOf("header", data.header),
+            footer: designPatternOf("footer", data.footer),
           },
         };
       },

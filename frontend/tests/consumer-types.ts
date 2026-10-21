@@ -11,6 +11,15 @@ import {
   routeOf,
   responseStatus,
   formatDate,
+  renderDesignPattern,
+  parseDesignBlocks,
+  designMenuItems,
+  escapeHtml,
+  type DesignBlock,
+  type DesignPattern,
+  type DesignBlockRenderer,
+  type DesignRenderContext,
+  type DesignRenderOptions,
   type WordPressBlock,
   type ContentConfig,
   type ContentRuntime,
@@ -43,6 +52,7 @@ const config: ContentConfig = {
   cmsOrigin: "https://cms.test",
   isServer: () => true,
   bindings: async () => bindings,
+  designTemplate: "page",
 };
 const serverConfig: ServerConfig = config;
 const runtime: ContentRuntime = createContentRuntime(serverConfig);
@@ -88,6 +98,20 @@ const publishedEntry: Promise<EntryDelivery> = runtime.publishedEntry(
 );
 const pageChrome: Promise<SiteChrome | null> = runtime.pageChrome("https://site.test");
 void [publishedHome, publishedEntry, pageChrome];
+
+// The Site block seam: the chrome's header and footer, by the Site's renderers.
+const navigation: DesignBlockRenderer = (block: DesignBlock, context: DesignRenderContext) =>
+  `<nav>${designMenuItems(block.attributes.menuItems, context.href)
+    .map((item) => `<a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a>`)
+    .join("")}${context.children}</nav>`;
+const renderOptions: DesignRenderOptions = { blocks: { "getquick/header-navigation": navigation } };
+const header: DesignPattern | null = { title: "Header", blocks: parseDesignBlocks("[]") ?? [] };
+const headerHtml: string = renderDesignPattern(header, renderOptions);
+const servedHeader: string = runtime.renderDesignPattern(header, {
+  ...renderOptions,
+  siteOrigin: "https://site.test",
+});
+void [headerHtml, servedHeader];
 
 const eventResponse: Promise<Response> = runtime.handleEvent(
   new Request("https://site.test/gq/events"),

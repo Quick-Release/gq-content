@@ -75,7 +75,7 @@ def prove(cms, environment, request, fixture, work):
         request('/proof/online')
         # P2 deliberately leaves failed configuration fixtures; isolate scheduler
         # work through real WordPress record APIs in this disposable installation.
-        wp('eval', "foreach (get_posts(['post_type'=>['page','post'], 'post_status'=>array_values(get_post_stati()), 'numberposts'=>-1]) as $p) delete_post_meta($p->ID, '_gq_publication_event'); foreach (['identity','menus','logo','design'] as $s) delete_option('gq_settings_event_' . $s); delete_option('gq_publication_events_deleted');")
+        wp('eval', "foreach (get_posts(['post_type'=>['page','post'], 'post_status'=>array_values(get_post_stati()), 'numberposts'=>-1]) as $p) delete_post_meta($p->ID, '_gq_publication_event'); foreach (['identity','menus','logo','design','patterns'] as $s) delete_option('gq_settings_event_' . $s); delete_option('gq_publication_events_deleted');")
         observer.write_text('<?php\n')
         reconciled = wp('gq-events', 'reconcile')
         check('explicit reconciliation reaches the installed handler', 'matches WordPress' in reconciled.stdout)

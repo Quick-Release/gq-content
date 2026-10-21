@@ -66,7 +66,7 @@ def reconcile(scheduler=False, ok=True):
     return result
 
 def clear_events():
-    wp('eval', "foreach(get_posts(['post_type'=>['page','post'],'post_status'=>array_values(get_post_stati()),'numberposts'=>-1,'lang'=>'']) as $p) delete_post_meta($p->ID,'_gq_publication_event'); foreach(['identity','menus','logo','design','identity:pt','identity:en','menus:pt','menus:en'] as $s) delete_option('gq_settings_event_'.$s); delete_option('gq_publication_events_deleted');", configured=False)
+    wp('eval', "foreach(get_posts(['post_type'=>['page','post'],'post_status'=>array_values(get_post_stati()),'numberposts'=>-1,'lang'=>'']) as $p) delete_post_meta($p->ID,'_gq_publication_event'); foreach(['identity','menus','logo','design','patterns','identity:pt','identity:en','menus:pt','menus:en'] as $s) delete_option('gq_settings_event_'.$s); delete_option('gq_publication_events_deleted');", configured=False)
 
 if phase == 'prepare-partial':
     check('Composer-installed CMS is 0.1.0', wp('gq-events', 'version').stdout.strip() == '0.1.0')

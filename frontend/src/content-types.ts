@@ -1,3 +1,4 @@
+import type { DesignPattern } from "./design-patterns";
 export interface WordPressImage {
   sourceUrl: string;
   altText: string;
@@ -71,6 +72,14 @@ export interface SiteChrome {
   menuItems: WordPressMenuItem[];
   siteIcon: WordPressImage | null;
   siteLogo: WordPressImage | null;
+  /**
+   * The patterns GQ Design's Header & Footer selects for the Site's header and
+   * footer (render them with `renderDesignPattern`). Null when the region uses
+   * an ordinary template part, or nothing published is selected: the Site
+   * keeps its own header or footer then.
+   */
+  header: DesignPattern | null;
+  footer: DesignPattern | null;
 }
 
 /**

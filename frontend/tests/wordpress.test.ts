@@ -442,7 +442,7 @@ test("site chrome includes the WordPress favicon, logo and primary menu", async 
     expect(request.query).toContain("siteIcon");
     expect(request.query).toContain("siteLogo");
     expect(request.query).toContain("menuItems(where: { location: $location }");
-    expect(request.variables).toEqual({ location: "PRIMARY" });
+    expect(request.variables).toEqual({ location: "PRIMARY", template: "page" });
 
     return {
       ok: true,
@@ -481,6 +481,8 @@ test("site chrome includes the WordPress favicon, logo and primary menu", async 
               },
             ],
           },
+          header: null,
+          footer: null,
         },
       }),
     };
@@ -510,6 +512,8 @@ test("site chrome includes the WordPress favicon, logo and primary menu", async 
           children: [],
         },
       ],
+      header: null,
+      footer: null,
     },
   });
 });
@@ -531,7 +535,12 @@ test("a site chrome answer without its menu is invalid schema, not an empty menu
     vi.fn(async () => ({
       ok: true,
       json: async () => ({
-        data: { generalSettings: { siteIcon: null, siteLogo: null }, menuItems: null },
+        data: {
+          generalSettings: { siteIcon: null, siteLogo: null },
+          menuItems: null,
+          header: null,
+          footer: null,
+        },
       }),
     })),
   );
