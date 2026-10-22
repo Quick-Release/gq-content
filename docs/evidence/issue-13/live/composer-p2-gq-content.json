@@ -1,0 +1,36 @@
+{
+    "packages": {
+        "getquick/gq-content": [
+            {
+                "name": "getquick/gq-content",
+                "version": "0.1.0",
+                "version_normalized": "0.1.0.0",
+                "source": {
+                    "type": "git",
+                    "url": "https://github.com/Quick-Release/gq-content.git",
+                    "reference": "v0.1.0"
+                },
+                "dist": {
+                    "type": "zip",
+                    "url": "https://proxy.composer.getquick.io/dist/getquick/gq-content/getquick-gq-content-0.1.0-f053dd.zip",
+                    "reference": "v0.1.0",
+                    "shasum": "0412d3b5d8a0289821fba9dbc446a56711310ecb"
+                },
+                "require": {
+                    "composer/installers": "^2.0",
+                    "php": ">=8.4.1"
+                },
+                "type": "wordpress-muplugin",
+                "license": [
+                    "GPL-2.0-or-later"
+                ],
+                "description": "GETQUICK content publication events, delivery and diagnostics",
+                "homepage": "https://github.com/Quick-Release/gq-content/tree/v0.1.0",
+                "support": {
+                    "source": "https://github.com/Quick-Release/gq-content/tree/v0.1.0",
+                    "issues": "https://github.com/Quick-Release/gq-content/issues"
+                }
+            }
+        ]
+    }
+}

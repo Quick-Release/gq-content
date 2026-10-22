@@ -1,0 +1,57 @@
+{"sourceCommit":"51a9f3eb36f90cf069fca8e6fe20a875e452d570","manifestSha256":"d9c58ba865c080bf6cb1bfe3deecd13a2c2eed019c2271dddcddab2fbecc5ef1","npm":{"filename":"getquick-content-0.1.0.tgz","sha256":"837b2e390dcb7606b4acbb4b62b781eba88a58f87d637dd176817a831faf8318","integrity":"sha512-lxzkdqcdgf4Ag1bTDLi59jUZmadU7dgW1Z6+aWWcKuMBvrMt5LWumHTntOEMmZhKYeCwvg4gCaWjAybbPvRX2w=="},"cms":{"filename":"gq-content-0.1.0.zip","sha256":"f892d974d80cde9bb9a36e4595f509661fb37f63e0102b1506483fcfc2c78a5e"}}
+Installed candidate artifact: {"proof":"consent-tanstack","filename":"getquick-content-0.1.0.tgz","sha256":"837b2e390dcb7606b4acbb4b62b781eba88a58f87d637dd176817a831faf8318","integrity":"sha512-lxzkdqcdgf4Ag1bTDLi59jUZmadU7dgW1Z6+aWWcKuMBvrMt5LWumHTntOEMmZhKYeCwvg4gCaWjAybbPvRX2w==","sourceCommit":"51a9f3eb36f90cf069fca8e6fe20a875e452d570","manifestSha256":"d9c58ba865c080bf6cb1bfe3deecd13a2c2eed019c2271dddcddab2fbecc5ef1"}
+? Verifying lockfile against supply-chain policies (140 entries)...
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /home/runner/.local/share/pnpm/store/v11
+  Virtual store is at:             node_modules/.pnpm
+✓ Lockfile passes supply-chain policies (140 entries in 601ms)
+Lockfile is up to date, resolution step is skipped
+Packages: +115
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 115, reused 42, downloaded 73, added 115, done
+Agent skills awaiting approval: @tanstack/react-start.
+Run "pnpm approve" to review them.
+
+dependencies:
++ @getquick/content 0.1.0
++ @tanstack/react-router 1.170.45
++ @tanstack/react-start 1.169.3
++ react 19.3.1
++ react-dom 19.3.1
+
+devDependencies:
++ @types/node 24.10.1
++ @types/react 19.2.14
++ @types/react-dom 19.2.3
++ @vitejs/plugin-react 6.1.2
++ playwright 1.64.1
++ typescript 6.0.3
++ vite 8.3.5
+
+Done in 841ms using pnpm v12.11.2
+[36mvite v8.3.5 [32mbuilding client environment for production...[36m[39m
+transforming...
+✓ 140 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/client/assets/routes-BxwIPYwf.js    0.11 kB │ gzip:   0.12 kB
+dist/client/assets/index-BhdfPIfj.js   354.60 kB │ gzip: 115.13 kB
+
+[32m✓ built in 199ms[39m
+[36mvite v8.3.5 [32mbuilding ssr environment for production...[36m[39m
+transforming...
+✓ 114 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/server/assets/routes-qEC86ojx.js                        0.22 kB │ gzip:  0.18 kB
+dist/server/assets/empty-plugin-adapters-BlvAN4ro.js         0.28 kB │ gzip:  0.18 kB
+dist/server/assets/start-CzbYqFaG.js                         0.28 kB │ gzip:  0.20 kB
+dist/server/assets/_tanstack-start-manifest_v-D9-7qlO_.js    0.61 kB │ gzip:  0.33 kB
+dist/server/assets/server-BNU2d_ar.js                        1.23 kB │ gzip:  0.62 kB
+dist/server/assets/router-BJLJ-K-p.js                        3.61 kB │ gzip:  1.40 kB
+dist/server/server.js                                      250.72 kB │ gzip: 58.59 kB
+
+[32m✓ built in 131ms[39m
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://127.0.0.1:[1m41955[22m/[39m
+PASS CN-R1, CN-R7, CN-R8, CN-C2: TanStack Start SSR consumer: no third-party request or storage before a decision; Reject all sets the cookie and appends one record via the installed endpoint
+#28: the installed consent exports build, typecheck and run in TanStack Start.

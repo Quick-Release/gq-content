@@ -67,6 +67,7 @@ export function stubWordPress(handlers: {
   chrome?: Handler;
   design?: Handler;
   routes?: Handler;
+  consent?: Handler;
 }) {
   const answer = {
     chrome: () => data(chrome),
@@ -86,6 +87,7 @@ export function stubWordPress(handlers: {
       SiteChrome: answer.chrome,
       DesignPresets: answer.design,
       PublishedRoutes: answer.routes,
+      ConsentSettings: answer.consent,
     }[name ?? ""];
     if (!handler) throw new Error(`Unexpected query ${name}`);
     return handler(request.variables ?? {});

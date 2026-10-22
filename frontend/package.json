@@ -1,10 +1,11 @@
 {
   "name": "@getquick/content",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "UNLICENSED",
   "files": [
     "dist",
-    "migrations"
+    "migrations",
+    "consent-migrations"
   ],
   "type": "module",
   "sideEffects": false,
@@ -20,6 +21,42 @@
     "./migrations": {
       "types": "./dist/migrations.d.ts",
       "import": "./dist/migrations.js"
+    },
+    "./consent": {
+      "types": "./dist/consent.d.ts",
+      "import": "./dist/consent.js"
+    },
+    "./consent/client": {
+      "types": "./dist/consent-client.d.ts",
+      "import": "./dist/consent-client.js"
+    },
+    "./consent/server": {
+      "types": "./dist/consent-server.d.ts",
+      "import": "./dist/consent-server.js"
+    },
+    "./consent/migrations": {
+      "types": "./dist/consent-migrations.d.ts",
+      "import": "./dist/consent-migrations.js"
+    },
+    "./consent/astro": {
+      "types": "./dist/consent-astro.d.ts",
+      "import": "./dist/consent-astro.js"
+    },
+    "./consent/testing": {
+      "types": "./dist/consent-testing.d.ts",
+      "import": "./dist/consent-testing.js"
+    },
+    "./metadata": {
+      "types": "./dist/metadata.d.ts",
+      "import": "./dist/metadata.js"
+    },
+    "./metadata/testing": {
+      "types": "./dist/metadata-testing.d.ts",
+      "import": "./dist/metadata-testing.js"
+    },
+    "./metadata/content": {
+      "types": "./dist/metadata-content.d.ts",
+      "import": "./dist/metadata-content.js"
     }
   },
   "publishConfig": {

@@ -1,3 +1,6 @@
+import type { LegalLanguage } from "./consent/legal";
+import type { AnalyticsSettings } from "./consent/configuration";
+
 import type { DesignPattern } from "./design-patterns";
 export interface WordPressImage {
   sourceUrl: string;
@@ -33,11 +36,20 @@ export interface DesignPresets {
   colors: Array<{ slug: string; color: string }>;
 }
 
-export interface HomeContent extends DesignPresets {
+/**
+ * A page or post's own content as the Site's extension read it
+ * (ContentConfig's `extension`): present only when the Site declares one and
+ * its read returned a value for that page or post.
+ */
+export interface Extended<X = unknown> {
+  extension?: X;
+}
+
+export interface HomeContent<X = unknown> extends DesignPresets {
   /** The front page's WordPress entry (WPGraphQL's global id), if WordPress gave it. */
   nodeId: string | null;
   settings: WordPressSettings;
-  page: { title: string; content: string; hasVideoHero: boolean };
+  page: { title: string; content: string; hasVideoHero: boolean } & Extended<X>;
   /** WordPress failed on the blocks, so this is the page without them. */
   blocksOmitted: boolean;
 }
@@ -48,7 +60,7 @@ export interface Translation {
   language: string;
 }
 
-export interface EntryContent extends WordPressPost, DesignPresets {
+export interface EntryContent<X = unknown> extends WordPressPost, DesignPresets, Extended<X> {
   /** Its language's slug, on a multilingual Site. */
   language?: string;
   /** Its published translations into the site's other languages, on a multilingual Site. */
@@ -80,6 +92,13 @@ export interface SiteChrome {
    */
   header: DesignPattern | null;
   footer: DesignPattern | null;
+  /**
+   * This language's LEGAL-1 Contract from gq-config, on a Site with consent
+   * CMS settings enabled (null when gq-config has none for it).
+   */
+  legal?: LegalLanguage | null;
+  /** gq-config's GA4 settings, on a Site with consent CMS settings enabled. */
+  analytics?: AnalyticsSettings;
 }
 
 /**

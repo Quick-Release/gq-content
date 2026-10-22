@@ -1,0 +1,45 @@
+---
+// The Site layout: the default consent UI first in the body, legal links and
+// the persistent Cookie settings control in the footer, client-side navigation.
+import { ClientRouter } from "astro:transitions";
+import { consentPage } from "@getquick/content/consent/astro";
+import type { ConsentConfiguration } from "@getquick/content/consent";
+import type { SiteChrome } from "@getquick/content";
+
+interface Props {
+  lang: string;
+  title: string;
+  chrome: SiteChrome | null;
+  configuration: ConsentConfiguration;
+}
+const { lang, title, chrome, configuration } = Astro.props;
+const ui = consentPage({
+  configuration,
+  language: lang,
+  legal: chrome?.legal ?? null,
+  cookie: Astro.request.headers.get("cookie"),
+});
+---
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+    <Fragment set:html={ui.head} />
+    <ClientRouter />
+  </head>
+  <body>
+    <Fragment set:html={ui.body} />
+    <header>
+      <nav aria-label="Menu">
+        {chrome?.menuItems.map((item) => <a href={item.href}>{item.label}</a>)}
+        <a href={lang === "en" ? "/sobre/" : "/en/about/"}>{lang === "en" ? "PT" : "EN"}</a>
+      </nav>
+    </header>
+    <main><slot /></main>
+    <footer><Fragment set:html={ui.footer} /></footer>
+    <script>
+      import { startConsent } from "@getquick/content/consent/client";
+      startConsent();
+    </script>
+  </body>
+</html>

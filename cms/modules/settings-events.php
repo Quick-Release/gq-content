@@ -21,7 +21,12 @@
  * - patterns: a synced pattern (`wp_block`, what GQ Design's Header & Footer
  *   selects), a template or a template part (`wp_template`,
  *   `wp_template_part`, where that selection is saved) saved or deleted, or
- *   the active theme (its templates).
+ *   the active theme (its templates);
+ * - legal: gq-config's legal pages and controller identity (LEGAL-1), when it
+ *   fires `getquick_config_legal_changed`;
+ * - analytics: gq-config's Marketing area (its GA4 toggle and measurement ID,
+ *   which change a Site's consent configuration), when it fires
+ *   `getquick_config_options_updated` for `marketing`.
  *
  * On a multilingual Site (Polylang), a language has its own menus and its
  * own title and tagline, so a change to them names that language (the
@@ -61,7 +66,7 @@ use function GetQuick\Site\PublicationEvents\valid_identity;
 const OPTION_PREFIX = 'gq_settings_event_';
 
 /** The shared settings the Frontend refreshes. */
-const SETTINGS = ['menus', 'logo', 'identity', 'design', 'patterns'];
+const SETTINGS = ['menus', 'logo', 'identity', 'design', 'patterns', 'legal', 'analytics'];
 
 /** The settings a language has its own of, on a multilingual Site. */
 const LANGUAGE_SETTINGS = ['menus', 'identity'];
@@ -411,6 +416,14 @@ foreach (['added_post_meta', 'updated_post_meta', 'deleted_post_meta'] as $meta_
 }
 
 add_action('save_post_wp_global_styles', static fn() => changed('design'), 10, 0);
+
+// gq-config (CONSENT-1/LEGAL-1): the Legal Contract, in every language's chrome.
+add_action('getquick_config_legal_changed', static fn() => changed('legal'), 10, 0);
+add_action('getquick_config_options_updated', static function (mixed $area = null): void {
+    if ($area === 'marketing') {
+        changed('analytics');
+    }
+}, 10, 1);
 add_action('switch_theme', static function (): void {
     changed('design');
     changed('menus');

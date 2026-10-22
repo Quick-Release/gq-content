@@ -1,0 +1,4 @@
+{"sourceCommit":"51a9f3eb36f90cf069fca8e6fe20a875e452d570","manifestSha256":"d9c58ba865c080bf6cb1bfe3deecd13a2c2eed019c2271dddcddab2fbecc5ef1","npm":{"filename":"getquick-content-0.1.0.tgz","sha256":"837b2e390dcb7606b4acbb4b62b781eba88a58f87d637dd176817a831faf8318","integrity":"sha512-lxzkdqcdgf4Ag1bTDLi59jUZmadU7dgW1Z6+aWWcKuMBvrMt5LWumHTntOEMmZhKYeCwvg4gCaWjAybbPvRX2w=="},"cms":{"filename":"gq-content-0.1.0.zip","sha256":"f892d974d80cde9bb9a36e4595f509661fb37f63e0102b1506483fcfc2c78a5e"}}
+pass: All 196 files are correctly formatted (259ms, 4 threads)
+pass: Found no warnings, lint errors, or type errors in 90 files (1.0s, 4 threads)
+note: You are running `vp check` as a Vite+ built-in command. If you meant to run the check npm script, use `vpr check` instead.

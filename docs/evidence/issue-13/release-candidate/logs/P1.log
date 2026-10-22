@@ -1,0 +1,313 @@
+{"sourceCommit":"51a9f3eb36f90cf069fca8e6fe20a875e452d570","manifestSha256":"d9c58ba865c080bf6cb1bfe3deecd13a2c2eed019c2271dddcddab2fbecc5ef1","npm":{"filename":"getquick-content-0.1.0.tgz","sha256":"837b2e390dcb7606b4acbb4b62b781eba88a58f87d637dd176817a831faf8318","integrity":"sha512-lxzkdqcdgf4Ag1bTDLi59jUZmadU7dgW1Z6+aWWcKuMBvrMt5LWumHTntOEMmZhKYeCwvg4gCaWjAybbPvRX2w=="},"cms":{"filename":"gq-content-0.1.0.zip","sha256":"f892d974d80cde9bb9a36e4595f509661fb37f63e0102b1506483fcfc2c78a5e"}}
+Installed candidate artifact: {"proof":"alchemy","filename":"getquick-content-0.1.0.tgz","sha256":"837b2e390dcb7606b4acbb4b62b781eba88a58f87d637dd176817a831faf8318","integrity":"sha512-lxzkdqcdgf4Ag1bTDLi59jUZmadU7dgW1Z6+aWWcKuMBvrMt5LWumHTntOEMmZhKYeCwvg4gCaWjAybbPvRX2w==","sourceCommit":"51a9f3eb36f90cf069fca8e6fe20a875e452d570","manifestSha256":"d9c58ba865c080bf6cb1bfe3deecd13a2c2eed019c2271dddcddab2fbecc5ef1"}
+? Verifying lockfile against supply-chain policies (299 entries)...
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /home/runner/.local/share/pnpm/store/v11
+  Virtual store is at:             node_modules/.pnpm
+Downloading effect@4.0.0-rc.115: 0.00 B/8.69 MB
+Downloading @rolldown/binding-linux-x64-gnu@1.2.5: 0.00 B/8.16 MB
+Downloading @distilled.cloud/cloudflare@1.0.0-rc.12: 0.00 B/8.98 MB
+Downloading @img/sharp-libvips-linux-x64@1.3.4: 0.00 B/8.21 MB
+Downloading alchemy@2.0.0-beta.79: 0.00 B/17.89 MB
+Downloading @electric-sql/pglite@0.3.15: 0.00 B/7.96 MB
+Downloading @distilled.cloud/aws@1.0.0-rc.12: 0.00 B/22.98 MB
+Downloading @rolldown/binding-linux-x64-gnu@1.2.14: 0.00 B/8.27 MB
+Downloading @cloudflare/workerd-linux-64@1.20260901.1: 0.00 B/38.77 MB
+✓ Lockfile passes supply-chain policies (299 entries in 948ms)
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 223, reused 30, downloaded 187, added 190
+Downloading @distilled.cloud/cloudflare@1.0.0-rc.12: 8.98 MB/8.98 MB, done
+Packages: +223
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 223, reused 30, downloaded 193, added 223, done
+
+dependencies:
++ @effect/platform-node 4.0.0-rc.115
++ @getquick/content 0.1.0
++ alchemy 2.0.0-beta.79
++ effect 4.0.0-rc.115
+
+Done in 4.6s using pnpm v12.11.2
+[08:40:45.719] INFO (#4): Plan: no resources
+[08:40:45.720] INFO (#4): 
+[08:40:45.723] INFO (#4): 
+[08:40:45.723] INFO (#4): Done: 0 succeeded (3ms)
+[08:40:45.801] INFO (#4): Plan: 2 to create, 4 binding changes
+[08:40:45.801] INFO (#4): [Frontend] create (local)
+[08:40:45.801] INFO (#4): [Frontend/FRONTEND_REFRESH_TOKEN] create
+[08:40:45.801] INFO (#4): [Frontend/PUBLICATION_DB] create
+[08:40:45.801] INFO (#4): [Frontend/PUBLICATION_EVENT_SECRET] create
+[08:40:45.801] INFO (#4): [Frontend/REVISION] create
+[08:40:45.801] INFO (#4): [Publications] create (local)
+[08:40:45.801] INFO (#4): 
+[08:40:45.806] INFO (#156): [Publications] creating (local)
+[08:40:45.808] INFO (#157): [Frontend] pre-creating (local)
+[08:40:46.226] INFO (#157): [Frontend] creating (local)
+[08:40:46.231] INFO (#156): [Publications] created (local) (425ms)
+[08:40:46.265] INFO (#157): [Frontend] ready at http://localhost:1337
+[08:40:46.265] INFO (#157): [Frontend] created (local) (457ms)
+[08:40:46.306] INFO (#232): [Publications] created (local) (500ms)
+[08:40:46.306] INFO (#233): [Frontend] created (local) (498ms)
+[08:40:46.308] INFO (#4): 
+[08:40:46.308] INFO (#4): Done: 2 succeeded (507ms)
+[08:40:46.420] INFO (#222): [Frontend] Started in 182ms → http://localhost:1337/ (logs: /home/runner/work/gq-content/gq-content/.proofs/alchemy-p1-JG3QuS/.alchemy/log/p1/Frontend)
+[Frontend] Delivery: the front page can't be served (not-ready): the front page and its chrome haven't been refreshed into the publication store yet
+P1 first lifecycle: all five migrations precede the package-consuming Worker; stored delivery passes without CMS/secrets.
+[Frontend] Refresh: the entry /entry/ promoted (published)
+[Frontend] Events: workerd-publish-0001 (publish /entry/) refreshed
+[Frontend] Withdrawal: workerd-withdraw-0001 withdrew /entry/
+[Frontend] Refresh: the en front page promoted (published)
+[Frontend] Events: workerd-home-en (publish /en/) refreshed
+[Frontend] Refresh: the shared design presets promoted (published)
+[Frontend] Events: workerd-design (settings design) refreshed
+[Frontend] WordPress: the design presets is unavailable (network): WordPress couldn't be reached
+[Frontend] Refresh: the shared design presets kept its last stored version (network): WordPress couldn't be reached
+[Frontend] Events: workerd-retry-0008 (settings design) failed
+[08:40:46.619] INFO (#4): Plan: 1 to update, 1 binding changes
+[08:40:46.619] INFO (#4): [Frontend] update (local)
+[08:40:46.619] INFO (#4): [Frontend/FRONTEND_REFRESH_TOKEN] noop
+[08:40:46.619] INFO (#4): [Frontend/PUBLICATION_DB] noop
+[08:40:46.619] INFO (#4): [Frontend/PUBLICATION_EVENT_SECRET] noop
+[08:40:46.619] INFO (#4): [Frontend/REVISION] update
+[08:40:46.619] INFO (#4): [Publications] noop (local)
+[08:40:46.619] INFO (#4): 
+[08:40:46.621] INFO (#439): [Frontend] updating (local)
+[08:40:46.625] WARN (#444): Port 1337 is in use by another process; serving on 1338 instead. Stop the other process, pick a different port, or set `strictPort: true` to fail instead.
+[08:40:46.627] INFO (#439): [Frontend] ready at http://localhost:1338
+[08:40:46.627] INFO (#439): [Frontend] updated (local) (6ms)
+[08:40:46.650] INFO (#457): [Frontend] updated (local) (29ms)
+[08:40:46.651] INFO (#4): 
+[08:40:46.651] INFO (#4): Done: 1 succeeded (32ms)
+[08:40:46.756] INFO (#447): [Frontend] Started in 131ms → http://localhost:1338/ (logs: /home/runner/work/gq-content/gq-content/.proofs/alchemy-p1-JG3QuS/.alchemy/log/p1/Frontend)
+[Frontend] Events: workerd-design is a duplicate of a refreshed event
+P6 #7 workerd: language-specific home, shared design, canonical alternates and signed settings duplicate persist across Worker update.
+{
+  "migrationsDirectory": "/home/runner/work/gq-content/gq-content/.proofs/alchemy-p1-JG3QuS/node_modules/.pnpm/@getquick+content@file+getquick-content-0.1.0.tgz/node_modules/@getquick/content/migrations/",
+  "databaseId": "dev:96bb1b63-df8d-4341-b3ea-96bbaae481e9",
+  "migrationHashes": {
+    "0001_publications.sql": "0c0fdcef981c58169a092f68f77a36f741e599d6ebc84314ea2d5a6e792fa706",
+    "0002_entries.sql": "6e0289cb3a6ed6f9fff20a3a1365a496d18b1ee36f0efcd8f91efd655dc6c0f4",
+    "0003_publication_events.sql": "0a87d08c233fad167c67b35f1fa588c8eadeac67074fb7d2f6b3cd5a4daa8e6c",
+    "0004_withdrawals.sql": "b77aefdd632b0b4666cd74c849916f9d368b1c6e35e6db7578279f555f3391b5",
+    "0005_reconciliation.sql": "4b62e25c24940ae59dd97d9b4d7fc9cc658c2c1f2819adafa5bbc8a16151a00e"
+  },
+  "ledger": [
+    {
+      "id": 1,
+      "hash": "0c0fdcef981c58169a092f68f77a36f741e599d6ebc84314ea2d5a6e792fa706",
+      "created_at": null,
+      "name": "0001_publications.sql",
+      "applied_at": "2026-10-22 08:40:46"
+    },
+    {
+      "id": 2,
+      "hash": "6e0289cb3a6ed6f9fff20a3a1365a496d18b1ee36f0efcd8f91efd655dc6c0f4",
+      "created_at": null,
+      "name": "0002_entries.sql",
+      "applied_at": "2026-10-22 08:40:46"
+    },
+    {
+      "id": 3,
+      "hash": "0a87d08c233fad167c67b35f1fa588c8eadeac67074fb7d2f6b3cd5a4daa8e6c",
+      "created_at": null,
+      "name": "0003_publication_events.sql",
+      "applied_at": "2026-10-22 08:40:46"
+    },
+    {
+      "id": 4,
+      "hash": "b77aefdd632b0b4666cd74c849916f9d368b1c6e35e6db7578279f555f3391b5",
+      "created_at": null,
+      "name": "0004_withdrawals.sql",
+      "applied_at": "2026-10-22 08:40:46"
+    },
+    {
+      "id": 5,
+      "hash": "4b62e25c24940ae59dd97d9b4d7fc9cc658c2c1f2819adafa5bbc8a16151a00e",
+      "created_at": null,
+      "name": "0005_reconciliation.sql",
+      "applied_at": "2026-10-22 08:40:46"
+    }
+  ],
+  "tables": [
+    {
+      "name": "__alchemy_migrations"
+    },
+    {
+      "name": "_cf_METADATA"
+    },
+    {
+      "name": "publication_events"
+    },
+    {
+      "name": "publications"
+    },
+    {
+      "name": "reconciliation"
+    },
+    {
+      "name": "refresh_attempts"
+    },
+    {
+      "name": "withdrawals"
+    }
+  ],
+  "publicationRows": [
+    {
+      "key": "chrome",
+      "state": "published",
+      "format": 1,
+      "body": "{\"menuItems\":[],\"siteIcon\":null,\"siteLogo\":null}",
+      "read_started_at": 1,
+      "promoted_at": 1,
+      "node_id": null,
+      "modified_at": null
+    },
+    {
+      "key": "chrome:en",
+      "state": "published",
+      "format": 1,
+      "body": "{\"menuItems\":[],\"siteIcon\":null,\"siteLogo\":null}",
+      "read_started_at": 1,
+      "promoted_at": 1,
+      "node_id": null,
+      "modified_at": null
+    },
+    {
+      "key": "design",
+      "state": "published",
+      "format": 1,
+      "body": "{\"spacingSizes\":[],\"colors\":[{\"slug\":\"brand\",\"color\":\"#0a0\"}]}",
+      "read_started_at": 1792658446507,
+      "promoted_at": 1792658446507,
+      "node_id": null,
+      "modified_at": null
+    },
+    {
+      "key": "entry:/entry/",
+      "state": "withdrawn",
+      "format": 1,
+      "body": null,
+      "read_started_at": 1792658446480,
+      "promoted_at": 1792658446480,
+      "node_id": "workerd-page-1",
+      "modified_at": null
+    },
+    {
+      "key": "home",
+      "state": "published",
+      "format": 1,
+      "body": "{\"settings\":{\"title\":\"P1 durable Site\",\"description\":\"Installed package\"},\"page\":{\"title\":\"Home\",\"content\":\"<h1>Survives Worker update</h1>\",\"hasVideoHero\":false},\"colors\":[],\"spacingSizes\":[]}",
+      "read_started_at": 1,
+      "promoted_at": 1,
+      "node_id": null,
+      "modified_at": null
+    },
+    {
+      "key": "home:en",
+      "state": "published",
+      "format": 1,
+      "body": "{\"settings\":{\"title\":\"English\",\"description\":\"Shared rows\"},\"page\":{\"title\":\"Home\",\"content\":\"<h1>English workerd home</h1>\",\"hasVideoHero\":false},\"spacingSizes\":[],\"colors\":[]}",
+      "read_started_at": 1792658446494,
+      "promoted_at": 1792658446495,
+      "node_id": "front-en",
+      "modified_at": null
+    }
+  ],
+  "delivery": {
+    "kind": "found",
+    "content": {
+      "home": {
+        "settings": {
+          "title": "P1 durable Site",
+          "description": "Installed package"
+        },
+        "page": {
+          "title": "Home",
+          "content": "<h1>Survives Worker update</h1>",
+          "hasVideoHero": false
+        },
+        "spacingSizes": [],
+        "colors": [
+          {
+            "slug": "brand",
+            "color": "#0a0"
+          }
+        ]
+      },
+      "chrome": {
+        "menuItems": [],
+        "siteIcon": null,
+        "siteLogo": null
+      },
+      "alternates": [
+        {
+          "language": {
+            "locale": "en_US",
+            "slug": "en",
+            "code": "EN",
+            "lang": "en-US",
+            "isDefault": false,
+            "home": "/en/"
+          },
+          "route": "/en/",
+          "translation": true
+        }
+      ]
+    }
+  }
+}
+P1 repeat lifecycle: database identity, five complete ledger identities, publication bytes and public delivery preserved; database noop, Worker updated.
+[Frontend] Events: workerd-publish-0001 is a duplicate of a refreshed event
+[Frontend] Refresh: the entry /entry/ isn't promoted: its entry is withdrawn
+[Frontend] Events: workerd-publish-0002 lifts the withdrawal workerd-withdraw-0001
+[Frontend] Refresh: the entry /entry/ promoted (published)
+[Frontend] Events: workerd-publish-0002 (publish /entry/) refreshed
+P6 #6 workerd: real HMAC verification, publication/withdrawal SQL, restart persistence, duplicate ordering, refresh protection and later republication passed.
+[Frontend] Refresh: the shared design presets promoted (published)
+[Frontend] Events: workerd-retry-0008 (settings design) refreshed
+[Frontend] Events: workerd-retry-0008 is a duplicate of a refreshed event
+{
+  "failedRetryRecord": {
+    "id": "workerd-retry-0008",
+    "action": "settings",
+    "node_id": "setting:design",
+    "uri": "/",
+    "previous_uri": null,
+    "occurred_at": 1792658446424,
+    "received_at": 1792658446526,
+    "status": "failed",
+    "attempts": 1,
+    "processed_at": 1792658446531,
+    "reason": "network",
+    "message": "WordPress couldn't be reached"
+  },
+  "recoveredRetryRecord": {
+    "id": "workerd-retry-0008",
+    "action": "settings",
+    "node_id": "setting:design",
+    "uri": "/",
+    "previous_uri": null,
+    "occurred_at": 1792658446424,
+    "received_at": 1792658446526,
+    "status": "refreshed",
+    "attempts": 2,
+    "processed_at": 1792658446883,
+    "reason": null,
+    "message": null
+  }
+}
+P6 #8 workerd: failed signed event survives Worker update and retries same identity to public delivery; duplicate is durable.
+[08:40:46.995] INFO (#4): Plan: 2 to delete, 4 binding changes
+[08:40:46.996] INFO (#4): [Frontend] delete (local)
+[08:40:46.996] INFO (#4): [Frontend/FRONTEND_REFRESH_TOKEN] unbind
+[08:40:46.996] INFO (#4): [Frontend/PUBLICATION_DB] unbind
+[08:40:46.996] INFO (#4): [Frontend/PUBLICATION_EVENT_SECRET] unbind
+[08:40:46.996] INFO (#4): [Frontend/REVISION] unbind
+[08:40:46.996] INFO (#4): [Publications] delete (local)
+[08:40:46.996] INFO (#4): 
+[08:40:46.999] INFO (#559): [Frontend] deleting (local)
+[08:40:47.004] INFO (#559): [Frontend] deleted (local) (4ms)
+[08:40:47.004] INFO (#560): [Publications] deleting (local)
+[08:40:47.005] INFO (#560): [Publications] deleted (local) (1ms)
+[08:40:47.008] INFO (#4): 
+[08:40:47.008] INFO (#4): Done: 2 succeeded (12ms)

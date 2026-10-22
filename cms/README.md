@@ -22,15 +22,20 @@ fail safely when unconfigured, and production Site Health is critical. Existing
 valid delivery history is preserved. Site Health debug information includes
 package, version and a configured boolean, with no credentials.
 
-`wp gq-events version` prints `0.1.0`; `--format=json` prints
-`{"package":"getquick/gq-content","version":"0.1.0"}` even without configuration.
+`wp gq-events version` prints `0.2.0`; `--format=json` prints
+`{"package":"getquick/gq-content","version":"0.2.0"}` even without configuration.
 Existing commands are `status`, `check`, `retry <post-id>`, `settings status`,
 `settings retry <setting>`, `delays`, `retry-due` and `reconcile`.
-Settings are `menus`, `logo`, `identity`, `design` and `patterns`; `patterns`
-is sent when a synced pattern (`wp_block`), template or template part is saved
-or deleted, or the theme changes, so the Frontend refreshes the chrome's GQ
-Design header and footer. Pattern sync-meta changes and GQ Design's public
-`getquick_design_cache_invalidated` hook also refresh patterns, including
+Shared settings subjects are `menus`, `logo`, `identity`, `design`, `patterns`,
+and for CONSENT-1/LEGAL-1 `legal` (sent on gq-config's `getquick_config_legal_changed`)
+and `analytics` (sent on `getquick_config_options_updated` for the `marketing`
+area, its GA4 toggle and measurement ID). Both refresh every language's chrome
+on Frontends that enable consent CMS settings; others refresh the chrome as is.
+Delivery health names them "The legal pages" and "The analytics settings".
+`patterns` is sent when a synced pattern (`wp_block`), template or template part
+is saved or deleted, or the theme changes, so the Frontend refreshes the
+chrome's GQ Design header and footer. Pattern sync-meta changes and GQ Design's
+public `getquick_design_cache_invalidated` hook also refresh patterns, including
 linked-page/media dependencies. Hooks coalesce per request; reconciliation
 repairs missed events.
 The server cron remains `wp gq-events retry-due --quiet`; installing this package
@@ -54,7 +59,7 @@ supported extension APIs. Supported publication post types remain page and post;
 there are no new custom emitted actions or schemas.
 
 Run `vp run cms` for the reusable P2 installed-plugin proof, or
-`vp run cms-package` to produce `.artifacts/gq-content-0.1.0.zip`. The archive
+`vp run cms-package` to produce `.artifacts/gq-content-0.2.0.zip`. The archive
 contains only plugin files, not tests or Frontend code. The proof uses PHP,
 Composer, Python 3, curl, SQLite and downloaded WP-CLI; it installs the archive
 through real Composer installers into a fresh public Bedrock project and boots
