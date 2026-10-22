@@ -18,7 +18,10 @@ const server = createServer(async (request, response) => {
   assert.equal(request.headers.cookie, undefined);
   let body = "";
   for await (const chunk of request) body += chunk;
-  assert.match(JSON.parse(body).query, /HomePage/);
+  const { query } = JSON.parse(body);
+  assert.match(query, /HomePage/);
+  // A Site's extension fields are selected with the blocks, and answered.
+  const extended = query.includes("@include(if: $withBlocks) {\nsiteBlocksJson\n}");
   response.setHeader("Content-Type", "application/json");
   response.end(
     JSON.stringify({
@@ -29,6 +32,7 @@ const server = createServer(async (request, response) => {
           isFrontPage: true,
           title: "Home",
           content: "<p>From HTTP</p>",
+          ...(extended ? { siteBlocksJson: '[{"blockName":"site/hero"}]' } : {}),
         },
         designTokens: { colors: [], spacingSizes: [] },
       },
@@ -57,6 +61,24 @@ try {
       colors: [],
     },
   });
+  const extended = createContentRuntime({
+    site: "Installed / Identity",
+    cmsOrigin: origin,
+    graphqlEndpoint: `${origin}/graphql`,
+    isServer: () => true,
+    bindings: () => ({}),
+    extension: {
+      fields: { page: "siteBlocksJson" },
+      read: ({ kind, fields }) => ({ kind, blocks: JSON.parse(fields.siteBlocksJson) }),
+      parse: (stored) => stored,
+    },
+  });
+  const read = await extended.wordpress.getHomeContent();
+  assert.deepEqual(read.kind === "found" && read.content.page.extension, {
+    kind: "page",
+    blocks: [{ blockName: "site/hero" }],
+  });
+  assert.deepEqual(extended.internalOrigins("https://site.test"), [origin, "https://site.test"]);
   console.log("Installed ESM imports, pure helpers and real HTTP client integration passed.");
 } finally {
   await new Promise((resolve, reject) =>

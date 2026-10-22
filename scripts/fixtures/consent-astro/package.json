@@ -3,7 +3,7 @@
   "type": "module",
   "dependencies": {
     "@astrojs/node": "11.1.9",
-    "@getquick/content": "file:getquick-content-0.1.0.tgz",
+    "@getquick/content": "file:getquick-content-0.2.0.tgz",
     "astro": "7.4.2",
     "playwright": "1.64.1"
   },

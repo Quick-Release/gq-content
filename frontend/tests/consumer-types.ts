@@ -3,6 +3,8 @@ import {
   renderWordPressBlocks,
   hasVideoHero,
   blockPresetStyles,
+  presetRootStyle,
+  menuItemHref,
   containerLayoutHtml,
   containerChildLayoutHtml,
   htmlLang,
@@ -34,6 +36,8 @@ import {
   type ColorPreset,
   type SpacingPreset,
   type ContainerAttributes,
+  type ContentExtension,
+  type ExtensionNode,
 } from "@getquick/content";
 import { createContentRuntime, type ContentConfig as ServerConfig } from "@getquick/content/server";
 const bindings: ContentBindings = {};
@@ -97,3 +101,47 @@ const refreshResponse: Promise<Response> = runtime.handleRefresh(
   new Request("https://site.test/gq/refresh"),
 );
 void [eventResponse, refreshResponse];
+
+// A Site's own content, typed from its extension through every delivery.
+interface SiteDesign {
+  blocks: unknown[];
+  background: string | null;
+}
+const extension: ContentExtension<SiteDesign> = {
+  fields: { page: "wpBlocksJson siteBackground", post: "wpBlocksJson" },
+  read: ({ kind, fields }: ExtensionNode) =>
+    typeof fields.wpBlocksJson === "string"
+      ? {
+          blocks: JSON.parse(fields.wpBlocksJson) as unknown[],
+          background:
+            kind === "page"
+              ? typeof fields.siteBackground === "string"
+                ? fields.siteBackground
+                : null
+              : null,
+        }
+      : undefined,
+  parse: (stored: unknown) =>
+    typeof stored === "object" && stored !== null ? (stored as SiteDesign) : undefined,
+};
+const extended: ContentRuntime<SiteDesign> = createContentRuntime({ ...config, extension });
+const extendedConfig: ServerConfig<SiteDesign> = { ...config, extension };
+void extendedConfig;
+const extendedHome: Promise<HomeDelivery<SiteDesign>> = extended.publishedHome();
+const extendedEntry: Promise<EntryDelivery<SiteDesign>> = extended.publishedEntry("/about/");
+const extendedRead: Promise<Delivery<EntryContent<SiteDesign>>> =
+  extended.wordpress.getEntryByUri("/about/");
+async function siteDesign(delivery: EntryDelivery<SiteDesign>): Promise<SiteDesign | undefined> {
+  return delivery.kind === "found" ? delivery.content.entry.extension : undefined;
+}
+async function frontDesign(delivery: HomeDelivery<SiteDesign>): Promise<string | null | undefined> {
+  return delivery.kind === "found" ? delivery.content.home.page.extension?.background : undefined;
+}
+// A Site without an extension still assigns its deliveries to the plain types.
+const plainEntry: Promise<EntryDelivery> = extended.publishedEntry("/about/");
+const design: Promise<DesignPresets | null> = runtime.designPresets();
+const origins: string[] = runtime.internalOrigins("https://site.test");
+const scoped: BlockPresetStyles = blockPresetStyles(spacing, colors, ".site-blocks");
+const root: string = presetRootStyle(spacing, colors);
+void [extendedHome, extendedEntry, extendedRead, siteDesign, frontDesign, plainEntry];
+void [design, origins, scoped, root, menuItemHref("https://cms.test/a/", origins)];
