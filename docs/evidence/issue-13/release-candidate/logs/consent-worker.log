@@ -1,0 +1,74 @@
+{"sourceCommit":"51a9f3eb36f90cf069fca8e6fe20a875e452d570","manifestSha256":"d9c58ba865c080bf6cb1bfe3deecd13a2c2eed019c2271dddcddab2fbecc5ef1","npm":{"filename":"getquick-content-0.1.0.tgz","sha256":"837b2e390dcb7606b4acbb4b62b781eba88a58f87d637dd176817a831faf8318","integrity":"sha512-lxzkdqcdgf4Ag1bTDLi59jUZmadU7dgW1Z6+aWWcKuMBvrMt5LWumHTntOEMmZhKYeCwvg4gCaWjAybbPvRX2w=="},"cms":{"filename":"gq-content-0.1.0.zip","sha256":"f892d974d80cde9bb9a36e4595f509661fb37f63e0102b1506483fcfc2c78a5e"}}
+Installed candidate artifact: {"proof":"consent-worker","filename":"getquick-content-0.1.0.tgz","sha256":"837b2e390dcb7606b4acbb4b62b781eba88a58f87d637dd176817a831faf8318","integrity":"sha512-lxzkdqcdgf4Ag1bTDLi59jUZmadU7dgW1Z6+aWWcKuMBvrMt5LWumHTntOEMmZhKYeCwvg4gCaWjAybbPvRX2w==","sourceCommit":"51a9f3eb36f90cf069fca8e6fe20a875e452d570","manifestSha256":"d9c58ba865c080bf6cb1bfe3deecd13a2c2eed019c2271dddcddab2fbecc5ef1"}
+✓ Lockfile passes supply-chain policies (verified 6m ago)
+Lockfile is up to date, resolution step is skipped
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /home/runner/.local/share/pnpm/store/v11
+  Virtual store is at:             node_modules/.pnpm
+Packages: +223
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 223, reused 223, downloaded 0, added 223, done
+
+dependencies:
++ @effect/platform-node 4.0.0-rc.115
++ @getquick/content 0.1.0
++ alchemy 2.0.0-beta.79
++ effect 4.0.0-rc.115
+
+Done in 966ms using pnpm v12.11.2
+#28 isolation: 10 installed modules behind consent, consent/server and consent/client import no content runtime, WordPress client, D1 publication store, framework or zod.
+[08:47:22.622] INFO (#4): Plan: no resources
+[08:47:22.623] INFO (#4): 
+[08:47:22.626] INFO (#4): 
+[08:47:22.626] INFO (#4): Done: 0 succeeded (3ms)
+[08:47:22.700] INFO (#4): Plan: 2 to create, 3 binding changes
+[08:47:22.700] INFO (#4): [Consent] create (local)
+[08:47:22.700] INFO (#4): [Storefront] create (local)
+[08:47:22.700] INFO (#4): [Storefront/CONSENT_DB] create
+[08:47:22.700] INFO (#4): [Storefront/CONSENT_READ_TOKEN] create
+[08:47:22.701] INFO (#4): [Storefront/REVISION] create
+[08:47:22.701] INFO (#4): 
+[08:47:22.706] INFO (#145): [Consent] creating (local)
+[08:47:22.707] INFO (#146): [Storefront] pre-creating (local)
+[08:47:22.856] INFO (#146): [Storefront] creating (local)
+[08:47:22.860] INFO (#145): [Consent] created (local) (154ms)
+[08:47:22.891] INFO (#146): [Storefront] ready at http://localhost:1337
+[08:47:22.892] INFO (#146): [Storefront] created (local) (184ms)
+[08:47:22.932] INFO (#221): [Consent] created (local) (226ms)
+[08:47:22.932] INFO (#222): [Storefront] created (local) (225ms)
+[08:47:22.933] INFO (#4): 
+[08:47:22.933] INFO (#4): Done: 2 succeeded (232ms)
+[08:47:23.019] INFO (#211): [Storefront] Started in 156ms → http://localhost:1337/ (logs: /home/runner/work/gq-content/gq-content/.proofs/consent-worker-trDAhX/.alchemy/log/consent/Storefront)
+PASS CN-R5, CN-C2: banner state in the Worker consumer: first visit prompts, a rejection is in force, Turnstile stays necessary
+PASS CN-R7, CN-R8, CN-R9: workerd + local D1: records append (retry adds none), cross-origin/invalid/oversize rejected, no IP or user agent stored
+PASS CN-R11: workerd: bearer-authenticated lookup, CSV export and counts match stored decisions
+[08:47:23.153] INFO (#4): Plan: 1 to update, 1 binding changes
+[08:47:23.153] INFO (#4): [Consent] noop (local)
+[08:47:23.153] INFO (#4): [Storefront] update (local)
+[08:47:23.153] INFO (#4): [Storefront/CONSENT_DB] noop
+[08:47:23.153] INFO (#4): [Storefront/CONSENT_READ_TOKEN] noop
+[08:47:23.153] INFO (#4): [Storefront/REVISION] update
+[08:47:23.153] INFO (#4): 
+[08:47:23.154] INFO (#461): [Storefront] updating (local)
+[08:47:23.158] WARN (#466): Port 1337 is in use by another process; serving on 1338 instead. Stop the other process, pick a different port, or set `strictPort: true` to fail instead.
+[08:47:23.175] INFO (#461): [Storefront] ready at http://localhost:1338
+[08:47:23.175] INFO (#461): [Storefront] updated (local) (21ms)
+[08:47:23.183] INFO (#479): [Storefront] updated (local) (29ms)
+[08:47:23.183] INFO (#4): 
+[08:47:23.183] INFO (#4): Done: 1 succeeded (30ms)
+[08:47:23.259] INFO (#469): [Storefront] Started in 101ms → http://localhost:1338/ (logs: /home/runner/work/gq-content/gq-content/.proofs/consent-worker-trDAhX/.alchemy/log/consent/Storefront)
+PASS CN-R10: workerd: purge deletes a record 5 years past its end of force, keeps current ones; records survive a Worker update
+[08:47:23.288] INFO (#4): Plan: 2 to delete, 3 binding changes
+[08:47:23.288] INFO (#4): [Consent] delete (local)
+[08:47:23.288] INFO (#4): [Storefront] delete (local)
+[08:47:23.288] INFO (#4): [Storefront/CONSENT_DB] unbind
+[08:47:23.288] INFO (#4): [Storefront/CONSENT_READ_TOKEN] unbind
+[08:47:23.288] INFO (#4): [Storefront/REVISION] unbind
+[08:47:23.289] INFO (#4): 
+[08:47:23.292] INFO (#582): [Storefront] deleting (local)
+[08:47:23.296] INFO (#582): [Storefront] deleted (local) (4ms)
+[08:47:23.296] INFO (#581): [Consent] deleting (local)
+[08:47:23.297] INFO (#581): [Consent] deleted (local) (1ms)
+[08:47:23.299] INFO (#4): 
+[08:47:23.299] INFO (#4): Done: 2 succeeded (10ms)
+#28: the installed consent exports typecheck and run in a Worker without the content runtime.

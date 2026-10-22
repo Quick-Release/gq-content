@@ -1,0 +1,91 @@
+{"sourceCommit":"51a9f3eb36f90cf069fca8e6fe20a875e452d570","manifestSha256":"d9c58ba865c080bf6cb1bfe3deecd13a2c2eed019c2271dddcddab2fbecc5ef1","npm":{"filename":"getquick-content-0.1.0.tgz","sha256":"837b2e390dcb7606b4acbb4b62b781eba88a58f87d637dd176817a831faf8318","integrity":"sha512-lxzkdqcdgf4Ag1bTDLi59jUZmadU7dgW1Z6+aWWcKuMBvrMt5LWumHTntOEMmZhKYeCwvg4gCaWjAybbPvRX2w=="},"cms":{"filename":"gq-content-0.1.0.zip","sha256":"f892d974d80cde9bb9a36e4595f509661fb37f63e0102b1506483fcfc2c78a5e"}}
+Installed candidate artifact: {"proof":"consent","filename":"getquick-content-0.1.0.tgz","sha256":"837b2e390dcb7606b4acbb4b62b781eba88a58f87d637dd176817a831faf8318","integrity":"sha512-lxzkdqcdgf4Ag1bTDLi59jUZmadU7dgW1Z6+aWWcKuMBvrMt5LWumHTntOEMmZhKYeCwvg4gCaWjAybbPvRX2w==","sourceCommit":"51a9f3eb36f90cf069fca8e6fe20a875e452d570","manifestSha256":"d9c58ba865c080bf6cb1bfe3deecd13a2c2eed019c2271dddcddab2fbecc5ef1"}
+? Verifying lockfile against supply-chain policies (284 entries)...
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /home/runner/.local/share/pnpm/store/v11
+  Virtual store is at:             node_modules/.pnpm
+✓ Lockfile passes supply-chain policies (284 entries in 679ms)
+Lockfile is up to date, resolution step is skipped
+Packages: +209
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 209, reused 35, downloaded 174, added 209, done
+
+dependencies:
++ @astrojs/node 11.1.9
++ @getquick/content 0.1.0
++ astro 7.4.2
++ playwright 1.64.1
+
+Done in 817ms using pnpm v12.11.2
+Downloading Chrome for Testing 156.0.8078.4 (playwright chromium v1248) from https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-linux64.zip
+|                                                                                |   0% of 191.1 MiB
+|■■■■■■■■                                                                        |  10% of 191.1 MiB
+|■■■■■■■■■■■■■■■■                                                                |  20% of 191.1 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 191.1 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 191.1 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 191.1 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 191.1 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 191.1 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 191.1 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 191.1 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 191.1 MiB
+Chrome for Testing 156.0.8078.4 (playwright chromium v1248) downloaded to /home/runner/.cache/ms-playwright/chromium-1248
+Downloading FFmpeg (playwright ffmpeg v1013) from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1013/ffmpeg-linux.zip
+|                                                                                |   0% of 2.2 MiB
+|■■■■■■■■                                                                        |  10% of 2.2 MiB
+|■■■■■■■■■■■■■■■■                                                                |  20% of 2.2 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.2 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.2 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.2 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.2 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.2 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.2 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.2 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.2 MiB
+FFmpeg (playwright ffmpeg v1013) downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1013
+Downloading Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) from https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-headless-shell-linux64.zip
+|                                                                                |   0% of 120 MiB
+|■■■■■■■■                                                                        |  10% of 120 MiB
+|■■■■■■■■■■■■■■■■                                                                |  20% of 120 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 120 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 120 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 120 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 120 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 120 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 120 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 120 MiB
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 120 MiB
+Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1248
+[2m08:46:45[22m [34m[@astrojs/node][39m Enabling sessions with filesystem storage
+[2m08:46:45[22m [34m[types][39m Generated [2m115ms[22m
+[2m08:46:45[22m [34m[build][39m output: [34m"server"[39m
+[2m08:46:45[22m [34m[build][39m mode: [34m"server"[39m
+[2m08:46:45[22m [34m[build][39m directory: [34m/home/runner/work/gq-content/gq-content/.proofs/consent-astro-mvrQd6/dist/[39m
+[2m08:46:45[22m [34m[build][39m adapter: [32m@astrojs/node[39m
+[2m08:46:45[22m [34m[build][39m Collecting build info...
+[2m08:46:45[22m [34m[build][39m [32m✓ Completed in 168ms.[39m
+[2m08:46:45[22m [34m[build][39m Building server entrypoints...
+[2m08:46:45[22m [34m[vite][39m [32m✓ built in 172ms[39m
+[2m08:46:46[22m [34m[vite][39m [32m✓ built in 259ms[39m
+[2m08:46:46[22m [34m[vite][39m [32m✓ built in 28ms[39m
+[2m08:46:46[22m [34m[build][39m Rearranging server assets...
+[2m08:46:46[22m [34m[build][39m [32m✓ Completed in 508ms.[39m
+[2m08:46:46[22m [34m[build][39m Server built in [1m678ms[22m
+[2m08:46:46[22m [34m[build][39m [1mComplete![22m
+[2m08:46:46[22m [34m[@astrojs/node][39m Server listening on http://127.0.0.1:38571
+PASS CN-R1, CN-R4, CN-R6, CN-R13: shared suite passed 48 checks on / /en/ /sobre/ /en/about/ /contacto/ /privacidade/
+PASS CN-R1, CN-R13: the non-compliant fixture fails the suite (CN-R13, CN-R1, CN-R1)
+PASS CN-R3, CN-R13: an unknown-host iframe in WordPress HTML is blocked and reported; the video hero is gated
+PASS CN-R12, CN-R1: after Accept all the embed and the GA4 tag load; denied defaults precede the tag, then an analytics_storage update
+PASS CN-R6, CN-R12: withdrawing analytics sends a denied update, removes _ga cookies and stops further loading
+PASS CN-R7, CN-R8, CN-R11, CN-C3: custom then withdraw each append one record with the consent ID shown in the panel, page language and legal revisions
+PASS CN-R8, CN-R14: two failed record writes are retried; the rejection stays applied and is recorded once
+PASS CN-R5: 6-month validity, renewal with the same consent ID, material re-prompts only for granted categories
+PASS CN-R4: the banner is first in focus order, its controls are keyboard-operable with accessible names, the panel takes and returns focus
+PASS CN-R13: Load once loads one map without a grant; Always allow grants external_media, is recorded and persists
+PASS CN-R1: after client-side navigation the granted video hero loads from its placeholder
+PASS CN-R1: client-side navigation without a decision loads nothing third-party and writes no storage
+PASS CN-R4, CN-R3: a consent hook forged in WordPress HTML is neutralised: clicking it records and grants nothing
+PASS CN-C1, CN-R6: without optional services no banner or record; Cookie settings lists necessary storage
+PASS LG-R4, LG-R5, LG-R6, LG-R2: translated and untranslated routes link every role in their language (fallback for the untranslated privacy policy) with the banner open, from stored chrome with the CMS unreachable; legal pages are reachable and readable with the banner open
+CONSENT-1/LEGAL-1 Astro acceptance passed against the installed package.

@@ -1,0 +1,132 @@
+{"sourceCommit":"51a9f3eb36f90cf069fca8e6fe20a875e452d570","manifestSha256":"d9c58ba865c080bf6cb1bfe3deecd13a2c2eed019c2271dddcddab2fbecc5ef1","npm":{"filename":"getquick-content-0.1.0.tgz","sha256":"837b2e390dcb7606b4acbb4b62b781eba88a58f87d637dd176817a831faf8318","integrity":"sha512-lxzkdqcdgf4Ag1bTDLi59jUZmadU7dgW1Z6+aWWcKuMBvrMt5LWumHTntOEMmZhKYeCwvg4gCaWjAybbPvRX2w=="},"cms":{"filename":"gq-content-0.1.0.zip","sha256":"f892d974d80cde9bb9a36e4595f509661fb37f63e0102b1506483fcfc2c78a5e"}}
+PASS PHP syntax for entry, modules and proof fixtures
+PASS Composer package metadata validation
+PASS plugin-root archive with one public PHP entry
+PASS Composer installed the current ZIP bytes without stale cache
+PASS real WordPress boots Composer-installed MU plugin
+PASS bare version works without event configuration
+PASS JSON version works without event configuration
+PASS production Site Health reports missing configuration safely
+PASS all three modules load once in dependency order through Bedrock
+PASS absent: unconfigured and critical in production
+PASS absent: saves work without retaining malformed publication/settings events
+PASS absent: CLI check safely refuses configuration
+PASS absent: CLI retry 4 safely refuses configuration
+PASS absent: CLI settings retry identity safely refuses configuration
+PASS absent: CLI reconcile safely refuses configuration
+PASS absent: CLI retry-due --quiet safely refuses configuration
+PASS absent: no guessed or malformed event sent
+PASS empty environment: unconfigured and critical in production
+PASS empty environment: saves work without retaining malformed publication/settings events
+PASS empty environment: CLI check safely refuses configuration
+PASS empty environment: CLI retry 5 safely refuses configuration
+PASS empty environment: CLI settings retry identity safely refuses configuration
+PASS empty environment: CLI reconcile safely refuses configuration
+PASS empty environment: CLI retry-due --quiet safely refuses configuration
+PASS empty environment: no guessed or malformed event sent
+PASS blank environment: unconfigured and critical in production
+PASS blank environment: saves work without retaining malformed publication/settings events
+PASS blank environment: CLI check safely refuses configuration
+PASS blank environment: CLI retry 6 safely refuses configuration
+PASS blank environment: CLI settings retry identity safely refuses configuration
+PASS blank environment: CLI reconcile safely refuses configuration
+PASS blank environment: CLI retry-due --quiet safely refuses configuration
+PASS blank environment: no guessed or malformed event sent
+PASS invalid constant '': unconfigured and critical in production
+PASS invalid constant '': saves work without retaining malformed publication/settings events
+PASS invalid constant '': CLI check safely refuses configuration
+PASS invalid constant '': CLI retry 7 safely refuses configuration
+PASS invalid constant '': CLI settings retry identity safely refuses configuration
+PASS invalid constant '': CLI reconcile safely refuses configuration
+PASS invalid constant '': CLI retry-due --quiet safely refuses configuration
+PASS invalid constant '': no guessed or malformed event sent
+PASS invalid constant '  ': unconfigured and critical in production
+PASS invalid constant '  ': saves work without retaining malformed publication/settings events
+PASS invalid constant '  ': CLI check safely refuses configuration
+PASS invalid constant '  ': CLI retry 8 safely refuses configuration
+PASS invalid constant '  ': CLI settings retry identity safely refuses configuration
+PASS invalid constant '  ': CLI reconcile safely refuses configuration
+PASS invalid constant '  ': CLI retry-due --quiet safely refuses configuration
+PASS invalid constant '  ': no guessed or malformed event sent
+PASS invalid constant 123: unconfigured and critical in production
+PASS invalid constant 123: saves work without retaining malformed publication/settings events
+PASS invalid constant 123: CLI check safely refuses configuration
+PASS invalid constant 123: CLI retry 9 safely refuses configuration
+PASS invalid constant 123: CLI settings retry identity safely refuses configuration
+PASS invalid constant 123: CLI reconcile safely refuses configuration
+PASS invalid constant 123: CLI retry-due --quiet safely refuses configuration
+PASS invalid constant 123: no guessed or malformed event sent
+PASS invalid constant true: unconfigured and critical in production
+PASS invalid constant true: saves work without retaining malformed publication/settings events
+PASS invalid constant true: CLI check safely refuses configuration
+PASS invalid constant true: CLI retry 10 safely refuses configuration
+PASS invalid constant true: CLI settings retry identity safely refuses configuration
+PASS invalid constant true: CLI reconcile safely refuses configuration
+PASS invalid constant true: CLI retry-due --quiet safely refuses configuration
+PASS invalid constant true: no guessed or malformed event sent
+PASS invalid constant false: unconfigured and critical in production
+PASS invalid constant false: saves work without retaining malformed publication/settings events
+PASS invalid constant false: CLI check safely refuses configuration
+PASS invalid constant false: CLI retry 11 safely refuses configuration
+PASS invalid constant false: CLI settings retry identity safely refuses configuration
+PASS invalid constant false: CLI reconcile safely refuses configuration
+PASS invalid constant false: CLI retry-due --quiet safely refuses configuration
+PASS invalid constant false: no guessed or malformed event sent
+PASS invalid constant null: unconfigured and critical in production
+PASS invalid constant null: saves work without retaining malformed publication/settings events
+PASS invalid constant null: CLI check safely refuses configuration
+PASS invalid constant null: CLI retry 12 safely refuses configuration
+PASS invalid constant null: CLI settings retry identity safely refuses configuration
+PASS invalid constant null: CLI reconcile safely refuses configuration
+PASS invalid constant null: CLI retry-due --quiet safely refuses configuration
+PASS invalid constant null: no guessed or malformed event sent
+PASS invalid constant []: unconfigured and critical in production
+PASS invalid constant []: saves work without retaining malformed publication/settings events
+PASS invalid constant []: CLI check safely refuses configuration
+PASS invalid constant []: CLI retry 13 safely refuses configuration
+PASS invalid constant []: CLI settings retry identity safely refuses configuration
+PASS invalid constant []: CLI reconcile safely refuses configuration
+PASS invalid constant []: CLI retry-due --quiet safely refuses configuration
+PASS invalid constant []: no guessed or malformed event sent
+PASS unconfigured development saves without sending or retaining events
+PASS process environment: Site Health debug package/version/configured
+PASS process environment: publication/settings preserve identities and delivery record keys
+PASS process environment: real HTTP envelopes are trimmed, signed and use existing endpoint
+PASS process environment: retry/reconcile commands and quiet cron contract remain usable
+PASS process environment: status retains JSON rows
+PASS process environment: settings status retains JSON rows
+PASS process environment: delays retains JSON rows
+PASS constant precedence: Site Health debug package/version/configured
+PASS constant precedence: publication/settings preserve identities and delivery record keys
+PASS constant precedence: real HTTP envelopes are trimmed, signed and use existing endpoint
+PASS constant precedence: retry/reconcile commands and quiet cron contract remain usable
+PASS constant precedence: status retains JSON rows
+PASS constant precedence: settings status retains JSON rows
+PASS constant precedence: delays retains JSON rows
+PASS gq-config helper endpoint takes precedence
+PASS empty helper falls back to GETQUICK_FRONTEND_URL
+PASS missing endpoint: production retains valid failed records and reports unconfigured
+PASS missing secret: production retains valid failed records and reports unconfigured
+PASS short secret: production retains valid failed records and reports unconfigured
+PASS version remains available with an invalid defined identity
+PHP 8.5.12 (cli) (built: Oct 19 2026 17:51:02) (NTS)
+Composer version 2.10.3 2026-08-27 13:34:23
+WP-CLI 2.12.0
+WordPress 7.1.3
+Bedrock project 1.31.7; SQLite integration 3.1.0
+composer/installers v2.3.0
+getquick/gq-content 0.1.0
+graham-campbell/result-type v1.2.0
+oscarotero/env v2.1.1
+phpoption/phpoption 1.10.0
+roots/bedrock-autoloader 1.1.0
+roots/bedrock-disallow-indexing 2.1.0
+roots/wordpress 7.1.3
+roots/wordpress-core-installer v4.0.0
+roots/wordpress-no-content 7.1.3
+roots/wp-config 1.0.0
+symfony/polyfill-ctype v1.37.0
+symfony/polyfill-mbstring v1.43.0
+symfony/polyfill-php80 v1.43.0
+vlucas/phpdotenv v5.7.0
+wp-theme/twentytwentyfive 1.5
