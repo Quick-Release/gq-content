@@ -84,7 +84,7 @@ if __name__ == '__main__':
          '--no-install', '--no-scripts', '--no-interaction'])
     manifest = json.loads((SITE / 'composer.json').read_text())
     manifest['require']['roots/bedrock-autoloader'] = '1.1.0'
-    manifest['require']['getquick/gq-content'] = '0.2.0'
+    manifest['require']['getquick/gq-content'] = '0.3.0'
     manifest['require-dev'] = {}
     package['dist'] = {'type': 'zip', 'url': artifact.as_uri(),
                        'reference': hashlib.sha256(artifact.read_bytes()).hexdigest(),
@@ -113,10 +113,10 @@ if __name__ == '__main__':
        '--admin_password=disposable-local-proof', '--admin_email=proof@example.test', '--skip-email')
     check('real WordPress boots Composer-installed MU plugin',
           wp('eval', "echo is_file(WPMU_PLUGIN_DIR . '/gq-content/gq-content.php') && function_exists('GetQuick\\\\Site\\\\SettingsEvents\\\\changed') ? 'loaded' : 'missing';").stdout.strip() == 'loaded')
-    check('bare version works without event configuration', wp('gq-events', 'version').stdout.strip() == '0.2.0')
+    check('bare version works without event configuration', wp('gq-events', 'version').stdout.strip() == '0.3.0')
     check('JSON version works without event configuration',
           json.loads(wp('gq-events', 'version', '--format=json').stdout) ==
-          {'package': 'getquick/gq-content', 'version': '0.2.0'})
+          {'package': 'getquick/gq-content', 'version': '0.3.0'})
     diagnostics = json.loads(wp('eval-file', str(ROOT / 'cms/tests/diagnostics.php'),
                                 env={'WP_ENV': 'production'}).stdout)
     check('production Site Health reports missing configuration safely',
@@ -202,7 +202,7 @@ if __name__ == '__main__':
             diagnostics = info(env)
             check(name + ': Site Health debug package/version/configured',
                   {name: row['value'] for name, row in diagnostics['fields'].items()} ==
-                  {'package': 'getquick/gq-content', 'version': '0.2.0', 'configured': True})
+                  {'package': 'getquick/gq-content', 'version': '0.3.0', 'configured': True})
             start = len(received)
             wp('gq-events', 'check', env=env)
             post = wp('eval-file', str(ROOT / 'cms/tests/save.php'), env=env).stdout.strip()
@@ -225,6 +225,80 @@ if __name__ == '__main__':
             for command in [('status',), ('settings', 'status'), ('delays',)]:
                 check(name + ': ' + ' '.join(command) + ' retains JSON rows',
                       isinstance(json.loads(wp('gq-events', *command, '--format=json', env=env).stdout), list))
+        # GQ Design's Header & Footer reads synced patterns and templates: a
+        # change to either is one shared "patterns" settings event.
+        start = len(received)
+        wp('eval', "wp_insert_post(['post_type' => 'wp_block', 'post_status' => 'publish', 'post_title' => 'Header', 'post_content' => '<!-- wp:paragraph --><p>Header</p><!-- /wp:paragraph -->']);", env=env)
+        patterns = json.loads(wp('option', 'get', 'gq_settings_event_patterns', '--format=json', env=env).stdout)
+        check('a synced pattern save sends one shared patterns settings event',
+              patterns['event']['setting'] == 'patterns' and 'language' not in patterns['event'] and
+              patterns['delivery']['status'] == 'refreshed' and
+              [row['event'].get('setting') for row in received[start:]] == ['patterns'])
+        # Each source hook must work independently, not merely as part of a
+        # request where another source also changed. All use real core saves.
+        for post_type in ['wp_block', 'wp_template', 'wp_template_part', 'wp_navigation']:
+            start = len(received)
+            post_id = wp('post', 'create', f'--post_type={post_type}', '--post_status=publish',
+                         '--post_title=Chrome hook fixture', '--porcelain', env=env).stdout.strip()
+            check(post_type + ': save notifies patterns',
+                  [row['event'].get('setting') for row in received[start:]] == ['patterns'])
+            for status in ['draft', 'publish', 'private', 'publish', 'trash', 'publish']:
+                start = len(received)
+                wp('post', 'update', post_id, f'--post_status={status}', env=env)
+                check(post_type + ': status ' + status + ' notifies patterns',
+                      [row['event'].get('setting') for row in received[start:]] == ['patterns'])
+            if post_type == 'wp_block':
+                for operation in [('update', 'unsynced'), ('delete',)]:
+                    start = len(received)
+                    wp('post', 'meta', operation[0], post_id, 'wp_pattern_sync_status', *operation[1:], env=env)
+                    check('pattern sync eligibility ' + operation[0] + ' notifies patterns',
+                          [row['event'].get('setting') for row in received[start:]] == ['patterns'])
+            start = len(received)
+            wp('post', 'delete', post_id, '--force', env=env)
+            check(post_type + ': deletion notifies patterns',
+                  [row['event'].get('setting') for row in received[start:]] == ['patterns'])
+        start = len(received)
+        wp('eval', "do_action('getquick_design_cache_invalidated', ['design:test'], ['post:123']); do_action('getquick_design_cache_invalidated', ['design:test'], ['attachment:123']);", env=env)
+        check('Design dependency invalidations coalesce to one signed shared patterns event',
+              len(received[start:]) == 1 and received[-1]['signed'] and
+              received[-1]['event'].get('setting') == 'patterns' and
+              'language' not in received[-1]['event'])
+        # A classic menu a pattern shows by id (a menu-backed block's menuId),
+        # at no theme location, refreshes the patterns; others send nothing.
+        shown = wp('menu', 'create', 'Footer links', '--porcelain', env=env).stdout.strip()
+        unshown = wp('menu', 'create', 'Unused links', '--porcelain', env=env).stdout.strip()
+        start = len(received)
+        nested = ('<!-- wp:group --><div class="wp-block-group"><!-- wp:getquick/header-navigation {"menuId":'
+                  + shown + '} /--></div><!-- /wp:group -->')
+        source = wp('post', 'create', '--post_type=wp_template_part', '--post_status=publish',
+                    '--post_title=Menu footer', '--porcelain', f'--post_content={nested}', env=env).stdout.strip()
+        check('a template part showing a menu by id notifies patterns',
+              [row['event'].get('setting') for row in received[start:]] == ['patterns'])
+        index = json.loads(wp('option', 'get', 'gq_settings_pattern_menus', '--format=json', env=env).stdout)
+        check('the menu a pattern shows is indexed, not scanned for', index.get(source) == [int(shown)])
+        start = len(received)
+        wp('menu', 'item', 'add-custom', shown, 'Contact', 'https://example.test/contact/', env=env)
+        check('a menu item saved in a menu a pattern shows notifies patterns once',
+              [row['event'].get('setting') for row in received[start:]] == ['patterns'])
+        start = len(received)
+        wp('menu', 'item', 'add-custom', unshown, 'Elsewhere', 'https://example.test/', env=env)
+        check('a menu shown nowhere notifies nothing', received[start:] == [])
+        # A Site whose index predates this package's (or was lost) builds it once.
+        wp('option', 'delete', 'gq_settings_pattern_menus', env=env)
+        start = len(received)
+        wp('menu', 'item', 'add-custom', shown, 'Jobs', 'https://example.test/jobs/', env=env)
+        check('a missing index is rebuilt from existing patterns',
+              [row['event'].get('setting') for row in received[start:]] == ['patterns'])
+        wp('post', 'delete', source, '--force', env=env)
+        start = len(received)
+        wp('menu', 'item', 'add-custom', shown, 'Press', 'https://example.test/press/', env=env)
+        check('a menu no pattern shows any longer notifies nothing', received[start:] == [] and
+              source not in json.loads(wp('option', 'get', 'gq_settings_pattern_menus', '--format=json', env=env).stdout))
+        wp('menu', 'delete', shown, unshown, env=env)
+        start = len(received)
+        wp('eval', "do_action('switch_theme');", env=env)
+        check('theme changes coalesce design, menus and patterns independently',
+              sorted(row['event'].get('setting') for row in received[start:]) == ['design', 'menus', 'patterns'])
         configure("function getquick_config_frontend_url() { return getenv('P2_HELPER_URL'); }")
         env = base | {'GQ_CONTENT_SITE_ID': 'endpoint-proof',
                       'P2_HELPER_URL': base['GETQUICK_FRONTEND_URL'] + '/helper',
@@ -254,7 +328,7 @@ if __name__ == '__main__':
         configure("define('GQ_CONTENT_SITE_ID', false);")
         check('version remains available with an invalid defined identity',
               json.loads(wp('gq-events', 'version', '--format=json', env=base).stdout) ==
-              {'package': 'getquick/gq-content', 'version': '0.2.0'})
+              {'package': 'getquick/gq-content', 'version': '0.3.0'})
 
         # Archives (ADR 0005): real WPGraphQL (the version Nomia runs) resolves
         # an assigned Page at its custom post type's archive URI.

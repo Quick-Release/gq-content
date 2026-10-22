@@ -2,7 +2,7 @@
   "name": "getquick/gq-content",
   "description": "GETQUICK content publication events, delivery and diagnostics",
   "type": "wordpress-muplugin",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "license": "GPL-2.0-or-later",
   "require": {
     "php": ">=8.4.1",

@@ -19,6 +19,7 @@ import type {
 import { languageSubject, type SiteLanguage } from "./site-language";
 import { cmsTime, uriPath, menuItemHref } from "./formatting";
 import { hasVideoHero, parseWordPressBlocks, renderWordPressBlocks } from "./wp-block-renderer";
+import { parseDesignBlocks, type DesignPattern } from "./design-patterns";
 import { parseLegalLanguage } from "./consent/legal";
 
 export interface WordPressClient<X = unknown> {
@@ -42,6 +43,9 @@ export interface WordPressClient<X = unknown> {
   ): Promise<Types.Found<Types.SiteChrome> | Types.Unavailable>;
 }
 /** The origins a link into this Site may use: WordPress's, and the Frontend's when given. */
+/** The first GQ Design whose `designPattern` serves the default `page` route. */
+const DESIGN_PATTERN_VERSION = "0.4.1";
+
 export function internalOrigins(
   config: Pick<ContentConfig<unknown>, "graphqlEndpoint">,
   siteOrigin?: string,
@@ -219,9 +223,17 @@ export function configuredWordPress<X>(
     }),
   });
 
-  const siteChromeData = z.object({
+  // GQ Design's Header & Footer selection; null when the region uses a
+  // template part. `blocksJson` is the block tree as JSON text.
+  const designPattern = z.object({ title: z.string(), blocksJson: z.string() }).nullable();
+
+  const chromeWithoutPatternsData = z.object({
     generalSettings: z.object({ siteIcon: imageEdge, siteLogo: imageEdge }),
     menuItems: z.object({ nodes: z.array(menuItem) }),
+  });
+  const siteChromeData = chromeWithoutPatternsData.extend({
+    header: designPattern,
+    footer: designPattern,
   });
 
   // gq-config's consent settings (LEGAL-1's Contract in one language, and the
@@ -326,10 +338,19 @@ export function configuredWordPress<X>(
 
   // WPGraphQL only exposes menus assigned to a theme location to anonymous callers.
   // `inLanguage`: the menu at the location in a language (GQ Polylang for
-  // WPGraphQL); without, the default language's.
-  function siteChromeQueryText(inLanguage: boolean) {
+  // WPGraphQL); without, the default language's. The header and footer are the
+  // patterns GQ Design's Header & Footer selects for the design route
+  // `$template`; `designPattern` takes no language, so every language is
+  // served the same selection. `withPatterns: false` is the read for a GQ
+  // Design older than `designPattern` (see `chromeData`).
+  function siteChromeQueryText(inLanguage: boolean, withPatterns = true) {
+    const variables = [
+      "$location: MenuLocationEnum!",
+      ...(withPatterns ? ["$template: String!"] : []),
+      ...(inLanguage ? ["$language: LanguageCodeEnum!"] : []),
+    ].join(", ");
     return /* GraphQL */ `
-  query SiteChrome($location: MenuLocationEnum!${inLanguage ? ", $language: LanguageCodeEnum!" : ""}) {
+  query SiteChrome(${variables}) {
     generalSettings {
       siteIcon {
         node {
@@ -352,6 +373,18 @@ export function configuredWordPress<X>(
         url
         target
       }
+    }
+    ${
+      withPatterns
+        ? `header: designPattern(template: $template, slot: "header") {
+      title
+      blocksJson
+    }
+    footer: designPattern(template: $template, slot: "footer") {
+      title
+      blocksJson
+    }`
+        : ""
     }
   }
 `;
@@ -1223,10 +1256,82 @@ export function configuredWordPress<X>(
   }
 
   /**
-   * The menu, logo and icon every page in a language shares: the logo and icon
-   * are the site's, the menu the one at the location in that language. A site
-   * without them is found with an empty menu and no images; a failed read is
-   * Unavailable, not that.
+   * The chrome's data in a language. A CMS whose GQ Design predates
+   * `designPattern` (before 0.2.17) has no header or footer patterns to
+   * select: its schema rejects the field, and the chrome is read again without
+   * them, with both null (the Site's own header and footer), as when nothing
+   * is selected. The warning names the cause and the version the default
+   * `page` route needs; menus, logos and icons keep refreshing, and new Sites
+   * and languages are served. Any other failure fails the read, so what is
+   * stored is kept.
+   */
+  async function chromeData(
+    language: SiteLanguage,
+    location: string,
+  ): Promise<z.infer<typeof siteChromeData>> {
+    const template = config.designTemplate ?? "page";
+    const variables: Record<string, string> = language.isDefault
+      ? { location }
+      : { location, language: language.code };
+    try {
+      return await query(
+        siteChromeData,
+        language.isDefault ? siteChromeQuery : languageChromeQuery,
+        { ...variables, template },
+      );
+    } catch (error) {
+      if (
+        !(error instanceof CmsFailureError) ||
+        error.failure.reason !== "graphql" ||
+        !/Cannot query field "designPattern"/.test(error.failure.message)
+      ) {
+        throw error;
+      }
+      console.warn(
+        `WordPress: GQ Design has no designPattern field (${error.failure.message}); header and footer patterns need GQ Design ${DESIGN_PATTERN_VERSION} or newer, so the chrome is read without them and the Site's own header and footer are served`,
+      );
+      const data = await query(
+        chromeWithoutPatternsData,
+        siteChromeQueryText(!language.isDefault, false),
+        variables,
+      );
+      return { ...data, header: null, footer: null };
+    }
+  }
+
+  /**
+   * A selected pattern's block tree. GQ Design answers a selected pattern it
+   * couldn't resolve (invalid attributes, a cycle, too many blocks) with an
+   * empty tree, not an error; that is a failed read, so the stored chrome is
+   * kept rather than replaced by an empty region.
+   */
+  function designPatternOf(
+    region: "header" | "footer",
+    pattern: z.infer<typeof designPattern>,
+  ): DesignPattern | null {
+    if (!pattern) return null;
+    const blocks = parseDesignBlocks(pattern.blocksJson);
+    if (!blocks) {
+      throw new CmsFailureError({
+        reason: "schema",
+        message: `The ${region} pattern's blocksJson isn't a JSON list of blocks`,
+      });
+    }
+    if (blocks.length === 0) {
+      throw new CmsFailureError({
+        reason: "schema",
+        message: `The ${region} pattern "${pattern.title}" has no blocks GQ Design could resolve`,
+      });
+    }
+    return { title: pattern.title, blocks };
+  }
+
+  /**
+   * The menu, logo, icon, header and footer every page in a language shares:
+   * the logo and icon are the site's, the menu the one at the location in that
+   * language, the header and footer the patterns selected for the configured
+   * design route. A site without them is found with an empty menu, no images
+   * and no patterns; a failed read is Unavailable, not that.
    */
   async function getSiteChrome(
     siteOrigin?: string,
@@ -1239,9 +1344,7 @@ export function configuredWordPress<X>(
       languageSubject(language, "site chrome"),
       async (): Promise<Found<SiteChrome>> => {
         const [data, consent] = await Promise.all([
-          language.isDefault
-            ? query(siteChromeData, siteChromeQuery, { location })
-            : query(siteChromeData, languageChromeQuery, { location, language: language.code }),
+          chromeData(language, location),
           config.consent?.cmsSettings ? consentSettings(language) : null,
         ]);
         const origins = internalOrigins(config, siteOrigin);
@@ -1252,6 +1355,8 @@ export function configuredWordPress<X>(
             menuItems: buildMenuTree(data.menuItems.nodes, origins),
             siteIcon: normalizeImage(data.generalSettings.siteIcon),
             siteLogo: normalizeImage(data.generalSettings.siteLogo),
+            header: designPatternOf("header", data.header),
+            footer: designPatternOf("footer", data.footer),
             ...(consent
               ? {
                   legal: parseLegalLanguage(consent.getquickLegal),

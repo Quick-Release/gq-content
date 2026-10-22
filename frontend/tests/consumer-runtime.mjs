@@ -1,6 +1,13 @@
 import assert from "node:assert/strict";
 import { createServer } from "node:http";
-import { htmlLang, parseWordPressBlocks, renderWordPressBlocks, routeOf } from "@getquick/content";
+import {
+  htmlLang,
+  parseDesignBlocks,
+  parseWordPressBlocks,
+  renderDesignPattern,
+  renderWordPressBlocks,
+  routeOf,
+} from "@getquick/content";
 import { createContentRuntime } from "@getquick/content/server";
 
 assert.equal(htmlLang("pt_PT_ao90"), "pt-PT");
@@ -10,6 +17,18 @@ assert.equal(
     parseWordPressBlocks('[{"name":"core/paragraph","htmlContent":"<p>Installed</p>"}]'),
   ),
   "<p>Installed</p>",
+);
+assert.equal(
+  renderDesignPattern(
+    {
+      title: "Header",
+      blocks: parseDesignBlocks(
+        '[{"name":"core/group","attributes":{},"content":null,"children":[{"name":"getquick/header-navigation","attributes":{"menuItems":[]},"content":null,"children":[]}]}]',
+      ),
+    },
+    { blocks: { "getquick/header-navigation": () => "<nav>Site</nav>" } },
+  ),
+  '<div class="wp-block-group"><nav>Site</nav></div>',
 );
 const server = createServer(async (request, response) => {
   assert.equal(request.url, "/graphql");

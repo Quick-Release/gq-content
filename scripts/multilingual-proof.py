@@ -25,7 +25,7 @@ if consumer.exists():
     shutil.rmtree(consumer)
 consumer.mkdir()
 prepare_npm(ROOT, WORK)
-(consumer / 'package.json').write_text(json.dumps({'private': True, 'type': 'module', 'packageManager': 'pnpm@12.11.2', 'dependencies': {'@getquick/content': 'file:' + str(WORK / 'getquick-content-0.2.0.tgz')}}))
+(consumer / 'package.json').write_text(json.dumps({'private': True, 'type': 'module', 'packageManager': 'pnpm@12.11.2', 'dependencies': {'@getquick/content': 'file:' + str(WORK / 'getquick-content-0.3.0.tgz')}}))
 subprocess.run(['vp', 'install', '--ignore-scripts'], cwd=consumer, check=True)
 shutil.copy(ROOT / 'scripts/pair-receiver.mjs', consumer)
 shutil.copy(ROOT / 'frontend/tests/support/sqlite-d1.ts', consumer)
@@ -123,11 +123,11 @@ try:
     wp('menu', 'item', 'add-custom', replacement, 'About us', '/en/about/')
     check('editing a menu shown nowhere emits no settings event', len(state()['events']) == before_unassigned)
     _, ops = changed('English menu reassignment', ['eval', f"$m=PLL()->model->options->get('nav_menus'); $m[get_option('stylesheet')]['primary']['en']={replacement}; PLL()->model->options->set('nav_menus',$m); PLL()->model->options->save();"], 'menus:en', 'en')
-    check('real Polylang menu reassignment reads only English chrome', ops == [{'name':'SiteChrome','variables':{'location':'PRIMARY','language':'EN'}}])
+    check('real Polylang menu reassignment reads only English chrome', ops == [{'name':'SiteChrome','variables':{'location':'PRIMARY','template':'page','language':'EN'}}])
     en_menu = replacement
     # Actual menu edit in a language-assigned location invokes installed CMS hooks.
     saved, ops = changed('English menu edit', ['menu', 'item', 'add-custom', en_menu, 'Team', '/en/team/'], 'menus:en', 'en')
-    check('English menu changes only English chrome', ops == [{'name': 'SiteChrome', 'variables': {'location': 'PRIMARY', 'language': 'EN'}}] and [x['label'] for x in public('/en/about/')['content']['chrome']['menuItems']] == ['About us', 'Team'] and [x['label'] for x in public('/sobre/')['content']['chrome']['menuItems']] == ['Sobre nós'])
+    check('English menu changes only English chrome', ops == [{'name': 'SiteChrome', 'variables': {'location': 'PRIMARY', 'template': 'page', 'language': 'EN'}}] and [x['label'] for x in public('/en/about/')['content']['chrome']['menuItems']] == ['About us', 'Team'] and [x['label'] for x in public('/sobre/')['content']['chrome']['menuItems']] == ['Sobre nós'])
     # Retry is through the CLI and uses the same durable identity; handler duplicate survives outage.
     request('/proof/offline')
     before = state()['reads']
@@ -182,7 +182,7 @@ try:
     check('actual language reassignment retains node identity with new route and language', reassigned['event']['entry'] == {'id': base64.b64encode(('post:' + sobre).encode()).decode(), 'uri': '/en/sobre/', 'language': 'en'} and reassigned['delivery']['status'] == 'refreshed')
     check('language reassignment moves old route and serves new route with English chrome', public('/sobre/') == {'kind':'moved','uri':'/en/sobre/'} and public('/en/sobre/')['content']['entry']['content'] == '<p>Now English</p>' and public('/en/sobre/')['content']['chrome']['menuItems'][0]['label'] == 'About us')
     rows = json.loads(wp('gq-events', 'settings', 'status', '--format=json'))
-    check('settings CLI lists shared and both language subjects with source output fields', {row['setting'] for row in rows} == {'menus', 'logo', 'identity', 'design', 'legal', 'analytics', 'archives', 'menus:pt', 'identity:pt', 'menus:en', 'identity:en'} and all(set(row) == {'setting','event','status','reason','attempts','message'} for row in rows))
+    check('settings CLI lists shared and both language subjects with source output fields', {row['setting'] for row in rows} == {'menus', 'logo', 'identity', 'design', 'patterns', 'legal', 'analytics', 'archives', 'menus:pt', 'identity:pt', 'menus:en', 'identity:en'} and all(set(row) == {'setting','event','status','reason','attempts','message'} for row in rows))
     (WORK / 'proof-artifacts.json').write_text(json.dumps({'polylang': '3.8.11', 'state': state(), 'settingsCli': rows, 'fixture': json.loads(fixture.read_text()), 'homeEvent': en_record, 'failedSetting': failed, 'retryOutput': output, 'languageChange': reassigned}, ensure_ascii=False, indent=2))
     print('P2/P6 #7 multilingual installed pair passed: real WordPress/Polylang API and HTTP transport; GraphQL boundary fixtures; durable installed-consumer SQLite reads.', flush=True)
 finally:

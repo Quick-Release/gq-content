@@ -37,7 +37,7 @@ function body(
     state,
     json: consentRecordRequest(state, action, {
       language: "pt-PT",
-      uiVersion: "gq-content@0.2.0",
+      uiVersion: "gq-content@0.3.0",
       legalRevisions: { cookie_policy: "2026-10-01T10:00:00" },
     }),
   };
@@ -93,7 +93,7 @@ test("a decision is appended with exactly the CN-R7 fields; no IP, user agent or
         },
         action: "reject_all",
         language: "pt-PT",
-        uiVersion: "gq-content@0.2.0",
+        uiVersion: "gq-content@0.3.0",
       },
     ],
   });
@@ -230,7 +230,7 @@ test("export covers exactly the requested UTC days in the documented CSV format"
     "2026-10-02T12:00:00.000Z",
   ]);
   expect(lines[1]).toMatch(
-    /,accept_all,[0-9a-f]{16},pt-PT,gq-content@0\.2\.0,false,false,false,true,"\{""cookie_policy"":""2026-10-01T10:00:00""\}"$/,
+    /,accept_all,[0-9a-f]{16},pt-PT,gq-content@0\.3\.0,false,false,false,true,"\{""cookie_policy"":""2026-10-01T10:00:00""\}"$/,
   );
   for (const bad of [
     "from=2026-10-02&to=2026-10-01",

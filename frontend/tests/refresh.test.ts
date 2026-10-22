@@ -296,6 +296,8 @@ test("shared chrome and design refresh reaches every stored entry without republ
         menuItems: {
           nodes: [{ id: "new", parentId: null, label: "Contact", url: "/contact/", target: null }],
         },
+        header: null,
+        footer: null,
       }),
   });
   expect((await refresh()).status).toBe(200);

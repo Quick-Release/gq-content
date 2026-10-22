@@ -17,6 +17,7 @@ import {
 import { decodeEntities, routeOf, stripHtml } from "./formatting";
 import type { ContentConfig } from "./server";
 import type { WordPressClient } from "./wordpress";
+import type { DesignBlock } from "./design-patterns";
 import { publishedHtml, type PublishedHtmlTransform } from "./published-html";
 import { bearerMatches } from "./bearer";
 import type {
@@ -205,10 +206,25 @@ export function configuredDelivery<X>(
       missingRequired: z.array(z.string()),
     })
     .nullable();
+  const designBlock: z.ZodType<DesignBlock> = z.lazy(() =>
+    z.object({
+      name: z.string().min(1),
+      attributes: z.record(z.string(), z.unknown()),
+      content: z.string().nullable(),
+      children: z.array(designBlock),
+    }),
+  );
+  const designPattern = z
+    .object({ title: z.string(), blocks: z.array(designBlock).min(1) })
+    .nullable();
   const siteChrome = z.object({
     menuItems: z.array(menuItem),
     siteIcon: image,
     siteLogo: image,
+    // Chrome stored before its header and footer were read has neither: the Site
+    // serves its own until the next refresh or reconciliation stores them.
+    header: designPattern.optional().transform((pattern) => pattern ?? null),
+    footer: designPattern.optional().transform((pattern) => pattern ?? null),
     // Present once a Site with consent CMS settings has refreshed its chrome.
     legal: legal.optional(),
     analytics: z.object({ enabled: z.boolean(), measurementId: z.string().nullable() }).optional(),
@@ -226,7 +242,13 @@ export function configuredDelivery<X>(
   const parseDesign = parseWith(designPresets) as (body: unknown) => DesignPresets | undefined;
   const parseArchives = parseWith(archives) as (body: unknown) => Archives | undefined;
 
-  const emptyChrome: SiteChrome = { menuItems: [], siteIcon: null, siteLogo: null };
+  const emptyChrome: SiteChrome = {
+    menuItems: [],
+    siteIcon: null,
+    siteLogo: null,
+    header: null,
+    footer: null,
+  };
 
   async function boundStore(): Promise<PublicationStore | null> {
     const { PUBLICATION_DB } = await config.bindings();
@@ -1584,7 +1606,7 @@ export function configuredDelivery<X>(
       ),
     pageChrome: (siteOrigin?: string): Promise<SiteChrome | null> =>
       safely(
-        () => pageChrome(siteOrigin),
+        async () => html.chrome(await pageChrome(siteOrigin)),
         () => null,
       ),
     designPresets: (): Promise<DesignPresets | null> =>

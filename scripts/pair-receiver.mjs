@@ -60,7 +60,12 @@ const runtime = createContentRuntime({
       });
     if (query.includes("SiteChrome"))
       return Response.json({
-        data: { menuItems: { nodes: [] }, generalSettings: { siteIcon: null, siteLogo: null } },
+        data: {
+          menuItems: { nodes: [] },
+          generalSettings: { siteIcon: null, siteLogo: null },
+          header: null,
+          footer: null,
+        },
       });
     if (query.includes("DesignPresets"))
       return Response.json({ data: { designTokens: { colors: [], spacingSizes: [] } } });

@@ -163,13 +163,16 @@ export function configuredEvents<X>(
    * The shared settings an event can name, and what each change refreshes: the
    * menus and the logo are in the chrome every page is served with; the site's
    * identity is its title and tagline (the front page's) and its icon (the
-   * chrome's); the design presets are the shared design every page uses.
+   * chrome's); the design presets are the shared design every page uses; the
+   * patterns are GQ Design's synced patterns and Header & Footer selection,
+   * the chrome's header and footer.
    */
   const SETTINGS = {
     menus: ["chrome"],
     logo: ["chrome"],
     identity: ["home", "chrome"],
     design: ["design"],
+    patterns: ["chrome"],
     // gq-config's Legal Contract and GA4 settings, in every language's chrome.
     legal: ["chrome"],
     analytics: ["chrome"],

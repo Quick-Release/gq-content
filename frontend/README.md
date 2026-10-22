@@ -51,7 +51,8 @@ The reusable client methods retain their argument order:
 - `getPublishedEntries()`
 - `getPublishedRoutes()`
 - `getArchives()`
-- `getSiteChrome(siteOrigin?, { location?, language? }?)`
+- `getSiteChrome(siteOrigin?, { location?, language? }?)` (menu, logo, icon,
+  header and footer patterns)
 
 From the repository root, use `vp install` and `vp run validate`. Validation
 builds compiled ESM/declarations through Vite+ Pack, checks formatting/lint/types,
@@ -109,6 +110,75 @@ if (page.kind === "found" && page.content.entry.extension) {
 Rows stored before the Site declared it serve without it; a refresh stores it.
 A read throwing fails as WordPress's answer not matching the schema, and a read
 without its blocks stores nothing, so the stored page stays served. See ADR 0004.
+
+## Header and footer patterns
+
+The chrome also carries `header` and `footer`: the synced patterns GQ Design's
+Header & Footer selects for the design route `designTemplate` (default
+`"page"`; also `"front-page"`, `"home"`, `"archive"`, `"single-post"` or a
+Site-defined route). Each is `{ title, blocks }`, or null when the region uses
+a template part or nothing published is selected: keep the Site's own header
+or footer then. They are stored, refreshed and reconciled with the chrome, so
+visitors keep the last-known-good regions through CMS outages. A selected
+pattern GQ Design resolves to no blocks fails the chrome read and keeps what
+is stored. A `patterns` settings event refreshes the chrome. See
+[ADR 0006](../docs/adr/0006-serve-cms-selected-header-and-footer-patterns-with-site-chrome.md).
+
+The configured route is shared globally, including the homepage and posts;
+Content does not choose a different Design route for each visitor URL. Use a
+key registered in Design's manifest: an unknown key also returns null, and
+Content never retries another key.
+
+**Required GQ Design: 0.4.1 or newer** for the default `page` (`single` and
+`search` need 0.4.2). GQ Design 0.2.17 to 0.4.0 answer null for `page`, so the
+Site keeps its own regions. A GQ Design without `designPattern` at all (before
+0.2.17) doesn't fail the chrome: it is read without patterns, both null, and a
+warning names GQ Design and the version it needs (`WordPress: GQ Design has no
+designPattern field …`). Public selection excludes unpublished
+route/part sources and unpublished, protected or unsynced final patterns.
+Authoritative null removes a previous selection on a successful refresh;
+failed or malformed reads retain it.
+
+The ordinary menu and publication-store row remain language-specific, but
+`designPattern` takes no language. Every language receives the same unqualified
+pattern selection and its serialized data. Translated pattern trees are blocked
+by [gq-design #53](https://github.com/Quick-Release/gq-design/issues/53).
+
+Render a pattern with the Site's block renderers. Blocks with saved HTML
+render it with their children inside; `core/site-logo` has a built-in
+renderer; any other block without HTML (a dynamic or Site block) needs a
+renderer. Containers receive a basic WordPress wrapper, and GQ Design's
+`getquick-design/container` its layout (width, gap, padding) as content's
+containers do; unresolved dynamic leaves render nothing and are reported to
+`onUnrendered`:
+
+```ts
+import { designMenuItems, escapeHtml, type DesignBlockRenderer } from "@getquick/content";
+
+const headerNavigation: DesignBlockRenderer = (block, { href }) =>
+  `<nav aria-label="Primary"><ul>${designMenuItems(block.attributes.menuItems, href)
+    .map((item) => `<li><a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a></li>`)
+    .join("")}</ul></nav>`;
+
+const header = content.renderDesignPattern(chrome?.header, {
+  siteOrigin: Astro.site?.origin,
+  home: language.home,
+  blocks: { "getquick/header-navigation": headerNavigation },
+  onUnrendered: (block) => console.warn(`No renderer for ${block.name}`),
+});
+```
+
+A renderer receives the block (`name`, `attributes`, `content`, `children`)
+and a context: `children` (rendered on demand), `render(blocks)`,
+`ancestors`, `home` and `href(url)`, which serves CMS and Site links as paths
+and replaces unsafe schemes with `#`. Its output is inserted as HTML: escape
+CMS text with `escapeHtml`. Saved HTML is trusted published CMS markup,
+not sanitized by this helper; full custom spacing/layout styling needs a Site
+renderer. With `consent` configured, the saved HTML in served patterns has its
+embeds rewritten into consent placeholders, as bodies do; a renderer building
+an embed from attributes uses `embedPlaceholder` (`@getquick/content/consent`)
+itself. The pure `renderDesignPattern` from the root entry
+takes `internalOrigins` instead of `siteOrigin`.
 
 ## Collections and archive Pages
 

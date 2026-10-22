@@ -12,6 +12,12 @@ import { configuredWordPress, internalOrigins } from "./wordpress";
 import type { SiteChrome } from "./content-types";
 import { consentConfiguration, type ConsentConfiguration } from "./consent/configuration";
 import { rewriteEmbeds } from "./consent/embeds";
+import {
+  renderDesignPattern,
+  type DesignBlock,
+  type DesignPattern,
+  type DesignRenderOptions,
+} from "./design-patterns";
 export type { ContentBindings } from "./bindings";
 export type { WordPressClient } from "./wordpress";
 export interface ContentConfig<X = never> {
@@ -19,6 +25,12 @@ export interface ContentConfig<X = never> {
   graphqlEndpoint: string;
   cmsOrigin: string;
   wordpress?: WordPressLanguages;
+  /**
+   * The GQ Design route (Design → Header & Footer) whose header and footer
+   * patterns are the Site chrome's: "page" by default; "front-page", "home",
+   * "archive", "single-post" or a route a Site plugin defines.
+   */
+  designTemplate?: string;
   /** Live delivery without a publication store is opt-in; false by default. */
   development?: boolean;
   isServer: () => boolean;
@@ -117,6 +129,12 @@ export interface ContentConsentConfig {
 export function createContentRuntime<X = never>(input: ContentConfig<X>) {
   const site = input.site.trim();
   if (!site) throw new Error("A nonempty Site identity is required");
+  if (
+    input.designTemplate !== undefined &&
+    (!/^[a-z0-9_-]+$/.test(input.designTemplate) || /^[0-9]+$/.test(input.designTemplate))
+  ) {
+    throw new Error("designTemplate must be a GQ Design route key, such as page");
+  }
   const { collections: collectionFields, ...kindFields } = input.extension?.fields ?? {};
   for (const [kind, fields] of Object.entries(kindFields)) {
     if (fields !== undefined && !fields.trim())
@@ -201,6 +219,21 @@ export function createContentRuntime<X = never>(input: ContentConfig<X>) {
      */
     archiveUri: delivery.archiveUri,
     pageChrome: delivery.pageChrome,
+    /**
+     * A chrome pattern as HTML, by the Site's block renderers (see
+     * `renderDesignPattern`), with links into the CMS or `siteOrigin` served
+     * as this Site's paths.
+     */
+    renderDesignPattern: (
+      pattern: DesignPattern | DesignBlock[] | null | undefined,
+      options: DesignRenderOptions & { siteOrigin?: string } = {},
+    ): string => {
+      const { siteOrigin, internalOrigins: extraOrigins = [], ...rest } = options;
+      return renderDesignPattern(pattern, {
+        ...rest,
+        internalOrigins: [...internalOrigins(config, siteOrigin), ...extraOrigins],
+      });
+    },
     /**
      * The design presets every page shares (GQ Design's spacing sizes and
      * colors), for a page that isn't a publication: the stored ones when there

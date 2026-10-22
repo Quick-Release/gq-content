@@ -77,6 +77,7 @@ const SETTING_NAMES = [
     'logo' => 'The logo',
     'identity' => 'The site title, tagline or icon',
     'design' => 'The design',
+    'patterns' => 'The header and footer patterns',
     'legal' => 'The legal pages',
     'analytics' => 'The analytics settings',
     'archives' => 'The archive pages',

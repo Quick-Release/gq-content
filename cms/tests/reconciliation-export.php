@@ -29,6 +29,8 @@ add_action('shutdown', static function (): void {
         $fixture['chrome'][$slug] = [
             'generalSettings' => ['siteLogo' => $image('site_logo'), 'siteIcon' => $image('site_icon')],
             'menuItems' => ['nodes' => array_map(static fn($item) => ['id' => (string) $item->ID, 'parentId' => null, 'label' => $item->title, 'url' => $item->url, 'target' => null], $items)],
+            'header' => null,
+            'footer' => null,
         ];
     }
     foreach (get_posts(['post_type' => ['page', 'post'], 'post_status' => 'publish', 'numberposts' => -1, 'lang' => '']) as $post) {
