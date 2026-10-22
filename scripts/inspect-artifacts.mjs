@@ -41,11 +41,11 @@ for (const file of npmFiles) {
     }
   }
 }
-assert.equal(Object.keys(zipFiles).length, 7);
+assert.equal(Object.keys(zipFiles).length, 8);
 for (const [file, text] of Object.entries(zipFiles)) {
   assert.match(
     file,
-    /^(?:composer\.json|gq-content\.php|README\.md|LICENSE|modules\/(?:publication-events|settings-events|delivery-retries)\.php)$/,
+    /^(?:composer\.json|gq-content\.php|README\.md|LICENSE|modules\/(?:publication-events|settings-events|delivery-retries|archives)\.php)$/,
   );
   assert.doesNotMatch(text, forbidden, file);
 }
