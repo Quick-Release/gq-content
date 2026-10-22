@@ -80,6 +80,9 @@ try {
     "./consent/migrations",
     "./consent/astro",
     "./consent/testing",
+    "./metadata",
+    "./metadata/testing",
+    "./metadata/content",
   ]);
   // Both migrations exports resolve, from the consumer, to the SQL shipped in the package.
   const directories = JSON.parse(
@@ -109,12 +112,21 @@ try {
       );
     if (file.endsWith(".d.ts")) assert.doesNotMatch(text, /from ["']zod|z\.infer|ZodType/);
   }
+  // The neutral entrypoint is a standalone artifact: no parser, framework, CMS or Node imports.
+  assert.doesNotMatch(
+    readFileSync(join(installed, "dist/metadata.js"), "utf8"),
+    /\b(?:import|require)\s*(?:\(|[\s{*])/,
+  );
   cpSync(join(repo, "frontend/tests"), join(consumer, "tests"), { recursive: true });
   writeFileSync(
     join(consumer, "vite.config.ts"),
     'import { defineConfig } from "vite-plus"; export default defineConfig({ test: { include: ["tests/**/*.test.ts"] } });\n',
   );
   cpSync(join(repo, "frontend/tests/consumer-types.ts"), join(consumer, "consumer.ts"));
+  cpSync(
+    join(repo, "frontend/tests/metadata-consumer-types.ts"),
+    join(consumer, "metadata-consumer.ts"),
+  );
   writeFileSync(
     join(consumer, "tsconfig.json"),
     JSON.stringify({
@@ -127,7 +139,7 @@ try {
         lib: ["ES2022", "DOM"],
         types: [],
       },
-      include: ["consumer.ts"],
+      include: ["consumer.ts", "metadata-consumer.ts"],
     }),
   );
   run("vp", ["exec", "tsc", "--noEmit"], consumer);
