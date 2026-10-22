@@ -78,6 +78,8 @@ export interface StoredEntry {
   state: string;
   nodeId: string | null;
   modifiedAt: number | null;
+  /** When the read it was stored from started (ms): a failed read doesn't change it. */
+  readStartedAt: number;
   /** When it was last refreshed or looked at (ms), 0 if never. */
   attemptedAt: number;
 }
@@ -548,7 +550,8 @@ export function publicationStore(db: SqlDatabase): PublicationStore {
       const [entries, withdrawals] = await guard("be read", () =>
         db.batch([
           db.prepare(
-            `SELECT p.key, p.state, p.node_id, p.modified_at, coalesce(a.attempted_at, 0) AS attempted_at
+            `SELECT p.key, p.state, p.node_id, p.modified_at, p.read_started_at,
+               coalesce(a.attempted_at, 0) AS attempted_at
              FROM publications p LEFT JOIN refresh_attempts a ON a.key = p.key
              WHERE substr(p.key, 1, 6) = 'entry:'
              ORDER BY p.key`,
@@ -563,6 +566,7 @@ export function publicationStore(db: SqlDatabase): PublicationStore {
             state: string;
             node_id: string | null;
             modified_at: number | null;
+            read_started_at: number;
             attempted_at: number;
           }>
         ).map((row) => ({
@@ -570,6 +574,7 @@ export function publicationStore(db: SqlDatabase): PublicationStore {
           state: row.state,
           nodeId: row.node_id,
           modifiedAt: row.modified_at,
+          readStartedAt: row.read_started_at,
           attemptedAt: row.attempted_at,
         })),
         withdrawals: new Map(
