@@ -14,7 +14,7 @@ import {
   isLanguageHome as homeAt,
   type SiteLanguage,
 } from "./site-language";
-import { routeOf } from "./formatting";
+import { decodeEntities, routeOf, stripHtml } from "./formatting";
 import type { ContentConfig } from "./server";
 import type { WordPressClient } from "./wordpress";
 import type { DesignBlock } from "./design-patterns";
@@ -29,6 +29,7 @@ import type {
   EntryContent as EntryContentOf,
   SiteChrome,
   Translation,
+  Archives,
 } from "./content-types";
 import type {
   HomePublication as HomePublicationOf,
@@ -38,6 +39,10 @@ import type {
   EntryDelivery as EntryDeliveryOf,
   DeliveryFailureReason,
   NotServed,
+  CollectionQuery,
+  CollectionListing as CollectionListingOf,
+  CollectionItem as CollectionItemOf,
+  CollectionTermListing,
 } from "./page-types";
 
 export function configuredDelivery<X>(
@@ -52,13 +57,23 @@ export function configuredDelivery<X>(
   type EntryContent = EntryContentOf<X>;
   type HomeDelivery = HomeDeliveryOf<X>;
   type EntryDelivery = EntryDeliveryOf<X>;
+  type CollectionListing = CollectionListingOf<X>;
+  type CollectionItem = CollectionItemOf<X>;
   const defaultLanguage = languages[0]!;
+  const collections = config.collections ?? {};
+  const hasCollections = Object.keys(collections).length > 0;
   const html = publishedHtml<X>(languages, transformHtml);
   const multilingual = languages.length > 1;
   const routeLanguage = (route: string) => languageAt(route, languages);
   const isLanguageHome = (route: string) => homeAt(route, languages);
-  const { getHomeContent, getEntryByUri, getSiteChrome, getDesignPresets, getPublishedRoutes } =
-    wordpress;
+  const {
+    getHomeContent,
+    getEntryByUri,
+    getSiteChrome,
+    getDesignPresets,
+    getPublishedRoutes,
+    getArchives,
+  } = wordpress;
   const HOME = "home";
   const CHROME = "chrome";
   /**
@@ -72,6 +87,8 @@ export function configuredDelivery<X>(
     language.isDefault ? CHROME : `${CHROME}:${language.slug}`;
   /** The design presets every page is served with, once a refresh has stored them. */
   const DESIGN = "design";
+  /** Where each collection's archive is, on a Site with collections. */
+  const ARCHIVES = "archives";
   /** Entries are stored at "entry:<route>". */
   const ENTRY = "entry:";
   const entryKey = (route: string) => `${ENTRY}${route}`;
@@ -141,7 +158,21 @@ export function configuredDelivery<X>(
     colors,
   });
   const translation = z.object({ uri: z.string(), language: z.string() });
+  const term = z.object({ slug: z.string(), name: z.string() });
+  /**
+   * The collection an item is in, with its terms; stored with the text a
+   * search matches (`search`), which isn't served.
+   */
+  const membership = z
+    .object({
+      name: z.string(),
+      terms: z.record(z.array(term)),
+      search: z.string().optional(),
+    })
+    .transform(({ name, terms }) => ({ name, terms }));
   const entryPublication = z.object({
+    // A collection's items only.
+    collection: membership.optional(),
     // A multilingual Site's entries only.
     language: z.string().optional(),
     translations: z.array(translation).optional(),
@@ -199,6 +230,7 @@ export function configuredDelivery<X>(
     analytics: z.object({ enabled: z.boolean(), measurementId: z.string().nullable() }).optional(),
   });
   const designPresets = z.object({ spacingSizes, colors });
+  const archives = z.record(z.string());
 
   const parseWith = (schema: z.ZodType) => (body: unknown) => {
     const parsed = schema.safeParse(body);
@@ -208,6 +240,7 @@ export function configuredDelivery<X>(
   const parseChrome = parseWith(siteChrome) as (body: unknown) => SiteChrome | undefined;
   const parseEntry = parseWith(entryPublication) as (body: unknown) => EntryPublication | undefined;
   const parseDesign = parseWith(designPresets) as (body: unknown) => DesignPresets | undefined;
+  const parseArchives = parseWith(archives) as (body: unknown) => Archives | undefined;
 
   const emptyChrome: SiteChrome = {
     menuItems: [],
@@ -619,6 +652,8 @@ export function configuredDelivery<X>(
     home: RecordOutcome;
     chrome: RecordOutcome;
     design: RecordOutcome;
+    /** Where each collection's archive is, on a Site with collections. */
+    archives?: RecordOutcome;
     routes: RoutesOutcome;
     /** A multilingual Site's other languages, by slug: their front page and chrome. */
     languages?: Record<string, { home: RecordOutcome; chrome: RecordOutcome }>;
@@ -637,10 +672,11 @@ export function configuredDelivery<X>(
   async function refreshSite(store: PublicationStore, siteOrigin?: string): Promise<RefreshReport> {
     const readStartedAt = Date.now();
     const others = languages.filter((language) => !language.isDefault);
-    const [home, chrome, design, listing, ...otherReads] = await Promise.all([
+    const [home, chrome, design, archiveRead, listing, ...otherReads] = await Promise.all([
       getHomeContent(),
       getSiteChrome(siteOrigin),
       getDesignPresets(),
+      hasCollections ? getArchives() : undefined,
       getPublishedRoutes(),
       ...others.map((language) =>
         Promise.all([getHomeContent(language), getSiteChrome(siteOrigin, { language })]),
@@ -650,6 +686,9 @@ export function configuredDelivery<X>(
     const homeOutcome = await promoteHome(store, home, readStartedAt);
     const chromeOutcome = await promoteChrome(store, chrome, readStartedAt);
     const designOutcome = await promoteDesign(store, design, readStartedAt);
+    const archivesOutcome = archiveRead
+      ? await promoteArchives(store, archiveRead, readStartedAt)
+      : undefined;
     const languageOutcomes: NonNullable<RefreshReport["languages"]> = {};
     for (const [index, language] of others.entries()) {
       const [languageHome, languageChrome] = otherReads[index]!;
@@ -708,6 +747,7 @@ export function configuredDelivery<X>(
         homeOutcome.outcome !== "kept" &&
         chromeOutcome.outcome !== "kept" &&
         designOutcome.outcome !== "kept" &&
+        archivesOutcome?.outcome !== "kept" &&
         Object.values(languageOutcomes).every(
           (outcomes) => outcomes.home.outcome !== "kept" && outcomes.chrome.outcome !== "kept",
         ) &&
@@ -716,6 +756,7 @@ export function configuredDelivery<X>(
       home: homeOutcome,
       chrome: chromeOutcome,
       design: designOutcome,
+      ...(archivesOutcome ? { archives: archivesOutcome } : {}),
       routes,
       entries: entries.entries,
       moved: entries.moved,
@@ -724,7 +765,7 @@ export function configuredDelivery<X>(
   }
 
   /** What a shared setting's change refreshes: the rows every affected page is served with. */
-  type SharedPart = "home" | "chrome" | "design";
+  type SharedPart = "home" | "chrome" | "design" | "archives";
 
   /**
    * A report of the shared rows: the default language's front page and chrome,
@@ -735,6 +776,7 @@ export function configuredDelivery<X>(
     home?: T;
     chrome?: T;
     design?: T;
+    archives?: T;
     languages?: Record<string, { home?: T; chrome?: T }>;
   }
 
@@ -744,6 +786,7 @@ export function configuredDelivery<X>(
       rows.home,
       rows.chrome,
       rows.design,
+      rows.archives,
       ...Object.values(rows.languages ?? {}).flatMap((language) => [
         language.home,
         language.chrome,
@@ -754,6 +797,8 @@ export function configuredDelivery<X>(
   interface SharedRefreshReport extends SharedRows<RecordOutcome> {
     /** Whether every part was promoted (or superseded by a newer read). */
     refreshed: boolean;
+    /** The archive addresses read again with the archives, and each one's outcome. */
+    entries?: Record<string, RecordOutcome>;
   }
 
   /**
@@ -777,7 +822,7 @@ export function configuredDelivery<X>(
     const readStartedAt = Date.now();
     const wanted = new Set(parts);
     const scope = language ? [language] : languages;
-    const [reads, design] = await Promise.all([
+    const [reads, design, archiveRead] = await Promise.all([
       Promise.all(
         scope.map((each) =>
           Promise.all([
@@ -787,6 +832,7 @@ export function configuredDelivery<X>(
         ),
       ),
       wanted.has("design") && !language ? getDesignPresets() : undefined,
+      wanted.has("archives") && !language && hasCollections ? getArchives() : undefined,
     ]);
     const report: SharedRefreshReport = { refreshed: true };
     for (const [index, each] of scope.entries()) {
@@ -798,7 +844,22 @@ export function configuredDelivery<X>(
       if (chrome) rows.chrome = await promoteChrome(store, chrome, readStartedAt, each);
     }
     if (design) report.design = await promoteDesign(store, design, readStartedAt);
-    report.refreshed = sharedOutcomes(report).every((outcome) => outcome.outcome !== "kept");
+    if (archiveRead) {
+      // Saving the Archives mapping can give an address to a Page, or take it
+      // back for the type's own archive, without modifying the Page or
+      // changing the address: every archive address, old and new, is read
+      // again, so a Page stored missing behind an archive is served at once,
+      // and one that lost its address isn't served there any longer.
+      const before = archiveRead.kind === "found" ? await storedArchives(store) : undefined;
+      report.archives = await promoteArchives(store, archiveRead, readStartedAt);
+      if (archiveRead.kind === "found" && report.archives.outcome !== "kept") {
+        const routes = archiveRoutes(before, archiveRead.content, "all");
+        if (routes.length > 0) report.entries = (await refreshEntries(store, routes)).entries;
+      }
+    }
+    report.refreshed = [...sharedOutcomes(report), ...Object.values(report.entries ?? {})].every(
+      (outcome) => outcome.outcome !== "kept",
+    );
     return report;
   }
 
@@ -831,6 +892,13 @@ export function configuredDelivery<X>(
     home: SharedOutcome;
     chrome: SharedOutcome;
     design: SharedOutcome;
+    archives?: SharedOutcome;
+    /**
+     * When the archives row was promoted with a change: the addresses of the
+     * post types whose archive moved, old and new, for reconciliation to read
+     * again within its budget.
+     */
+    archiveRoutes?: string[];
     languages?: Record<string, { home: SharedOutcome; chrome: SharedOutcome }>;
   }
   /**
@@ -846,13 +914,14 @@ export function configuredDelivery<X>(
     siteOrigin?: string,
   ): Promise<SharedReconciliation> {
     const readStartedAt = Date.now();
-    const [reads, design] = await Promise.all([
+    const [reads, design, archiveRead] = await Promise.all([
       Promise.all(
         languages.map((language) =>
           Promise.all([getHomeContent(language), getSiteChrome(siteOrigin, { language })]),
         ),
       ),
       getDesignPresets(),
+      hasCollections ? getArchives() : undefined,
     ]);
     const unchanged = async <T>(
       key: string,
@@ -881,8 +950,9 @@ export function configuredDelivery<X>(
       const { blocksOmitted: _, nodeId: __, ...content } = home.content;
       return { state: "published", content };
     };
-    const sharedRead = (read: SharedRead<SiteChrome> | SharedRead<DesignPresets>) =>
-      read.kind === "found" ? ({ state: "published", content: read.content } as const) : null;
+    const sharedRead = (
+      read: SharedRead<SiteChrome> | SharedRead<DesignPresets> | SharedRead<Archives>,
+    ) => (read.kind === "found" ? ({ state: "published", content: read.content } as const) : null);
 
     const outcomes: Array<{ home: SharedOutcome; chrome: SharedOutcome }> = [];
     for (const [index, language] of languages.entries()) {
@@ -896,12 +966,27 @@ export function configuredDelivery<X>(
           : await promoteChrome(store, chrome, readStartedAt, language),
       });
     }
+    let archives: SharedOutcome | undefined;
+    let changedArchives: string[] = [];
+    if (archiveRead) {
+      const before = await storedArchives(store);
+      if (await unchanged(ARCHIVES, parseArchives, sharedRead(archiveRead))) {
+        archives = { outcome: "unchanged" };
+      } else {
+        archives = await promoteArchives(store, archiveRead, readStartedAt);
+        if (archiveRead.kind === "found" && archives.outcome === "promoted") {
+          changedArchives = archiveRoutes(before, archiveRead.content, "changed");
+        }
+      }
+    }
     const [own, ...others] = outcomes;
     return {
       ...own!,
       design: (await unchanged(DESIGN, parseDesign, sharedRead(design)))
         ? { outcome: "unchanged" }
         : await promoteDesign(store, design, readStartedAt),
+      ...(archives ? { archives } : {}),
+      ...(changedArchives.length > 0 ? { archiveRoutes: changedArchives } : {}),
       ...(multilingual
         ? {
             languages: Object.fromEntries(
@@ -958,6 +1043,47 @@ export function configuredDelivery<X>(
   ) {
     const subject = "the shared design presets";
     return promoteShared(store, DESIGN, subject, parseDesign, read, readStartedAt);
+  }
+
+  /** Where each collection's archive is, as stored; undefined when it can't be read. */
+  async function storedArchives(store: PublicationStore): Promise<Archives | undefined> {
+    try {
+      const stored = await store.read(ARCHIVES, parseArchives);
+      return stored?.state === "published" ? stored.content : undefined;
+    } catch (error) {
+      if (!(error instanceof StoreFailure)) throw error;
+      return undefined;
+    }
+  }
+
+  /**
+   * The archive addresses to read again after a read of where the archives
+   * are: every address before or after it ("all"), or only the old and new
+   * address of each post type whose archive moved ("changed"). A language's
+   * front page is its home's, never an entry.
+   */
+  function archiveRoutes(
+    before: Archives | undefined,
+    after: Archives,
+    which: "all" | "changed",
+  ): string[] {
+    const routes = new Set<string>();
+    for (const type of new Set([...Object.keys(before ?? {}), ...Object.keys(after)])) {
+      const old = before?.[type];
+      const now = after[type];
+      if (which === "changed" && old === now) continue;
+      for (const uri of [old, now]) if (uri) routes.add(routeOf(uri));
+    }
+    return [...routes].filter((route) => !isLanguageHome(route));
+  }
+
+  /** Promotes a read of where each collection's archive is. */
+  function promoteArchives(
+    store: PublicationStore,
+    read: SharedRead<Archives>,
+    readStartedAt: number,
+  ) {
+    return promoteShared(store, ARCHIVES, "the archives", parseArchives, read, readStartedAt);
   }
 
   /**
@@ -1096,7 +1222,7 @@ export function configuredDelivery<X>(
     }
     const outcome = await promote(canonical, () => ({
       state: "published",
-      content: entry,
+      content: stored(entry),
       nodeId: entry.id,
       modifiedAt,
     }));
@@ -1105,6 +1231,13 @@ export function configuredDelivery<X>(
     if (canonical === route) return { outcome, found };
     if (!recordAlias) return { outcome: { ...outcome, uri: canonical }, found };
     return { outcome: await promote(route, () => moved), found };
+  }
+
+  /** An entry as stored: a collection's item with the text its search matches. */
+  function stored(entry: EntryPublication): EntryPublication {
+    if (!entry.collection) return entry;
+    const search = searchText(decodeEntities(`${entry.title} ${stripHtml(entry.excerpt)}`));
+    return { ...entry, collection: { ...entry.collection, search } as typeof entry.collection };
   }
 
   /**
@@ -1255,6 +1388,177 @@ export function configuredDelivery<X>(
     return { status: "withdrawn", withdrawn };
   }
 
+  /** The collection's config, or an error: a Site only lists what it declares. */
+  function collectionNamed(name: string) {
+    if (!Object.hasOwn(collections, name)) throw new Error(`${name} isn't a collection`);
+    return collections[name]!;
+  }
+
+  /** A taxonomy's terms in an item's stored body, as a JSON path. */
+  const termsPath = (taxonomy: string) => `$.collection.terms."${taxonomy}"`;
+
+  /** The language a listing is in: a multilingual Site's (by slug), else none. */
+  function listingLanguage(slug: string | undefined) {
+    if (!multilingual) return null;
+    if (slug === undefined) return defaultLanguage.slug;
+    if (!languages.some((language) => language.slug === slug))
+      throw new Error(`${slug} isn't one of the Site's languages`);
+    return slug;
+  }
+
+  /**
+   * A page of a collection's items, from the store alone: never WordPress,
+   * so a listing is served through outages as its items are. Items whose
+   * stored body this Frontend can't serve are left out.
+   */
+  async function list(query: CollectionQuery): Promise<CollectionListing> {
+    const collection = collectionNamed(query.collection);
+    const subject = `the ${query.collection} collection`;
+    const page = Math.max(1, whole("page", query.page, 1));
+    const perPage = Math.min(100, Math.max(1, whole("perPage", query.perPage, 12)));
+    const taxonomies = collection.taxonomies ?? [];
+    // A taxonomy given no slugs doesn't filter.
+    const terms = Object.entries(query.terms ?? {}).flatMap(([taxonomy, slugs]) => {
+      if (!taxonomies.includes(taxonomy))
+        throw new Error(`${taxonomy} isn't one of the ${query.collection} collection's taxonomies`);
+      return slugs.length > 0 ? [{ path: termsPath(taxonomy), slugs: [...slugs] }] : [];
+    });
+    const search = searchText(query.search ?? "");
+    const filter = {
+      collection: query.collection,
+      language: listingLanguage(query.language),
+      defaultLanguage: defaultLanguage.slug,
+      terms,
+      search: search || null,
+    };
+    const store = await listingStore(subject);
+    if ("kind" in store) return store;
+    let found;
+    try {
+      found = await store.listItems(filter, perPage, (page - 1) * perPage);
+    } catch (error) {
+      if (!(error instanceof StoreFailure)) throw error;
+      return notServed(subject, "store", error.message);
+    }
+    const items = found.items.flatMap((row): CollectionItem[] => {
+      let entry: EntryPublication | undefined;
+      try {
+        entry = parseEntry(JSON.parse(row.body));
+      } catch {
+        entry = undefined;
+      }
+      if (!entry) {
+        console.error(`Delivery: ${row.key} is stored with a body this Frontend can't read`);
+        return [];
+      }
+      return [
+        {
+          uri: entry.uri,
+          title: entry.title,
+          date: entry.date,
+          modifiedAt: row.modifiedAt,
+          excerpt: entry.excerpt,
+          featuredImage: entry.featuredImage,
+          terms: Object.fromEntries(
+            taxonomies.map((taxonomy) => [taxonomy, entry.collection?.terms[taxonomy] ?? []]),
+          ),
+          ...(entry.extension !== undefined ? { extension: entry.extension } : {}),
+          ...(entry.language !== undefined ? { language: entry.language } : {}),
+        },
+      ];
+    });
+    return {
+      kind: "found",
+      items,
+      total: found.total,
+      page,
+      pages: Math.ceil(found.total / perPage),
+    };
+  }
+
+  /** A listing's whole-number option (as a number, or a string of one, from a URL), else its default. */
+  function whole(option: string, value: unknown, fallback: number): number {
+    if (value === undefined || value === null || value === "") return fallback;
+    const number = Number(value);
+    if (!Number.isFinite(number))
+      throw new Error(`${option} must be a number, not ${JSON.stringify(value)}`);
+    return Math.floor(number);
+  }
+
+  /** The terms of a collection's taxonomy its stored items have, with how many have each. */
+  async function terms(
+    name: string,
+    taxonomy: string,
+    options: { language?: string } = {},
+  ): Promise<CollectionTermListing> {
+    const collection = collectionNamed(name);
+    if (!(collection.taxonomies ?? []).includes(taxonomy))
+      throw new Error(`${taxonomy} isn't one of the ${name} collection's taxonomies`);
+    const subject = `the ${name} collection's ${taxonomy}`;
+    const filter = {
+      collection: name,
+      language: listingLanguage(options.language),
+      defaultLanguage: defaultLanguage.slug,
+      terms: [],
+      search: null,
+    };
+    const store = await listingStore(subject);
+    if ("kind" in store) return store;
+    try {
+      return { kind: "found", terms: await store.itemTerms(filter, termsPath(taxonomy)) };
+    } catch (error) {
+      if (!(error instanceof StoreFailure)) throw error;
+      return notServed(subject, "store", error.message);
+    }
+  }
+
+  /** The store a listing reads, or why there is none: a listing is never read live. */
+  async function listingStore(subject: string): Promise<PublicationStore | NotServed> {
+    if (!config.isServer())
+      return notServed(subject, "not-ready", "Content delivery requires a server context");
+    let store;
+    try {
+      store = await boundStore();
+    } catch {
+      return notServed(subject, "store", "The publication store couldn't be loaded");
+    }
+    if (!store) {
+      return notServed(
+        subject,
+        "not-ready",
+        "this Frontend has no publication store bound (PUBLICATION_DB); collections are only listed from one",
+      );
+    }
+    return store;
+  }
+
+  /**
+   * Where a collection's archive is: the stored archives when there is a
+   * store, else (in explicit development) a live read. Null when it has none,
+   * or neither can be read.
+   */
+  async function archiveUri(name: string): Promise<string | null> {
+    const { postType } = collectionNamed(name);
+    if (!config.isServer()) return null;
+    const store = await boundStore();
+    if (!store) {
+      if (!config.development) return null;
+      const read = await getArchives();
+      return read.kind === "found" ? (read.content[postType] ?? null) : null;
+    }
+    try {
+      const stored = await store.read(ARCHIVES, parseArchives);
+      if (stored?.state === "unusable") {
+        console.error(`Delivery: the archives can't be served: ${stored.message}`);
+      }
+      return stored?.state === "published" ? (stored.content[postType] ?? null) : null;
+    } catch (error) {
+      if (!(error instanceof StoreFailure)) throw error;
+      console.error(`Delivery: the archives can't be served (store): ${error.message}`);
+      return null;
+    }
+  }
+
   /** The refresh's credential when the Worker has one bound, and it is strong enough. */
   async function refreshAuthority(): Promise<
     { store: PublicationStore; token: string } | { refused: string }
@@ -1310,5 +1614,26 @@ export function configuredDelivery<X>(
         () => pageDesign(),
         () => null,
       ),
+    list,
+    terms,
+    archiveUri: (collection: string): Promise<string | null> => {
+      collectionNamed(collection);
+      return safely(
+        () => archiveUri(collection),
+        () => null,
+      );
+    },
   };
+}
+
+/** Text as a search compares it: lowercase, without accents, its spaces collapsed. */
+export function searchText(text: string) {
+  return text
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .replace(/[\u2018\u2019\u201A\u201B\u2032]/g, "'")
+    .replace(/[\u201C\u201D\u201E\u2033]/g, '"')
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
 }

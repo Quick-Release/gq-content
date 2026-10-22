@@ -11,7 +11,7 @@
 // rather than processed, and one whose refresh failed stays on record, failed,
 // for a retry. Each action has its own handler: "publish" for a page or post,
 // "withdraw" for one that stopped being public, "settings" for a shared
-// setting (menus, logo, site identity, design presets), and "reconcile", which
+// setting (menus, logo, site identity, design presets, archives), and "reconcile", which
 // the CMS's scheduler sends every minute to have the Frontend catch up with
 // any change whose own event never arrived. On a
 // multilingual Site an event names the language its change is in, so only
@@ -45,7 +45,12 @@ export function configuredEvents<X>(
   delivery: ReturnType<typeof configuredDelivery<X>>,
   wordpress: WordPressClient<X>,
 ) {
-  const { reconcile } = configuredReconciliation(languages, delivery, wordpress);
+  const { reconcile } = configuredReconciliation(
+    languages,
+    delivery,
+    wordpress,
+    Object.keys(config.collections ?? {}).length > 0,
+  );
   const SITE = config.site;
   const isLanguageHome = (route: string) => homeAt(route, languages);
   const routeLanguage = (route: string) => languageAt(route, languages);
@@ -58,7 +63,7 @@ export function configuredEvents<X>(
     withdrawEntry,
   } = delivery;
   type RecordOutcome = Awaited<ReturnType<typeof refreshHome>>;
-  type SharedPart = "home" | "chrome" | "design";
+  type SharedPart = "home" | "chrome" | "design" | "archives";
   /** How far an event's signing time may be from the Worker's clock. */
   const SIGNATURE_TOLERANCE_MS = 5 * 60 * 1000;
   /** The largest event body read. */
@@ -171,6 +176,8 @@ export function configuredEvents<X>(
     // gq-config's Legal Contract and GA4 settings, in every language's chrome.
     legal: ["chrome"],
     analytics: ["chrome"],
+    // GETQUICK → Archives: where each collection's archive is.
+    archives: ["archives"],
   } as const satisfies Record<string, SharedPart[]>;
 
   /**
@@ -561,7 +568,9 @@ export function configuredEvents<X>(
       siteOrigin,
       language,
     );
-    const failure = sharedOutcomes(parts).find((outcome) => outcome.outcome === "kept");
+    const failure = [...sharedOutcomes(parts), ...Object.values(parts.entries ?? {})].find(
+      (outcome) => outcome.outcome === "kept",
+    );
     await store.finishEvent(
       recorded,
       failure?.outcome === "kept"

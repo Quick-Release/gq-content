@@ -80,6 +80,7 @@ const SETTING_NAMES = [
     'patterns' => 'The header and footer patterns',
     'legal' => 'The legal pages',
     'analytics' => 'The analytics settings',
+    'archives' => 'The archive pages',
 ];
 
 /** How editors are told about a setting, or one language's ("menus:en": "The menus (en)"). */
@@ -119,7 +120,7 @@ function deliveries(): array
     }
     $deliveries = [];
     $posts = get_posts([
-        'post_type' => \GetQuick\Site\PublicationEvents\POST_TYPES,
+        'post_type' => \GetQuick\Site\PublicationEvents\post_types(),
         'post_status' => array_values(get_post_stati()),
         'posts_per_page' => -1,
         'meta_key' => \GetQuick\Site\PublicationEvents\META_KEY,
@@ -475,7 +476,12 @@ function entry_report(int $post_id): array
     if ($recorded === null) {
         return ['state' => 'none', 'notice' => null];
     }
-    $what = get_post_type($post_id) === 'post' ? 'This post' : 'This page';
+    $type = get_post_type($post_id);
+    $what = match ($type) {
+        'post' => 'This post',
+        'page' => 'This page',
+        default => 'This ' . strtolower((string) (get_post_type_object((string) $type)?->labels->singular_name ?? 'entry')),
+    };
 
     return [
         'state' => assess($recorded['delivery'])['state'],
@@ -599,7 +605,7 @@ function reporting(): void
      */
     add_action('enqueue_block_editor_assets', static function (): void {
         $post = get_post();
-        if (! $post instanceof WP_Post || ! in_array($post->post_type, ['page', 'post'], true)) {
+        if (! $post instanceof WP_Post || ! in_array($post->post_type, \GetQuick\Site\PublicationEvents\post_types(), true)) {
             return;
         }
         wp_register_script('gq-public-delivery', false, ['wp-data', 'wp-api-fetch', 'wp-notices', 'wp-editor'], null, true);

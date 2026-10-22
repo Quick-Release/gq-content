@@ -13,5 +13,6 @@ export type {
   ContentConsentConfig,
   ContentExtension,
   ExtensionNode,
+  CollectionConfig,
   ContentRuntime,
 } from "./server";

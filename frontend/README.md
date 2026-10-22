@@ -38,7 +38,7 @@ confirmed absence returns missing, and successful reads return found.
 
 The root entry contains pure helpers and public structural types. The server
 entry exports `createContentRuntime`, `ContentConfig`, `ContentExtension`,
-`ExtensionNode`, `ContentBindings`, `ContentRuntime` and `WordPressClient`. Runtime properties contain languages,
+`ExtensionNode`, `CollectionConfig`, `ContentBindings`, `ContentRuntime` and `WordPressClient`. Runtime properties contain languages,
 routing functions and the WordPress methods; credentials/configuration are kept
 in closures. Language configuration retains the source's normalization policy,
 and routing returns the same language objects held in that instance's array.
@@ -50,6 +50,7 @@ The reusable client methods retain their argument order:
 - `getDesignPresets()`
 - `getPublishedEntries()`
 - `getPublishedRoutes()`
+- `getArchives()`
 - `getSiteChrome(siteOrigin?, { location?, language? }?)` (menu, logo, icon,
   header and footer patterns)
 
@@ -178,6 +179,47 @@ embeds rewritten into consent placeholders, as bodies do; a renderer building
 an embed from attributes uses `embedPlaceholder` (`@getquick/content/consent`)
 itself. The pure `renderDesignPattern` from the root entry
 takes `internalOrigins` instead of `siteOrigin`.
+
+## Collections and archive Pages
+
+A Site stores its custom post types' items as collections, and lists them from
+the publication store alone (never WordPress), for an archive Page's listing
+block:
+
+```ts
+const content = createContentRuntime({
+  // …the configuration above…
+  collections: {
+    biblioteca: {
+      postType: "biblioteca", // WordPress's name
+      graphqlType: "Biblioteca", // its graphql_single_name
+      taxonomies: ["categoria_biblioteca"], // each show_in_graphql
+    },
+  },
+});
+const page = await content.list({
+  collection: "biblioteca",
+  terms: { categoria_biblioteca: ["legislacao"] }, // any slug; every taxonomy given slugs
+  search: "lei", // title and excerpt, ignoring case and accents
+  page: 1, // a number (or numeric string); anything else throws
+  perPage: 12,
+});
+// { kind: "found", items: [{ uri, title, date, modifiedAt, excerpt,
+//   featuredImage, terms, extension?, language? }], total, page, pages }
+// or { kind: "unavailable", failure }
+const filters = await content.terms("biblioteca", "categoria_biblioteca");
+// { kind: "found", terms: [{ slug, name, count }] }
+const archive = await content.archiveUri("biblioteca"); // "/biblioteca/" or null
+```
+
+Items are entries: events, withdrawals and reconciliation keep them, and
+`publishedEntry` serves them with `entry.collection` (`name`, `terms`). The
+extension's `fields.collections[<name>]` selects an item's own fields (`read`
+gets `kind: "item"` and `collection`). In WordPress, GETQUICK → Archives
+assigns each type a Page, which takes over the type's archive address; saving
+it reads every archive address again. A type or taxonomy WPGraphQL doesn't
+show, a `graphqlType` that isn't the type's, or a taxonomy not connected to
+it fails the archives read, by name. See ADR 0005.
 
 Infrastructure imports the Node-only migration entry separately:
 

@@ -3,7 +3,7 @@
 `gq-content.php` is the single plugin entry point. Install the plugin-root ZIP
 as `getquick/gq-content` (`wordpress-muplugin`) through Composer. Bedrock's
 `roots/bedrock-autoloader` 1.1.0 discovers this entry; it loads publication events,
-settings events, then delivery retries using `require_once`. Do not load modules
+settings events, delivery retries, then archives using `require_once`. Do not load modules
 as loose MU plugins.
 
 Set `GQ_CONTENT_SITE_ID` to exactly the Frontend's `ContentConfig.site` (the
@@ -27,7 +27,7 @@ package, version and a configured boolean, with no credentials.
 Existing commands are `status`, `check`, `retry <post-id>`, `settings status`,
 `settings retry <setting>`, `delays`, `retry-due` and `reconcile`.
 Shared settings subjects are `menus`, `logo`, `identity`, `design`, `patterns`,
-and for CONSENT-1/LEGAL-1 `legal` (sent on gq-config's `getquick_config_legal_changed`)
+`archives`, and for CONSENT-1/LEGAL-1 `legal` (sent on gq-config's `getquick_config_legal_changed`)
 and `analytics` (sent on `getquick_config_options_updated` for the `marketing`
 area, its GA4 toggle and measurement ID). Both refresh every language's chrome
 on Frontends that enable consent CMS settings; others refresh the chrome as is.
@@ -57,8 +57,19 @@ Supported filters retain the upstream semantics:
 
 `gq_events_now` is a test-only clock seam. Other PHP functions/constants,
 namespaces and WordPress hook registrations are implementation details, not
-supported extension APIs. Supported publication post types remain page and post;
-there are no new custom emitted actions or schemas.
+supported extension APIs. Publication events cover pages, posts and every
+public custom post type shown in WPGraphQL (a Frontend may store them as
+collections).
+
+GETQUICK → Archives (Settings → Archives without gq-config) assigns a Page to
+each public custom post type's archive (`gq_archive_pages`). The type then
+yields its archive's URI to the Page; its items keep theirs. WPGraphQL's
+`getquickArchives { postType uri page }` says where each archive is, and saving
+the setting (or an assigned Page) sends an `archives` settings event ("The
+archive pages"); deploy the Frontend that knows it first. Site Health's "Pages
+reachable at their addresses" names published Pages whose URI resolves to
+something else, such as a child of an archive Page that a type's single-item
+rule claims (the Site moves its items' rewrite slug). See ADR 0005.
 
 Run `vp run cms` for the reusable P2 installed-plugin proof, or
 `vp run cms-package` to produce `.artifacts/gq-content-0.3.0.zip`. The archive

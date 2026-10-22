@@ -30,7 +30,9 @@
  *   fires `getquick_config_legal_changed`;
  * - analytics: gq-config's Marketing area (its GA4 toggle and measurement ID,
  *   which change a Site's consent configuration), when it fires
- *   `getquick_config_options_updated` for `marketing`.
+ *   `getquick_config_options_updated` for `marketing`;
+ * - archives: GETQUICK → Archives (`gq_archive_pages`, archives.php), or a
+ *   Page assigned there saved, trashed or deleted.
  *
  * On a multilingual Site (Polylang), a language has its own menus and its
  * own title and tagline, so a change to them names that language (the
@@ -70,7 +72,7 @@ use function GetQuick\Site\PublicationEvents\valid_identity;
 const OPTION_PREFIX = 'gq_settings_event_';
 
 /** The shared settings the Frontend refreshes. */
-const SETTINGS = ['menus', 'logo', 'identity', 'design', 'patterns', 'legal', 'analytics'];
+const SETTINGS = ['menus', 'logo', 'identity', 'design', 'patterns', 'legal', 'analytics', 'archives'];
 
 /** The settings a language has its own of, on a multilingual Site. */
 const LANGUAGE_SETTINGS = ['menus', 'identity'];
@@ -84,6 +86,8 @@ const OPTIONS = [
     'blogdescription' => 'identity',
     'site_icon' => 'identity',
     'site_logo' => 'logo',
+    // GETQUICK → Archives (archives.php): the Page each post type's archive is.
+    'gq_archive_pages' => 'archives',
 ];
 
 /** Whether publication-events.php, which signs and sends events, is loaded. */

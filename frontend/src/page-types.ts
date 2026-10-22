@@ -3,8 +3,10 @@ import type {
   EntryContent,
   SiteChrome,
   CmsFailureReason,
+  CollectionTerm,
   Found,
   Missing,
+  WordPressImage,
 } from "./content-types";
 import type { SiteLanguage } from "./site-language";
 /** The front page as stored: what WordPress delivered, without read details. */
@@ -65,3 +67,59 @@ export type EntryDelivery<X = unknown> =
   | (Missing & { chrome: SiteChrome | null })
   | Moved
   | NotServed;
+
+/** Which of a collection's items to list, from the publication store. */
+export interface CollectionQuery {
+  /** The collection's name, as ContentConfig's `collections` declares it. */
+  collection: string;
+  /**
+   * Only items with one of these terms (slugs) in each of these taxonomies:
+   * any slug of a taxonomy, and every taxonomy given.
+   */
+  terms?: Record<string, readonly string[]>;
+  /** Only items whose title or excerpt contains this text (ignoring case and accents). */
+  search?: string;
+  /** The page of items, from 1 (the default). */
+  page?: number;
+  /** Items per page, 1 to 100; 12 by default. */
+  perPage?: number;
+  /** A multilingual Site's language (its slug); the default language's by default. */
+  language?: string;
+}
+
+/** An item as a collection lists it. */
+export interface CollectionItem<X = unknown> {
+  uri: string;
+  title: string;
+  /** When it was published, as WordPress gives it (its date, without a zone). */
+  date: string;
+  /** When WordPress last modified it (ms, the CMS's clock), if it said. */
+  modifiedAt: number | null;
+  excerpt: string;
+  featuredImage: WordPressImage | null;
+  /** Its terms in each of the collection's taxonomies. */
+  terms: Record<string, CollectionTerm[]>;
+  /** The Site's own content on it (ContentConfig's `extension`), when it has one. */
+  extension?: X;
+  /** Its language's slug, on a multilingual Site. */
+  language?: string;
+}
+
+/** A page of a collection's items, newest first, and how many there are in all. */
+export interface CollectionPage<X = unknown> {
+  items: CollectionItem<X>[];
+  /** Items matching the query, on every page. */
+  total: number;
+  page: number;
+  /** Pages of items matching the query (0 when none does). */
+  pages: number;
+}
+
+export type CollectionListing<X = unknown> = ({ kind: "found" } & CollectionPage<X>) | NotServed;
+
+/** A term of a collection's taxonomy, and how many of its stored items have it. */
+export interface CollectionTermCount extends CollectionTerm {
+  count: number;
+}
+
+export type CollectionTermListing = { kind: "found"; terms: CollectionTermCount[] } | NotServed;

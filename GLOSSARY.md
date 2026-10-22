@@ -49,6 +49,16 @@ A Site's own content on its pages and posts, beyond what the runtime reads,
 declared by the Site and stored and served with each publication.
 _Avoid_: custom fields (WordPress's term for post meta)
 
+**Collection**:
+A content type (a WordPress custom post type) a Site declares, whose items the
+runtime stores as entries and lists from the publication store.
+_Avoid_: custom post type (WordPress's mechanism, not the Site's choice to store it)
+
+**Archive Page**:
+The Page assigned, in GETQUICK → Archives, to be a collection's archive at its
+address, laid out with blocks; the type's own archive yields that address to it.
+_Avoid_: archive template
+
 **Cold lookup**:
 A visitor's CMS read for content the publication store has never held.
 _Avoid_: cache miss

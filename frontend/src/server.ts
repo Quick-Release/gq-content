@@ -48,6 +48,26 @@ export interface ContentConfig<X = never> {
    * the publication and served as its `extension`.
    */
   extension?: ContentExtension<X>;
+  /**
+   * The content types the runtime stores besides pages and posts, by the
+   * Site's name for each (`biblioteca`). Their items are stored, refreshed,
+   * withdrawn and reconciled as pages and posts are, served by
+   * `publishedEntry`, and listed from the store by `list`.
+   */
+  collections?: Record<string, CollectionConfig>;
+}
+
+/** A content type (a WordPress custom post type) whose items the runtime stores. */
+export interface CollectionConfig {
+  /** WordPress's name for the post type (register_post_type's), e.g. `biblioteca`. */
+  postType: string;
+  /** Its WPGraphQL type (its `graphql_single_name`), e.g. `Biblioteca`. */
+  graphqlType: string;
+  /**
+   * The taxonomies (WordPress's names) whose terms are stored with each item,
+   * for filtering and showing them. Each must be shown in WPGraphQL.
+   */
+  taxonomies?: readonly string[];
 }
 
 /**
@@ -62,9 +82,9 @@ export interface ContentExtension<X> {
    * to front pages and pages, `post` to posts (e.g. `wpBlocksJson`). They are
    * read with the blocks: a read WordPress can only complete without its
    * blocks leaves them out too, and isn't stored. A kind without fields has
-   * no extension.
+   * no extension. `collections`: each collection's items' fields, by its name.
    */
-  fields: { page?: string; post?: string };
+  fields: { page?: string; post?: string; collections?: Partial<Record<string, string>> };
   /**
    * The Site's value for a node WordPress returned (its fields, the runtime's
    * among them), or undefined when it has none (`extension` is then left
@@ -83,9 +103,11 @@ export interface ContentExtension<X> {
   parse(stored: unknown): X | undefined;
 }
 
-/** A front page, page or post as WordPress returned it, for a Site's extension. */
+/** A front page, page, post or collection item as WordPress returned it, for a Site's extension. */
 export interface ExtensionNode {
-  kind: "page" | "post";
+  kind: "page" | "post" | "item";
+  /** The collection's name, for an item. */
+  collection?: string;
   fields: Readonly<Record<string, unknown>>;
 }
 
@@ -113,10 +135,12 @@ export function createContentRuntime<X = never>(input: ContentConfig<X>) {
   ) {
     throw new Error("designTemplate must be a GQ Design route key, such as page");
   }
-  for (const [kind, fields] of Object.entries(input.extension?.fields ?? {})) {
+  const { collections: collectionFields, ...kindFields } = input.extension?.fields ?? {};
+  for (const [kind, fields] of Object.entries(kindFields)) {
     if (fields !== undefined && !fields.trim())
       throw new Error(`The extension's ${kind} fields are empty; leave them out instead`);
   }
+  validateCollections(input.collections ?? {}, collectionFields ?? {});
   const config = { ...input, site, development: input.development ?? false };
   const languages = siteLanguages(config.wordpress);
   const wordpress = configuredWordPress(config, languages);
@@ -177,6 +201,23 @@ export function createContentRuntime<X = never>(input: ContentConfig<X>) {
     handleRefresh: guarded("Refresh", "Refresh with POST.", refresh.handleRefresh),
     publishedHome: delivery.publishedHome,
     publishedEntry: delivery.publishedEntry,
+    /**
+     * A page of a collection's items, from the publication store alone (never
+     * WordPress), newest first: those with the given terms and text, in the
+     * language. Unavailable when the store can't be read, or there is none.
+     */
+    list: delivery.list,
+    /**
+     * The terms of a collection's taxonomy that its stored items have, with how
+     * many of them have each, by name: for filters.
+     */
+    terms: delivery.terms,
+    /**
+     * Where a collection's archive is: the Page assigned to it in GETQUICK →
+     * Archives, else its post type's own archive. Null when it has neither, or
+     * the store can't be read.
+     */
+    archiveUri: delivery.archiveUri,
     pageChrome: delivery.pageChrome,
     /**
      * A chrome pattern as HTML, by the Site's block renderers (see
@@ -221,3 +262,41 @@ export function createContentRuntime<X = never>(input: ContentConfig<X>) {
   };
 }
 export type ContentRuntime<X = never> = ReturnType<typeof createContentRuntime<X>>;
+
+/** A collection's names are paths in the store's JSON, and the post type and taxonomies GraphQL names. */
+function validateCollections(
+  collections: Record<string, CollectionConfig>,
+  fields: Partial<Record<string, string>>,
+) {
+  const name = /^[a-z0-9][a-z0-9_-]*$/;
+  const postTypes = new Set<string>();
+  for (const [collection, { postType, graphqlType, taxonomies = [] }] of Object.entries(
+    collections,
+  )) {
+    if (!name.test(collection))
+      throw new Error(
+        `The collection ${JSON.stringify(collection)} needs a name such as biblioteca`,
+      );
+    if (!/^[a-z0-9_-]{1,20}$/.test(postType))
+      throw new Error(`The collection ${collection}'s postType isn't a WordPress post type name`);
+    if (["page", "post", "attachment"].includes(postType))
+      throw new Error(`The collection ${collection} can't be WordPress's ${postType}s`);
+    if (postTypes.has(postType))
+      throw new Error(`The collection ${collection}'s post type is another collection's`);
+    postTypes.add(postType);
+    if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(graphqlType))
+      throw new Error(`The collection ${collection}'s graphqlType isn't a GraphQL type name`);
+    for (const taxonomy of taxonomies) {
+      if (!/^[a-z0-9_-]{1,32}$/.test(taxonomy))
+        throw new Error(
+          `The collection ${collection}'s taxonomy ${taxonomy} isn't a taxonomy name`,
+        );
+    }
+  }
+  for (const [collection, value] of Object.entries(fields)) {
+    if (!Object.hasOwn(collections, collection))
+      throw new Error(`The extension has fields for ${collection}, which isn't a collection`);
+    if (value !== undefined && !value.trim())
+      throw new Error(`The extension's ${collection} fields are empty; leave them out instead`);
+  }
+}

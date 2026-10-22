@@ -7,14 +7,21 @@
 // (ADR 0009):
 //
 // - the shared rows (each language's front page with its title and tagline,
-//   and its chrome; the design presets) are read and compared with what is
+//   and its chrome; the design presets; on a Site with collections, where
+//   their archives are) are read and compared with what is
 //   stored, so a change to any shared setting is caught whatever saved it;
-// - WordPress's list of published pages and posts in every language (id,
+//   when an archive moves, its old and new addresses are read again first;
+// - WordPress's list of published pages, posts and collection items in every language (id,
 //   URI, modification time) is compared with the stored entries: a new
 //   entry, one whose URI or modification time differs, one stored but no
 //   longer listed, and one withdrawn but published again since are
-//   refreshed. A few stored entries are also re-read each run, oldest first,
-//   so a change that didn't touch the modification time is caught too, later.
+//   refreshed. A listed route stored missing by a read that started well
+//   after the entry's last modification is settled: it isn't a change, so it
+//   doesn't fill every run's budget. A few stored entries (published, or
+//   settled missing) are also re-read each run, oldest first, so a change that
+//   didn't touch the modification time is caught too, later: an edit WordPress
+//   didn't date, or an address freed without modifying the entry (an archive
+//   given up, a rewrite rule changed, a plugin deactivated).
 //
 // Nothing here decides what is served: a change found in an entry becomes a
 // publication event, recorded and processed like the CMS's own
@@ -46,6 +53,8 @@ export function configuredReconciliation<X>(
   languages: SiteLanguage[],
   delivery: ReturnType<typeof configuredDelivery<X>>,
   wordpress: WordPressClient<X>,
+  /** Whether the Site has collections, whose archives are a shared row too. */
+  collections = false,
 ) {
   const { eachLimited, reconcileShared, refreshEntries, sharedOutcomes } = delivery;
   const { getPublishedEntries } = wordpress;
@@ -59,10 +68,30 @@ export function configuredReconciliation<X>(
    * is asked again without them. Chrome and design have no block recovery.
    */
   const REQUESTS_PER_READ = 2;
-  /** Reserve design once, and each language's home (including recovery) and chrome. */
-  const SHARED_REQUESTS = 1 + (REQUESTS_PER_READ + 1) * languages.length;
-  /** Stored entries re-read each run, when the budget allows, though WordPress lists them unchanged. */
+  /**
+   * The archives read can take two requests: a CMS without GETQUICK Archives
+   * yet is asked again without them.
+   */
+  const ARCHIVES_REQUESTS = 2;
+  /**
+   * Reserve design once (and the archives, on a Site with collections), and
+   * each language's home (including recovery) and chrome.
+   */
+  const SHARED_REQUESTS =
+    1 + (collections ? ARCHIVES_REQUESTS : 0) + (REQUESTS_PER_READ + 1) * languages.length;
+  /**
+   * Stored entries re-read each run, when the budget allows, though WordPress
+   * lists them unchanged: published ones, and listed routes settled missing.
+   */
   const VERIFIED_PER_RUN = 2;
+  /**
+   * How much later than an entry's modification time a read must have started
+   * for the missing row it stored to count as settled. The read's start is
+   * the Frontend's clock (ms) and the modification time the CMS's (floored to
+   * the second): the margin covers that rounding and any skew between the two
+   * hosts, so a change made just after a read isn't taken as already read.
+   */
+  const SETTLED_CLOCK_MARGIN_MS = 5 * 60_000;
   /** How long a run holds the lease; an interrupted run's lease is taken over after it. */
   const LEASE_MS = 2 * 60_000;
 
@@ -91,9 +120,10 @@ export function configuredReconciliation<X>(
    * (new), holds it at another route (moved), holds another version (changed),
    * or holds it withdrawn though WordPress modified it after the withdrawal
    * (republished); the store holds it and WordPress doesn't list it (removed); or
-   * it was re-read in turn (verified).
+   * it was re-read in turn (verified); or its address became, or stopped
+   * being, a collection's archive (archive).
    */
-  type Change = "new" | "changed" | "moved" | "republished" | "removed" | "verified";
+  type Change = "new" | "changed" | "moved" | "republished" | "removed" | "verified" | "archive";
 
   type EntryOutcome =
     | { outcome: "refreshed" | "superseded" | "withdrawn" }
@@ -196,7 +226,7 @@ export function configuredReconciliation<X>(
     siteOrigin: string | undefined,
     publish: Publish,
   ): Promise<ReconciliationReport> {
-    const [shared, listing] = await Promise.all([
+    const [{ archiveRoutes = [], ...shared }, listing] = await Promise.all([
       reconcileShared(store, siteOrigin),
       getPublishedEntries(),
     ]);
@@ -227,9 +257,11 @@ export function configuredReconciliation<X>(
 
     const { entries: listed, requests } = listing.content;
     const index = await store.entryIndex();
-    const found = candidates(listed, index);
+    const { found, settled } = candidates(listed, index);
     let budget = CMS_REQUEST_BUDGET - SHARED_REQUESTS - requests;
     const chosen: Candidate[] = [];
+    // An address whose archive just moved may now read another node: first.
+    found.unshift(...archived(archiveRoutes, found));
     let pending = 0;
     for (const candidate of found) {
       const cost = (candidate.previousRoute ? 2 : 1) * REQUESTS_PER_READ;
@@ -241,7 +273,7 @@ export function configuredReconciliation<X>(
       chosen.push(candidate);
     }
     if (pending === 0)
-      chosen.push(...verified(index, found, Math.floor(budget / REQUESTS_PER_READ)));
+      chosen.push(...verified(index, found, settled, Math.floor(budget / REQUESTS_PER_READ)));
 
     const entries = await refresh(store, chosen, publish);
     for (const outcome of Object.values(entries)) {
@@ -263,11 +295,15 @@ export function configuredReconciliation<X>(
   }
 
   /**
-   * What differs between WordPress's list and the store, oldest-attempted first.
+   * What differs between WordPress's list and the store (found),
+   * oldest-attempted first, and the listed routes settled missing (settled).
    * WordPress's front page (`/`) is the homepage's, reconciled with the shared
    * rows, unless it is withdrawn and modified since.
    */
-  function candidates(listed: PublishedEntry[], index: EntryIndex): Candidate[] {
+  function candidates(
+    listed: PublishedEntry[],
+    index: EntryIndex,
+  ): { found: Candidate[]; settled: Set<string> } {
     const rows = new Map(index.entries.map((row) => [row.key, row]));
     const storedAt = new Map<string, string[]>();
     for (const row of index.entries) {
@@ -276,6 +312,7 @@ export function configuredReconciliation<X>(
     }
 
     const found: Candidate[] = [];
+    const settled = new Set<string>();
     const listedRoutes = new Set<string>();
     const left = new Set<string>();
     for (const entry of listed) {
@@ -309,6 +346,21 @@ export function configuredReconciliation<X>(
       }
       const previousRoute =
         entry.id === null ? undefined : storedAt.get(entry.id)?.find((stored) => stored !== route);
+      // Stored missing though WordPress lists it (its URI reads another node,
+      // such as an archive, or a restricted or unpublished one) by a read that
+      // started well after its last modification: settled. Reading it on
+      // every run would mostly find the same and fill every run's budget with
+      // it; verified() still re-reads it in turn, in case its address was
+      // freed without modifying it.
+      if (
+        row?.state === "missing" &&
+        !previousRoute &&
+        entry.modifiedAt !== null &&
+        row.readStartedAt - SETTLED_CLOCK_MARGIN_MS > entry.modifiedAt
+      ) {
+        settled.add(route);
+        continue;
+      }
       if (previousRoute) left.add(previousRoute);
       found.push({
         change: previousRoute ? "moved" : row ? "changed" : "new",
@@ -323,17 +375,39 @@ export function configuredReconciliation<X>(
       if (row.state !== "published" || listedRoutes.has(route) || left.has(route)) continue;
       found.push({ change: "removed", route, attemptedAt: row.attemptedAt });
     }
-    return found.sort(
+    found.sort(
       (a, b) =>
         a.attemptedAt - b.attemptedAt || (a.route < b.route ? -1 : a.route > b.route ? 1 : 0),
     );
+    return { found, settled };
   }
 
-  /** Up to `limit` (and VERIFIED_PER_RUN) stored entries no change was found in, oldest-attempted first. */
-  function verified(index: EntryIndex, found: Candidate[], limit: number): Candidate[] {
+  /** The addresses whose archive moved, unless already a change, as changes. */
+  function archived(routes: string[], found: Candidate[]): Candidate[] {
+    const changing = new Set(found.flatMap(({ route, previousRoute }) => [route, previousRoute]));
+    return routes
+      .filter((route) => !changing.has(route) && !isLanguageHome(route))
+      .map((route) => ({ change: "archive" as const, route, attemptedAt: 0 }));
+  }
+
+  /**
+   * Up to `limit` (and VERIFIED_PER_RUN) stored entries no change was found
+   * in, published or settled missing, oldest-attempted first. Other missing
+   * rows (a 404 looked up at an address WordPress doesn't list) aren't re-read.
+   */
+  function verified(
+    index: EntryIndex,
+    found: Candidate[],
+    settled: Set<string>,
+    limit: number,
+  ): Candidate[] {
     const changing = new Set(found.flatMap(({ route, previousRoute }) => [route, previousRoute]));
     return index.entries
-      .filter((row) => row.state === "published" && !changing.has(row.key.slice(ENTRY.length)))
+      .filter((row) => {
+        const route = row.key.slice(ENTRY.length);
+        if (changing.has(route)) return false;
+        return row.state === "published" || (row.state === "missing" && settled.has(route));
+      })
       .sort((a, b) => a.attemptedAt - b.attemptedAt)
       .slice(0, Math.max(0, Math.min(limit, VERIFIED_PER_RUN)))
       .map((row) => ({
@@ -375,9 +449,9 @@ export function configuredReconciliation<X>(
       };
       try {
         const { body } = await publish(store, publication);
-        if (body.status === "refreshed") {
+        if (body.status === "refreshed" && !body.duplicate) {
           outcomes[candidate.route] = { change: candidate.change, outcome: "refreshed" };
-        } else if (body.status === "superseded") {
+        } else if (body.status === "refreshed" || body.status === "superseded") {
           superseded.push(candidate);
         } else {
           outcomes[candidate.route] = {
@@ -399,10 +473,12 @@ export function configuredReconciliation<X>(
       }
     });
 
-    // A change already processed, or superseded by a newer event, while the
-    // store still differs (such as a row from before modification times were
-    // stored): read the route again, by the rules of any refresh. A withdrawal
-    // in force still refuses it.
+    // A change already processed (a duplicate of a refreshed event), or
+    // superseded by a newer event, while the store still differs (such as a
+    // row from before modification times were stored, or a route stored
+    // missing by a read too close to the modification to settle it): read the
+    // route again, by the rules of any refresh, so the store records a newer
+    // read. A withdrawal in force still refuses it.
     const reread = [
       ...plain,
       ...superseded.filter((candidate) => candidate.change !== "republished"),
