@@ -18,11 +18,19 @@ const zipFiles = JSON.parse(
 );
 const forbidden =
   /@quick-release\/|npm\.pkg\.github\.com|(?:gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,})|_authToken\s*=/;
+// Exactly the SQL each migrations export ships: the publication store's and consent's.
+const sql = [
+  "package/migrations/0001_publications.sql",
+  "package/migrations/0002_entries.sql",
+  "package/migrations/0003_publication_events.sql",
+  "package/migrations/0004_withdrawals.sql",
+  "package/migrations/0005_reconciliation.sql",
+  "package/consent-migrations/0001_consent_records.sql",
+];
+assert.deepEqual(npmFiles.filter((file) => file.endsWith(".sql")).sort(), sql.toSorted());
 for (const file of npmFiles) {
-  assert.match(
-    file,
-    /^package\/((?:package\.json|README\.md)|dist\/[\w-]+\.(js|d\.ts)|migrations\/000[1-5]_[a-z_]+\.sql)$/,
-  );
+  if (!sql.includes(file))
+    assert.match(file, /^package\/((?:package\.json|README\.md)|dist\/[\w-]+\.(js|d\.ts))$/);
   const text = execFileSync("tar", ["-xOzf", tarball, file], { encoding: "utf8" });
   assert.doesNotMatch(text, forbidden, file);
   if (file === "package/package.json") {
