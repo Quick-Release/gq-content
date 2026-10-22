@@ -1,0 +1,540 @@
+{"sourceCommit":"51a9f3eb36f90cf069fca8e6fe20a875e452d570","manifestSha256":"d9c58ba865c080bf6cb1bfe3deecd13a2c2eed019c2271dddcddab2fbecc5ef1","npm":{"filename":"getquick-content-0.1.0.tgz","sha256":"837b2e390dcb7606b4acbb4b62b781eba88a58f87d637dd176817a831faf8318","integrity":"sha512-lxzkdqcdgf4Ag1bTDLi59jUZmadU7dgW1Z6+aWWcKuMBvrMt5LWumHTntOEMmZhKYeCwvg4gCaWjAybbPvRX2w=="},"cms":{"filename":"gq-content-0.1.0.zip","sha256":"f892d974d80cde9bb9a36e4595f509661fb37f63e0102b1506483fcfc2c78a5e"}}
+Installed candidate artifact: {"proof":"reconciliation","filename":"getquick-content-0.1.0.tgz","sha256":"837b2e390dcb7606b4acbb4b62b781eba88a58f87d637dd176817a831faf8318","integrity":"sha512-lxzkdqcdgf4Ag1bTDLi59jUZmadU7dgW1Z6+aWWcKuMBvrMt5LWumHTntOEMmZhKYeCwvg4gCaWjAybbPvRX2w==","sourceCommit":"51a9f3eb36f90cf069fca8e6fe20a875e452d570","manifestSha256":"d9c58ba865c080bf6cb1bfe3deecd13a2c2eed019c2271dddcddab2fbecc5ef1"}
+✓ Lockfile passes supply-chain policies (verified 4m ago)
+Lockfile is up to date, resolution step is skipped
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /home/runner/.local/share/pnpm/store/v11
+  Virtual store is at:             node_modules/.pnpm
+Packages: +223
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 223, reused 223, downloaded 0, added 223, done
+
+dependencies:
++ @effect/platform-node 4.0.0-rc.115
++ @getquick/content 0.1.0
++ alchemy 2.0.0-beta.79
++ effect 4.0.0-rc.115
+
+Done in 923ms using pnpm v12.11.2
+[08:44:50.381] INFO (#4): Plan: no resources
+[08:44:50.382] INFO (#4): 
+[08:44:50.385] INFO (#4): 
+[08:44:50.385] INFO (#4): Done: 0 succeeded (2ms)
+[08:44:50.462] INFO (#4): Plan: 2 to create, 5 binding changes
+[08:44:50.463] INFO (#4): [Frontend] create (local)
+[08:44:50.463] INFO (#4): [Frontend/CMS_GRAPHQL] create
+[08:44:50.463] INFO (#4): [Frontend/FRONTEND_REFRESH_TOKEN] create
+[08:44:50.463] INFO (#4): [Frontend/PUBLICATION_DB] create
+[08:44:50.463] INFO (#4): [Frontend/PUBLICATION_EVENT_SECRET] create
+[08:44:50.463] INFO (#4): [Frontend/REVISION] create
+[08:44:50.463] INFO (#4): [Publications] create (local)
+[08:44:50.463] INFO (#4): 
+[08:44:50.470] INFO (#171): [Frontend] pre-creating (local)
+[08:44:50.474] INFO (#170): [Publications] creating (local)
+[08:44:50.653] INFO (#171): [Frontend] creating (local)
+[08:44:50.659] INFO (#170): [Publications] created (local) (185ms)
+[08:44:50.690] INFO (#171): [Frontend] ready at http://localhost:1337
+[08:44:50.690] INFO (#171): [Frontend] created (local) (220ms)
+[08:44:50.727] INFO (#246): [Publications] created (local) (253ms)
+[08:44:50.728] INFO (#247): [Frontend] created (local) (258ms)
+[08:44:50.729] INFO (#4): 
+[08:44:50.729] INFO (#4): Done: 2 succeeded (265ms)
+[08:44:50.887] INFO (#236): [Frontend] Started in 224ms → http://localhost:1337/ (logs: /home/runner/work/gq-content/gq-content/.proofs/alchemy-p1-q3YOxe/.alchemy/log/p9/Frontend)
+[Frontend] Refresh: the front page promoted (published)
+[Frontend] Refresh: the site chrome promoted (published)
+[Frontend] Refresh: the en front page promoted (published)
+[Frontend] Refresh: the en site chrome promoted (published)
+[Frontend] Refresh: the shared design presets promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-1/ promoted (published)
+[Frontend] Events: reconcile-2834f0d9f6c22c80d8c82553eb0cdd88715d3902 (publish /en/reconcile-story-1/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-11/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-13/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-15/ promoted (published)
+[Frontend] Events: reconcile-50ec6de2d5d75ac1717a6647b9f62617acfcee6e (publish /en/reconcile-story-11/) refreshed
+[Frontend] Events: reconcile-1a6086095a4678fb95717b48ef94c22bf084e83c (publish /en/reconcile-story-13/) refreshed
+[Frontend] Events: reconcile-be5dbbea907023089c8ce77c6bd80ead569dd535 (publish /en/reconcile-story-15/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-17/ promoted (published)
+[Frontend] Events: reconcile-5092205e0e7dc38069130ed6a15442332931a18f (publish /en/reconcile-story-17/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-19/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-21/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-23/ promoted (published)
+[Frontend] Events: reconcile-87d4d8b1f3d101f8d8f23086a3f46f14c187b5ab (publish /en/reconcile-story-19/) refreshed
+[Frontend] Events: reconcile-e23622e6e3cda48e9357d3b9cf58144e15828f9f (publish /en/reconcile-story-21/) refreshed
+[Frontend] Events: reconcile-1e7f64965ab4a2b9ad246e9f3ace1551bf421e28 (publish /en/reconcile-story-23/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-25/ promoted (published)
+[Frontend] Events: reconcile-e21ec15d30c897461db14b770b73225ac1033d79 (publish /en/reconcile-story-25/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-27/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-29/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-3/ promoted (published)
+[Frontend] Events: reconcile-6310ad94d2085baa3cca8fad5914abd5cd783af3 (publish /en/reconcile-story-27/) refreshed
+[Frontend] Events: reconcile-5e697f670fec7ad3ec9d9a891eb6a7f4390bf466 (publish /en/reconcile-story-29/) refreshed
+[Frontend] Events: reconcile-cdbbc49b5660035c00b66d4dc5ce0f932ef7b0f2 (publish /en/reconcile-story-3/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-31/ promoted (published)
+[Frontend] Events: reconcile-50618e5e6aab125fa3eb6cf852077fbec4d7565f (publish /en/reconcile-story-31/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-33/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-35/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-37/ promoted (published)
+[Frontend] Events: reconcile-e413e1ba5e3f370808d9a7682a7ff7e14207ab27 (publish /en/reconcile-story-33/) refreshed
+[Frontend] Events: reconcile-11da2b859296389ab763fdca0b59d1974d978c79 (publish /en/reconcile-story-35/) refreshed
+[Frontend] Events: reconcile-5b67368139dc2943af78ae5f85377f2b486a385d (publish /en/reconcile-story-37/) refreshed
+[Frontend] Reconciliation: 19d72fa5-e1d8-47a7-905f-287e2788822e behind (40 checked, 21 changed, 24 left, 0 failed)
+PASS integrated reconciliation: Composer-installed CMS is 0.1.0
+PASS integrated reconciliation: actual Polylang is active
+PASS integrated reconciliation: 40 actual WordPress entries with modification times and both languages exported
+PASS integrated reconciliation: supported false filter skips reconciliation
+PASS integrated reconciliation: run remains within 40 CMS requests
+PASS integrated reconciliation: CLI reports partial completion without claiming a complete match
+PASS integrated reconciliation: signed check reports durable partial state
+PASS integrated reconciliation: shared rows for every language prepared
+[08:44:59.952] INFO (#4): Plan: 1 to update, 1 binding changes
+[08:44:59.952] INFO (#4): [Frontend] update (local)
+[08:44:59.952] INFO (#4): [Frontend/CMS_GRAPHQL] noop
+[08:44:59.953] INFO (#4): [Frontend/FRONTEND_REFRESH_TOKEN] noop
+[08:44:59.953] INFO (#4): [Frontend/PUBLICATION_DB] noop
+[08:44:59.953] INFO (#4): [Frontend/PUBLICATION_EVENT_SECRET] noop
+[08:44:59.953] INFO (#4): [Frontend/REVISION] update
+[08:44:59.953] INFO (#4): [Publications] noop (local)
+[08:44:59.953] INFO (#4): 
+[08:44:59.979] INFO (#483): [Frontend] updating (local)
+[08:44:59.985] WARN (#488): Port 1337 is in use by another process; serving on 1338 instead. Stop the other process, pick a different port, or set `strictPort: true` to fail instead.
+[08:44:59.987] INFO (#483): [Frontend] ready at http://localhost:1338
+[08:44:59.987] INFO (#483): [Frontend] updated (local) (8ms)
+[08:44:59.998] INFO (#501): [Frontend] updated (local) (19ms)
+[08:44:59.999] INFO (#4): 
+[08:44:59.999] INFO (#4): Done: 1 succeeded (46ms)
+[08:45:00.127] INFO (#491): [Frontend] Started in 142ms → http://localhost:1338/ (logs: /home/runner/work/gq-content/gq-content/.proofs/alchemy-p1-q3YOxe/.alchemy/log/p9/Frontend)
+[Frontend] Refresh: the entry /en/reconcile-story-39/ promoted (published)
+[Frontend] Events: reconcile-c12e5bd71c81933885d4d1055568657bcf752835 (publish /en/reconcile-story-39/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-5/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-7/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-9/ promoted (published)
+[Frontend] Events: reconcile-fc46be85e12588d3f6aa99cc01f01a4b76f587b9 (publish /en/reconcile-story-5/) refreshed
+[Frontend] Events: reconcile-c9cabdf8a7eb827afa58a299b6ce14f3097bfe00 (publish /en/reconcile-story-7/) refreshed
+[Frontend] Events: reconcile-3f0b4e6165c39e7fa5cf038bdd296e5cb19b24b7 (publish /en/reconcile-story-9/) refreshed
+[Frontend] Refresh: the entry /reconcile-story-0/ promoted (published)
+[Frontend] Events: reconcile-309845854064f3b4caf0cb7ddb04528c958e16e3 (publish /reconcile-story-0/) refreshed
+[Frontend] Refresh: the entry /reconcile-story-10/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-12/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-14/ promoted (published)
+[Frontend] Events: reconcile-0a399bd95dd3ebd84e4d2983b651164b41a87c6d (publish /reconcile-story-10/) refreshed
+[Frontend] Events: reconcile-9d18acca0e692c0073ac5d8a4d42bcb1640bde9d (publish /reconcile-story-12/) refreshed
+[Frontend] Events: reconcile-461ff2d599a75ee1f0990f2bf783b98c40e564c3 (publish /reconcile-story-14/) refreshed
+[Frontend] Refresh: the entry /reconcile-story-16/ promoted (published)
+[Frontend] Events: reconcile-0f5ccfb61c914332f14008301d0cecd48d6374ed (publish /reconcile-story-16/) refreshed
+[Frontend] Refresh: the entry /reconcile-story-18/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-2/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-20/ promoted (published)
+[Frontend] Events: reconcile-1d2731f06e62ca5f79690c15242a57901040c120 (publish /reconcile-story-18/) refreshed
+[Frontend] Events: reconcile-19519d77c04beefbfa61f200aae5bb5502b559d5 (publish /reconcile-story-2/) refreshed
+[Frontend] Events: reconcile-23073257b19a4296d2d1b0a3a8a3706a9b5f49b6 (publish /reconcile-story-20/) refreshed
+[Frontend] Refresh: the entry /reconcile-story-22/ promoted (published)
+[Frontend] Events: reconcile-494bbf000c480123614b3afea51d6c1053c89705 (publish /reconcile-story-22/) refreshed
+[Frontend] Refresh: the entry /reconcile-story-26/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-24/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-28/ promoted (published)
+[Frontend] Events: reconcile-4765f511e557a074b24c535f74324255f02d0eb1 (publish /reconcile-story-26/) refreshed
+[Frontend] Events: reconcile-c115a9cf3ced5a368bcb5be7cecedd34c9a1d583 (publish /reconcile-story-24/) refreshed
+[Frontend] Events: reconcile-e8d2f4208f8c1e5a4a1ae213c33a264b9c644fd5 (publish /reconcile-story-28/) refreshed
+[Frontend] Reconciliation: dd4ac953-89f5-48d9-9e0f-a70944e1b7af behind (40 checked, 16 changed, 8 left, 0 failed)
+[Frontend] Refresh: the entry /reconcile-story-30/ promoted (published)
+[Frontend] Events: reconcile-cd9e45fb727d59246a6326ffc4447d1b8de9ba6a (publish /reconcile-story-30/) refreshed
+[Frontend] Refresh: the entry /reconcile-story-32/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-34/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-36/ promoted (published)
+[Frontend] Events: reconcile-e05774076fea618c1de8a6afbc011cf466372307 (publish /reconcile-story-32/) refreshed
+[Frontend] Events: reconcile-6b09c1d439ca0912afc06b5b9073c9e884484c8e (publish /reconcile-story-34/) refreshed
+[Frontend] Events: reconcile-2fce25b92ee6aa265f82d81341372a27907ab3e4 (publish /reconcile-story-36/) refreshed
+[Frontend] Refresh: the entry /reconcile-story-38/ promoted (published)
+[Frontend] Events: reconcile-6a84d11be63c986197f06e0ba148db7d92caba4a (publish /reconcile-story-38/) refreshed
+[Frontend] Refresh: the entry /reconcile-story-4/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-6/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-8/ promoted (published)
+[Frontend] Events: reconcile-923159b0d454d6022a2bc0d2f40b56aec605f732 (publish /reconcile-story-4/) refreshed
+[Frontend] Events: reconcile-f4c5206cdadbc72231becb0492bef657be782594 (publish /reconcile-story-6/) refreshed
+[Frontend] Events: reconcile-07d0e14921685bbf7e1337990528afbc86c0c934 (publish /reconcile-story-8/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-1/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-11/ promoted (published)
+[Frontend] Reconciliation: 4d97e373-ca1a-4d50-9a35-b71013b55125 reconciled (40 checked, 8 changed, 0 left, 0 failed)
+[Frontend] Reconciliation: proof-1792658701987048005 found another run under way
+[Frontend] Refresh: the entry /en/reconcile-story-13/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-15/ promoted (published)
+[Frontend] Reconciliation: proof-1792658701975382343 reconciled (40 checked, 0 changed, 0 left, 0 failed)
+[Frontend] WordPress: the entry /reconcile-story-0/ is unavailable (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] Refresh: the entry /reconcile-story-0/ kept its last stored version (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] Events: reconcile-597ba55a1a337a4d5188e12c87937dc1d28e35cc (publish /reconcile-story-0/) failed
+[Frontend] WordPress: the entry /en/reconcile-story-17/ is unavailable (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] WordPress: the entry /en/reconcile-story-19/ is unavailable (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] Refresh: the entry /en/reconcile-story-17/ kept its last stored version (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] Refresh: the entry /en/reconcile-story-19/ kept its last stored version (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] Reconciliation: 1f84058e-680c-4877-a28a-c33cd96c7ad4 failed (40 checked, 0 changed, 0 left, 3 failed): http: WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] WordPress: the site chrome is unavailable (http): WordPress responded with HTTP 502
+[Frontend] WordPress: the en site chrome is unavailable (http): WordPress responded with HTTP 502
+[Frontend] WordPress: the design presets is unavailable (http): WordPress responded with HTTP 502
+[Frontend] WordPress: the published routes is unavailable (http): WordPress responded with HTTP 502
+[Frontend] WordPress: the front page is unavailable (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] WordPress: the en front page is unavailable (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] Refresh: the front page kept its last stored version (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] Refresh: the site chrome kept its last stored version (http): WordPress responded with HTTP 502
+[Frontend] Refresh: the en front page kept its last stored version (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] Refresh: the en site chrome kept its last stored version (http): WordPress responded with HTTP 502
+[Frontend] Refresh: the shared design presets kept its last stored version (http): WordPress responded with HTTP 502
+[Frontend] Reconciliation: 44fd15f7-0903-477d-9122-c73038ada91f failed (0 checked, 0 changed, 0 left, 6 failed): http: WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+PASS integrated reconciliation: pending evidence still visible before continuation
+PASS integrated reconciliation: run remains within 40 CMS requests
+PASS integrated reconciliation: real scheduler continues unfinished work
+PASS integrated reconciliation: run remains within 40 CMS requests
+PASS integrated reconciliation: scheduler converges complete published list
+PASS integrated reconciliation: stored story Story 36
+PASS integrated reconciliation: stored story Story 37
+PASS integrated reconciliation: stored story Story 38
+PASS integrated reconciliation: stored story Story 39
+PASS integrated reconciliation: stored story Story 28
+PASS integrated reconciliation: stored story Story 29
+PASS integrated reconciliation: stored story Story 30
+PASS integrated reconciliation: stored story Story 31
+PASS integrated reconciliation: stored story Story 32
+PASS integrated reconciliation: stored story Story 33
+PASS integrated reconciliation: stored story Story 34
+PASS integrated reconciliation: stored story Story 35
+PASS integrated reconciliation: stored story Story 20
+PASS integrated reconciliation: stored story Story 21
+PASS integrated reconciliation: stored story Story 22
+PASS integrated reconciliation: stored story Story 23
+PASS integrated reconciliation: stored story Story 24
+PASS integrated reconciliation: stored story Story 25
+PASS integrated reconciliation: stored story Story 26
+PASS integrated reconciliation: stored story Story 27
+PASS integrated reconciliation: stored story Story 12
+PASS integrated reconciliation: stored story Story 13
+PASS integrated reconciliation: stored story Story 14
+PASS integrated reconciliation: stored story Story 15
+PASS integrated reconciliation: stored story Story 16
+PASS integrated reconciliation: stored story Story 17
+PASS integrated reconciliation: stored story Story 18
+PASS integrated reconciliation: stored story Story 19
+PASS integrated reconciliation: stored story Story 4
+PASS integrated reconciliation: stored story Story 5
+PASS integrated reconciliation: stored story Story 6
+PASS integrated reconciliation: stored story Story 7
+PASS integrated reconciliation: stored story Story 8
+PASS integrated reconciliation: stored story Story 9
+PASS integrated reconciliation: stored story Story 10
+PASS integrated reconciliation: stored story Story 11
+PASS integrated reconciliation: stored story Story 0
+PASS integrated reconciliation: stored story Story 1
+PASS integrated reconciliation: stored story Story 2
+PASS integrated reconciliation: stored story Story 3
+PASS integrated reconciliation: real D1 lease rejects overlap with exact busy wire answer
+PASS integrated reconciliation: leased run completes
+PASS integrated reconciliation: run remains within 40 CMS requests
+PASS integrated reconciliation: actual CMS CLI reports failed entry reconciliation
+PASS integrated reconciliation: failed synthetic publication is persisted
+PASS integrated reconciliation: run remains within 40 CMS requests
+PASS integrated reconciliation: CMS outage reports failure and retains last matched time
+PASS integrated reconciliation: last-known-good language homes remain served
+PASS integrated reconciliation: stale failed reconciliation reported safely through real Site Health and CLI
+[08:45:05.652] INFO (#4): Plan: 1 to update, 1 binding changes
+[08:45:05.652] INFO (#4): [Frontend] update (local)
+[08:45:05.652] INFO (#4): [Frontend/CMS_GRAPHQL] noop
+[08:45:05.652] INFO (#4): [Frontend/FRONTEND_REFRESH_TOKEN] noop
+[08:45:05.652] INFO (#4): [Frontend/PUBLICATION_DB] noop
+[08:45:05.652] INFO (#4): [Frontend/PUBLICATION_EVENT_SECRET] noop
+[08:45:05.652] INFO (#4): [Frontend/REVISION] update
+[08:45:05.652] INFO (#4): [Publications] noop (local)
+[08:45:05.652] INFO (#4): 
+[08:45:05.654] INFO (#963): [Frontend] updating (local)
+[08:45:05.656] WARN (#968): Port 1337 is in use by another process; serving on 1339 instead. Stop the other process, pick a different port, or set `strictPort: true` to fail instead.
+[08:45:05.657] INFO (#963): [Frontend] ready at http://localhost:1339
+[08:45:05.657] INFO (#963): [Frontend] updated (local) (3ms)
+[08:45:05.665] INFO (#981): [Frontend] updated (local) (11ms)
+[08:45:05.666] INFO (#4): 
+[08:45:05.666] INFO (#4): Done: 1 succeeded (14ms)
+[08:45:05.778] INFO (#971): [Frontend] Started in 122ms → http://localhost:1339/ (logs: /home/runner/work/gq-content/gq-content/.proofs/alchemy-p1-q3YOxe/.alchemy/log/p9/Frontend)
+[Frontend] Refresh: the entry /reconcile-story-0/ promoted (published)
+[Frontend] Events: reconcile-597ba55a1a337a4d5188e12c87937dc1d28e35cc (publish /reconcile-story-0/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-21/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-23/ promoted (published)
+[Frontend] Reconciliation: 320f47a9-b212-4bf9-b8fa-79c73936ff03 reconciled (40 checked, 1 changed, 0 left, 0 failed)
+[Frontend] Refresh: the entry /reconcile-story-0/ promoted (published)
+[Frontend] Events: 19a28dab-9a9a-4f9f-9adc-46651b35ea30 (publish /reconcile-story-0/) refreshed
+[Frontend] Refresh: the en front page promoted (published)
+[Frontend] WordPress: the published routes is unavailable (schema): WordPress said there are more published routes without a cursor to them
+[Frontend] Reconciliation: b566bd4a-de1c-4634-aba3-34cd57f978a9 failed (0 checked, 1 changed, 0 left, 1 failed): schema: WordPress said there are more published routes without a cursor to them
+[Frontend] Refresh: the front page promoted (published)
+[Frontend] Refresh: the en front page promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-moved/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-1/ moved to /en/reconcile-moved/
+[Frontend] Events: reconcile-b7be06f69b04145dedf0e86eb20d4a1fd50e957b (publish /en/reconcile-moved/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-25/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-27/ promoted (published)
+[Frontend] Refresh: the entry /reconcile-story-2/ promoted (missing)
+[Frontend] Reconciliation: 5ebb24b2-d3ec-48d6-bbc3-4bff238e9f58 reconciled (39 checked, 4 changed, 0 left, 0 failed)
+PASS integrated reconciliation: failed evidence visible BEFORE recovery
+PASS integrated reconciliation: run remains within 40 CMS requests
+PASS integrated reconciliation: scheduler repairs missed change after outage
+PASS integrated reconciliation: recovered content publicly served
+PASS integrated reconciliation: actual WordPress publication hook/signature/HTTP reaches installed workerd handler
+PASS integrated reconciliation: run remains within 40 CMS requests
+PASS integrated reconciliation: incomplete list fails without removing stored entry
+PASS integrated reconciliation: run remains within 40 CMS requests
+PASS integrated reconciliation: lost move redirects old English route
+PASS integrated reconciliation: confirmed removal becomes missing
+PASS integrated reconciliation: English home repaired without Portuguese leakage
+PASS integrated reconciliation: check exposes only accepted evidence
+[Frontend] WordPress: the entry /en/reconcile-story-3/ is unavailable (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] Refresh: the entry /en/reconcile-story-3/ kept its last stored version (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+[Frontend] Events: 528ed5f9-2624-49d7-86a7-598bb8d50b5e (publish /en/reconcile-story-3/) failed
+[Frontend] Refresh: the entry /en/reconcile-story-3/ promoted (published)
+[Frontend] Events: 528ed5f9-2624-49d7-86a7-598bb8d50b5e (publish /en/reconcile-story-3/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-7/ promoted (published)
+[Frontend] Events: reconcile-0820681b09a8e5052fd53802bd916afd61d3b8d8 (publish /en/reconcile-story-7/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-29/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-31/ promoted (published)
+[Frontend] Reconciliation: 79b2ce43-25b3-439c-b3d9-fbf24c33d155 reconciled (39 checked, 1 changed, 0 left, 0 failed)
+PASS daemon: save failure retains failed event and old public content
+PASS daemon: missed change has no recorded publication event before daemon
+PASS daemon: record is due before daemon starts
+PASS daemon: actual minute daemon launched pinned WP-CLI in disposable Bedrock
+PASS daemon: daemon also reconciles unrecorded change without visits or saves
+PASS daemon: daemon alone recovered same event without visits or another save
+PASS daemon: quiet scheduler contract holds
+PASS daemon: daemon stopped and isolated schedule/configuration removed
+P2/P6 actual cron daemon → pinned WP-CLI → installed package/workerd delivery passed; elapsed 47.466s; container and schedule cleaned.
+P2/P6 #9 integrated WordPress CLI/scheduler → installed package/workerd: convergence, partial continuation, outage/recovery, complete failed/pending records and event attempt progression across Worker updates passed.
+[Frontend] Withdrawal: d9fe03e3-5126-4c1e-9686-6b9963861e6b withdrew /en/reconcile-story-5/
+[Frontend] Refresh: the entry /en/reconcile-story-5/ isn't promoted: its entry is withdrawn
+PASS workerd regression: refresh holds an actual in-flight GraphQL read in workerd
+PASS workerd regression: actual WordPress withdrawal wins before held read completes
+PASS workerd regression: in-flight read cannot restore actual CMS withdrawal
+PASS workerd regression: /gq/events retains POST-only Allow and no-store wire headers
+PASS workerd regression: /gq/refresh retains POST-only Allow and no-store wire headers
+PASS workerd regression: workerd refuses refresh credentials with no-store challenge
+PASS workerd regression: every publication timestamp is older than a year before update
+PASS workerd regression: year-old stored HTML stays served through outage
+[08:46:06.714] INFO (#4): Plan: 1 to update, 1 binding changes
+[08:46:06.714] INFO (#4): [Frontend] update (local)
+[08:46:06.714] INFO (#4): [Frontend/CMS_GRAPHQL] noop
+[08:46:06.714] INFO (#4): [Frontend/FRONTEND_REFRESH_TOKEN] noop
+[08:46:06.714] INFO (#4): [Frontend/PUBLICATION_DB] noop
+[08:46:06.714] INFO (#4): [Frontend/PUBLICATION_EVENT_SECRET] noop
+[08:46:06.714] INFO (#4): [Frontend/REVISION] update
+[08:46:06.714] INFO (#4): [Publications] noop (local)
+[08:46:06.714] INFO (#4): 
+[08:46:06.715] INFO (#1399): [Frontend] updating (local)
+[08:46:09.728] WARN (#1404): Port 1337 is in use by another process; serving on 1340 instead. Stop the other process, pick a different port, or set `strictPort: true` to fail instead.
+[08:46:09.730] INFO (#1399): [Frontend] ready at http://localhost:1340
+[08:46:09.730] INFO (#1399): [Frontend] updated (local) (3.0s)
+[08:46:09.738] INFO (#1420): [Frontend] updated (local) (3.0s)
+[08:46:09.739] INFO (#4): 
+[08:46:09.739] INFO (#4): Done: 1 succeeded (3.0s)
+[08:46:09.843] INFO (#1410): [Frontend] Started in 114ms → http://localhost:1340/ (logs: /home/runner/work/gq-content/gq-content/.proofs/alchemy-p1-q3YOxe/.alchemy/log/p9/Frontend)
+PASS workerd regression: year-old home and entry survive rebuilt Worker during CMS outage
+PASS workerd regression: withdrawal survives rebuilt Worker and outage
+[Frontend] Refresh: the entry /bulk-story-0/ promoted (published)
+[Frontend] Events: reconcile-283bf5e07acd31273c22651423b4b15253e65358 (publish /bulk-story-0/) refreshed
+[Frontend] Refresh: the entry /bulk-story-1/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-10/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-11/ promoted (published)
+[Frontend] Events: reconcile-19c053c3ae4019c9c523dae64d4421466f273f4e (publish /bulk-story-1/) refreshed
+[Frontend] Events: reconcile-62520632e72ef2e1ae3a0cb5e3090ea003f11661 (publish /bulk-story-10/) refreshed
+[Frontend] Events: reconcile-b0808751bbe6df0c31e65ee5dd97336dc1f2cf47 (publish /bulk-story-11/) refreshed
+[Frontend] Refresh: the entry /bulk-story-12/ promoted (published)
+[Frontend] Events: reconcile-5bdfbb740c01904529c9e8a374e74401f121aa39 (publish /bulk-story-12/) refreshed
+[Frontend] Refresh: the entry /bulk-story-13/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-14/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-15/ promoted (published)
+[Frontend] Events: reconcile-6b8bc6a9b27b83afaeffcb9e4d581191747dd65d (publish /bulk-story-13/) refreshed
+[Frontend] Events: reconcile-00550ca437d90544ab83c2f4247b1137317290c6 (publish /bulk-story-14/) refreshed
+[Frontend] Events: reconcile-40ff9352909cc90ea10595589e49b8fb8af82647 (publish /bulk-story-15/) refreshed
+[Frontend] Refresh: the entry /bulk-story-16/ promoted (published)
+[Frontend] Events: reconcile-9b4e62809bf974ede9b5c67dc7eb63ca66349bf7 (publish /bulk-story-16/) refreshed
+[Frontend] Refresh: the entry /bulk-story-17/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-18/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-19/ promoted (published)
+[Frontend] Events: reconcile-bc2b8aeba5c634af5dc606a90a0f8cabfcb1ae7e (publish /bulk-story-17/) refreshed
+[Frontend] Events: reconcile-171eadc9919edcc69cc45e926ac9b2f7c2c30552 (publish /bulk-story-18/) refreshed
+[Frontend] Events: reconcile-5a7891f058080fe2ce5ccadb5c62717f84fe326d (publish /bulk-story-19/) refreshed
+[Frontend] Refresh: the entry /bulk-story-2/ promoted (published)
+[Frontend] Events: reconcile-aa5422b9fd3d2f4d0c171e1b8784c307a6b69302 (publish /bulk-story-2/) refreshed
+[Frontend] Refresh: the entry /bulk-story-20/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-21/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-22/ promoted (published)
+[Frontend] Events: reconcile-9390ea59fc3f67bdff5c404b37894fa0e38f30ec (publish /bulk-story-20/) refreshed
+[Frontend] Events: reconcile-869fcee636e127a180fcd71d6cb1468911b9e296 (publish /bulk-story-21/) refreshed
+[Frontend] Events: reconcile-4c10b629cdf85d55304aed97328d5c09df5da036 (publish /bulk-story-22/) refreshed
+[Frontend] Reconciliation: a258c9fe-4e15-4284-a057-3d9925c3454d behind (98 checked, 16 changed, 44 left, 0 failed)
+[Frontend] Refresh: the entry /bulk-story-23/ promoted (published)
+[Frontend] Events: reconcile-4e2cc94ada3ebf6b5a782718172be5a76c7cf1c5 (publish /bulk-story-23/) refreshed
+[Frontend] Refresh: the entry /bulk-story-24/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-25/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-26/ promoted (published)
+[Frontend] Events: reconcile-62f97b648cb9639c2487427fa3e6a3173d09f6d2 (publish /bulk-story-24/) refreshed
+[Frontend] Events: reconcile-7469b6f1a8bcdfd29ff2ba9fff07b22520ead33d (publish /bulk-story-25/) refreshed
+[Frontend] Events: reconcile-228f476cab22b28128c778e6a812643dcbf798f4 (publish /bulk-story-26/) refreshed
+[Frontend] Refresh: the entry /bulk-story-27/ promoted (published)
+[Frontend] Events: reconcile-fbbb9510f8d78133cdc1e6a95feaa00020812b41 (publish /bulk-story-27/) refreshed
+[Frontend] Refresh: the entry /bulk-story-28/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-29/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-3/ promoted (published)
+[Frontend] Events: reconcile-1d1833d5eb000aac32cc67f62ff50e18d32439aa (publish /bulk-story-28/) refreshed
+[Frontend] Events: reconcile-1b63fc3fa479be5c5e67694a27d5632593145032 (publish /bulk-story-29/) refreshed
+[Frontend] Events: reconcile-c03e086b8690e6ba3e541d47bbe13035f62d0dbb (publish /bulk-story-3/) refreshed
+[Frontend] Refresh: the entry /bulk-story-30/ promoted (published)
+[Frontend] Events: reconcile-3a0fcff45ae1a35c1b9a702b91f98cbb790a6243 (publish /bulk-story-30/) refreshed
+[Frontend] Refresh: the entry /bulk-story-31/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-32/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-33/ promoted (published)
+[Frontend] Events: reconcile-a07c804391e2929149c86c8f9514014962234dd2 (publish /bulk-story-31/) refreshed
+[Frontend] Events: reconcile-8742422fda286170366fdd456c2768caec879a97 (publish /bulk-story-32/) refreshed
+[Frontend] Events: reconcile-427dfdd4317f8c967f2001b9880d5000b4817603 (publish /bulk-story-33/) refreshed
+[Frontend] Refresh: the entry /bulk-story-34/ promoted (published)
+[Frontend] Events: reconcile-494d626d18a9371e1a33981d96c057af8f414c14 (publish /bulk-story-34/) refreshed
+[Frontend] Refresh: the entry /bulk-story-35/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-36/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-37/ promoted (published)
+[Frontend] Events: reconcile-bdf92ef933d5c378710d9d4dfee3fc723b8f85ab (publish /bulk-story-35/) refreshed
+[Frontend] Events: reconcile-f95100adc0d511cf280ae10387ffedbe2b6e910d (publish /bulk-story-36/) refreshed
+[Frontend] Events: reconcile-67090925c7569b905c82f5083ee67ab9e6d731ac (publish /bulk-story-37/) refreshed
+[Frontend] Reconciliation: 03980c2f-f990-49cf-bc92-845f41b3511e behind (98 checked, 16 changed, 28 left, 0 failed)
+[Frontend] Refresh: the entry /bulk-story-39/ promoted (published)
+[Frontend] Events: reconcile-6c37f5933453261a3cbb87713c7acc657326b27b (publish /bulk-story-39/) refreshed
+[Frontend] Refresh: the entry /bulk-story-38/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-4/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-40/ promoted (published)
+[Frontend] Events: reconcile-62f115b0d6753665c208b685a00807f2724fe7af (publish /bulk-story-38/) refreshed
+[Frontend] Events: reconcile-8a92df30494bace065d77c736293b9c28ef6419c (publish /bulk-story-4/) refreshed
+[Frontend] Events: reconcile-653b7c2c9a6ca6b1d5739aa6a0ef5b92ebbaf514 (publish /bulk-story-40/) refreshed
+[Frontend] Refresh: the entry /bulk-story-41/ promoted (published)
+[Frontend] Events: reconcile-e8542c30eac0911558881bef1e4382b561073f2c (publish /bulk-story-41/) refreshed
+[Frontend] Refresh: the entry /bulk-story-42/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-43/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-44/ promoted (published)
+[Frontend] Events: reconcile-a7a52f26b5c5eb84f0c62ceb7b941dc02eb892bc (publish /bulk-story-42/) refreshed
+[Frontend] Events: reconcile-cd65a59b499491c87a53f7aa1d4a1732731ac597 (publish /bulk-story-43/) refreshed
+[Frontend] Events: reconcile-4295582d356cf21f6c0f6c2a2a46babae24f1a54 (publish /bulk-story-44/) refreshed
+[Frontend] Refresh: the entry /bulk-story-45/ promoted (published)
+[Frontend] Events: reconcile-a619a273b35a91bfd532b264180615421eda851d (publish /bulk-story-45/) refreshed
+[Frontend] Refresh: the entry /bulk-story-46/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-47/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-48/ promoted (published)
+[Frontend] Events: reconcile-0aa99c3b893cf9fef0ca3b21d7352a49d51cba68 (publish /bulk-story-46/) refreshed
+[Frontend] Events: reconcile-e4290a5ef06db219d35dfb3cd5bc1a5996a61498 (publish /bulk-story-47/) refreshed
+[Frontend] Events: reconcile-e327141eb862f87f51c0f25beb3733659d3151da (publish /bulk-story-48/) refreshed
+[Frontend] Refresh: the entry /bulk-story-49/ promoted (published)
+[Frontend] Events: reconcile-31df72d9aa9ba678be8521d50bc1fb7a6c74d34f (publish /bulk-story-49/) refreshed
+[Frontend] Refresh: the entry /bulk-story-5/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-50/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-51/ promoted (published)
+[Frontend] Events: reconcile-5ffaff8cb76508f3060bed93a42f8c5f19e599c3 (publish /bulk-story-5/) refreshed
+[Frontend] Events: reconcile-888ca16c25a5b9cecd601138f1813104781ec61b (publish /bulk-story-50/) refreshed
+[Frontend] Events: reconcile-c781978f36a4d6df0daea7bf5cd800899d7988d6 (publish /bulk-story-51/) refreshed
+[Frontend] Reconciliation: 9abc560b-406c-4190-9d84-9d728e96e65d behind (98 checked, 16 changed, 12 left, 0 failed)
+[Frontend] Refresh: the entry /bulk-story-52/ promoted (published)
+[Frontend] Events: reconcile-a1331d78e9444b8a94156cd2568f3eece9ad0ccf (publish /bulk-story-52/) refreshed
+[Frontend] Refresh: the entry /bulk-story-53/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-54/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-55/ promoted (published)
+[Frontend] Events: reconcile-0fc0c135a92055e68e9a1fd02d76386d695a957a (publish /bulk-story-53/) refreshed
+[Frontend] Events: reconcile-af9695173ba6cdbde018d9b9358ed2fdd550bb6d (publish /bulk-story-54/) refreshed
+[Frontend] Events: reconcile-3a6d79fa78e1af9eae5615879991a210acc81f1d (publish /bulk-story-55/) refreshed
+[Frontend] Refresh: the entry /bulk-story-56/ promoted (published)
+[Frontend] Events: reconcile-c653f403dde36967aab0ee7bd3434124780b62ea (publish /bulk-story-56/) refreshed
+[Frontend] Refresh: the entry /bulk-story-57/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-58/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-59/ promoted (published)
+[Frontend] Events: reconcile-38b892df4d8c3c5270eb1fbe1d8d4d951c98f73d (publish /bulk-story-57/) refreshed
+[Frontend] Events: reconcile-7527623666394fa306c1d93171438773ac6e4110 (publish /bulk-story-58/) refreshed
+[Frontend] Events: reconcile-931ea64b22a799bfcc06574726aa13cbd23a253c (publish /bulk-story-59/) refreshed
+[Frontend] Refresh: the entry /bulk-story-6/ promoted (published)
+[Frontend] Events: reconcile-7c3b07759af2d6f86024c957947741f3e6d7cf76 (publish /bulk-story-6/) refreshed
+[Frontend] Refresh: the entry /bulk-story-7/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-8/ promoted (published)
+[Frontend] Refresh: the entry /bulk-story-9/ promoted (published)
+[Frontend] Events: reconcile-dfe484102cc476453bc3af361963cd64d1068b3a (publish /bulk-story-7/) refreshed
+[Frontend] Events: reconcile-8df588392783467178d8a96a1d0edf2499ca6bfb (publish /bulk-story-8/) refreshed
+[Frontend] Events: reconcile-0ce1514291991d3e7051aecd931674b49c2c6fd2 (publish /bulk-story-9/) refreshed
+[Frontend] Refresh: the entry /en/reconcile-story-33/ promoted (published)
+[Frontend] Refresh: the entry /en/reconcile-story-35/ promoted (published)
+[Frontend] Reconciliation: dec4f800-77f5-4590-b602-d45fa0ae037e reconciled (98 checked, 12 changed, 0 left, 0 failed)
+PASS workerd regression: sixty actual WordPress publications have no recorded events
+PASS workerd regression: sixty-publication continuation remains within forty actual requests
+PASS workerd regression: sixty-publication continuation remains within forty actual requests
+PASS workerd regression: sixty-publication continuation remains within forty actual requests
+PASS workerd regression: sixty-publication continuation remains within forty actual requests
+PASS workerd regression: sixty lost publications require and complete multiple scheduler runs
+PASS workerd regression: lost publication 0 is already stored with its exact HTML
+PASS workerd regression: lost publication 1 is already stored with its exact HTML
+PASS workerd regression: lost publication 2 is already stored with its exact HTML
+PASS workerd regression: lost publication 3 is already stored with its exact HTML
+PASS workerd regression: lost publication 4 is already stored with its exact HTML
+PASS workerd regression: lost publication 5 is already stored with its exact HTML
+PASS workerd regression: lost publication 6 is already stored with its exact HTML
+PASS workerd regression: lost publication 7 is already stored with its exact HTML
+PASS workerd regression: lost publication 8 is already stored with its exact HTML
+PASS workerd regression: lost publication 9 is already stored with its exact HTML
+PASS workerd regression: lost publication 10 is already stored with its exact HTML
+PASS workerd regression: lost publication 11 is already stored with its exact HTML
+PASS workerd regression: lost publication 12 is already stored with its exact HTML
+PASS workerd regression: lost publication 13 is already stored with its exact HTML
+PASS workerd regression: lost publication 14 is already stored with its exact HTML
+PASS workerd regression: lost publication 15 is already stored with its exact HTML
+PASS workerd regression: lost publication 16 is already stored with its exact HTML
+PASS workerd regression: lost publication 17 is already stored with its exact HTML
+PASS workerd regression: lost publication 18 is already stored with its exact HTML
+PASS workerd regression: lost publication 19 is already stored with its exact HTML
+PASS workerd regression: lost publication 20 is already stored with its exact HTML
+PASS workerd regression: lost publication 21 is already stored with its exact HTML
+PASS workerd regression: lost publication 22 is already stored with its exact HTML
+PASS workerd regression: lost publication 23 is already stored with its exact HTML
+PASS workerd regression: lost publication 24 is already stored with its exact HTML
+PASS workerd regression: lost publication 25 is already stored with its exact HTML
+PASS workerd regression: lost publication 26 is already stored with its exact HTML
+PASS workerd regression: lost publication 27 is already stored with its exact HTML
+PASS workerd regression: lost publication 28 is already stored with its exact HTML
+PASS workerd regression: lost publication 29 is already stored with its exact HTML
+PASS workerd regression: lost publication 30 is already stored with its exact HTML
+PASS workerd regression: lost publication 31 is already stored with its exact HTML
+PASS workerd regression: lost publication 32 is already stored with its exact HTML
+PASS workerd regression: lost publication 33 is already stored with its exact HTML
+PASS workerd regression: lost publication 34 is already stored with its exact HTML
+PASS workerd regression: lost publication 35 is already stored with its exact HTML
+PASS workerd regression: lost publication 36 is already stored with its exact HTML
+PASS workerd regression: lost publication 37 is already stored with its exact HTML
+PASS workerd regression: lost publication 38 is already stored with its exact HTML
+PASS workerd regression: lost publication 39 is already stored with its exact HTML
+PASS workerd regression: lost publication 40 is already stored with its exact HTML
+PASS workerd regression: lost publication 41 is already stored with its exact HTML
+PASS workerd regression: lost publication 42 is already stored with its exact HTML
+PASS workerd regression: lost publication 43 is already stored with its exact HTML
+PASS workerd regression: lost publication 44 is already stored with its exact HTML
+PASS workerd regression: lost publication 45 is already stored with its exact HTML
+PASS workerd regression: lost publication 46 is already stored with its exact HTML
+PASS workerd regression: lost publication 47 is already stored with its exact HTML
+PASS workerd regression: lost publication 48 is already stored with its exact HTML
+PASS workerd regression: lost publication 49 is already stored with its exact HTML
+PASS workerd regression: lost publication 50 is already stored with its exact HTML
+PASS workerd regression: lost publication 51 is already stored with its exact HTML
+PASS workerd regression: lost publication 52 is already stored with its exact HTML
+PASS workerd regression: lost publication 53 is already stored with its exact HTML
+PASS workerd regression: lost publication 54 is already stored with its exact HTML
+PASS workerd regression: lost publication 55 is already stored with its exact HTML
+PASS workerd regression: lost publication 56 is already stored with its exact HTML
+PASS workerd regression: lost publication 57 is already stored with its exact HTML
+PASS workerd regression: lost publication 58 is already stored with its exact HTML
+PASS workerd regression: lost publication 59 is already stored with its exact HTML
+PASS workerd regression: visits did not cause any of the sixty recoveries
+[08:46:20.124] INFO (#4): Plan: 2 to delete, 5 binding changes
+[08:46:20.124] INFO (#4): [Frontend] delete (local)
+[08:46:20.124] INFO (#4): [Frontend/CMS_GRAPHQL] unbind
+[08:46:20.124] INFO (#4): [Frontend/FRONTEND_REFRESH_TOKEN] unbind
+[08:46:20.124] INFO (#4): [Frontend/PUBLICATION_DB] unbind
+[08:46:20.124] INFO (#4): [Frontend/PUBLICATION_EVENT_SECRET] unbind
+[08:46:20.124] INFO (#4): [Frontend/REVISION] unbind
+[08:46:20.124] INFO (#4): [Publications] delete (local)
+[08:46:20.124] INFO (#4): 
+[08:46:20.127] INFO (#1822): [Frontend] deleting (local)
+[08:46:20.133] INFO (#1822): [Frontend] deleted (local) (6ms)
+[08:46:20.133] INFO (#1823): [Publications] deleting (local)
+[08:46:20.134] INFO (#1823): [Publications] deleted (local) (1ms)
+[08:46:20.136] INFO (#4): 
+[08:46:20.136] INFO (#4): Done: 2 succeeded (12ms)

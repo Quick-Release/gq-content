@@ -1,0 +1,63 @@
+{
+  "name": "@getquick/content",
+  "version": "0.1.0",
+  "dist-tags": {
+    "latest": "0.1.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./server": {
+      "types": "./dist/server.d.ts",
+      "import": "./dist/server.js"
+    },
+    "./consent": {
+      "types": "./dist/consent.d.ts",
+      "import": "./dist/consent.js"
+    },
+    "./migrations": {
+      "types": "./dist/migrations.d.ts",
+      "import": "./dist/migrations.js"
+    },
+    "./consent/astro": {
+      "types": "./dist/consent-astro.d.ts",
+      "import": "./dist/consent-astro.js"
+    },
+    "./consent/client": {
+      "types": "./dist/consent-client.d.ts",
+      "import": "./dist/consent-client.js"
+    },
+    "./consent/server": {
+      "types": "./dist/consent-server.d.ts",
+      "import": "./dist/consent-server.js"
+    },
+    "./consent/testing": {
+      "types": "./dist/consent-testing.d.ts",
+      "import": "./dist/consent-testing.js"
+    },
+    "./consent/migrations": {
+      "types": "./dist/consent-migrations.d.ts",
+      "import": "./dist/consent-migrations.js"
+    }
+  },
+  "dependencies": {
+    "zod": "3.25.76"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "UNLICENSED",
+  "type": "module",
+  "dist": {
+    "integrity": "sha512-lxzkdqcdgf4Ag1bTDLi59jUZmadU7dgW1Z6+aWWcKuMBvrMt5LWumHTntOEMmZhKYeCwvg4gCaWjAybbPvRX2w==",
+    "shasum": "620356d235cb2fea643716510a7c006428ab0049",
+    "tarball": "https://registry.npmjs.org/@getquick/content/-/content-0.1.0.tgz",
+    "fileCount": 39,
+    "unpackedSize": 376395
+  },
+  "time": {
+    "0.1.0": "2026-10-22T08:53:29.417Z"
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "51a9f3eb36f90cf069fca8e6fe20a875e452d570",
+  "manifestSha256": "d9c58ba865c080bf6cb1bfe3deecd13a2c2eed019c2271dddcddab2fbecc5ef1",
+  "checks": [
+    {
+      "name": "quality",
+      "command": [
+        "vp",
+        "check"
+      ],
+      "exitCode": 0,
+      "log": "logs/quality.log",
+      "sha256": "70cc34edba951385838088d06d38659e539e0d1c2e5aa709d54e141a1f43f10c"
+    },
+    {
+      "name": "types",
+      "command": [
+        "vp",
+        "exec",
+        "tsc",
+        "--noEmit"
+      ],
+      "exitCode": 0,
+      "log": "logs/types.log",
+      "sha256": "e6da126026c7407a4f78b8fd454de80c7b86f9354a2928260a4518dd432d8fbd"
+    },
+    {
+      "name": "P4",
+      "command": [
+        "vp",
+        "test"
+      ],
+      "exitCode": 0,
+      "log": "logs/P4.log",
+      "sha256": "a9864a6a9ccda18bc1f82ea7bd2ba09f1a86c7cb691aaca520802c370728024c"
+    },
+    {
+      "name": "P1",
+      "command": [
+        "node",
+        "scripts/alchemy-consumer.mjs"
+      ],
+      "exitCode": 0,
+      "log": "logs/P1.log",
+      "sha256": "24b24a342708cd01c7ae79a961c6e1446a4ab8bfb970fd64b7c31a149b14603e"
+    },
+    {
+      "name": "P2",
+      "command": [
+        "python3",
+        "scripts/cms-proof.py"
+      ],
+      "exitCode": 0,
+      "log": "logs/P2.log",
+      "sha256": "85490bb178860b881e54ac62f79385f57463c975ef9e170d65ed186942a26e33"
+    },
+    {
+      "name": "P3",
+      "command": [
+        "node",
+        "scripts/consumer.mjs"
+      ],
+      "exitCode": 0,
+      "log": "logs/P3.log",
+      "sha256": "0ba2bb5a67e0f6d77a4c6957a9e8761a295dd51da21df0b0161282bb76ecdf31"
+    },
+    {
+      "name": "pair",
+      "command": [
+        "python3",
+        "scripts/pair-proof.py"
+      ],
+      "exitCode": 0,
+      "log": "logs/pair.log",
+      "sha256": "6cbe48519087fef795594c46b6edea2e538f5a64975e7251d68e61fbb6a4cfb3"
+    },
+    {
+      "name": "retry",
+      "command": [
+        "python3",
+        "scripts/pair-proof.py",
+        "--retries"
+      ],
+      "exitCode": 0,
+      "log": "logs/retry.log",
+      "sha256": "ea4cfd32cc7cf915c4820c290234959fa5d0196d0ca77f03b5b0ac8dd858aef6"
+    },
+    {
+      "name": "polylang",
+      "command": [
+        "python3",
+        "scripts/multilingual-proof.py"
+      ],
+      "exitCode": 0,
+      "log": "logs/polylang.log",
+      "sha256": "cd6ea29c29abe39f28383f43f4670cbc653afccb19956273b52660b6a71f5ac7"
+    },
+    {
+      "name": "P6",
+      "command": [
+        "node",
+        "scripts/alchemy-consumer.mjs",
+        "--reconciliation"
+      ],
+      "exitCode": 0,
+      "log": "logs/P6.log",
+      "sha256": "f66ec8be5fff5132a17cc8074133d8808c0bbd99d5eabcad8040feaaf8fad0db"
+    },
+    {
+      "name": "P5-registry",
+      "command": [
+        "node",
+        "compatibility/registry.mjs"
+      ],
+      "exitCode": 0,
+      "log": "logs/P5-registry.log",
+      "sha256": "265a53f8995b05af4950f7a2e92644f390901836a104e1c93aa98e124377d929"
+    },
+    {
+      "name": "P5-types",
+      "command": [
+        "vp",
+        "exec",
+        "tsc",
+        "--noEmit",
+        "-p",
+        "compatibility/tsconfig.json"
+      ],
+      "exitCode": 0,
+      "log": "logs/P5-types.log",
+      "sha256": "e6da126026c7407a4f78b8fd454de80c7b86f9354a2928260a4518dd432d8fbd"
+    },
+    {
+      "name": "P5",
+      "command": [
+        "node",
+        "scripts/consumer.mjs",
+        "--design-fixtures"
+      ],
+      "exitCode": 0,
+      "log": "logs/P5.log",
+      "sha256": "95062bd0ab1078109fc12ddffb6072d83e7adf6d24570de5acc91115271cc5c9"
+    },
+    {
+      "name": "consent-astro",
+      "command": [
+        "node",
+        "scripts/consent-acceptance.mjs"
+      ],
+      "exitCode": 0,
+      "log": "logs/consent-astro.log",
+      "sha256": "2e98b06d5471ef1de2623840e39dbc7cb9e3a50b0f4669d2bee6bd8137802f49"
+    },
+    {
+      "name": "consent-worker",
+      "command": [
+        "node",
+        "scripts/consent-worker-consumer.mjs"
+      ],
+      "exitCode": 0,
+      "log": "logs/consent-worker.log",
+      "sha256": "69b7d42024f9e5adb8dec7ef0abbc7a7184bd4d2ff63a73fd73d662aae6cf84e"
+    },
+    {
+      "name": "consent-tanstack",
+      "command": [
+        "node",
+        "scripts/consent-tanstack-consumer.mjs"
+      ],
+      "exitCode": 0,
+      "log": "logs/consent-tanstack.log",
+      "sha256": "10fee9814531e793a78fd603baaab0a0fa4052b744d04cf06d28ff692acce239"
+    },
+    {
+      "name": "P7",
+      "command": [
+        "vp",
+        "test",
+        "scripts/release/pipeline.test.mjs",
+        "scripts/release/candidate.test.mjs",
+        "scripts/release/services.test.mjs"
+      ],
+      "exitCode": 0,
+      "log": "logs/P7.log",
+      "sha256": "416a355bd6ecd433a97a982773f77a54c69dd2a7acf4dcf730c15e89d8cb31c1"
+    }
+  ]
+}

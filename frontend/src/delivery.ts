@@ -17,32 +17,42 @@ import {
 import { routeOf } from "./formatting";
 import type { ContentConfig } from "./server";
 import type { WordPressClient } from "./wordpress";
+import { publishedHtml, type PublishedHtmlTransform } from "./published-html";
+import { bearerMatches } from "./bearer";
 import type {
   Delivery,
   CmsFailureReason,
   Found,
-  HomeContent,
+  HomeContent as HomeContentOf,
   DesignPresets,
-  EntryContent,
+  EntryContent as EntryContentOf,
   SiteChrome,
   Translation,
 } from "./content-types";
 import type {
-  HomePublication,
-  EntryPublication,
+  HomePublication as HomePublicationOf,
+  EntryPublication as EntryPublicationOf,
   Alternate,
-  HomeDelivery,
-  EntryDelivery,
+  HomeDelivery as HomeDeliveryOf,
+  EntryDelivery as EntryDeliveryOf,
   DeliveryFailureReason,
   NotServed,
 } from "./page-types";
 
-export function configuredDelivery(
-  config: ContentConfig,
+export function configuredDelivery<X>(
+  config: ContentConfig<X>,
   languages: SiteLanguage[],
-  wordpress: WordPressClient,
+  wordpress: WordPressClient<X>,
+  transformHtml?: PublishedHtmlTransform,
 ) {
+  type HomePublication = HomePublicationOf<X>;
+  type EntryPublication = EntryPublicationOf<X>;
+  type HomeContent = HomeContentOf<X>;
+  type EntryContent = EntryContentOf<X>;
+  type HomeDelivery = HomeDeliveryOf<X>;
+  type EntryDelivery = EntryDeliveryOf<X>;
   const defaultLanguage = languages[0]!;
+  const html = publishedHtml<X>(languages, transformHtml);
   const multilingual = languages.length > 1;
   const routeLanguage = (route: string) => languageAt(route, languages);
   const isLanguageHome = (route: string) => homeAt(route, languages);
@@ -91,9 +101,41 @@ export function configuredDelivery(
   );
   const spacingSizes = z.array(z.object({ slug: z.string(), size: z.string() }));
   const colors = z.array(z.object({ slug: z.string(), color: z.string() }));
+  /**
+   * The Site's extension of a page or post, as its `parse` reads it back. A
+   * row stored without one (before the Site declared it) still serves; an
+   * extension stored without the Site declaring one now is left out.
+   */
+  const extension = config.extension;
+  const extended: z.ZodRawShape = extension
+    ? {
+        extension: z
+          .unknown()
+          .optional()
+          .transform((value, context) => {
+            if (value === undefined) return undefined;
+            let parsed: X | undefined;
+            try {
+              parsed = extension.parse(value);
+            } catch {
+              parsed = undefined;
+            }
+            if (parsed === undefined) {
+              context.addIssue({ code: "custom", message: "the Site can't serve this extension" });
+              return z.NEVER;
+            }
+            return parsed;
+          }),
+      }
+    : {};
   const homePublication = z.object({
     settings: z.object({ title: z.string(), description: z.string() }),
-    page: z.object({ title: z.string(), content: z.string(), hasVideoHero: z.boolean() }),
+    page: z.object({
+      title: z.string(),
+      content: z.string(),
+      hasVideoHero: z.boolean(),
+      ...extended,
+    }),
     spacingSizes,
     colors,
   });
@@ -112,8 +154,34 @@ export function configuredDelivery(
     hasVideoHero: z.boolean(),
     spacingSizes,
     colors,
+    ...extended,
   });
-  const siteChrome = z.object({ menuItems: z.array(menuItem), siteIcon: image, siteLogo: image });
+  const legalRole = z.object({
+    role: z.string(),
+    url: z.string(),
+    title: z.string().nullable(),
+    revision: z.string().nullable(),
+    isFallback: z.boolean(),
+  });
+  const legal = z
+    .object({
+      controller: z.object({
+        name: z.string().nullable(),
+        privacyEmail: z.string().nullable(),
+        dpoContact: z.string().nullable(),
+      }),
+      roles: z.array(legalRole),
+      missingRequired: z.array(z.string()),
+    })
+    .nullable();
+  const siteChrome = z.object({
+    menuItems: z.array(menuItem),
+    siteIcon: image,
+    siteLogo: image,
+    // Present once a Site with consent CMS settings has refreshed its chrome.
+    legal: legal.optional(),
+    analytics: z.object({ enabled: z.boolean(), measurementId: z.string().nullable() }).optional(),
+  });
   const designPresets = z.object({ spacingSizes, colors });
 
   const parseWith = (schema: z.ZodType) => (body: unknown) => {
@@ -466,6 +534,28 @@ export function configuredDelivery(
     } catch (error) {
       if (!(error instanceof StoreFailure)) throw error;
       console.error(`Delivery: the site chrome can't be served (store): ${error.message}`);
+      return null;
+    }
+  }
+
+  /**
+   * The design presets for a page that isn't a publication: the stored ones
+   * when there is a store, else a live read in explicit development. Null
+   * when neither has them; the page is then served without them.
+   */
+  async function pageDesign(): Promise<DesignPresets | null> {
+    if (!config.isServer()) return null;
+    const store = await boundStore();
+    if (!store) {
+      if (!config.development) return null;
+      const design = await getDesignPresets();
+      return design.kind === "found" ? design.content : null;
+    }
+    try {
+      return sharedDesign(await store.read(DESIGN, parseDesign));
+    } catch (error) {
+      if (!(error instanceof StoreFailure)) throw error;
+      console.error(`Delivery: the design presets can't be served (store): ${error.message}`);
       return null;
     }
   }
@@ -1156,17 +1246,7 @@ export function configuredDelivery(
   }
 
   /** Compares a request's bearer token with the bound one, in constant time. */
-  async function isAuthorized(request: Request, token: string) {
-    const presented = /^Bearer (.+)$/.exec(request.headers.get("Authorization") ?? "")?.[1] ?? "";
-    const digest = async (value: string) =>
-      new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value)));
-    const [expected, actual] = await Promise.all([digest(token), digest(presented)]);
-    let difference = presented ? 0 : 1;
-    for (let index = 0; index < expected.length; index += 1) {
-      difference |= expected[index]! ^ actual[index]!;
-    }
-    return difference === 0;
-  }
+  const isAuthorized = bearerMatches;
 
   const safely = async <T>(read: () => Promise<T>, fallback: () => T): Promise<T> => {
     try {
@@ -1189,17 +1269,23 @@ export function configuredDelivery(
     isAuthorized,
     publishedHome: (siteOrigin?: string, language?: SiteLanguage): Promise<HomeDelivery> =>
       safely(
-        () => publishedHome(siteOrigin, language),
+        async () => html.home(await publishedHome(siteOrigin, language), language),
         () => notServed("the front page", "store", "The publication store couldn't be loaded"),
       ),
     publishedEntry: (path: string, siteOrigin?: string): Promise<EntryDelivery> =>
       safely(
-        () => publishedEntry(path, siteOrigin),
+        async () =>
+          html.entry(await publishedEntry(path, siteOrigin), routeLanguage(routeOf(path))),
         () => notServed("the entry", "store", "The publication store couldn't be loaded"),
       ),
     pageChrome: (siteOrigin?: string): Promise<SiteChrome | null> =>
       safely(
         () => pageChrome(siteOrigin),
+        () => null,
+      ),
+    designPresets: (): Promise<DesignPresets | null> =>
+      safely(
+        () => pageDesign(),
         () => null,
       ),
   };

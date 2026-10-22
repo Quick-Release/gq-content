@@ -1,6 +1,6 @@
 import { z } from "zod";
 import type * as Types from "./content-types";
-import type { ContentConfig } from "./server";
+import type { ContentConfig, ExtensionNode } from "./server";
 import type {
   WordPressImage,
   WordPressPost,
@@ -19,10 +19,14 @@ import type {
 import { languageSubject, type SiteLanguage } from "./site-language";
 import { cmsTime, uriPath, menuItemHref } from "./formatting";
 import { hasVideoHero, parseWordPressBlocks, renderWordPressBlocks } from "./wp-block-renderer";
+import { parseLegalLanguage } from "./consent/legal";
 
-export interface WordPressClient {
-  getHomeContent(this: void, language?: SiteLanguage): Promise<Types.Delivery<Types.HomeContent>>;
-  getEntryByUri(this: void, uri: string): Promise<Types.Delivery<Types.EntryContent>>;
+export interface WordPressClient<X = unknown> {
+  getHomeContent(
+    this: void,
+    language?: SiteLanguage,
+  ): Promise<Types.Delivery<Types.HomeContent<X>>>;
+  getEntryByUri(this: void, uri: string): Promise<Types.Delivery<Types.EntryContent<X>>>;
   getDesignPresets(this: void): Promise<Types.Found<Types.DesignPresets> | Types.Unavailable>;
   getPublishedEntries(
     this: void,
@@ -36,12 +40,29 @@ export interface WordPressClient {
     options?: { location?: string; language?: SiteLanguage },
   ): Promise<Types.Found<Types.SiteChrome> | Types.Unavailable>;
 }
-export function configuredWordPress(
-  config: ContentConfig,
+/** The origins a link into this Site may use: WordPress's, and the Frontend's when given. */
+export function internalOrigins(
+  config: Pick<ContentConfig<unknown>, "graphqlEndpoint">,
+  siteOrigin?: string,
+) {
+  return [new URL(config.graphqlEndpoint).origin, ...(siteOrigin ? [siteOrigin] : [])];
+}
+
+export function configuredWordPress<X>(
+  config: ContentConfig<X>,
   languages: readonly SiteLanguage[],
-): WordPressClient {
+): WordPressClient<X> {
   const defaultLanguage = languages[0]!;
   const multilingual = languages.length > 1;
+  const extension = config.extension;
+  /**
+   * The Site's extension fields on a kind of node, read with the blocks (left
+   * out with them when WordPress fails on them).
+   */
+  const extensionFields = (kind: ExtensionNode["kind"]) => {
+    const fields = extension?.fields[kind]?.trim();
+    return fields ? `\n... @include(if: $withBlocks) {\n${fields}\n}` : "";
+  };
   // The GETQUICK schema the Frontend requires. A field WordPress leaves out, or
   // returns with another type, fails the read: only the fields declared nullable
   // here may be null, and only those fall back to a default.
@@ -57,37 +78,43 @@ export function configuredWordPress(
     generalSettings: z.object({ title: z.string().nullable(), description: z.string().nullable() }),
     nodeByUri: z
       .union([
-        z.object({
-          __typename: z.literal("Page"),
-          id: z.string().nullable().optional(),
-          isFrontPage: z.boolean(),
-          title: z.string().nullable(),
-          content: z.string().nullable(),
-          // Left out when read without blocks.
-          blocks: z.unknown().optional(),
-        }),
+        z
+          .object({
+            __typename: z.literal("Page"),
+            id: z.string().nullable().optional(),
+            isFrontPage: z.boolean(),
+            title: z.string().nullable(),
+            content: z.string().nullable(),
+            // Left out when read without blocks.
+            blocks: z.unknown().optional(),
+          })
+          // The Site's extension fields, which it validates itself.
+          .passthrough(),
         z.object({ __typename: z.string().refine((typename) => typename !== "Page") }),
       ])
       .nullable(),
     designTokens,
   });
 
-  const pageEntry = z.object({
-    id: z.string(),
-    title: z.string().nullable(),
-    content: z.string().nullable(),
-    uri: z.string(),
-    // Only `publish` and unrestricted is public. A password-protected entry is
-    // restricted: WordPress lists it to anonymous readers, without its content.
-    status: z.string().nullable(),
-    isRestricted: z.boolean().nullable(),
-    // When it was last modified (GMT, without a zone). Only reconciliation
-    // uses it, so a WordPress that leaves it out is still served.
-    modifiedGmt: z.string().nullable().optional(),
-    featuredImage: imageEdge,
-    // Left out when read without blocks.
-    blocks: z.unknown().optional(),
-  });
+  const pageEntry = z
+    .object({
+      id: z.string(),
+      title: z.string().nullable(),
+      content: z.string().nullable(),
+      uri: z.string(),
+      // Only `publish` and unrestricted is public. A password-protected entry is
+      // restricted: WordPress lists it to anonymous readers, without its content.
+      status: z.string().nullable(),
+      isRestricted: z.boolean().nullable(),
+      // When it was last modified (GMT, without a zone). Only reconciliation
+      // uses it, so a WordPress that leaves it out is still served.
+      modifiedGmt: z.string().nullable().optional(),
+      featuredImage: imageEdge,
+      // Left out when read without blocks.
+      blocks: z.unknown().optional(),
+    })
+    // The Site's extension fields, which it validates itself.
+    .passthrough();
   const postEntry = pageEntry.extend({
     excerpt: z.string().nullable(),
     date: z.string().nullable(),
@@ -148,6 +175,39 @@ export function configuredWordPress(
     menuItems: z.object({ nodes: z.array(menuItem) }),
   });
 
+  // gq-config's consent settings (LEGAL-1's Contract in one language, and the
+  // GA4 toggle), read with the chrome only when a Site opts in to consent.
+  const consentSettingsData = z.object({
+    getquickLegal: z.unknown(),
+    googleAnalytics: z
+      .object({ enabled: z.boolean(), measurementId: z.string().nullable() })
+      .nullable(),
+  });
+  const consentSettingsQuery = /* GraphQL */ `
+    query ConsentSettings($language: String) {
+      getquickLegal(language: $language) {
+        schemaVersion
+        controller {
+          name
+          privacyEmail
+          dpoContact
+        }
+        roles {
+          role
+          url
+          title
+          revision
+          isFallback
+        }
+        missingRequired
+      }
+      googleAnalytics {
+        enabled
+        measurementId
+      }
+    }
+  `;
+
   type RawEntry = z.infer<typeof pageEntry> &
     Partial<z.infer<typeof postEntry>> &
     Partial<z.infer<z.ZodObject<typeof translated>>>;
@@ -168,7 +228,7 @@ export function configuredWordPress(
           content
           blocks(attributes: true, htmlContent: true, dynamicContent: true, postTemplate: false)
             @include(if: $withBlocks)
-          isFrontPage
+          isFrontPage${extensionFields("page")}
         }
       }
       designTokens {
@@ -199,7 +259,7 @@ export function configuredWordPress(
           content
           blocks(attributes: true, htmlContent: true, dynamicContent: true, postTemplate: false)
             @include(if: $withBlocks)
-          isFrontPage
+          isFrontPage${extensionFields("page")}
         }
       }
       designTokens {
@@ -295,7 +355,7 @@ export function configuredWordPress(
           sourceUrl
           altText
         }
-      }
+      }${extensionFields("post")}
     }
     pageBy(uri: $uri) {
       id
@@ -312,7 +372,7 @@ export function configuredWordPress(
           sourceUrl
           altText
         }
-      }
+      }${extensionFields("page")}
     }
   }
 `;
@@ -391,6 +451,32 @@ export function configuredWordPress(
     return error.issues
       .map((issue) => `${issue.path.join(".") || "data"}: ${issue.message}`)
       .join("; ");
+  }
+
+  /**
+   * `{ extension }` with the Site's value for a node WordPress returned, or
+   * nothing: without an extension, fields for its kind, or a value, and when
+   * the blocks (and with them the fields) were left out.
+   */
+  function extended(
+    kind: ExtensionNode["kind"],
+    node: Record<string, unknown>,
+    blocksOmitted: boolean,
+  ): { extension?: X } {
+    if (!extension || !extensionFields(kind) || blocksOmitted) return {};
+    let value: X | undefined;
+    try {
+      value = extension.read({ kind, fields: node });
+    } catch (error) {
+      throw new CmsFailureError(
+        {
+          reason: "schema",
+          message: `WordPress's ${kind} doesn't match the Site's extension: ${error instanceof Error ? error.message : String(error)}`,
+        },
+        { cause: error },
+      );
+    }
+    return value === undefined ? {} : { extension: value };
   }
 
   async function query<S extends z.ZodType>(
@@ -567,10 +653,10 @@ export function configuredWordPress(
    */
   async function getHomeContent(
     language: SiteLanguage = defaultLanguage,
-  ): Promise<Delivery<HomeContent>> {
+  ): Promise<Delivery<HomeContent<X>>> {
     return deliver(
       languageSubject(language, "front page"),
-      async (): Promise<Found<HomeContent> | Missing> => {
+      async (): Promise<Found<HomeContent<X>> | Missing> => {
         const { data, blocksOmitted } = language.isDefault
           ? await queryWithBlockRecovery(homeData, homeQuery)
           : await queryWithBlockRecovery(languageHomeData, languageHomeQuery, {
@@ -597,6 +683,7 @@ export function configuredWordPress(
               title: node.title ?? "",
               content: containsVideoHero ? renderWordPressBlocks(blocks) : (node.content ?? ""),
               hasVideoHero: containsVideoHero,
+              ...extended("page", node, blocksOmitted),
             },
             blocksOmitted,
             spacingSizes: data.designTokens.spacingSizes,
@@ -612,8 +699,8 @@ export function configuredWordPress(
    * only one that isn't public (password-protected): the Frontend serves only
    * what any visitor may read.
    */
-  async function getEntryByUri(uri: string): Promise<Delivery<EntryContent>> {
-    return deliver(`the entry ${uri}`, async (): Promise<Found<EntryContent> | Missing> => {
+  async function getEntryByUri(uri: string): Promise<Delivery<EntryContent<X>>> {
+    return deliver(`the entry ${uri}`, async (): Promise<Found<EntryContent<X>> | Missing> => {
       const { data, blocksOmitted } = multilingual
         ? await queryWithBlockRecovery(translatedEntryData, translatedEntryQuery, { uri })
         : await queryWithBlockRecovery(entryData, entryQuery, { uri });
@@ -634,6 +721,7 @@ export function configuredWordPress(
           spacingSizes: data.designTokens.spacingSizes,
           colors: data.designTokens.colors,
           ...(multilingual ? languageOf(post) : {}),
+          ...extended(data.postBy ? "post" : "page", post, blocksOmitted),
         },
       };
     });
@@ -739,6 +827,34 @@ export function configuredWordPress(
   }
 
   /**
+   * gq-config's consent settings in a language. A gq-config without them (its
+   * schema has no such field) provides none: the chrome is still read, with no
+   * Legal Contract and GA4 off. Any other failure fails the chrome read, so
+   * the stored chrome, legal links included, stays served.
+   */
+  async function consentSettings(
+    language: SiteLanguage,
+  ): Promise<z.infer<typeof consentSettingsData>> {
+    try {
+      return await query(consentSettingsData, consentSettingsQuery, {
+        language: multilingual ? language.slug : null,
+      });
+    } catch (error) {
+      if (
+        error instanceof CmsFailureError &&
+        error.failure.reason === "graphql" &&
+        /Cannot query field "(?:getquickLegal|googleAnalytics)"/.test(error.failure.message)
+      ) {
+        console.warn(
+          `WordPress: gq-config provides no consent settings (${error.failure.message}); the chrome has no Legal Contract and GA4 is off`,
+        );
+        return { getquickLegal: null, googleAnalytics: null };
+      }
+      throw error;
+    }
+  }
+
+  /**
    * The menu, logo and icon every page in a language shares: the logo and icon
    * are the site's, the menu the one at the location in that language. A site
    * without them is found with an empty menu and no images; a failed read is
@@ -754,13 +870,13 @@ export function configuredWordPress(
     return deliver(
       languageSubject(language, "site chrome"),
       async (): Promise<Found<SiteChrome>> => {
-        const data = language.isDefault
-          ? await query(siteChromeData, siteChromeQuery, { location })
-          : await query(siteChromeData, languageChromeQuery, { location, language: language.code });
-        const origins = [
-          new URL(config.graphqlEndpoint).origin,
-          ...(siteOrigin ? [siteOrigin] : []),
-        ];
+        const [data, consent] = await Promise.all([
+          language.isDefault
+            ? query(siteChromeData, siteChromeQuery, { location })
+            : query(siteChromeData, languageChromeQuery, { location, language: language.code }),
+          config.consent?.cmsSettings ? consentSettings(language) : null,
+        ]);
+        const origins = internalOrigins(config, siteOrigin);
 
         return {
           kind: "found",
@@ -768,6 +884,12 @@ export function configuredWordPress(
             menuItems: buildMenuTree(data.menuItems.nodes, origins),
             siteIcon: normalizeImage(data.generalSettings.siteIcon),
             siteLogo: normalizeImage(data.generalSettings.siteLogo),
+            ...(consent
+              ? {
+                  legal: parseLegalLanguage(consent.getquickLegal),
+                  analytics: consent.googleAnalytics ?? { enabled: false, measurementId: null },
+                }
+              : {}),
           },
         };
       },

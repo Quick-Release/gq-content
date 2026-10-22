@@ -77,6 +77,8 @@ const SETTING_NAMES = [
     'logo' => 'The logo',
     'identity' => 'The site title, tagline or icon',
     'design' => 'The design',
+    'legal' => 'The legal pages',
+    'analytics' => 'The analytics settings',
 ];
 
 /** How editors are told about a setting, or one language's ("menus:en": "The menus (en)"). */

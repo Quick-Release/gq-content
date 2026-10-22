@@ -33,13 +33,13 @@ try {
   mkdirSync(artifacts);
   const selected = retained("npm");
   if (!selected) run("vp", ["pm", "pack", "--pack-destination", artifacts], join(repo, "frontend"));
-  const tarball = selected ?? join(artifacts, "getquick-content-0.1.0.tgz");
+  const tarball = selected ?? join(artifacts, "getquick-content-0.2.0.tgz");
   recordArtifact(tarball, "consumer");
   const listing = execFileSync("tar", ["-tzf", tarball], { encoding: "utf8" }).trim().split("\n");
   for (const file of listing) {
     assert.match(
       file,
-      /^package\/((?:package\.json|README\.md)|dist\/[\w-]+\.(js|d\.ts)|migrations\/000[1-5]_[a-z_]+\.sql)$/,
+      /^package\/((?:package\.json|README\.md)|dist\/[\w-]+\.(js|d\.ts)|migrations\/000[1-5]_[a-z_]+\.sql|consent-migrations\/0001_consent_records\.sql)$/,
     );
   }
   if (process.argv.includes("--design-fixtures")) {
@@ -48,7 +48,7 @@ try {
       [
         "scripts/inspect-artifacts.mjs",
         tarball,
-        retained("cms") ?? join(repo, ".artifacts/gq-content-0.1.0.zip"),
+        retained("cms") ?? join(repo, ".artifacts/gq-content-0.2.0.zip"),
       ],
       repo,
     );
@@ -74,16 +74,41 @@ try {
     ".",
     "./server",
     "./migrations",
+    "./consent",
+    "./consent/client",
+    "./consent/server",
+    "./consent/migrations",
+    "./consent/astro",
+    "./consent/testing",
     "./metadata",
     "./metadata/testing",
     "./metadata/content",
   ]);
+  // Both migrations exports resolve, from the consumer, to the SQL shipped in the package.
+  const directories = JSON.parse(
+    execFileSync(
+      process.execPath,
+      [
+        "--input-type=module",
+        "-e",
+        'const { migrationsDirectory } = await import("@getquick/content/migrations"); const { consentMigrationsDirectory } = await import("@getquick/content/consent/migrations"); console.log(JSON.stringify([migrationsDirectory, consentMigrationsDirectory]));',
+      ],
+      { cwd: consumer, env, encoding: "utf8" },
+    ),
+  );
+  assert.deepEqual(
+    directories.map((directory) => readdirSync(directory).sort()),
+    [readdirSync(join(installed, "migrations")).sort(), ["0001_consent_records.sql"]],
+  );
+  assert.equal(readdirSync(join(installed, "migrations")).length, 5);
   for (const file of readdirSync(join(installed, "dist"))) {
     const text = readFileSync(join(installed, "dist", file), "utf8");
-    if (!file.startsWith("migrations."))
+    // No framework, Cloudflare, Blueprint or Node import outside the migration entries.
+    // ("astro:page-load" is a DOM event name the consent client listens for.)
+    if (!/^(consent-)?migrations\./.test(file))
       assert.doesNotMatch(
         text,
-        /astro|cloudflare:|gq\.ops|import\.meta\.env|\{\{project\}\}|@quick-release|["']node:|migrationsDirectory/,
+        /(?:from|import)\s*\(?\s*["'](?:astro|@astrojs\/|react)|cloudflare:|gq\.ops|import\.meta\.env|\{\{project\}\}|@quick-release|["']node:|migrationsDirectory/,
       );
     if (file.endsWith(".d.ts")) assert.doesNotMatch(text, /from ["']zod|z\.infer|ZodType/);
   }

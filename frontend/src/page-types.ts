@@ -8,10 +8,10 @@ import type {
 } from "./content-types";
 import type { SiteLanguage } from "./site-language";
 /** The front page as stored: what WordPress delivered, without read details. */
-export type HomePublication = Omit<HomeContent, "blocksOmitted" | "nodeId">;
+export type HomePublication<X = unknown> = Omit<HomeContent<X>, "blocksOmitted" | "nodeId">;
 
 /** A published page or post as stored, with the design presets it was read with. */
-export type EntryPublication = Omit<EntryContent, "blocksOmitted" | "modifiedAt">;
+export type EntryPublication<X = unknown> = Omit<EntryContent<X>, "blocksOmitted" | "modifiedAt">;
 
 /**
  * A page in another language that a visitor of this one may switch to: its
@@ -23,15 +23,15 @@ export interface Alternate {
   translation: boolean;
 }
 
-export interface HomePage {
-  home: HomePublication;
+export interface HomePage<X = unknown> {
+  home: HomePublication<X>;
   chrome: SiteChrome;
   /** The other languages' homes that are served; none on a monolingual Site. */
   alternates: Alternate[];
 }
 
-export interface EntryPage {
-  entry: EntryPublication;
+export interface EntryPage<X = unknown> {
+  entry: EntryPublication<X>;
   chrome: SiteChrome;
   /** Where its readers may switch language; none on a monolingual Site. */
   alternates: Alternate[];
@@ -55,10 +55,13 @@ export interface NotServed {
   failure: { reason: DeliveryFailureReason; message: string };
 }
 
-export type HomeDelivery = Found<HomePage> | (Missing & { chrome: SiteChrome | null }) | NotServed;
+export type HomeDelivery<X = unknown> =
+  | Found<HomePage<X>>
+  | (Missing & { chrome: SiteChrome | null })
+  | NotServed;
 
-export type EntryDelivery =
-  | Found<EntryPage>
+export type EntryDelivery<X = unknown> =
+  | Found<EntryPage<X>>
   | (Missing & { chrome: SiteChrome | null })
   | Moved
   | NotServed;

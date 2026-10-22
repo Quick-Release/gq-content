@@ -1,0 +1,18 @@
+{"sourceCommit":"51a9f3eb36f90cf069fca8e6fe20a875e452d570","manifestSha256":"d9c58ba865c080bf6cb1bfe3deecd13a2c2eed019c2271dddcddab2fbecc5ef1","npm":{"filename":"getquick-content-0.1.0.tgz","sha256":"837b2e390dcb7606b4acbb4b62b781eba88a58f87d637dd176817a831faf8318","integrity":"sha512-lxzkdqcdgf4Ag1bTDLi59jUZmadU7dgW1Z6+aWWcKuMBvrMt5LWumHTntOEMmZhKYeCwvg4gCaWjAybbPvRX2w=="},"cms":{"filename":"gq-content-0.1.0.zip","sha256":"f892d974d80cde9bb9a36e4595f509661fb37f63e0102b1506483fcfc2c78a5e"}}
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.3 [39m[90m/home/runner/work/gq-content/gq-content[39m
+
+ [32m✓[39m scripts/release/pipeline.test.mjs [2m([22m[2m5 tests[22m[2m)[22m[33m 426[2mms[22m[39m
+   [33m[2m✓[22m[39m interrupted publication resumes verified stages and blocks partial availability[33m 419[2mms[22m[39m
+ [32m✓[39m scripts/release/services.test.mjs [2m([22m[2m1 test[22m[2m)[22m[33m 459[2mms[22m[39m
+   [33m[2m✓[22m[39m live service verification rejects npm integrity and Composer archive substitution[33m 457[2mms[22m[39m
+ [32m✓[39m scripts/release/candidate.test.mjs [2m([22m[2m2 tests[22m[2m)[22m[33m 1104[2mms[22m[39m
+   [33m[2m✓[22m[39m retained inputs reject substituted archives and source-mismatched validation[33m 411[2mms[22m[39m
+   [33m[2m✓[22m[39m release CLI refuses replaced retained bytes and missing publication credentials[33m 690[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m3 passed[39m[22m[90m (3)[39m
+[2m      Tests [22m [1m[32m8 passed[39m[22m[90m (8)[39m
+[2m   Start at [22m 08:47:35
+[2m   Duration [22m 1.33s[2m (tests 90%, transform 6%, import 4%, worker 1%)[22m
+
+note: You are running `vp test` as a Vite+ built-in command. If you meant to run the test npm script, use `vpr test` instead.

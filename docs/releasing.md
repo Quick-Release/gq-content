@@ -17,7 +17,7 @@ node scripts/release.mjs validate .artifacts/release-candidate
 
 Build requires an empty destination. Never rerun build over an existing candidate.
 Retain the entire directory: `release-manifest.json`, the ZIP, npm tarball,
-`validation.json` and `logs/`. Manifest schema 1 binds version 0.1.0, tag v0.1.0,
+`validation.json` and `logs/`. Manifest schema 1 binds the pair's version (0.2.0), its tag (v0.2.0),
 source commit, both filenames and SHA-256 digests, and npm SHA-512 integrity.
 Artifact inspection verifies metadata and the PHP version constant used by CLI;
 actual installed WP-CLI bare/JSON version checks run in P2. File creation refuses
@@ -86,6 +86,12 @@ a failed network/publication response can leave remotely available components.
 Inspect/retry the same candidate to resolve that uncertainty. Only live matching
 npm **and** Composer archives yield `status: complete`, `handoff: true`, exit 0.
 No local journal or cached proof can mark a registry complete.
+
+Validation also runs the consent proofs against the selected bytes: the Astro
+fixture in Chromium (`consent-astro`), the workerd/local D1 Worker consumer
+(`consent-worker`) and the TanStack Start consumer (`consent-tanstack`). They
+install public npm dependencies from pinned lockfiles and Playwright's
+Chromium; CI installs its system dependencies first.
 
 The repository's `vp test` discovers Frontend tests and the eight release cases in
 `scripts/release/*.test.mjs`. Without `GQ_RELEASE_BUNDLE`, the five publication

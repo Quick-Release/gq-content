@@ -5,9 +5,9 @@ import {
   languageSubject,
   type SiteLanguage,
 } from "./site-language";
-export function configuredRefresh(
+export function configuredRefresh<X>(
   languages: SiteLanguage[],
-  delivery: ReturnType<typeof configuredDelivery>,
+  delivery: ReturnType<typeof configuredDelivery<X>>,
 ) {
   const { refreshAuthority, isAuthorized, refreshEntries, refreshSite } = delivery;
   const isLanguageHome = (route: string) => homeAt(route, languages);

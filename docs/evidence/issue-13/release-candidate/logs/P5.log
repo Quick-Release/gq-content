@@ -1,0 +1,1694 @@
+{"sourceCommit":"51a9f3eb36f90cf069fca8e6fe20a875e452d570","manifestSha256":"d9c58ba865c080bf6cb1bfe3deecd13a2c2eed019c2271dddcddab2fbecc5ef1","npm":{"filename":"getquick-content-0.1.0.tgz","sha256":"837b2e390dcb7606b4acbb4b62b781eba88a58f87d637dd176817a831faf8318","integrity":"sha512-lxzkdqcdgf4Ag1bTDLi59jUZmadU7dgW1Z6+aWWcKuMBvrMt5LWumHTntOEMmZhKYeCwvg4gCaWjAybbPvRX2w=="},"cms":{"filename":"gq-content-0.1.0.zip","sha256":"f892d974d80cde9bb9a36e4595f509661fb37f63e0102b1506483fcfc2c78a5e"}}
+Installed candidate artifact: {"proof":"consumer","filename":"getquick-content-0.1.0.tgz","sha256":"837b2e390dcb7606b4acbb4b62b781eba88a58f87d637dd176817a831faf8318","integrity":"sha512-lxzkdqcdgf4Ag1bTDLi59jUZmadU7dgW1Z6+aWWcKuMBvrMt5LWumHTntOEMmZhKYeCwvg4gCaWjAybbPvRX2w==","sourceCommit":"51a9f3eb36f90cf069fca8e6fe20a875e452d570","manifestSha256":"d9c58ba865c080bf6cb1bfe3deecd13a2c2eed019c2271dddcddab2fbecc5ef1"}
+{
+  "npm": {
+    "files": [
+      "package/dist/bearer-DMOCoSci.js",
+      "package/dist/client-config-B3LNSOxl.js",
+      "package/dist/consent-astro.js",
+      "package/dist/consent-client.js",
+      "package/dist/consent-migrations.js",
+      "package/dist/consent-server.js",
+      "package/dist/consent-testing.js",
+      "package/dist/consent.js",
+      "package/dist/embeds-p9SyGNZI.js",
+      "package/dist/formatting-wOk2jz6J.js",
+      "package/dist/index.js",
+      "package/dist/migrations.js",
+      "package/dist/paths-Cmzzof3v.js",
+      "package/dist/records-Dumrz759.js",
+      "package/dist/server.js",
+      "package/dist/state-BYWc5TUB.js",
+      "package/dist/version-Dn6VLZJO.js",
+      "package/package.json",
+      "package/README.md",
+      "package/consent-migrations/0001_consent_records.sql",
+      "package/migrations/0001_publications.sql",
+      "package/migrations/0002_entries.sql",
+      "package/migrations/0003_publication_events.sql",
+      "package/migrations/0004_withdrawals.sql",
+      "package/migrations/0005_reconciliation.sql",
+      "package/dist/configuration-C_JGygQI.d.ts",
+      "package/dist/consent-astro.d.ts",
+      "package/dist/consent-client.d.ts",
+      "package/dist/consent-migrations.d.ts",
+      "package/dist/consent-server.d.ts",
+      "package/dist/consent-testing.d.ts",
+      "package/dist/consent.d.ts",
+      "package/dist/index.d.ts",
+      "package/dist/legal-C5Xiq59W.d.ts",
+      "package/dist/migrations.d.ts",
+      "package/dist/records-CACA2O0Q.d.ts",
+      "package/dist/server.d.ts",
+      "package/dist/state-Dzd52F3c.d.ts",
+      "package/dist/wordpress-CPL40-vq.d.ts"
+    ],
+    "sha256": "837b2e390dcb7606b4acbb4b62b781eba88a58f87d637dd176817a831faf8318"
+  },
+  "cms": {
+    "files": [
+      "composer.json",
+      "gq-content.php",
+      "README.md",
+      "LICENSE",
+      "modules/delivery-retries.php",
+      "modules/publication-events.php",
+      "modules/settings-events.php"
+    ],
+    "sha256": "f892d974d80cde9bb9a36e4595f509661fb37f63e0102b1506483fcfc2c78a5e"
+  }
+}
+Progress: resolved 0, reused 1, downloaded 0, added 0
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /home/runner/.local/share/pnpm/store/v11
+  Virtual store is at:             node_modules/.pnpm
+[WARN] 24 deprecated subdependencies found: @yuku-codegen/binding-android-arm64@0.9.5, @yuku-codegen/binding-darwin-arm64@0.9.5, @yuku-codegen/binding-darwin-x64@0.9.5, @yuku-codegen/binding-freebsd-x64@0.9.5, @yuku-codegen/binding-linux-arm-gnu@0.9.5, @yuku-codegen/binding-linux-arm-musl@0.9.5, @yuku-codegen/binding-linux-arm64-gnu@0.9.5, @yuku-codegen/binding-linux-arm64-musl@0.9.5, @yuku-codegen/binding-linux-x64-gnu@0.9.5, @yuku-codegen/binding-linux-x64-musl@0.9.5, @yuku-codegen/binding-win32-arm64@0.9.5, @yuku-codegen/binding-win32-x64@0.9.5, @yuku-parser/binding-android-arm64@0.9.5, @yuku-parser/binding-darwin-arm64@0.9.5, @yuku-parser/binding-darwin-x64@0.9.5, @yuku-parser/binding-freebsd-x64@0.9.5, @yuku-parser/binding-linux-arm-gnu@0.9.5, @yuku-parser/binding-linux-arm-musl@0.9.5, @yuku-parser/binding-linux-arm64-gnu@0.9.5, @yuku-parser/binding-linux-arm64-musl@0.9.5, @yuku-parser/binding-linux-x64-gnu@0.9.5, @yuku-parser/binding-linux-x64-musl@0.9.5, @yuku-parser/binding-win32-arm64@0.9.5, @yuku-parser/binding-win32-x64@0.9.5
+Packages: +85
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 85, reused 85, downloaded 0, added 85, done
+[WARN] Issues with peer dependencies found. Run "pnpm peers check" to list them.
+
+dependencies:
++ @getquick/content 0.1.0
+
+devDependencies:
++ typescript 6.0.3
++ vite-plus 1.1.0
+
+Done in 146ms using pnpm v12.11.2
+Installed ESM imports, pure helpers and real HTTP client integration passed.
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.3 [39m[90m/home/runner/work/gq-content/gq-content/.proofs/consumer-56IAmu/consumer[39m
+
+ [32m✓[39m tests/delivery.test.ts [2m([22m[2m43 tests[22m[2m)[22m[32m 247[2mms[22m[39m
+ [32m✓[39m tests/settings-languages.test.ts [2m([22m[2m51 tests[22m[2m)[22m[33m 689[2mms[22m[39m
+ [32m✓[39m tests/wordpress.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2msigned reconciliation repairs a missed publication and exposes persisted readiness evidence
+[22m[39mRefresh: the front page promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2msigned reconciliation repairs a missed publication and exposes persisted readiness evidence
+[22m[39mRefresh: the site chrome promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2msigned reconciliation repairs a missed publication and exposes persisted readiness evidence
+[22m[39mRefresh: the shared design presets promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2msigned reconciliation repairs a missed publication and exposes persisted readiness evidence
+[22m[39mRefresh: the entry /about/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2msigned reconciliation repairs a missed publication and exposes persisted readiness evidence
+[22m[39mEvents: reconcile-1af46a0cee758cb01f193a1d105805d5eba7f63d (publish /about/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2msigned reconciliation repairs a missed publication and exposes persisted readiness evidence
+[22m[39mReconciliation: 58bc79e6-1ca1-4398-a859-8b8f76836ebb reconciled (1 checked, 4 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mmissed changes, moves and confirmed removals use canonical published routes
+[22m[39mRefresh: the front page promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mmissed changes, moves and confirmed removals use canonical published routes
+[22m[39mRefresh: the site chrome promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mmissed changes, moves and confirmed removals use canonical published routes
+[22m[39mRefresh: the shared design presets promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mmissed changes, moves and confirmed removals use canonical published routes
+[22m[39mRefresh: the entry /about/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mmissed changes, moves and confirmed removals use canonical published routes
+[22m[39mEvents: reconcile-1af46a0cee758cb01f193a1d105805d5eba7f63d (publish /about/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mmissed changes, moves and confirmed removals use canonical published routes
+[22m[39mReconciliation: ea4256fa-c691-4dbc-95dd-0b2715148c15 reconciled (1 checked, 4 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mmissed changes, moves and confirmed removals use canonical published routes
+[22m[39mRefresh: the entry /new/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mmissed changes, moves and confirmed removals use canonical published routes
+[22m[39mRefresh: the entry /about/ moved to /new/
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mmissed changes, moves and confirmed removals use canonical published routes
+[22m[39mEvents: reconcile-f5bcf829e7d2bf73197885adea843b851e63bb7f (publish /new/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mmissed changes, moves and confirmed removals use canonical published routes
+[22m[39mReconciliation: cd3da8cd-37be-4e3e-937e-af708e24661b reconciled (1 checked, 1 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mmissed changes, moves and confirmed removals use canonical published routes
+[22m[39mRefresh: the entry /new/ promoted (missing)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mmissed changes, moves and confirmed removals use canonical published routes
+[22m[39mReconciliation: de85fa55-e07a-4a3b-ab2d-49560351325a reconciled (0 checked, 1 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mRefresh: the front page promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mRefresh: the site chrome promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mRefresh: the shared design presets promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mRefresh: the entry /about/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mEvents: reconcile-1af46a0cee758cb01f193a1d105805d5eba7f63d (publish /about/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mRefresh: the entry /entry-0/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mEvents: reconcile-07095e116e86ba03ad3b4f286f71f27f308df3da (publish /entry-0/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mRefresh: the entry /entry-1/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mEvents: reconcile-c61befdc9c32042359e98c6e317bc7c8f1fa3dca (publish /entry-1/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mRefresh: the entry /entry-2/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mEvents: reconcile-909a72d1f2ec6f2f48c4c5a502fdf18777c1ac04 (publish /entry-2/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mRefresh: the entry /entry-3/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mEvents: reconcile-34c6ae521fb5ad3402c1a232a15a8c896e0008c6 (publish /entry-3/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mRefresh: the entry /entry-4/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mEvents: reconcile-739e189d754ea9b8658758c30b55367a3cd82cd9 (publish /entry-4/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mRefresh: the entry /entry-5/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mEvents: reconcile-b9838e0a11b82984ba5adbf9bf2bf65ae91435db (publish /entry-5/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mRefresh: the entry /entry-6/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mEvents: reconcile-19b8094b7ad3af57d1704c4a875130b87575e08e (publish /entry-6/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mReconciliation: 4222f7c8-ad19-4793-b0ec-cbb2f95eae2c reconciled (8 checked, 11 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mRefresh: the entry /about/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mRefresh: the entry /entry-0/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mReconciliation: 2ae6385f-3349-4665-9ca2-dd51a4a10580 reconciled (8 checked, 0 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mRefresh: the entry /entry-1/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mRefresh: the entry /entry-2/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mReconciliation: a57c477a-9cec-43d6-9ac8-770fea71b6fc reconciled (8 checked, 0 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mRefresh: the entry /entry-3/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mRefresh: the entry /entry-4/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mReconciliation: beda3ff4-64a5-4187-bbbc-ce89e26808a2 reconciled (8 checked, 0 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mRefresh: the entry /entry-5/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mRefresh: the entry /entry-6/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mcanonical shared comparisons report unchanged and rotating rereads detect changes without modified time
+[22m[39mReconciliation: dcf4fdd4-be63-4dc7-84e1-0e683f516ac1 reconciled (8 checked, 0 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mincomplete paginated lists cannot remove stored content and failed entry reads recover
+[22m[39mRefresh: the front page promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mincomplete paginated lists cannot remove stored content and failed entry reads recover
+[22m[39mRefresh: the site chrome promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mincomplete paginated lists cannot remove stored content and failed entry reads recover
+[22m[39mRefresh: the shared design presets promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mincomplete paginated lists cannot remove stored content and failed entry reads recover
+[22m[39mRefresh: the entry /about/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mincomplete paginated lists cannot remove stored content and failed entry reads recover
+[22m[39mEvents: reconcile-1af46a0cee758cb01f193a1d105805d5eba7f63d (publish /about/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mincomplete paginated lists cannot remove stored content and failed entry reads recover
+[22m[39mReconciliation: e14d0614-6bba-444c-9624-787bb32ed1ba reconciled (1 checked, 4 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mincomplete paginated lists cannot remove stored content and failed entry reads recover
+[22m[39mEvents: reconcile-e27d858db68f5ff2934a0d03cc5132a9bc446053 (publish /about/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mincomplete paginated lists cannot remove stored content and failed entry reads recover
+[22m[39mRefresh: the entry /about/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mincomplete paginated lists cannot remove stored content and failed entry reads recover
+[22m[39mEvents: reconcile-e27d858db68f5ff2934a0d03cc5132a9bc446053 (publish /about/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mincomplete paginated lists cannot remove stored content and failed entry reads recover
+[22m[39mReconciliation: c9adb398-a276-4b19-9eae-b683dea184d0 reconciled (1 checked, 1 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2moutages preserve public content and complete failed evidence before recovery
+[22m[39mRefresh: the front page promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2moutages preserve public content and complete failed evidence before recovery
+[22m[39mRefresh: the site chrome promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2moutages preserve public content and complete failed evidence before recovery
+[22m[39mRefresh: the shared design presets promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2moutages preserve public content and complete failed evidence before recovery
+[22m[39mRefresh: the entry /about/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2moutages preserve public content and complete failed evidence before recovery
+[22m[39mEvents: reconcile-1af46a0cee758cb01f193a1d105805d5eba7f63d (publish /about/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2moutages preserve public content and complete failed evidence before recovery
+[22m[39mReconciliation: 9bfd6cdc-60b3-479f-a354-00f65f69eb34 reconciled (1 checked, 4 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2moutages preserve public content and complete failed evidence before recovery
+[22m[39mRefresh: the entry /about/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2moutages preserve public content and complete failed evidence before recovery
+[22m[39mReconciliation: 67356a88-40fc-4172-9a32-8685e20cc0f8 reconciled (1 checked, 0 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mwithdrawals survive older scans and only later modifications permit republication
+[22m[39mRefresh: the front page promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mwithdrawals survive older scans and only later modifications permit republication
+[22m[39mRefresh: the site chrome promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mwithdrawals survive older scans and only later modifications permit republication
+[22m[39mRefresh: the shared design presets promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mwithdrawals survive older scans and only later modifications permit republication
+[22m[39mRefresh: the entry /about/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mwithdrawals survive older scans and only later modifications permit republication
+[22m[39mEvents: reconcile-1af46a0cee758cb01f193a1d105805d5eba7f63d (publish /about/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mwithdrawals survive older scans and only later modifications permit republication
+[22m[39mReconciliation: 30651569-33ed-4523-8b8a-53acabe8d727 reconciled (1 checked, 4 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mwithdrawals survive older scans and only later modifications permit republication
+[22m[39mWithdrawal: e857bc0d-8a5d-46b4-b278-d3adfffd0c2c withdrew /about/
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mwithdrawals survive older scans and only later modifications permit republication
+[22m[39mReconciliation: 3524f342-011c-4848-8381-a15f5dd01684 reconciled (1 checked, 0 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mwithdrawals survive older scans and only later modifications permit republication
+[22m[39mEvents: reconcile-95cb9f23b6b25f42506aad36983099be3b31b79b lifts the withdrawal e857bc0d-8a5d-46b4-b278-d3adfffd0c2c
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mwithdrawals survive older scans and only later modifications permit republication
+[22m[39mRefresh: the entry /about/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mwithdrawals survive older scans and only later modifications permit republication
+[22m[39mEvents: reconcile-95cb9f23b6b25f42506aad36983099be3b31b79b (publish /about/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mwithdrawals survive older scans and only later modifications permit republication
+[22m[39mReconciliation: fadc77db-1625-4996-a035-c56073c35e6e reconciled (1 checked, 1 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2ma withdrawal accepted during reconciliation prevents in-flight promotion
+[22m[39mRefresh: the front page promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2ma withdrawal accepted during reconciliation prevents in-flight promotion
+[22m[39mRefresh: the site chrome promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2ma withdrawal accepted during reconciliation prevents in-flight promotion
+[22m[39mRefresh: the shared design presets promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2ma withdrawal accepted during reconciliation prevents in-flight promotion
+[22m[39mRefresh: the entry /about/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2ma withdrawal accepted during reconciliation prevents in-flight promotion
+[22m[39mEvents: reconcile-1af46a0cee758cb01f193a1d105805d5eba7f63d (publish /about/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2ma withdrawal accepted during reconciliation prevents in-flight promotion
+[22m[39mReconciliation: 2dcac2fb-aed2-476a-8fba-55625f746bb8 reconciled (1 checked, 4 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2ma withdrawal accepted during reconciliation prevents in-flight promotion
+[22m[39mWithdrawal: 0fbc7f77-8b09-49b9-b9f8-4ee3b4d1d8ec withdrew /about/
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2ma withdrawal accepted during reconciliation prevents in-flight promotion
+[22m[39mRefresh: the entry /about/ isn't promoted: its entry is withdrawn
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2ma withdrawal accepted during reconciliation prevents in-flight promotion
+[22m[39mEvents: reconcile-e27d858db68f5ff2934a0d03cc5132a9bc446053 (publish /about/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2ma withdrawal accepted during reconciliation prevents in-flight promotion
+[22m[39mReconciliation: 9d4894c3-67dc-4e89-afa0-fef659c734de reconciled (1 checked, 1 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mD1 lease excludes overlapping runs and unfinished work resumes when the interrupted lease expires
+[22m[39mRefresh: the front page promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mD1 lease excludes overlapping runs and unfinished work resumes when the interrupted lease expires
+[22m[39mRefresh: the site chrome promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mD1 lease excludes overlapping runs and unfinished work resumes when the interrupted lease expires
+[22m[39mRefresh: the shared design presets promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mD1 lease excludes overlapping runs and unfinished work resumes when the interrupted lease expires
+[22m[39mRefresh: the entry /about/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mD1 lease excludes overlapping runs and unfinished work resumes when the interrupted lease expires
+[22m[39mEvents: reconcile-1af46a0cee758cb01f193a1d105805d5eba7f63d (publish /about/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mD1 lease excludes overlapping runs and unfinished work resumes when the interrupted lease expires
+[22m[39mReconciliation: 69d18164-1ca9-443d-ae8f-08aa19e9bd0a reconciled (1 checked, 4 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mD1 lease excludes overlapping runs and unfinished work resumes when the interrupted lease expires
+[22m[39mReconciliation: 67a2a303-a0c9-4762-be0f-cf2081096e72 found another run under way
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mD1 lease excludes overlapping runs and unfinished work resumes when the interrupted lease expires
+[22m[39mRefresh: the entry /about/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mD1 lease excludes overlapping runs and unfinished work resumes when the interrupted lease expires
+[22m[39mReconciliation: 45d70ac5-6a41-4343-98f5-65954f8e0c16 reconciled (1 checked, 0 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the front page promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the site chrome promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the shared design presets promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /about/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-1af46a0cee758cb01f193a1d105805d5eba7f63d (publish /about/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-00/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-e4262635924e1c11982b473c53c8489e9724993a (publish /story-00/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-01/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-327b4ef13c7c83f720a248d83c9d8c9827ecc6b2 (publish /story-01/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-02/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-49b8dca14db83e4ad96d1a98f4e68616ae514138 (publish /story-02/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-03/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-6ef8f6b3d4e3370b7a0aa38f899fe11b49c83aeb (publish /story-03/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-04/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-d106cdfca0172ad8c43eb326168e65c900ad5895 (publish /story-04/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-05/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-a85c169e8ab5b77221c2be2279feaa8329c5d97b (publish /story-05/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-06/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-6bb3c10ce88cd3868215938043d26edccdf2ff78 (publish /story-06/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-07/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-cc723d1f2f1b786f1776d7d799917e495c3fb0e6 (publish /story-07/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-08/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-ae0a58bd4ebc40d6484b34d8acb107353a5f1fe1 (publish /story-08/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-09/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-b548a8ae41d7f82e27513bc52756186d2a6d6662 (publish /story-09/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-10/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-3206fa1ec1919bea544f13f10a1463bebfd22954 (publish /story-10/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-11/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-2eb23c7c30dc9763f38baab1d56a9589c4f7f2ed (publish /story-11/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-12/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-89862da39d47b4aacc182532c0d647988cd4a6f3 (publish /story-12/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-13/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-f881443976aee0a42ee15d17e80cbd5f6e88b125 (publish /story-13/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-14/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-801f214b01ceef940062202ed2ad487a4729913c (publish /story-14/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-15/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-463edbf24c5d413c25c5544d021d5926f46a373c (publish /story-15/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mReconciliation: e1c62fa4-77fa-4c63-9537-b05ed8682518 behind (46 checked, 20 changed, 29 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-16/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-d0f7fe0139a8cfa931491f0bfeff3f9f2a47af07 (publish /story-16/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-17/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-77ac05ced4cc6cee3d6c425ef9544c91c2a0f49a (publish /story-17/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-18/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-835eed09c376f2eabb77028b7ba520115f46bc64 (publish /story-18/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-19/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-a5643568ab9edf78fec5e7c2baf707aaac02358e (publish /story-19/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-20/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-adcb861f3ae46c085cc284bb52a2981c53b3850d (publish /story-20/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-21/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-b260b791685cbeea842175be2120707a7d36d6cc (publish /story-21/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-22/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-39c77e0057e39d86d70ea88e2b05d58c82e78f9d (publish /story-22/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-23/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-7c8d0f6fc1618e873b85a3e24eb012c86c12188b (publish /story-23/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-24/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-e2e034fd5b7668151546c5da3b826326fee7f5d2 (publish /story-24/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-25/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-adb6d056a71796714b24f2d1fd15a9c33444de05 (publish /story-25/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-26/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-a2fd4ea045af6a4ac1f1ce42683574c609a1e351 (publish /story-26/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-27/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-2a0230a50e10e85242d6d56a02113cf2d4557e28 (publish /story-27/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-28/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-5c38b67d06c040b3f1b2d078e137e15020b5480c (publish /story-28/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-29/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-a0f4859ba05b56fb7237d605a16ee7ad14c3eaf6 (publish /story-29/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-30/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-bfa2a4ca5850932d6c5b98136be66a895bd2c6cc (publish /story-30/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-31/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-cc4ef11b47afe8d9a5d0cc32248a58700367802b (publish /story-31/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-32/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-a544611ddfdab889301569130a73e518a910bb43 (publish /story-32/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mReconciliation: 1f8a2631-2f1d-4386-b2e2-b05448b36348 behind (46 checked, 17 changed, 12 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-33/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-a9723ceefccff7d9fa4e8cfc16563e382bbe31a2 (publish /story-33/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-34/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-8acbb95a50dde9658e576af6a92274292261a023 (publish /story-34/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-35/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-2de38345c9bbd2ba0eebbbc9feaf3345c80e1e6c (publish /story-35/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-36/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-c72e4e59732d58c5231e8aa38b3192f8ff0a9b42 (publish /story-36/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-37/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-43775d55b7579cadd5ec6b428757ecd49bcf8f79 (publish /story-37/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-38/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-b03c652aa0cbd869609f0fa97718aa29301963e6 (publish /story-38/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-39/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-f996faee19d27727c926ea3899a1bd874f4649a1 (publish /story-39/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-40/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-418d231b1912439be7699d7e2bc1e42901cc0c2d (publish /story-40/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-41/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-29c9d070510bd0eedffb44b53a31d0c363a48170 (publish /story-41/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-42/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-7348be7a332891839defe0effe448b5184f7ddad (publish /story-42/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-43/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-3babafab3b37341cdf0c7c5bd5c8a593c35ed8b7 (publish /story-43/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-44/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mEvents: reconcile-c0fb48c2e9aaa28fd168d99d0279a7edc45fc9d9 (publish /story-44/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /about/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mRefresh: the entry /story-00/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mbudgeted partial runs persist pending evidence and continue oldest attempted work
+[22m[39mReconciliation: e5b317bc-61c0-4fdf-ad09-a90268070098 reconciled (46 checked, 12 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the site chrome promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the shared design presets promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-e4262635924e1c11982b473c53c8489e9724993a (publish /story-00/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-327b4ef13c7c83f720a248d83c9d8c9827ecc6b2 (publish /story-01/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-49b8dca14db83e4ad96d1a98f4e68616ae514138 (publish /story-02/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-6ef8f6b3d4e3370b7a0aa38f899fe11b49c83aeb (publish /story-03/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-d106cdfca0172ad8c43eb326168e65c900ad5895 (publish /story-04/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-a85c169e8ab5b77221c2be2279feaa8329c5d97b (publish /story-05/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-6bb3c10ce88cd3868215938043d26edccdf2ff78 (publish /story-06/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-cc723d1f2f1b786f1776d7d799917e495c3fb0e6 (publish /story-07/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-ae0a58bd4ebc40d6484b34d8acb107353a5f1fe1 (publish /story-08/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-b548a8ae41d7f82e27513bc52756186d2a6d6662 (publish /story-09/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-3206fa1ec1919bea544f13f10a1463bebfd22954 (publish /story-10/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-2eb23c7c30dc9763f38baab1d56a9589c4f7f2ed (publish /story-11/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-89862da39d47b4aacc182532c0d647988cd4a6f3 (publish /story-12/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-f881443976aee0a42ee15d17e80cbd5f6e88b125 (publish /story-13/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-801f214b01ceef940062202ed2ad487a4729913c (publish /story-14/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-463edbf24c5d413c25c5544d021d5926f46a373c (publish /story-15/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-d0f7fe0139a8cfa931491f0bfeff3f9f2a47af07 (publish /story-16/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the front page promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-00/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-e4262635924e1c11982b473c53c8489e9724993a (publish /story-00/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-01/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-327b4ef13c7c83f720a248d83c9d8c9827ecc6b2 (publish /story-01/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-02/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-49b8dca14db83e4ad96d1a98f4e68616ae514138 (publish /story-02/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-03/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-6ef8f6b3d4e3370b7a0aa38f899fe11b49c83aeb (publish /story-03/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-04/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-d106cdfca0172ad8c43eb326168e65c900ad5895 (publish /story-04/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-05/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-a85c169e8ab5b77221c2be2279feaa8329c5d97b (publish /story-05/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-06/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-6bb3c10ce88cd3868215938043d26edccdf2ff78 (publish /story-06/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-07/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-cc723d1f2f1b786f1776d7d799917e495c3fb0e6 (publish /story-07/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-08/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-ae0a58bd4ebc40d6484b34d8acb107353a5f1fe1 (publish /story-08/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-09/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-b548a8ae41d7f82e27513bc52756186d2a6d6662 (publish /story-09/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-10/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-3206fa1ec1919bea544f13f10a1463bebfd22954 (publish /story-10/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-11/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-2eb23c7c30dc9763f38baab1d56a9589c4f7f2ed (publish /story-11/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-12/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-89862da39d47b4aacc182532c0d647988cd4a6f3 (publish /story-12/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-13/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-f881443976aee0a42ee15d17e80cbd5f6e88b125 (publish /story-13/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-14/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-801f214b01ceef940062202ed2ad487a4729913c (publish /story-14/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-15/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-463edbf24c5d413c25c5544d021d5926f46a373c (publish /story-15/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-16/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-d0f7fe0139a8cfa931491f0bfeff3f9f2a47af07 (publish /story-16/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mReconciliation: ff60fa3d-a6b6-4210-a655-999a51ce7e61 behind (18 checked, 18 changed, 1 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-17/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mEvents: reconcile-77ac05ced4cc6cee3d6c425ef9544c91c2a0f49a (publish /story-17/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-00/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-01/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mReconciliation: 54076693-1dcf-498a-8530-bbc95e00d02a reconciled (18 checked, 1 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the site chrome promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the en site chrome promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the shared design presets promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-e4262635924e1c11982b473c53c8489e9724993a (publish /story-00/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-327b4ef13c7c83f720a248d83c9d8c9827ecc6b2 (publish /story-01/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-49b8dca14db83e4ad96d1a98f4e68616ae514138 (publish /story-02/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-6ef8f6b3d4e3370b7a0aa38f899fe11b49c83aeb (publish /story-03/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-d106cdfca0172ad8c43eb326168e65c900ad5895 (publish /story-04/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-a85c169e8ab5b77221c2be2279feaa8329c5d97b (publish /story-05/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-6bb3c10ce88cd3868215938043d26edccdf2ff78 (publish /story-06/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-cc723d1f2f1b786f1776d7d799917e495c3fb0e6 (publish /story-07/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-ae0a58bd4ebc40d6484b34d8acb107353a5f1fe1 (publish /story-08/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-b548a8ae41d7f82e27513bc52756186d2a6d6662 (publish /story-09/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-3206fa1ec1919bea544f13f10a1463bebfd22954 (publish /story-10/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-2eb23c7c30dc9763f38baab1d56a9589c4f7f2ed (publish /story-11/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-89862da39d47b4aacc182532c0d647988cd4a6f3 (publish /story-12/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-f881443976aee0a42ee15d17e80cbd5f6e88b125 (publish /story-13/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-801f214b01ceef940062202ed2ad487a4729913c (publish /story-14/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-463edbf24c5d413c25c5544d021d5926f46a373c (publish /story-15/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the front page promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the en front page promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-00/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-e4262635924e1c11982b473c53c8489e9724993a (publish /story-00/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-01/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-327b4ef13c7c83f720a248d83c9d8c9827ecc6b2 (publish /story-01/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-02/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-49b8dca14db83e4ad96d1a98f4e68616ae514138 (publish /story-02/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-03/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-6ef8f6b3d4e3370b7a0aa38f899fe11b49c83aeb (publish /story-03/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-04/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-d106cdfca0172ad8c43eb326168e65c900ad5895 (publish /story-04/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-05/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-a85c169e8ab5b77221c2be2279feaa8329c5d97b (publish /story-05/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-06/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-6bb3c10ce88cd3868215938043d26edccdf2ff78 (publish /story-06/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-07/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-cc723d1f2f1b786f1776d7d799917e495c3fb0e6 (publish /story-07/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-08/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-ae0a58bd4ebc40d6484b34d8acb107353a5f1fe1 (publish /story-08/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-09/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-b548a8ae41d7f82e27513bc52756186d2a6d6662 (publish /story-09/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-10/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-3206fa1ec1919bea544f13f10a1463bebfd22954 (publish /story-10/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-11/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-2eb23c7c30dc9763f38baab1d56a9589c4f7f2ed (publish /story-11/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-12/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-89862da39d47b4aacc182532c0d647988cd4a6f3 (publish /story-12/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-13/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-f881443976aee0a42ee15d17e80cbd5f6e88b125 (publish /story-13/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-14/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-801f214b01ceef940062202ed2ad487a4729913c (publish /story-14/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-15/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-463edbf24c5d413c25c5544d021d5926f46a373c (publish /story-15/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mReconciliation: 0d7a2f6a-671f-4e16-962a-1d9dd11c4b99 behind (17 checked, 18 changed, 1 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-16/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mEvents: reconcile-d0f7fe0139a8cfa931491f0bfeff3f9f2a47af07 (publish /story-16/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-00/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-01/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mReconciliation: b92796cb-510d-4d81-9b31-1ec3fe39f704 reconciled (17 checked, 1 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the site chrome promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the en site chrome promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the custom-slug site chrome promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the shared design presets promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-e4262635924e1c11982b473c53c8489e9724993a (publish /story-00/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-327b4ef13c7c83f720a248d83c9d8c9827ecc6b2 (publish /story-01/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-49b8dca14db83e4ad96d1a98f4e68616ae514138 (publish /story-02/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-6ef8f6b3d4e3370b7a0aa38f899fe11b49c83aeb (publish /story-03/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-d106cdfca0172ad8c43eb326168e65c900ad5895 (publish /story-04/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-a85c169e8ab5b77221c2be2279feaa8329c5d97b (publish /story-05/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-6bb3c10ce88cd3868215938043d26edccdf2ff78 (publish /story-06/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-cc723d1f2f1b786f1776d7d799917e495c3fb0e6 (publish /story-07/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-ae0a58bd4ebc40d6484b34d8acb107353a5f1fe1 (publish /story-08/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-b548a8ae41d7f82e27513bc52756186d2a6d6662 (publish /story-09/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-3206fa1ec1919bea544f13f10a1463bebfd22954 (publish /story-10/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-2eb23c7c30dc9763f38baab1d56a9589c4f7f2ed (publish /story-11/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-89862da39d47b4aacc182532c0d647988cd4a6f3 (publish /story-12/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-f881443976aee0a42ee15d17e80cbd5f6e88b125 (publish /story-13/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the front page promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the en front page promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the custom-slug front page promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-00/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-e4262635924e1c11982b473c53c8489e9724993a (publish /story-00/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-01/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-327b4ef13c7c83f720a248d83c9d8c9827ecc6b2 (publish /story-01/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-02/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-49b8dca14db83e4ad96d1a98f4e68616ae514138 (publish /story-02/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-03/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-6ef8f6b3d4e3370b7a0aa38f899fe11b49c83aeb (publish /story-03/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-04/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-d106cdfca0172ad8c43eb326168e65c900ad5895 (publish /story-04/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-05/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-a85c169e8ab5b77221c2be2279feaa8329c5d97b (publish /story-05/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-06/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-6bb3c10ce88cd3868215938043d26edccdf2ff78 (publish /story-06/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-07/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-cc723d1f2f1b786f1776d7d799917e495c3fb0e6 (publish /story-07/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-08/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-ae0a58bd4ebc40d6484b34d8acb107353a5f1fe1 (publish /story-08/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-09/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-b548a8ae41d7f82e27513bc52756186d2a6d6662 (publish /story-09/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-10/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-3206fa1ec1919bea544f13f10a1463bebfd22954 (publish /story-10/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-11/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-2eb23c7c30dc9763f38baab1d56a9589c4f7f2ed (publish /story-11/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-12/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-89862da39d47b4aacc182532c0d647988cd4a6f3 (publish /story-12/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-13/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-f881443976aee0a42ee15d17e80cbd5f6e88b125 (publish /story-13/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mReconciliation: d6c518e2-055a-4333-bb25-0cb562610fc1 behind (16 checked, 17 changed, 2 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-14/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-801f214b01ceef940062202ed2ad487a4729913c (publish /story-14/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-15/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mEvents: reconcile-463edbf24c5d413c25c5544d021d5926f46a373c (publish /story-15/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-00/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-01/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mReconciliation: cbd0d150-3ed1-43fd-8b87-322e0d7f569d reconciled (16 checked, 2 changed, 0 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the site chrome promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the en site chrome promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the shared design presets promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-e4262635924e1c11982b473c53c8489e9724993a (publish /story-00/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-327b4ef13c7c83f720a248d83c9d8c9827ecc6b2 (publish /story-01/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-49b8dca14db83e4ad96d1a98f4e68616ae514138 (publish /story-02/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-6ef8f6b3d4e3370b7a0aa38f899fe11b49c83aeb (publish /story-03/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-d106cdfca0172ad8c43eb326168e65c900ad5895 (publish /story-04/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-a85c169e8ab5b77221c2be2279feaa8329c5d97b (publish /story-05/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-6bb3c10ce88cd3868215938043d26edccdf2ff78 (publish /story-06/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-cc723d1f2f1b786f1776d7d799917e495c3fb0e6 (publish /story-07/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-ae0a58bd4ebc40d6484b34d8acb107353a5f1fe1 (publish /story-08/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-b548a8ae41d7f82e27513bc52756186d2a6d6662 (publish /story-09/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-3206fa1ec1919bea544f13f10a1463bebfd22954 (publish /story-10/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-2eb23c7c30dc9763f38baab1d56a9589c4f7f2ed (publish /story-11/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-89862da39d47b4aacc182532c0d647988cd4a6f3 (publish /story-12/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-f881443976aee0a42ee15d17e80cbd5f6e88b125 (publish /story-13/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-801f214b01ceef940062202ed2ad487a4729913c (publish /story-14/) failed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the front page promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the en front page promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-00/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-e4262635924e1c11982b473c53c8489e9724993a (publish /story-00/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-01/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-327b4ef13c7c83f720a248d83c9d8c9827ecc6b2 (publish /story-01/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-02/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-49b8dca14db83e4ad96d1a98f4e68616ae514138 (publish /story-02/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-03/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-6ef8f6b3d4e3370b7a0aa38f899fe11b49c83aeb (publish /story-03/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-04/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-d106cdfca0172ad8c43eb326168e65c900ad5895 (publish /story-04/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-05/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-a85c169e8ab5b77221c2be2279feaa8329c5d97b (publish /story-05/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-06/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-6bb3c10ce88cd3868215938043d26edccdf2ff78 (publish /story-06/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-07/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-cc723d1f2f1b786f1776d7d799917e495c3fb0e6 (publish /story-07/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-08/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-ae0a58bd4ebc40d6484b34d8acb107353a5f1fe1 (publish /story-08/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-09/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-b548a8ae41d7f82e27513bc52756186d2a6d6662 (publish /story-09/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-10/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-3206fa1ec1919bea544f13f10a1463bebfd22954 (publish /story-10/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-11/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-2eb23c7c30dc9763f38baab1d56a9589c4f7f2ed (publish /story-11/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-12/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-89862da39d47b4aacc182532c0d647988cd4a6f3 (publish /story-12/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-13/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-f881443976aee0a42ee15d17e80cbd5f6e88b125 (publish /story-13/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-14/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-801f214b01ceef940062202ed2ad487a4729913c (publish /story-14/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mReconciliation: f1d49af0-7ebe-476d-8ace-e7d00665117a behind (16 checked, 17 changed, 1 left, 0 failed)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-15/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mEvents: reconcile-463edbf24c5d413c25c5544d021d5926f46a373c (publish /story-15/) refreshed
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-00/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-01/ promoted (published)
+
+[90mstdout[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mReconciliation: 0ca66500-8177-4475-bfcc-2c9af5031e9b reconciled (16 checked, 1 changed, 0 left, 0 failed)
+
+ [32m✓[39m tests/reconciliation.test.ts [2m([22m[2m16 tests[22m[2m)[22m[33m 545[2mms[22m[39m
+ [32m✓[39m tests/consent-core.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+ [32m✓[39m tests/events.test.ts [2m([22m[2m39 tests[22m[2m)[22m[33m 1607[2mms[22m[39m
+[90mstdout[2m | tests/protocol.test.ts[2m > [22m[2msigned withdrawal immediately hides stored content while CMS is unavailable
+[22m[39mWithdrawal: withdraw-0001 withdrew /about/
+
+ [32m✓[39m tests/protocol.test.ts [2m([22m[2m34 tests[22m[2m)[22m[32m 182[2mms[22m[39m
+ [32m✓[39m tests/withdrawals.test.ts [2m([22m[2m32 tests[22m[2m)[22m[33m 2276[2mms[22m[39m
+ [32m✓[39m tests/consent-server.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 92[2mms[22m[39m
+ [32m✓[39m tests/consent-content.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 147[2mms[22m[39m
+ [32m✓[39m tests/client-config.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 107[2mms[22m[39m
+ [32m✓[39m tests/refresh.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 336[2mms[22m[39m
+ [32m✓[39m tests/wordpress-access.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 87[2mms[22m[39m
+ [32m✓[39m tests/wp-block-renderer.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m tests/wp-container-layout.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m tests/site-language.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m tests/retries.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 341[2mms[22m[39m
+ [32m✓[39m tests/published-html.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m tests/wp-block-styles.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m19 passed[39m[22m[90m (19)[39m
+[2m      Tests [22m [1m[32m328 passed[39m[22m[90m (328)[39m
+[2m   Start at [22m 08:46:28
+[2m   Duration [22m 3.59s[2m (tests 85%, import 7%, transform 7%, worker 1%)[22m
+
+[2m    Isolate [22m [33m19 workers spawned[39m[2m · ~128ms startup each (spawn + environment, per file)[22m
+[2m            [22m [2mat least ~683ms faster with [22m[33misolate: false[39m[2m — reuses workers across files instead of one per file[22m
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.3 [39m[90m/home/runner/work/gq-content/gq-content[39m
+
+ [32m✓[39m compatibility/html.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m12 passed[39m[22m[90m (12)[39m
+[2m   Start at [22m 08:46:33
+[2m   Duration [22m 180ms[2m (transform 50%, import 23%, tests 21%, worker 6%)[22m
+
+P3/P4 issues #3/#4: inspected 39 packed files; public declarations and all package-boundary suites passed in a clean installed consumer.
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mincomplete paginated lists cannot remove stored content and failed entry reads recover
+[22m[39mWordPress: the published routes is unavailable (schema): WordPress said there are more published routes without a cursor to them
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mincomplete paginated lists cannot remove stored content and failed entry reads recover
+[22m[39mReconciliation: 43dd59ab-4646-4171-a084-4cda19e715dc failed (0 checked, 0 changed, 0 left, 1 failed): schema: WordPress said there are more published routes without a cursor to them
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mincomplete paginated lists cannot remove stored content and failed entry reads recover
+[22m[39mWordPress: the entry /about/ is unavailable (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mincomplete paginated lists cannot remove stored content and failed entry reads recover
+[22m[39mRefresh: the entry /about/ kept its last stored version (http): WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mincomplete paginated lists cannot remove stored content and failed entry reads recover
+[22m[39mReconciliation: 0b905cd0-29de-4379-9c2c-d5c0f7748c84 failed (1 checked, 0 changed, 0 left, 1 failed): http: WordPress responded with HTTP 502; without blocks: WordPress responded with HTTP 502
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2moutages preserve public content and complete failed evidence before recovery
+[22m[39mWordPress: the design presets is unavailable (network): WordPress couldn't be reached
+WordPress: the published routes is unavailable (network): WordPress couldn't be reached
+WordPress: the front page is unavailable (network): WordPress couldn't be reached
+WordPress: the site chrome is unavailable (network): WordPress couldn't be reached
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2moutages preserve public content and complete failed evidence before recovery
+[22m[39mRefresh: the front page kept its last stored version (network): WordPress couldn't be reached
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2moutages preserve public content and complete failed evidence before recovery
+[22m[39mRefresh: the site chrome kept its last stored version (network): WordPress couldn't be reached
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2moutages preserve public content and complete failed evidence before recovery
+[22m[39mRefresh: the shared design presets kept its last stored version (network): WordPress couldn't be reached
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2moutages preserve public content and complete failed evidence before recovery
+[22m[39mReconciliation: d0b36c5c-f5eb-4fd9-abf9-34ac25d7f956 failed (0 checked, 0 changed, 0 left, 4 failed): network: WordPress couldn't be reached
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2moutages preserve public content and complete failed evidence before recovery
+[22m[39mWordPress: the entry /unknown/ is unavailable (network): WordPress couldn't be reached
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mD1 lease excludes overlapping runs and unfinished work resumes when the interrupted lease expires
+[22m[39mReconciliation: 69d18164-1ca9-443d-ae8f-08aa19e9bd0a's outcome couldn't be recorded: The publication store couldn't record a reconciliation
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the front page kept its last stored version (partial): WordPress could only return the front page without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-00/ kept its last stored version (partial): WordPress could only return the entry /story-00/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-01/ kept its last stored version (partial): WordPress could only return the entry /story-01/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-02/ kept its last stored version (partial): WordPress could only return the entry /story-02/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-03/ kept its last stored version (partial): WordPress could only return the entry /story-03/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-04/ kept its last stored version (partial): WordPress could only return the entry /story-04/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-05/ kept its last stored version (partial): WordPress could only return the entry /story-05/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-06/ kept its last stored version (partial): WordPress could only return the entry /story-06/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-07/ kept its last stored version (partial): WordPress could only return the entry /story-07/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-08/ kept its last stored version (partial): WordPress could only return the entry /story-08/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-09/ kept its last stored version (partial): WordPress could only return the entry /story-09/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-10/ kept its last stored version (partial): WordPress could only return the entry /story-10/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-11/ kept its last stored version (partial): WordPress could only return the entry /story-11/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-12/ kept its last stored version (partial): WordPress could only return the entry /story-12/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-13/ kept its last stored version (partial): WordPress could only return the entry /story-13/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-14/ kept its last stored version (partial): WordPress could only return the entry /story-14/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-15/ kept its last stored version (partial): WordPress could only return the entry /story-15/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-16/ kept its last stored version (partial): WordPress could only return the entry /story-16/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 0 additional languages and 1 list pages
+[22m[39mReconciliation: caedd534-4507-45ca-848b-8ef289da6c27 failed (18 checked, 2 changed, 1 left, 18 failed): partial: WordPress could only return the front page without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the front page kept its last stored version (partial): WordPress could only return the front page without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the en front page kept its last stored version (partial): WordPress could only return the en front page without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-00/ kept its last stored version (partial): WordPress could only return the entry /story-00/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-01/ kept its last stored version (partial): WordPress could only return the entry /story-01/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-02/ kept its last stored version (partial): WordPress could only return the entry /story-02/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-03/ kept its last stored version (partial): WordPress could only return the entry /story-03/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-04/ kept its last stored version (partial): WordPress could only return the entry /story-04/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-05/ kept its last stored version (partial): WordPress could only return the entry /story-05/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-06/ kept its last stored version (partial): WordPress could only return the entry /story-06/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-07/ kept its last stored version (partial): WordPress could only return the entry /story-07/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-08/ kept its last stored version (partial): WordPress could only return the entry /story-08/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-09/ kept its last stored version (partial): WordPress could only return the entry /story-09/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-10/ kept its last stored version (partial): WordPress could only return the entry /story-10/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-11/ kept its last stored version (partial): WordPress could only return the entry /story-11/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-12/ kept its last stored version (partial): WordPress could only return the entry /story-12/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-13/ kept its last stored version (partial): WordPress could only return the entry /story-13/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-14/ kept its last stored version (partial): WordPress could only return the entry /story-14/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-15/ kept its last stored version (partial): WordPress could only return the entry /story-15/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 1 list pages
+[22m[39mReconciliation: a0b7775f-6605-4e9b-a43d-9dbec5f9e504 failed (17 checked, 3 changed, 1 left, 18 failed): partial: WordPress could only return the front page without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the front page kept its last stored version (partial): WordPress could only return the front page without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the en front page kept its last stored version (partial): WordPress could only return the en front page without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the custom-slug front page kept its last stored version (partial): WordPress could only return the custom-slug front page without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-00/ kept its last stored version (partial): WordPress could only return the entry /story-00/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-01/ kept its last stored version (partial): WordPress could only return the entry /story-01/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-02/ kept its last stored version (partial): WordPress could only return the entry /story-02/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-03/ kept its last stored version (partial): WordPress could only return the entry /story-03/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-04/ kept its last stored version (partial): WordPress could only return the entry /story-04/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-05/ kept its last stored version (partial): WordPress could only return the entry /story-05/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-06/ kept its last stored version (partial): WordPress could only return the entry /story-06/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-07/ kept its last stored version (partial): WordPress could only return the entry /story-07/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-08/ kept its last stored version (partial): WordPress could only return the entry /story-08/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-09/ kept its last stored version (partial): WordPress could only return the entry /story-09/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-10/ kept its last stored version (partial): WordPress could only return the entry /story-10/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-11/ kept its last stored version (partial): WordPress could only return the entry /story-11/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-12/ kept its last stored version (partial): WordPress could only return the entry /story-12/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mRefresh: the entry /story-13/ kept its last stored version (partial): WordPress could only return the entry /story-13/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 2 additional languages and 1 list pages
+[22m[39mReconciliation: 5207f3fd-3b8d-428b-a8ac-8b90358614d0 failed (16 checked, 4 changed, 2 left, 17 failed): partial: WordPress could only return the front page without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the front page kept its last stored version (partial): WordPress could only return the front page without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the en front page kept its last stored version (partial): WordPress could only return the en front page without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-00/ kept its last stored version (partial): WordPress could only return the entry /story-00/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-01/ kept its last stored version (partial): WordPress could only return the entry /story-01/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-02/ kept its last stored version (partial): WordPress could only return the entry /story-02/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-03/ kept its last stored version (partial): WordPress could only return the entry /story-03/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-04/ kept its last stored version (partial): WordPress could only return the entry /story-04/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-05/ kept its last stored version (partial): WordPress could only return the entry /story-05/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-06/ kept its last stored version (partial): WordPress could only return the entry /story-06/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-07/ kept its last stored version (partial): WordPress could only return the entry /story-07/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-08/ kept its last stored version (partial): WordPress could only return the entry /story-08/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-09/ kept its last stored version (partial): WordPress could only return the entry /story-09/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-10/ kept its last stored version (partial): WordPress could only return the entry /story-10/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-11/ kept its last stored version (partial): WordPress could only return the entry /story-11/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-12/ kept its last stored version (partial): WordPress could only return the entry /story-12/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-13/ kept its last stored version (partial): WordPress could only return the entry /story-13/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mRefresh: the entry /story-14/ kept its last stored version (partial): WordPress could only return the entry /story-14/ without its blocks
+
+[90mstderr[2m | tests/reconciliation.test.ts[2m > [22m[2mhome and entry block recovery stay within 40 requests with 1 additional languages and 2 list pages
+[22m[39mReconciliation: e0de502e-d5b4-4ea3-86dd-59421d1db305 failed (16 checked, 3 changed, 1 left, 17 failed): partial: WordPress could only return the front page without its blocks
+
+[90mstderr[2m | tests/client-config.test.ts[2m > [22m[2ma browser read fails before loading bindings or invoking transport
+[22m[39mWordPress: the published routes is unavailable (network): WordPress couldn't be reached
+
+[90mstderr[2m | tests/client-config.test.ts[2m > [22m[2mthe configured transport has an eight second deadline
+[22m[39mWordPress: the published routes is unavailable (timeout): WordPress didn't answer within 8 seconds
+
+[90mstderr[2m | tests/client-config.test.ts[2m > [22m[2ma malformed GraphQL error envelope fails safely: {"errors":[null]}
+[22m[39mWordPress: the published routes is unavailable (schema): WordPress's answer doesn't match the required GraphQL envelope
+
+[90mstderr[2m | tests/client-config.test.ts[2m > [22m[2ma malformed GraphQL error envelope fails safely: {"errors":"not-an-array"}
+[22m[39mWordPress: the published routes is unavailable (schema): WordPress's answer doesn't match the required GraphQL envelope
+
+[90mstderr[2m | tests/client-config.test.ts[2m > [22m[2ma malformed GraphQL error envelope fails safely: {"errors":[{}]}
+[22m[39mWordPress: the published routes is unavailable (schema): WordPress's answer doesn't match the required GraphQL envelope
+
+note: You are running `vp test` as a Vite+ built-in command. If you meant to run the test npm script, use `vpr test` instead.
