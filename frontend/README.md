@@ -37,8 +37,8 @@ manual redirects and an eight-second deadline; failed reads return unavailable,
 confirmed absence returns missing, and successful reads return found.
 
 The root entry contains pure helpers and public structural types. The server
-entry exports `createContentRuntime`, `ContentConfig`, `ContentBindings`,
-`ContentRuntime` and `WordPressClient`. Runtime properties contain languages,
+entry exports `createContentRuntime`, `ContentConfig`, `ContentExtension`,
+`ExtensionNode`, `ContentBindings`, `ContentRuntime` and `WordPressClient`. Runtime properties contain languages,
 routing functions and the WordPress methods; credentials/configuration are kept
 in closures. Language configuration retains the source's normalization policy,
 and routing returns the same language objects held in that instance's array.
@@ -62,7 +62,8 @@ untracked. The npm tarball allowlist contains only compiled output, the five ori
 separate consent database migrations and package metadata (npm also includes this README).
 
 The public delivery methods are `publishedHome(siteOrigin?, language?)`,
-`publishedEntry(path, siteOrigin?)` and `pageChrome(siteOrigin?)`. Supply a
+`publishedEntry(path, siteOrigin?)`, `pageChrome(siteOrigin?)` and
+`designPresets()`. Supply a
 `PUBLICATION_DB` structural binding to serve durable publications. Stored reads
 need no event or refresh secret and retain last-known-good content without an
 age limit. Cold entry lookups read the CMS once, preserving missing versus
@@ -71,6 +72,42 @@ Production without a store returns unavailable (chrome returns null). Only
 `development: true` enables live reads without a store. A store failure never
 activates that fallback. All public reads guard server context before bindings
 or transport.
+
+`designPresets()` returns the stored design presets for a page that isn't a
+publication (live only in explicit development, null otherwise), and
+`internalOrigins(siteOrigin?)` the origins `menuItemHref` treats as this Site's.
+`blockPresetStyles(spacing, colors, scope?)` scopes the preset classes to a
+container (`.prose-wp` by default); `presetRootStyle(spacing, colors)` declares
+the presets on `:root`.
+
+## A Site's own content
+
+A Site whose WordPress plugin adds fields to its pages and posts declares them
+as an `extension`. The runtime reads them with each front page, page and post
+(with its blocks), stores the Site's value with the publication and serves it,
+typed, through outages:
+
+```ts
+const content = createContentRuntime<SiteBlocks>({
+  // …the configuration above…
+  extension: {
+    fields: { page: "wpBlocksJson pageBackgroundColor", post: "wpBlocksJson" },
+    // The Site's value for a node WordPress returned, or undefined for none.
+    read: ({ kind, fields }) => siteBlocks(fields.wpBlocksJson, fields.pageBackgroundColor),
+    // The stored value (JSON) read back, or undefined when it can't be served.
+    parse: (stored) => storedSiteBlocks.safeParse(stored).data,
+  },
+});
+const page = await content.publishedEntry("/about/");
+if (page.kind === "found" && page.content.entry.extension) {
+  // Render page.content.entry.extension (SiteBlocks); the front page's is
+  // home.page.extension.
+}
+```
+
+Rows stored before the Site declared it serve without it; a refresh stores it.
+A read throwing fails as WordPress's answer not matching the schema, and a read
+without its blocks stores nothing, so the stored page stays served. See ADR 0004.
 
 Infrastructure imports the Node-only migration entry separately:
 

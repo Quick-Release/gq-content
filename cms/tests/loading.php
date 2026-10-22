@@ -11,7 +11,7 @@ foreach (glob($plugin . 'modules/*.php') as $module) {
     require_once $module;
 }
 $debug = apply_filters('debug_information', []);
-if ($debug['gq_content']['fields']['version']['value'] !== '0.1.0') {
+if ($debug['gq_content']['fields']['version']['value'] !== '0.2.0') {
     throw new RuntimeException('Entry remains available after repeated require_once');
 }
 echo 'loaded-once-in-order';

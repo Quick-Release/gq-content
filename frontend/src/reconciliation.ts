@@ -42,10 +42,10 @@ import { isLanguageHome as homeAt, type SiteLanguage } from "./site-language";
 import type { WordPressClient } from "./wordpress";
 import type { PublishedEntry } from "./content-types";
 
-export function configuredReconciliation(
+export function configuredReconciliation<X>(
   languages: SiteLanguage[],
-  delivery: ReturnType<typeof configuredDelivery>,
-  wordpress: WordPressClient,
+  delivery: ReturnType<typeof configuredDelivery<X>>,
+  wordpress: WordPressClient<X>,
 ) {
   const { eachLimited, reconcileShared, refreshEntries, sharedOutcomes } = delivery;
   const { getPublishedEntries } = wordpress;

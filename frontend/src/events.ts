@@ -39,11 +39,11 @@ import {
   type SiteLanguage,
 } from "./site-language";
 
-export function configuredEvents(
-  config: ContentConfig,
+export function configuredEvents<X>(
+  config: ContentConfig<X>,
   languages: SiteLanguage[],
-  delivery: ReturnType<typeof configuredDelivery>,
-  wordpress: WordPressClient,
+  delivery: ReturnType<typeof configuredDelivery<X>>,
+  wordpress: WordPressClient<X>,
 ) {
   const { reconcile } = configuredReconciliation(languages, delivery, wordpress);
   const SITE = config.site;

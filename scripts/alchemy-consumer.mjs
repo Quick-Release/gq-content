@@ -23,16 +23,16 @@ function run(command, args, cwd = consumer) {
 try {
   cpSync(join(repo, "scripts/fixtures/alchemy-p1"), consumer, { recursive: true });
   const selected = retained("npm");
-  if (selected) cpSync(selected, join(consumer, "getquick-content-0.1.0.tgz"));
+  if (selected) cpSync(selected, join(consumer, "getquick-content-0.2.0.tgz"));
   else run("vp", ["pm", "pack", "--pack-destination", consumer], join(repo, "frontend"));
   recordArtifact(
-    join(consumer, "getquick-content-0.1.0.tgz"),
+    join(consumer, "getquick-content-0.2.0.tgz"),
     process.argv.includes("--reconciliation") ? "reconciliation" : "alchemy",
   );
   const integrity =
     "sha512-" +
     createHash("sha512")
-      .update(readFileSync(join(consumer, "getquick-content-0.1.0.tgz")))
+      .update(readFileSync(join(consumer, "getquick-content-0.2.0.tgz")))
       .digest("base64");
   const lockfile = join(consumer, "pnpm-lock.yaml");
   writeFileSync(lockfile, readFileSync(lockfile, "utf8").replace("TARBALL_INTEGRITY", integrity));

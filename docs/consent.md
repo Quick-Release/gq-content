@@ -132,7 +132,7 @@ exactly these fields:
   },
   "action": "custom",
   "language": "pt-PT",
-  "uiVersion": "gq-content@0.1.0"
+  "uiVersion": "gq-content@0.2.0"
 }
 ```
 

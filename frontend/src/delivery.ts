@@ -23,30 +23,36 @@ import type {
   Delivery,
   CmsFailureReason,
   Found,
-  HomeContent,
+  HomeContent as HomeContentOf,
   DesignPresets,
-  EntryContent,
+  EntryContent as EntryContentOf,
   SiteChrome,
   Translation,
 } from "./content-types";
 import type {
-  HomePublication,
-  EntryPublication,
+  HomePublication as HomePublicationOf,
+  EntryPublication as EntryPublicationOf,
   Alternate,
-  HomeDelivery,
-  EntryDelivery,
+  HomeDelivery as HomeDeliveryOf,
+  EntryDelivery as EntryDeliveryOf,
   DeliveryFailureReason,
   NotServed,
 } from "./page-types";
 
-export function configuredDelivery(
-  config: ContentConfig,
+export function configuredDelivery<X>(
+  config: ContentConfig<X>,
   languages: SiteLanguage[],
-  wordpress: WordPressClient,
+  wordpress: WordPressClient<X>,
   transformHtml?: PublishedHtmlTransform,
 ) {
+  type HomePublication = HomePublicationOf<X>;
+  type EntryPublication = EntryPublicationOf<X>;
+  type HomeContent = HomeContentOf<X>;
+  type EntryContent = EntryContentOf<X>;
+  type HomeDelivery = HomeDeliveryOf<X>;
+  type EntryDelivery = EntryDeliveryOf<X>;
   const defaultLanguage = languages[0]!;
-  const html = publishedHtml(languages, transformHtml);
+  const html = publishedHtml<X>(languages, transformHtml);
   const multilingual = languages.length > 1;
   const routeLanguage = (route: string) => languageAt(route, languages);
   const isLanguageHome = (route: string) => homeAt(route, languages);
@@ -95,9 +101,41 @@ export function configuredDelivery(
   );
   const spacingSizes = z.array(z.object({ slug: z.string(), size: z.string() }));
   const colors = z.array(z.object({ slug: z.string(), color: z.string() }));
+  /**
+   * The Site's extension of a page or post, as its `parse` reads it back. A
+   * row stored without one (before the Site declared it) still serves; an
+   * extension stored without the Site declaring one now is left out.
+   */
+  const extension = config.extension;
+  const extended: z.ZodRawShape = extension
+    ? {
+        extension: z
+          .unknown()
+          .optional()
+          .transform((value, context) => {
+            if (value === undefined) return undefined;
+            let parsed: X | undefined;
+            try {
+              parsed = extension.parse(value);
+            } catch {
+              parsed = undefined;
+            }
+            if (parsed === undefined) {
+              context.addIssue({ code: "custom", message: "the Site can't serve this extension" });
+              return z.NEVER;
+            }
+            return parsed;
+          }),
+      }
+    : {};
   const homePublication = z.object({
     settings: z.object({ title: z.string(), description: z.string() }),
-    page: z.object({ title: z.string(), content: z.string(), hasVideoHero: z.boolean() }),
+    page: z.object({
+      title: z.string(),
+      content: z.string(),
+      hasVideoHero: z.boolean(),
+      ...extended,
+    }),
     spacingSizes,
     colors,
   });
@@ -116,6 +154,7 @@ export function configuredDelivery(
     hasVideoHero: z.boolean(),
     spacingSizes,
     colors,
+    ...extended,
   });
   const legalRole = z.object({
     role: z.string(),
@@ -495,6 +534,28 @@ export function configuredDelivery(
     } catch (error) {
       if (!(error instanceof StoreFailure)) throw error;
       console.error(`Delivery: the site chrome can't be served (store): ${error.message}`);
+      return null;
+    }
+  }
+
+  /**
+   * The design presets for a page that isn't a publication: the stored ones
+   * when there is a store, else a live read in explicit development. Null
+   * when neither has them; the page is then served without them.
+   */
+  async function pageDesign(): Promise<DesignPresets | null> {
+    if (!config.isServer()) return null;
+    const store = await boundStore();
+    if (!store) {
+      if (!config.development) return null;
+      const design = await getDesignPresets();
+      return design.kind === "found" ? design.content : null;
+    }
+    try {
+      return sharedDesign(await store.read(DESIGN, parseDesign));
+    } catch (error) {
+      if (!(error instanceof StoreFailure)) throw error;
+      console.error(`Delivery: the design presets can't be served (store): ${error.message}`);
       return null;
     }
   }
@@ -1220,6 +1281,11 @@ export function configuredDelivery(
     pageChrome: (siteOrigin?: string): Promise<SiteChrome | null> =>
       safely(
         () => pageChrome(siteOrigin),
+        () => null,
+      ),
+    designPresets: (): Promise<DesignPresets | null> =>
+      safely(
+        () => pageDesign(),
         () => null,
       ),
   };

@@ -39,7 +39,7 @@ const port = await new Promise((done) => {
 let server;
 try {
   cpSync(join(repo, "scripts/fixtures/consent-tanstack"), consumer, { recursive: true });
-  const tarball = join(consumer, "getquick-content-0.1.0.tgz");
+  const tarball = join(consumer, "getquick-content-0.2.0.tgz");
   const selected = retained("npm");
   if (selected) cpSync(selected, tarball);
   else run("vp", ["pm", "pack", "--pack-destination", consumer], { cwd: join(repo, "frontend") });

@@ -44,6 +44,11 @@ Comparison of the publication store with what the CMS publishes, to recover
 changes whose events did not arrive.
 _Avoid_: full refresh
 
+**Content extension**:
+A Site's own content on its pages and posts, beyond what the runtime reads,
+declared by the Site and stored and served with each publication.
+_Avoid_: custom fields (WordPress's term for post meta)
+
 **Cold lookup**:
 A visitor's CMS read for content the publication store has never held.
 _Avoid_: cache miss
