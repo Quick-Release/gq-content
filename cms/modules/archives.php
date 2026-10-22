@@ -153,7 +153,7 @@ add_action('wp_after_insert_post', static function (int $post_id, WP_Post $post)
 add_action('deleted_post', static function (int $post_id): void {
     $assigned = assigned();
     if (in_array($post_id, $assigned, true)) {
-        update_option(OPTION, array_filter($assigned, static fn(int $page_id): bool => $page_id !== $post_id), false);
+        update_option(OPTION, array_filter($assigned, static fn(int $page_id): bool => $page_id !== $post_id));
     }
 }, 10, 1);
 
