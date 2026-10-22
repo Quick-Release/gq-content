@@ -39,7 +39,7 @@ try {
   for (const file of listing) {
     assert.match(
       file,
-      /^package\/((?:package\.json|README\.md)|dist\/[\w-]+\.(js|d\.ts)|migrations\/000[1-5]_[a-z_]+\.sql|consent-migrations\/000[1-9]_[a-z_]+\.sql)$/,
+      /^package\/((?:package\.json|README\.md)|dist\/[\w-]+\.(js|d\.ts)|migrations\/000[1-5]_[a-z_]+\.sql|consent-migrations\/0001_consent_records\.sql)$/,
     );
   }
   if (process.argv.includes("--design-fixtures")) {
@@ -81,6 +81,23 @@ try {
     "./consent/astro",
     "./consent/testing",
   ]);
+  // Both migrations exports resolve, from the consumer, to the SQL shipped in the package.
+  const directories = JSON.parse(
+    execFileSync(
+      process.execPath,
+      [
+        "--input-type=module",
+        "-e",
+        'const { migrationsDirectory } = await import("@getquick/content/migrations"); const { consentMigrationsDirectory } = await import("@getquick/content/consent/migrations"); console.log(JSON.stringify([migrationsDirectory, consentMigrationsDirectory]));',
+      ],
+      { cwd: consumer, env, encoding: "utf8" },
+    ),
+  );
+  assert.deepEqual(
+    directories.map((directory) => readdirSync(directory).sort()),
+    [readdirSync(join(installed, "migrations")).sort(), ["0001_consent_records.sql"]],
+  );
+  assert.equal(readdirSync(join(installed, "migrations")).length, 5);
   for (const file of readdirSync(join(installed, "dist"))) {
     const text = readFileSync(join(installed, "dist", file), "utf8");
     // No framework, Cloudflare, Blueprint or Node import outside the migration entries.
