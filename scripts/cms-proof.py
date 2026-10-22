@@ -319,8 +319,19 @@ if __name__ == '__main__':
         check('the runtime\'s archives read is valid WPGraphQL, with the shown types and taxonomies',
               'errors' not in ran['archives'] and
               {'postType': 'biblioteca', 'uri': '/biblioteca/'} in schema['getquickArchives'] and
-              {'name': 'biblioteca'} in schema['contentTypes']['nodes'] and
+              'biblioteca' in [node['name'] for node in schema['contentTypes']['nodes']] and
               {'name': 'category'} in schema['taxonomies']['nodes'])
+        types = {node['name']: node for node in schema['contentTypes']['nodes']}
+        check('the same read names each type\'s GraphQL type and the taxonomies connected to it',
+              types['biblioteca']['graphqlSingleName'] == 'Biblioteca' and
+              types['eventos']['graphqlSingleName'] == 'Evento' and
+              {'name': 'category'} in types['biblioteca']['connectedTaxonomies']['nodes'] and
+              not (types['eventos']['connectedTaxonomies'] or {}).get('nodes'))
+        listed = (ran['routes'].get('data') or {}).get('contentNodes') or {}
+        uris = {node['uri'] for node in listed.get('nodes', [])}
+        check('the runtime\'s published routes listing is valid WPGraphQL, with the collections\' types',
+              'errors' not in ran['routes'] and '/biblioteca/lei/' in uris and '/biblioteca/' in uris and
+              all(node['id'] and node['modifiedGmt'] for node in listed['nodes']))
         start = len(received)
         step('trash')
         trashed = step('trashed')

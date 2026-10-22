@@ -129,9 +129,9 @@ const content = createContentRuntime({
 });
 const page = await content.list({
   collection: "biblioteca",
-  terms: { categoria_biblioteca: ["legislacao"] }, // any slug; every taxonomy
+  terms: { categoria_biblioteca: ["legislacao"] }, // any slug; every taxonomy given slugs
   search: "lei", // title and excerpt, ignoring case and accents
-  page: 1,
+  page: 1, // a number (or numeric string); anything else throws
   perPage: 12,
 });
 // { kind: "found", items: [{ uri, title, date, modifiedAt, excerpt,
@@ -146,9 +146,10 @@ Items are entries: events, withdrawals and reconciliation keep them, and
 `publishedEntry` serves them with `entry.collection` (`name`, `terms`). The
 extension's `fields.collections[<name>]` selects an item's own fields (`read`
 gets `kind: "item"` and `collection`). In WordPress, GETQUICK → Archives
-assigns each type a Page, which takes over the type's archive address. A
-type or taxonomy WPGraphQL doesn't show fails the archives read, by name. See
-ADR 0005.
+assigns each type a Page, which takes over the type's archive address; saving
+it reads every archive address again. A type or taxonomy WPGraphQL doesn't
+show, a `graphqlType` that isn't the type's, or a taxonomy not connected to
+it fails the archives read, by name. See ADR 0005.
 
 Infrastructure imports the Node-only migration entry separately:
 

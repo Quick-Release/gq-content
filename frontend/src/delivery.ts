@@ -14,7 +14,7 @@ import {
   isLanguageHome as homeAt,
   type SiteLanguage,
 } from "./site-language";
-import { routeOf, stripHtml } from "./formatting";
+import { decodeEntities, routeOf, stripHtml } from "./formatting";
 import type { ContentConfig } from "./server";
 import type { WordPressClient } from "./wordpress";
 import { publishedHtml, type PublishedHtmlTransform } from "./published-html";
@@ -775,6 +775,8 @@ export function configuredDelivery<X>(
   interface SharedRefreshReport extends SharedRows<RecordOutcome> {
     /** Whether every part was promoted (or superseded by a newer read). */
     refreshed: boolean;
+    /** The archive addresses read again with the archives, and each one's outcome. */
+    entries?: Record<string, RecordOutcome>;
   }
 
   /**
@@ -820,8 +822,22 @@ export function configuredDelivery<X>(
       if (chrome) rows.chrome = await promoteChrome(store, chrome, readStartedAt, each);
     }
     if (design) report.design = await promoteDesign(store, design, readStartedAt);
-    if (archiveRead) report.archives = await promoteArchives(store, archiveRead, readStartedAt);
-    report.refreshed = sharedOutcomes(report).every((outcome) => outcome.outcome !== "kept");
+    if (archiveRead) {
+      // Saving the Archives mapping can give an address to a Page, or take it
+      // back for the type's own archive, without modifying the Page or
+      // changing the address: every archive address, old and new, is read
+      // again, so a Page stored missing behind an archive is served at once,
+      // and one that lost its address isn't served there any longer.
+      const before = archiveRead.kind === "found" ? await storedArchives(store) : undefined;
+      report.archives = await promoteArchives(store, archiveRead, readStartedAt);
+      if (archiveRead.kind === "found" && report.archives.outcome !== "kept") {
+        const routes = archiveRoutes(before, archiveRead.content, "all");
+        if (routes.length > 0) report.entries = (await refreshEntries(store, routes)).entries;
+      }
+    }
+    report.refreshed = [...sharedOutcomes(report), ...Object.values(report.entries ?? {})].every(
+      (outcome) => outcome.outcome !== "kept",
+    );
     return report;
   }
 
@@ -855,6 +871,12 @@ export function configuredDelivery<X>(
     chrome: SharedOutcome;
     design: SharedOutcome;
     archives?: SharedOutcome;
+    /**
+     * When the archives row was promoted with a change: the addresses of the
+     * post types whose archive moved, old and new, for reconciliation to read
+     * again within its budget.
+     */
+    archiveRoutes?: string[];
     languages?: Record<string, { home: SharedOutcome; chrome: SharedOutcome }>;
   }
   /**
@@ -922,19 +944,27 @@ export function configuredDelivery<X>(
           : await promoteChrome(store, chrome, readStartedAt, language),
       });
     }
+    let archives: SharedOutcome | undefined;
+    let changedArchives: string[] = [];
+    if (archiveRead) {
+      const before = await storedArchives(store);
+      if (await unchanged(ARCHIVES, parseArchives, sharedRead(archiveRead))) {
+        archives = { outcome: "unchanged" };
+      } else {
+        archives = await promoteArchives(store, archiveRead, readStartedAt);
+        if (archiveRead.kind === "found" && archives.outcome === "promoted") {
+          changedArchives = archiveRoutes(before, archiveRead.content, "changed");
+        }
+      }
+    }
     const [own, ...others] = outcomes;
     return {
       ...own!,
       design: (await unchanged(DESIGN, parseDesign, sharedRead(design)))
         ? { outcome: "unchanged" }
         : await promoteDesign(store, design, readStartedAt),
-      ...(archiveRead
-        ? {
-            archives: (await unchanged(ARCHIVES, parseArchives, sharedRead(archiveRead)))
-              ? { outcome: "unchanged" as const }
-              : await promoteArchives(store, archiveRead, readStartedAt),
-          }
-        : {}),
+      ...(archives ? { archives } : {}),
+      ...(changedArchives.length > 0 ? { archiveRoutes: changedArchives } : {}),
       ...(multilingual
         ? {
             languages: Object.fromEntries(
@@ -991,6 +1021,38 @@ export function configuredDelivery<X>(
   ) {
     const subject = "the shared design presets";
     return promoteShared(store, DESIGN, subject, parseDesign, read, readStartedAt);
+  }
+
+  /** Where each collection's archive is, as stored; undefined when it can't be read. */
+  async function storedArchives(store: PublicationStore): Promise<Archives | undefined> {
+    try {
+      const stored = await store.read(ARCHIVES, parseArchives);
+      return stored?.state === "published" ? stored.content : undefined;
+    } catch (error) {
+      if (!(error instanceof StoreFailure)) throw error;
+      return undefined;
+    }
+  }
+
+  /**
+   * The archive addresses to read again after a read of where the archives
+   * are: every address before or after it ("all"), or only the old and new
+   * address of each post type whose archive moved ("changed"). A language's
+   * front page is its home's, never an entry.
+   */
+  function archiveRoutes(
+    before: Archives | undefined,
+    after: Archives,
+    which: "all" | "changed",
+  ): string[] {
+    const routes = new Set<string>();
+    for (const type of new Set([...Object.keys(before ?? {}), ...Object.keys(after)])) {
+      const old = before?.[type];
+      const now = after[type];
+      if (which === "changed" && old === now) continue;
+      for (const uri of [old, now]) if (uri) routes.add(routeOf(uri));
+    }
+    return [...routes].filter((route) => !isLanguageHome(route));
   }
 
   /** Promotes a read of where each collection's archive is. */
@@ -1152,7 +1214,7 @@ export function configuredDelivery<X>(
   /** An entry as stored: a collection's item with the text its search matches. */
   function stored(entry: EntryPublication): EntryPublication {
     if (!entry.collection) return entry;
-    const search = searchText(`${entry.title} ${stripHtml(entry.excerpt)}`);
+    const search = searchText(decodeEntities(`${entry.title} ${stripHtml(entry.excerpt)}`));
     return { ...entry, collection: { ...entry.collection, search } as typeof entry.collection };
   }
 
@@ -1330,13 +1392,14 @@ export function configuredDelivery<X>(
   async function list(query: CollectionQuery): Promise<CollectionListing> {
     const collection = collectionNamed(query.collection);
     const subject = `the ${query.collection} collection`;
-    const page = Math.max(1, Math.floor(query.page ?? 1));
-    const perPage = Math.min(100, Math.max(1, Math.floor(query.perPage ?? 12)));
+    const page = Math.max(1, whole("page", query.page, 1));
+    const perPage = Math.min(100, Math.max(1, whole("perPage", query.perPage, 12)));
     const taxonomies = collection.taxonomies ?? [];
-    const terms = Object.entries(query.terms ?? {}).map(([taxonomy, slugs]) => {
+    // A taxonomy given no slugs doesn't filter.
+    const terms = Object.entries(query.terms ?? {}).flatMap(([taxonomy, slugs]) => {
       if (!taxonomies.includes(taxonomy))
         throw new Error(`${taxonomy} isn't one of the ${query.collection} collection's taxonomies`);
-      return { path: termsPath(taxonomy), slugs: [...slugs] };
+      return slugs.length > 0 ? [{ path: termsPath(taxonomy), slugs: [...slugs] }] : [];
     });
     const search = searchText(query.search ?? "");
     const filter = {
@@ -1389,6 +1452,15 @@ export function configuredDelivery<X>(
       page,
       pages: Math.ceil(found.total / perPage),
     };
+  }
+
+  /** A listing's whole-number option (as a number, or a string of one, from a URL), else its default. */
+  function whole(option: string, value: unknown, fallback: number): number {
+    if (value === undefined || value === null || value === "") return fallback;
+    const number = Number(value);
+    if (!Number.isFinite(number))
+      throw new Error(`${option} must be a number, not ${JSON.stringify(value)}`);
+    return Math.floor(number);
   }
 
   /** The terms of a collection's taxonomy its stored items have, with how many have each. */
@@ -1534,5 +1606,12 @@ export function configuredDelivery<X>(
 
 /** Text as a search compares it: lowercase, without accents, its spaces collapsed. */
 export function searchText(text: string) {
-  return text.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase().replace(/\s+/g, " ").trim();
+  return text
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .replace(/[\u2018\u2019\u201A\u201B\u2032]/g, "'")
+    .replace(/[\u201C\u201D\u201E\u2033]/g, '"')
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
 }

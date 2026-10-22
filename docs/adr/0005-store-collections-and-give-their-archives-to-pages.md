@@ -74,12 +74,27 @@ selects their fields, and `read` gets `{ kind: "item", collection }`.
 
 Where each collection's archive is (`archiveUri`) is a shared row,
 `archives`: read by a full refresh, an `archives` settings event and every
-reconciliation (one more request in its budget), compared and promoted like
-the design presets. The same read checks that WPGraphQL shows each
-collection's post type and taxonomies; one it doesn't fails the read
-(`schema`, naming them), so refreshes, reconciliation and the CMS's delivery
-health report it, and what is stored stays served. Its terms would otherwise
-be stored empty, silently. A CMS without Archives yet gives no archives.
+reconciliation (two more requests in its budget: a CMS without Archives yet
+is asked again without them), compared and promoted like the design presets.
+The same read checks that WPGraphQL shows each collection's post type and
+taxonomies, that the type's GraphQL name (`graphqlSingleName`, formatted as
+WPGraphQL names types) is the collection's `graphqlType`, and that each
+taxonomy is connected to the type; one that isn't fails the read (`schema`,
+naming them), so refreshes, reconciliation and the CMS's delivery health
+report it, and what is stored stays served. Otherwise every entry read
+(one `nodeByUri` query selecting each type's fragment) would fail with a
+generic GraphQL error, or terms would be stored empty, silently. A CMS
+without Archives yet gives no archives.
+
+Giving an archive's address to a Page, or taking it back, modifies neither
+the Page nor (usually) the address, so nothing else would read the Page
+there again. The `archives` settings event therefore reads every archive
+address again, before and after: a Page stored missing behind its type's
+archive is served at once, and one that lost its address stops being served
+there. A reconciliation that promotes a change to the `archives` row reads
+the old and new address of each type whose archive moved, first, within its
+budget. An assignment that keeps the address, missed by its event, is left
+to the rotating rereads of stored routes.
 
 ## Listings are SQL over the store
 

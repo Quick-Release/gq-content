@@ -55,9 +55,11 @@ const config = {
 };
 const api = () => createContentRuntime(config);
 
+/** Addresses a post type's own archive claims: WordPress reads the archive there. */
+let claimed: Set<string>;
 const node: Handler = ({ uri }) => {
   const path = decodeURI(String(uri));
-  const item = published.get(path);
+  const item = claimed.has(path) ? undefined : published.get(path);
   if (unavailable) return { ok: false, status: 502 };
   return data({
     designTokens: presets,
@@ -79,7 +81,9 @@ const node: Handler = ({ uri }) => {
         }
       : path === "/biblioteca/categoria/"
         ? { __typename: "Category" }
-        : null,
+        : claimed.has(path)
+          ? { __typename: "ContentType" }
+          : null,
   });
 };
 const home: Handler = () =>
@@ -94,9 +98,20 @@ const routesAnswer: Handler = () =>
     ...[...published].map(([uri, item]) => ({ uri, id: item.id, modifiedGmt: gmt(item.modified) })),
   );
 let shown: { postTypes: string[]; taxonomies: string[] };
+/** Each post type's graphql_single_name, and the taxonomies connected to it, as WPGraphQL shows them. */
+let singleNames: Record<string, string>;
+let connected: Record<string, string[]>;
 const archivesAnswer: Handler = (_variables, query = "") => {
   const schema = {
-    contentTypes: { nodes: shown.postTypes.map((name) => ({ name })) },
+    contentTypes: {
+      nodes: shown.postTypes.map((name) => ({
+        name,
+        graphqlSingleName: singleNames[name] ?? name,
+        connectedTaxonomies: connected[name]
+          ? { nodes: connected[name].map((taxonomy) => ({ name: taxonomy })) }
+          : null,
+      })),
+    },
     taxonomies: { nodes: shown.taxonomies.map((name) => ({ name })) },
   };
   if (!query.includes("getquickArchives")) return data(schema);
@@ -123,6 +138,12 @@ function stub() {
 beforeEach(() => {
   db = openTestD1();
   unavailable = false;
+  claimed = new Set();
+  singleNames = { biblioteca: "biblioteca", recursos_educativos: "recurso_educativo" };
+  connected = {
+    post: ["category"],
+    biblioteca: ["categoria_biblioteca", "regiao"],
+  };
   shown = {
     postTypes: ["page", "post", "biblioteca", "recursos_educativos", "eventos"],
     taxonomies: ["category", "categoria_biblioteca", "regiao"],
@@ -507,6 +528,10 @@ test("reconciliation finds new and removed items, and a change to the archives",
     entries: {
       "/biblioteca/novo/": { change: "new", outcome: "refreshed" },
       "/biblioteca/relatorio-anual/": { change: "removed", outcome: "refreshed" },
+      // The archive moved: its old and new addresses are read again.
+      "/biblioteca/": { change: "archive", outcome: "refreshed" },
+      "/recursos/biblioteca/": { change: "archive", outcome: "refreshed" },
+      "/recursos-educativos/": { change: "archive", outcome: "refreshed" },
     },
   });
   expect(titles(await runtime.list({ collection: "biblioteca" }))).toEqual([
@@ -521,19 +546,64 @@ test("reconciliation finds new and removed items, and a change to the archives",
   expect(again.body.shared.archives).toEqual({ outcome: "unchanged" });
 });
 
-test("an archives settings event refreshes where the archives are, and nothing else", async () => {
+test("an archives settings event refreshes where the archives are, and reads every archive address again", async () => {
   const runtime = api();
   await refresh(runtime);
-  archives = [{ postType: "biblioteca", uri: "/arquivo/" }];
+  archives = [
+    { postType: "biblioteca", uri: "/arquivo/" },
+    { postType: "recursos_educativos", uri: "/recursos-educativos/" },
+  ];
   fetchMock.mockClear();
   const settings = await event(runtime, { action: "settings", setting: "archives" });
   expect(settings).toMatchObject({
     status: 200,
-    body: { status: "refreshed", archives: { outcome: "promoted", state: "published" } },
+    body: {
+      status: "refreshed",
+      archives: { outcome: "promoted", state: "published" },
+      entries: {
+        "/biblioteca/": { outcome: "promoted", state: "published" },
+        "/arquivo/": { outcome: "promoted", state: "missing" },
+        "/recursos-educativos/": { outcome: "promoted", state: "missing" },
+      },
+    },
   });
   expect(queries(fetchMock, "ContentArchives")).toHaveLength(1);
-  expect(fetchMock).toHaveBeenCalledTimes(1);
+  expect(queries(fetchMock, "EntryByUri")).toHaveLength(3);
+  expect(fetchMock).toHaveBeenCalledTimes(4);
   expect(await runtime.archiveUri("biblioteca")).toBe("/arquivo/");
+});
+
+test("giving an archive's address to its Page serves the Page at once, and taking it back stops serving it", async () => {
+  // The type's own archive claims /biblioteca/: its Page reads as missing,
+  // and reconciliation finds nothing new to read there.
+  claimed.add("/biblioteca/");
+  const runtime = api();
+  await refresh(runtime);
+  expect((await runtime.publishedEntry("/biblioteca/")).kind).toBe("missing");
+  await event(runtime, { action: "reconcile" });
+  expect((await runtime.publishedEntry("/biblioteca/")).kind).toBe("missing");
+
+  // GETQUICK → Archives gives /biblioteca/ to the Page: the archive's address
+  // doesn't change, and the Page isn't modified. Saving sends the archives event.
+  claimed.delete("/biblioteca/");
+  const assigned = await event(runtime, { action: "settings", setting: "archives" });
+  expect(assigned.body).toMatchObject({
+    status: "refreshed",
+    archives: { outcome: "promoted" },
+    entries: { "/biblioteca/": { outcome: "promoted", state: "published" } },
+  });
+  expect(await runtime.publishedEntry("/biblioteca/")).toMatchObject({
+    kind: "found",
+    content: { entry: { title: "Biblioteca" } },
+  });
+
+  // Taking the address back for the type's own archive stops serving the Page there.
+  claimed.add("/biblioteca/");
+  const unassigned = await event(runtime, { action: "settings", setting: "archives" });
+  expect(unassigned.body.entries).toMatchObject({
+    "/biblioteca/": { outcome: "promoted", state: "missing" },
+  });
+  expect((await runtime.publishedEntry("/biblioteca/")).kind).toBe("missing");
 });
 
 test("a CMS whose GETQUICK Content has no Archives yet gives no archives, and still refreshes", async () => {
@@ -701,4 +771,92 @@ test("a collection whose post type or taxonomy WPGraphQL doesn't show fails, by 
   const reconciled = await event(runtime, { action: "reconcile" });
   expect(reconciled.status).toBe(503);
   expect(reconciled.body.failure.message).toContain("regiao");
+});
+
+test("a collection whose graphqlType isn't its post type's, or whose taxonomy isn't connected to it, fails by name", async () => {
+  const runtime = api();
+  await refresh(runtime);
+  singleNames.biblioteca = "livro";
+  connected.biblioteca = ["categoria_biblioteca"];
+  vi.spyOn(console, "error").mockImplementation(() => {});
+  const { status, report } = await refresh(runtime);
+  expect(status).toBe(503);
+  expect(report.archives).toEqual({
+    outcome: "kept",
+    failure: {
+      reason: "schema",
+      message:
+        "biblioteca's graphqlType Biblioteca isn't post type biblioteca's GraphQL type, Livro; biblioteca's taxonomy regiao isn't connected to post type biblioteca",
+    },
+  });
+  // WPGraphQL's own naming: recurso_educativo is RecursoEducativo.
+  expect(report.archives.failure.message).not.toContain("recursos-educativos");
+  expect(await runtime.archiveUri("biblioteca")).toBe("/biblioteca/");
+});
+
+test("a listing's page must be a number, and a taxonomy given no terms doesn't filter", async () => {
+  const runtime = api();
+  await refresh(runtime);
+  await expect(
+    runtime.list({ collection: "biblioteca", page: "abc" as unknown as number }),
+  ).rejects.toThrow('page must be a number, not "abc"');
+  await expect(runtime.list({ collection: "biblioteca", perPage: Number.NaN })).rejects.toThrow(
+    "perPage must be a number",
+  );
+  expect(
+    await runtime.list({ collection: "biblioteca", page: "1" as unknown as number, perPage: 2 }),
+  ).toMatchObject({ kind: "found", page: 1, pages: 2, total: 3 });
+  expect(
+    titles(await runtime.list({ collection: "biblioteca", terms: { categoria_biblioteca: [] } })),
+  ).toEqual(["Relatório anual", "Código civil", "Lei de Bases"]);
+  expect(
+    titles(
+      await runtime.list({
+        collection: "biblioteca",
+        terms: { categoria_biblioteca: ["legislacao"], regiao: [] },
+      }),
+    ),
+  ).toEqual(["Código civil", "Lei de Bases"]);
+});
+
+test("search matches an item's text with its character references decoded", async () => {
+  published.set("/biblioteca/oneill/", {
+    id: "b5",
+    typename: "Biblioteca",
+    title: "O&#8217;Neill &amp; R&amp;D",
+    excerpt: "<p>Caf&eacute; &#x2014; &lt;notas&gt;</p>",
+    date: day(6),
+    modified: 6,
+    terms: [estudos],
+  });
+  const runtime = api();
+  await refresh(runtime);
+  for (const search of ["o'neill", "O’Neill", "r&d", "<notas>"]) {
+    expect(titles(await runtime.list({ collection: "biblioteca", search }))).toEqual([
+      "O&#8217;Neill &amp; R&amp;D",
+    ]);
+  }
+});
+
+test("reconciliation reserves both archives requests a CMS without Archives makes", async () => {
+  archives = "unsupported";
+  vi.spyOn(console, "warn").mockImplementation(() => {});
+  for (let n = 0; n < 30; n++) {
+    published.set(`/biblioteca/item-${String(n).padStart(2, "0")}/`, {
+      id: `many-${n}`,
+      typename: "Biblioteca",
+      title: `Item ${n}`,
+      date: day(1),
+      modified: 1,
+    });
+  }
+  const runtime = api();
+  fetchMock.mockClear();
+  const run = await event(runtime, { action: "reconcile" });
+  expect(run.body.status).toBe("behind");
+  // 40 requests: design, archives (2), home (2) and chrome, the listing, and
+  // two per entry read (16).
+  expect(Object.keys(run.body.entries)).toHaveLength(16);
+  expect(queries(fetchMock, "ContentArchives")).toHaveLength(2);
+  expect(fetchMock.mock.calls.length).toBeLessThanOrEqual(40);
 });

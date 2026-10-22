@@ -73,8 +73,9 @@ $out = match (getenv('ARCHIVES_STEP')) {
         $entry = graphql(['query' => $queries['EntryByUri'], 'variables' => ['uri' => '/biblioteca/lei/']]);
         $page = graphql(['query' => $queries['EntryByUri'], 'variables' => ['uri' => '/biblioteca/']]);
         $archives = graphql(['query' => $queries['ContentArchives']]);
+        $routes = graphql(['query' => $queries['PublishedRoutes'], 'variables' => ['after' => null]]);
 
-        return ['entry' => $entry, 'page' => $page, 'archives' => $archives];
+        return ['entry' => $entry, 'page' => $page, 'archives' => $archives, 'routes' => $routes];
     })(),
     'trash' => ['trashed' => wp_trash_post($page()->ID) instanceof WP_Post],
     'trashed' => ['archives' => $archives(), 'archive' => $node('/biblioteca/')],

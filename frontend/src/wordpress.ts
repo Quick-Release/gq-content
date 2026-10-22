@@ -1017,16 +1017,29 @@ export function configuredWordPress<X>(
 
   // GETQUICK Content's Archives (cms/modules/archives.php): where each public
   // post type's archive is, the Page assigned to it or its own. With them,
-  // the post types and taxonomies WPGraphQL shows, so a collection whose
-  // type or taxonomy it doesn't fails here, by name, rather than storing
-  // items without their terms.
+  // the post types and taxonomies WPGraphQL shows, each type's GraphQL name
+  // and the taxonomies connected to it, so a collection declared with a type
+  // or taxonomy it doesn't show, or a GraphQL type or taxonomy that isn't
+  // that post type's, fails here, by name, rather than failing every entry
+  // read (one query on a Site with collections) or storing items without
+  // their terms.
   const names = z.object({ nodes: z.array(z.object({ name: z.string() })) }).nullable();
   const archivesData = z.object({
     getquickArchives: z
       .array(z.object({ postType: z.string(), uri: z.string().nullable() }))
       .nullable()
       .optional(),
-    contentTypes: names,
+    contentTypes: z
+      .object({
+        nodes: z.array(
+          z.object({
+            name: z.string(),
+            graphqlSingleName: z.string().nullable().optional(),
+            connectedTaxonomies: names.optional(),
+          }),
+        ),
+      })
+      .nullable(),
     taxonomies: names,
   });
   const archivesQueryText = (archives: boolean) => /* GraphQL */ `
@@ -1042,6 +1055,12 @@ export function configuredWordPress<X>(
       contentTypes(first: 100) {
         nodes {
           name
+          graphqlSingleName
+          connectedTaxonomies(first: 100) {
+            nodes {
+              name
+            }
+          }
         }
       }
       taxonomies(first: 100) {
@@ -1075,9 +1094,9 @@ export function configuredWordPress<X>(
         );
         data = await query(archivesData, archivesQueryText(false));
       }
-      const shown = (list: z.infer<typeof names>) =>
+      const shown = (list: z.infer<typeof names> | undefined) =>
         new Set((list?.nodes ?? []).map(({ name }) => name));
-      const postTypes = shown(data.contentTypes);
+      const postTypes = new Map((data.contentTypes?.nodes ?? []).map((type) => [type.name, type]));
       const taxonomies = shown(data.taxonomies);
       const hidden = collections.flatMap(([name, collection]) => [
         ...(postTypes.has(collection.postType)
@@ -1093,6 +1112,29 @@ export function configuredWordPress<X>(
           message: `WPGraphQL doesn't show ${hidden.join(", ")} (show_in_graphql)`,
         });
       }
+      const mismatched = collections.flatMap(([name, collection]) => {
+        const type = postTypes.get(collection.postType)!;
+        const typeName = type.graphqlSingleName ? graphqlTypeName(type.graphqlSingleName) : null;
+        const connected = shown(type.connectedTaxonomies);
+        return [
+          ...(typeName === null || typeName === collection.graphqlType
+            ? []
+            : [
+                `${name}'s graphqlType ${collection.graphqlType} isn't post type ${collection.postType}'s GraphQL type, ${typeName}`,
+              ]),
+          ...(type.connectedTaxonomies === undefined
+            ? []
+            : (collection.taxonomies ?? [])
+                .filter((taxonomy) => !connected.has(taxonomy))
+                .map(
+                  (taxonomy) =>
+                    `${name}'s taxonomy ${taxonomy} isn't connected to post type ${collection.postType}`,
+                )),
+        ];
+      });
+      if (mismatched.length > 0) {
+        throw new CmsFailureError({ reason: "schema", message: mismatched.join("; ") });
+      }
       const stored = new Set(collections.map(([, { postType }]) => postType));
       return {
         kind: "found",
@@ -1103,6 +1145,20 @@ export function configuredWordPress<X>(
         ),
       };
     });
+  }
+
+  /**
+   * The GraphQL type WPGraphQL names after a post type's graphql_single_name
+   * (WPGraphQL's Utils::format_type_name): each word, split at `_`, `-` or a
+   * space, capitalised and joined.
+   */
+  function graphqlTypeName(singleName: string) {
+    const capital = (word: string) => word.charAt(0).toUpperCase() + word.slice(1);
+    return singleName
+      .replace(/[^a-zA-Z0-9 -]/g, "_")
+      .split(/[_ -]/)
+      .map(capital)
+      .join("");
   }
 
   /** The URI of every published page and post. */

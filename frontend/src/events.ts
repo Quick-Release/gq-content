@@ -565,7 +565,9 @@ export function configuredEvents<X>(
       siteOrigin,
       language,
     );
-    const failure = sharedOutcomes(parts).find((outcome) => outcome.outcome === "kept");
+    const failure = [...sharedOutcomes(parts), ...Object.values(parts.entries ?? {})].find(
+      (outcome) => outcome.outcome === "kept",
+    );
     await store.finishEvent(
       recorded,
       failure?.outcome === "kept"
