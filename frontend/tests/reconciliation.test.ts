@@ -499,6 +499,11 @@ test.each(["check", "reconcile"])(
   },
 );
 
+/** The settled check's clock margin (reconciliation.ts's SETTLED_CLOCK_MARGIN_MS), and a little more. */
+const pastMargin = () => vi.setSystemTime(Date.now() + 6 * 60000);
+const readUris = (fetch: ReturnType<typeof wordpress>) =>
+  queries(fetch, "EntryByUri").map(([, init]) => JSON.parse(init.body as string).variables.uri);
+
 test("listed routes stored missing and unmodified since settle instead of filling every run", async () => {
   entries.clear();
   // WordPress lists more entries than one run reads, and reads each as missing
@@ -506,7 +511,7 @@ test("listed routes stored missing and unmodified since settle instead of fillin
   const missing = new Map(
     Array.from({ length: 20 }, (_, n) => [
       `/clash-${String(n).padStart(2, "0")}/`,
-      { id: `clash-${n}`, modified: Date.now() - 60000 },
+      { id: `clash-${n}`, modified: Date.now() - 60 * 60000 },
     ]),
   );
   const routes: Handler = () =>
@@ -523,51 +528,180 @@ test("listed routes stored missing and unmodified since settle instead of fillin
     store: { entries: { missing: 20 } },
   });
 
+  // Settled: they aren't pending, and only a few are re-read in turn, oldest first.
   let fetch = wordpress({ routes });
-  expect((await event("reconcile")).body).toMatchObject({
-    status: "reconciled",
-    pending: 0,
-    entries: {},
-  });
-  expect(queries(fetch, "EntryByUri")).toHaveLength(0);
+  let run = await event("reconcile");
+  expect(run.body).toMatchObject({ status: "reconciled", pending: 0, changed: 0 });
+  expect(Object.values(run.body.entries)).toEqual([
+    { change: "verified", outcome: "refreshed" },
+    { change: "verified", outcome: "refreshed" },
+  ]);
+  expect(readUris(fetch)).toHaveLength(2);
 
-  // A modification WordPress makes after the last read is read again.
+  // A modification WordPress makes after the last read is read again, as a change.
   tick();
   missing.get("/clash-07/")!.modified = Date.now();
   tick();
   fetch = wordpress({ routes });
-  const run = await event("reconcile");
+  run = await event("reconcile");
   expect(run.body).toMatchObject({ status: "reconciled", pending: 0 });
-  expect(Object.keys(run.body.entries)).toEqual(["/clash-07/"]);
+  expect(run.body.entries["/clash-07/"]).toMatchObject({ change: "changed" });
   expect(
-    queries(fetch, "EntryByUri").map(([, init]) => JSON.parse(init.body as string).variables.uri),
-  ).toEqual(["/clash-07/"]);
+    Object.entries(run.body.entries)
+      .filter(([route]) => route !== "/clash-07/")
+      .map(([, outcome]) => (outcome as { change: string }).change),
+  ).toEqual(["verified", "verified"]);
+  expect(readUris(fetch)).toContain("/clash-07/");
 });
 
 test("a missing route modified since is read again until a read succeeds", async () => {
   entries.clear();
-  const modified = Date.now() - 60000;
   const routes: Handler = () =>
-    listing({ uri: "/clash/", id: "clash", modifiedGmt: gmt(modified) });
+    listing({ uri: "/clash/", id: "clash", modifiedGmt: gmt(Date.now() - 60 * 60000) });
   wordpress({ routes });
   expect((await event("reconcile")).body.status).toBe("reconciled");
-  tick();
 
   // WordPress modifies it, and the read after that fails.
-  tick();
-  const modifiedAgain = Date.now() - 1000;
+  pastMargin();
+  const modifiedAgain = Date.now();
   const later: Handler = () =>
     listing({ uri: "/clash/", id: "clash", modifiedGmt: gmt(modifiedAgain) });
+  pastMargin();
   wordpress({ routes: later, entry: () => ({ ok: false, status: 502 }) });
   expect((await event("reconcile")).body).toMatchObject({
     status: "failed",
     entries: { "/clash/": { outcome: "kept" } },
   });
-  tick();
+  // Long after the failed attempt (which a check by attempt time would take as
+  // settled), the read that stored it still started before the modification.
+  pastMargin();
   const fetch = wordpress({ routes: later });
   expect((await event("reconcile")).body).toMatchObject({
     status: "reconciled",
-    entries: { "/clash/": { outcome: "refreshed" } },
+    entries: { "/clash/": { change: "changed", outcome: "refreshed" } },
   });
-  expect(queries(fetch, "EntryByUri").length).toBeGreaterThan(0);
+  expect(readUris(fetch)).toContain("/clash/");
+});
+
+test("a missing route whose entry WordPress lists without a modification time stays a change", async () => {
+  entries.clear();
+  const routes: Handler = () => listing({ uri: "/clash/", id: "clash", modifiedGmt: null });
+  wordpress({ routes });
+  expect((await event("reconcile")).body.entries).toMatchObject({ "/clash/": { change: "new" } });
+  for (let n = 0; n < 2; n++) {
+    pastMargin();
+    const fetch = wordpress({ routes });
+    expect((await event("reconcile")).body.entries).toMatchObject({
+      "/clash/": { change: "changed" },
+    });
+    expect(readUris(fetch)).toEqual(["/clash/"]);
+  }
+});
+
+test("a missing route whose entry is stored published at another route stays a move", async () => {
+  entries.clear();
+  entries.set("/old/", {
+    id: "moving",
+    content: "<p>Moving</p>",
+    modified: Date.now() - 60 * 60000,
+  });
+  wordpress();
+  expect((await event("reconcile")).body.entries).toMatchObject({ "/old/": { change: "new" } });
+
+  // WordPress lists it at /new/, which reads as missing; /old/ still reads it.
+  const routes: Handler = () =>
+    listing({ uri: "/new/", id: "moving", modifiedGmt: gmt(entries.get("/old/")!.modified) });
+  for (let n = 0; n < 2; n++) {
+    pastMargin();
+    const fetch = wordpress({ routes });
+    const run = await event("reconcile");
+    expect(run.body.entries).toMatchObject({ "/new/": { change: "moved" } });
+    expect(readUris(fetch)).toEqual(expect.arrayContaining(["/new/", "/old/"]));
+  }
+  expect((await event("check")).body).toMatchObject({
+    store: { entries: { missing: 1 } },
+  });
+});
+
+test("an unmodified route settled missing is found once its address is freed", async () => {
+  entries.clear();
+  const old = Date.now() - 60 * 60000;
+  for (let n = 0; n < 5; n++) {
+    entries.set(`/page-${n}/`, { id: `page-${n}`, content: "<p>Page</p>", modified: old });
+  }
+  const routes: Handler = () =>
+    listing(
+      ...[...entries, ["/biblioteca/", { id: "biblioteca", modified: old }] as const].map(
+        ([uri, e]) => ({ uri, id: e.id, modifiedGmt: gmt(e.modified) }),
+      ),
+    );
+  // An archive claims /biblioteca/: its Page reads as missing.
+  wordpress({ routes });
+  await event("reconcile");
+  expect((await api.publishedEntry("/biblioteca/")).kind).toBe("missing");
+  pastMargin();
+  wordpress({ routes });
+  expect((await event("reconcile")).body).toMatchObject({ status: "reconciled", pending: 0 });
+
+  // The archive gives up its address without the Page being modified.
+  const page = { id: "biblioteca", content: "<p>Library</p>", modified: old };
+  const freed: Handler = (variables) =>
+    variables.uri === "/biblioteca/"
+      ? data({
+          pageBy: {
+            id: page.id,
+            title: "Library",
+            content: page.content,
+            uri: "/biblioteca/",
+            modifiedGmt: gmt(page.modified),
+            status: "publish",
+            isRestricted: false,
+            featuredImage: null,
+            language: { slug: "pt" },
+            translations: [],
+          },
+          postBy: null,
+          designTokens: { colors: [], spacingSizes: [] },
+        })
+      : handlers.entry(variables);
+  // Six stored entries, two re-read per run: every one is re-read within three runs.
+  const changes: string[] = [];
+  for (let n = 0; n < 4 && (await api.publishedEntry("/biblioteca/")).kind !== "found"; n++) {
+    tick();
+    wordpress({ routes, entry: freed });
+    const run = await event("reconcile");
+    expect(run.body).toMatchObject({ status: "reconciled", pending: 0 });
+    if (run.body.entries["/biblioteca/"]) changes.push(run.body.entries["/biblioteca/"].change);
+  }
+  expect(changes).toEqual(["verified"]);
+  expect(await content("/biblioteca/")).toContain("Library");
+});
+
+test("a missing route modified within the clock margin of its read isn't settled", async () => {
+  entries.clear();
+  // The read starts at 09:00:00.400 on the Frontend's clock.
+  vi.setSystemTime(new Date("2026-10-02T09:00:00.400Z"));
+  let modified = Date.now() - 60 * 60000;
+  const routes: Handler = () =>
+    listing({ uri: "/clash/", id: "clash", modifiedGmt: gmt(modified) });
+  wordpress({ routes });
+  await event("reconcile");
+
+  // WordPress modifies it at .900, which it lists to the second (09:00:00).
+  modified = new Date("2026-10-02T09:00:00.900Z").getTime();
+  tick();
+  let fetch = wordpress({ routes });
+  expect((await event("reconcile")).body.entries).toMatchObject({
+    "/clash/": { change: "changed" },
+  });
+  expect(readUris(fetch)).toEqual(["/clash/"]);
+
+  // A read that started more than the margin after the modification settles it.
+  pastMargin();
+  wordpress({ routes });
+  await event("reconcile");
+  tick();
+  fetch = wordpress({ routes });
+  const run = await event("reconcile");
+  expect(run.body.entries["/clash/"]?.change ?? "settled").not.toBe("changed");
 });
