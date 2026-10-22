@@ -19,6 +19,7 @@ import type {
 import { languageSubject, type SiteLanguage } from "./site-language";
 import { cmsTime, uriPath, menuItemHref } from "./formatting";
 import { hasVideoHero, parseWordPressBlocks, renderWordPressBlocks } from "./wp-block-renderer";
+import { parseLegalLanguage } from "./consent/legal";
 
 export interface WordPressClient {
   getHomeContent(this: void, language?: SiteLanguage): Promise<Types.Delivery<Types.HomeContent>>;
@@ -147,6 +148,39 @@ export function configuredWordPress(
     generalSettings: z.object({ siteIcon: imageEdge, siteLogo: imageEdge }),
     menuItems: z.object({ nodes: z.array(menuItem) }),
   });
+
+  // gq-config's consent settings (LEGAL-1's Contract in one language, and the
+  // GA4 toggle), read with the chrome only when a Site opts in to consent.
+  const consentSettingsData = z.object({
+    getquickLegal: z.unknown(),
+    googleAnalytics: z
+      .object({ enabled: z.boolean(), measurementId: z.string().nullable() })
+      .nullable(),
+  });
+  const consentSettingsQuery = /* GraphQL */ `
+    query ConsentSettings($language: String) {
+      getquickLegal(language: $language) {
+        schemaVersion
+        controller {
+          name
+          privacyEmail
+          dpoContact
+        }
+        roles {
+          role
+          url
+          title
+          revision
+          isFallback
+        }
+        missingRequired
+      }
+      googleAnalytics {
+        enabled
+        measurementId
+      }
+    }
+  `;
 
   type RawEntry = z.infer<typeof pageEntry> &
     Partial<z.infer<typeof postEntry>> &
@@ -739,6 +773,34 @@ export function configuredWordPress(
   }
 
   /**
+   * gq-config's consent settings in a language. A gq-config without them (its
+   * schema has no such field) provides none: the chrome is still read, with no
+   * Legal Contract and GA4 off. Any other failure fails the chrome read, so
+   * the stored chrome, legal links included, stays served.
+   */
+  async function consentSettings(
+    language: SiteLanguage,
+  ): Promise<z.infer<typeof consentSettingsData>> {
+    try {
+      return await query(consentSettingsData, consentSettingsQuery, {
+        language: multilingual ? language.slug : null,
+      });
+    } catch (error) {
+      if (
+        error instanceof CmsFailureError &&
+        error.failure.reason === "graphql" &&
+        /Cannot query field "(?:getquickLegal|googleAnalytics)"/.test(error.failure.message)
+      ) {
+        console.warn(
+          `WordPress: gq-config provides no consent settings (${error.failure.message}); the chrome has no Legal Contract and GA4 is off`,
+        );
+        return { getquickLegal: null, googleAnalytics: null };
+      }
+      throw error;
+    }
+  }
+
+  /**
    * The menu, logo and icon every page in a language shares: the logo and icon
    * are the site's, the menu the one at the location in that language. A site
    * without them is found with an empty menu and no images; a failed read is
@@ -754,9 +816,12 @@ export function configuredWordPress(
     return deliver(
       languageSubject(language, "site chrome"),
       async (): Promise<Found<SiteChrome>> => {
-        const data = language.isDefault
-          ? await query(siteChromeData, siteChromeQuery, { location })
-          : await query(siteChromeData, languageChromeQuery, { location, language: language.code });
+        const [data, consent] = await Promise.all([
+          language.isDefault
+            ? query(siteChromeData, siteChromeQuery, { location })
+            : query(siteChromeData, languageChromeQuery, { location, language: language.code }),
+          config.consent?.cmsSettings ? consentSettings(language) : null,
+        ]);
         const origins = [
           new URL(config.graphqlEndpoint).origin,
           ...(siteOrigin ? [siteOrigin] : []),
@@ -768,6 +833,12 @@ export function configuredWordPress(
             menuItems: buildMenuTree(data.menuItems.nodes, origins),
             siteIcon: normalizeImage(data.generalSettings.siteIcon),
             siteLogo: normalizeImage(data.generalSettings.siteLogo),
+            ...(consent
+              ? {
+                  legal: parseLegalLanguage(consent.getquickLegal),
+                  analytics: consent.googleAnalytics ?? { enabled: false, measurementId: null },
+                }
+              : {}),
           },
         };
       },

@@ -31,6 +31,10 @@ and the public consumer remain credential-free. See
 [the compatibility workspace](compatibility/README.md) for installation,
 scoped registry access and `vp run design-fixtures`.
 
+The [consent foundation](docs/consent.md) (CONSENT-1/LEGAL-1, gq-platform ADR 0008) ships as isolated `@getquick/content/consent*` exports usable by commerce
+without the plugin or content runtime, with `legal`/`analytics` settings events
+on the CMS side.
+
 [Paired release operations](docs/releasing.md) describe building one retained
 candidate, validating its exact bytes, and safely resuming publication. Publication
 requires exact-revision CI proofs and owner-provided registry enrollment/access;

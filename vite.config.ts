@@ -5,6 +5,12 @@ export default defineConfig({
       index: "frontend/src/index.ts",
       server: "frontend/src/server.ts",
       migrations: "frontend/src/migrations.ts",
+      consent: "frontend/src/consent/index.ts",
+      "consent-client": "frontend/src/consent/client.ts",
+      "consent-server": "frontend/src/consent/server.ts",
+      "consent-migrations": "frontend/src/consent/migrations.ts",
+      "consent-astro": "frontend/src/consent/astro.ts",
+      "consent-testing": "frontend/src/consent/testing.ts",
     },
     platform: "neutral",
     deps: { neverBundle: ["node:url"] },
@@ -58,6 +64,21 @@ export default defineConfig({
         dependsOn: ["compile"],
         cache: false,
       },
+      consent: {
+        command: "node scripts/consent-acceptance.mjs",
+        dependsOn: ["compile"],
+        cache: false,
+      },
+      "consent-worker": {
+        command: "node scripts/consent-worker-consumer.mjs",
+        dependsOn: ["compile"],
+        cache: false,
+      },
+      "consent-tanstack": {
+        command: "node scripts/consent-tanstack-consumer.mjs",
+        dependsOn: ["compile"],
+        cache: false,
+      },
       reconciliation: {
         command: "node scripts/alchemy-consumer.mjs --reconciliation",
         dependsOn: ["multilingual"],
@@ -65,7 +86,16 @@ export default defineConfig({
       },
       verification: {
         command: "vp exec tsc --noEmit",
-        dependsOn: ["unit", "quality", "installed", "alchemy", "reconciliation"],
+        dependsOn: [
+          "unit",
+          "quality",
+          "installed",
+          "alchemy",
+          "reconciliation",
+          "consent",
+          "consent-worker",
+          "consent-tanstack",
+        ],
         cache: false,
       },
     },
@@ -75,6 +105,10 @@ export default defineConfig({
     ignorePatterns: [
       "scripts/fixtures/alchemy-p1/worker.ts",
       "scripts/fixtures/alchemy-p1/reconciliation-worker.ts",
+      // Typechecked against the installed package inside their own consumers.
+      "scripts/fixtures/consent-astro/",
+      "scripts/fixtures/consent-tanstack/",
+      "scripts/fixtures/consent-worker/",
     ],
     options: { typeAware: true, typeCheck: true },
   },

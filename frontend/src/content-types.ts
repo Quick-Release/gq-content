@@ -1,3 +1,6 @@
+import type { LegalLanguage } from "./consent/legal";
+import type { AnalyticsSettings } from "./consent/configuration";
+
 export interface WordPressImage {
   sourceUrl: string;
   altText: string;
@@ -71,6 +74,13 @@ export interface SiteChrome {
   menuItems: WordPressMenuItem[];
   siteIcon: WordPressImage | null;
   siteLogo: WordPressImage | null;
+  /**
+   * This language's LEGAL-1 Contract from gq-config, on a Site with consent
+   * CMS settings enabled (null when gq-config has none for it).
+   */
+  legal?: LegalLanguage | null;
+  /** gq-config's GA4 settings, on a Site with consent CMS settings enabled. */
+  analytics?: AnalyticsSettings;
 }
 
 /**

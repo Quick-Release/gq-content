@@ -87,6 +87,12 @@ Inspect/retry the same candidate to resolve that uncertainty. Only live matching
 npm **and** Composer archives yield `status: complete`, `handoff: true`, exit 0.
 No local journal or cached proof can mark a registry complete.
 
+Validation also runs the consent proofs against the selected bytes: the Astro
+fixture in Chromium (`consent-astro`), the workerd/local D1 Worker consumer
+(`consent-worker`) and the TanStack Start consumer (`consent-tanstack`). They
+install public npm dependencies from pinned lockfiles and Playwright's
+Chromium; CI installs its system dependencies first.
+
 The repository's `vp test` discovers Frontend tests and the eight release cases in
 `scripts/release/*.test.mjs`. Without `GQ_RELEASE_BUNDLE`, the five publication
 boundary cases run without credentials or retained artifacts; three real-pair

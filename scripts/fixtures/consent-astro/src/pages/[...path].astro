@@ -1,0 +1,23 @@
+---
+// Published homes and entries, from the publication store only.
+import Page from "../layouts/Page.astro";
+import { content } from "../lib/site";
+
+const route = `/${Astro.params.path ?? ""}${Astro.params.path ? "/" : ""}`;
+const language = content.routeLanguage(route);
+const delivery = content.isLanguageHome(route)
+  ? await content.publishedHome(Astro.url.origin, language)
+  : await content.publishedEntry(route, Astro.url.origin);
+if (delivery.kind === "moved") return Astro.redirect(delivery.uri, 301);
+if (delivery.kind === "unavailable") {
+  Astro.response.status = 503;
+}
+if (delivery.kind === "missing") Astro.response.status = 404;
+const chrome = delivery.kind === "found" ? delivery.content.chrome : delivery.kind === "missing" ? delivery.chrome : null;
+const title = delivery.kind !== "found" ? "Not found" : "home" in delivery.content ? delivery.content.home.page.title : delivery.content.entry.title;
+const html = delivery.kind !== "found" ? "<p>Not found</p>" : "home" in delivery.content ? delivery.content.home.page.content : delivery.content.entry.content;
+---
+<Page lang={language.lang} title={title} chrome={chrome} configuration={content.consentConfiguration(chrome)!}>
+  <h1 data-route={route}>{title}</h1>
+  <article set:html={html} />
+</Page>

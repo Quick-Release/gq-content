@@ -17,6 +17,8 @@ import {
 import { routeOf } from "./formatting";
 import type { ContentConfig } from "./server";
 import type { WordPressClient } from "./wordpress";
+import { publishedHtml, type PublishedHtmlTransform } from "./published-html";
+import { bearerMatches } from "./bearer";
 import type {
   Delivery,
   CmsFailureReason,
@@ -41,8 +43,10 @@ export function configuredDelivery(
   config: ContentConfig,
   languages: SiteLanguage[],
   wordpress: WordPressClient,
+  transformHtml?: PublishedHtmlTransform,
 ) {
   const defaultLanguage = languages[0]!;
+  const html = publishedHtml(languages, transformHtml);
   const multilingual = languages.length > 1;
   const routeLanguage = (route: string) => languageAt(route, languages);
   const isLanguageHome = (route: string) => homeAt(route, languages);
@@ -113,7 +117,32 @@ export function configuredDelivery(
     spacingSizes,
     colors,
   });
-  const siteChrome = z.object({ menuItems: z.array(menuItem), siteIcon: image, siteLogo: image });
+  const legalRole = z.object({
+    role: z.string(),
+    url: z.string(),
+    title: z.string().nullable(),
+    revision: z.string().nullable(),
+    isFallback: z.boolean(),
+  });
+  const legal = z
+    .object({
+      controller: z.object({
+        name: z.string().nullable(),
+        privacyEmail: z.string().nullable(),
+        dpoContact: z.string().nullable(),
+      }),
+      roles: z.array(legalRole),
+      missingRequired: z.array(z.string()),
+    })
+    .nullable();
+  const siteChrome = z.object({
+    menuItems: z.array(menuItem),
+    siteIcon: image,
+    siteLogo: image,
+    // Present once a Site with consent CMS settings has refreshed its chrome.
+    legal: legal.optional(),
+    analytics: z.object({ enabled: z.boolean(), measurementId: z.string().nullable() }).optional(),
+  });
   const designPresets = z.object({ spacingSizes, colors });
 
   const parseWith = (schema: z.ZodType) => (body: unknown) => {
@@ -1156,17 +1185,7 @@ export function configuredDelivery(
   }
 
   /** Compares a request's bearer token with the bound one, in constant time. */
-  async function isAuthorized(request: Request, token: string) {
-    const presented = /^Bearer (.+)$/.exec(request.headers.get("Authorization") ?? "")?.[1] ?? "";
-    const digest = async (value: string) =>
-      new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value)));
-    const [expected, actual] = await Promise.all([digest(token), digest(presented)]);
-    let difference = presented ? 0 : 1;
-    for (let index = 0; index < expected.length; index += 1) {
-      difference |= expected[index]! ^ actual[index]!;
-    }
-    return difference === 0;
-  }
+  const isAuthorized = bearerMatches;
 
   const safely = async <T>(read: () => Promise<T>, fallback: () => T): Promise<T> => {
     try {
@@ -1189,12 +1208,13 @@ export function configuredDelivery(
     isAuthorized,
     publishedHome: (siteOrigin?: string, language?: SiteLanguage): Promise<HomeDelivery> =>
       safely(
-        () => publishedHome(siteOrigin, language),
+        async () => html.home(await publishedHome(siteOrigin, language), language),
         () => notServed("the front page", "store", "The publication store couldn't be loaded"),
       ),
     publishedEntry: (path: string, siteOrigin?: string): Promise<EntryDelivery> =>
       safely(
-        () => publishedEntry(path, siteOrigin),
+        async () =>
+          html.entry(await publishedEntry(path, siteOrigin), routeLanguage(routeOf(path))),
         () => notServed("the entry", "store", "The publication store couldn't be loaded"),
       ),
     pageChrome: (siteOrigin?: string): Promise<SiteChrome | null> =>
