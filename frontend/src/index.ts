@@ -7,4 +7,4 @@ export * from "./formatting";
 export * from "./bindings";
 export * from "./page-types";
 export type { WordPressClient } from "./wordpress";
-export type { ContentConfig, ContentRuntime } from "./server";
+export type { ContentConfig, ContentConsentConfig, ContentRuntime } from "./server";

@@ -19,6 +19,7 @@ import type {
 import { languageSubject, type SiteLanguage } from "./site-language";
 import { cmsTime, uriPath, menuItemHref } from "./formatting";
 import { hasVideoHero, parseWordPressBlocks, renderWordPressBlocks } from "./wp-block-renderer";
+import { parseLegalLanguage } from "./consent/legal";
 
 export interface WordPressClient {
   getHomeContent(this: void, language?: SiteLanguage): Promise<Types.Delivery<Types.HomeContent>>;
@@ -147,6 +148,37 @@ export function configuredWordPress(
     generalSettings: z.object({ siteIcon: imageEdge, siteLogo: imageEdge }),
     menuItems: z.object({ nodes: z.array(menuItem) }),
   });
+
+  // gq-config's consent settings (LEGAL-1's Contract in one language, and the
+  // GA4 toggle), read with the chrome only when a Site opts in to consent.
+  const consentSettingsData = z.object({
+    getquickLegal: z.unknown(),
+    googleAnalytics: z.object({ enabled: z.boolean(), measurementId: z.string().nullable() }),
+  });
+  const consentSettingsQuery = /* GraphQL */ `
+    query ConsentSettings($language: String) {
+      getquickLegal(language: $language) {
+        schemaVersion
+        controller {
+          name
+          privacyEmail
+          dpoContact
+        }
+        roles {
+          role
+          url
+          title
+          revision
+          isFallback
+        }
+        missingRequired
+      }
+      googleAnalytics {
+        enabled
+        measurementId
+      }
+    }
+  `;
 
   type RawEntry = z.infer<typeof pageEntry> &
     Partial<z.infer<typeof postEntry>> &
@@ -754,9 +786,16 @@ export function configuredWordPress(
     return deliver(
       languageSubject(language, "site chrome"),
       async (): Promise<Found<SiteChrome>> => {
-        const data = language.isDefault
-          ? await query(siteChromeData, siteChromeQuery, { location })
-          : await query(siteChromeData, languageChromeQuery, { location, language: language.code });
+        const [data, consent] = await Promise.all([
+          language.isDefault
+            ? query(siteChromeData, siteChromeQuery, { location })
+            : query(siteChromeData, languageChromeQuery, { location, language: language.code }),
+          config.consent?.cmsSettings
+            ? query(consentSettingsData, consentSettingsQuery, {
+                language: multilingual ? language.slug : null,
+              })
+            : null,
+        ]);
         const origins = [
           new URL(config.graphqlEndpoint).origin,
           ...(siteOrigin ? [siteOrigin] : []),
@@ -768,6 +807,12 @@ export function configuredWordPress(
             menuItems: buildMenuTree(data.menuItems.nodes, origins),
             siteIcon: normalizeImage(data.generalSettings.siteIcon),
             siteLogo: normalizeImage(data.generalSettings.siteLogo),
+            ...(consent
+              ? {
+                  legal: parseLegalLanguage(consent.getquickLegal),
+                  analytics: consent.googleAnalytics,
+                }
+              : {}),
           },
         };
       },

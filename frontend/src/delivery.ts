@@ -116,7 +116,32 @@ export function configuredDelivery(
     spacingSizes,
     colors,
   });
-  const siteChrome = z.object({ menuItems: z.array(menuItem), siteIcon: image, siteLogo: image });
+  const legalRole = z.object({
+    role: z.string(),
+    url: z.string(),
+    title: z.string().nullable(),
+    revision: z.string().nullable(),
+    isFallback: z.boolean(),
+  });
+  const legal = z
+    .object({
+      controller: z.object({
+        name: z.string().nullable(),
+        privacyEmail: z.string().nullable(),
+        dpoContact: z.string().nullable(),
+      }),
+      roles: z.array(legalRole),
+      missingRequired: z.array(z.string()),
+    })
+    .nullable();
+  const siteChrome = z.object({
+    menuItems: z.array(menuItem),
+    siteIcon: image,
+    siteLogo: image,
+    // Present once a Site with consent CMS settings has refreshed its chrome.
+    legal: legal.optional(),
+    analytics: z.object({ enabled: z.boolean(), measurementId: z.string().nullable() }).optional(),
+  });
   const designPresets = z.object({ spacingSizes, colors });
 
   const parseWith = (schema: z.ZodType) => (body: unknown) => {

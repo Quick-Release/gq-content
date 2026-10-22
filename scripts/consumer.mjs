@@ -39,7 +39,7 @@ try {
   for (const file of listing) {
     assert.match(
       file,
-      /^package\/((?:package\.json|README\.md)|dist\/[\w-]+\.(js|d\.ts)|migrations\/000[1-5]_[a-z_]+\.sql)$/,
+      /^package\/((?:package\.json|README\.md)|dist\/[\w-]+\.(js|d\.ts)|migrations\/000[1-5]_[a-z_]+\.sql|consent-migrations\/000[1-9]_[a-z_]+\.sql)$/,
     );
   }
   if (process.argv.includes("--design-fixtures")) {
@@ -70,13 +70,25 @@ try {
   const installed = join(consumer, "node_modules/@getquick/content");
   const manifest = JSON.parse(readFileSync(join(installed, "package.json"), "utf8"));
   assert.deepEqual(manifest.dependencies, { zod: "3.25.76" });
-  assert.deepEqual(Object.keys(manifest.exports), [".", "./server", "./migrations"]);
+  assert.deepEqual(Object.keys(manifest.exports), [
+    ".",
+    "./server",
+    "./migrations",
+    "./consent",
+    "./consent/client",
+    "./consent/server",
+    "./consent/migrations",
+    "./consent/astro",
+    "./consent/testing",
+  ]);
   for (const file of readdirSync(join(installed, "dist"))) {
     const text = readFileSync(join(installed, "dist", file), "utf8");
-    if (!file.startsWith("migrations."))
+    // No framework, Cloudflare, Blueprint or Node import outside the migration entries.
+    // ("astro:page-load" is a DOM event name the consent client listens for.)
+    if (!/^(consent-)?migrations\./.test(file))
       assert.doesNotMatch(
         text,
-        /astro|cloudflare:|gq\.ops|import\.meta\.env|\{\{project\}\}|@quick-release|["']node:|migrationsDirectory/,
+        /(?:from|import)\s*\(?\s*["'](?:astro|@astrojs\/|react)|cloudflare:|gq\.ops|import\.meta\.env|\{\{project\}\}|@quick-release|["']node:|migrationsDirectory/,
       );
     if (file.endsWith(".d.ts")) assert.doesNotMatch(text, /from ["']zod|z\.infer|ZodType/);
   }

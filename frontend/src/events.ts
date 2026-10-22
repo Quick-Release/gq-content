@@ -165,6 +165,9 @@ export function configuredEvents(
     logo: ["chrome"],
     identity: ["home", "chrome"],
     design: ["design"],
+    // gq-config's Legal Contract and GA4 settings, in every language's chrome.
+    legal: ["chrome"],
+    analytics: ["chrome"],
   } as const satisfies Record<string, SharedPart[]>;
 
   /**
