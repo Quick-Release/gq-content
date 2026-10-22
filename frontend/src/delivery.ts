@@ -17,6 +17,7 @@ import {
 import { routeOf } from "./formatting";
 import type { ContentConfig } from "./server";
 import type { WordPressClient } from "./wordpress";
+import { publishedHtml, type PublishedHtmlTransform } from "./published-html";
 import type {
   Delivery,
   CmsFailureReason,
@@ -41,8 +42,10 @@ export function configuredDelivery(
   config: ContentConfig,
   languages: SiteLanguage[],
   wordpress: WordPressClient,
+  transformHtml?: PublishedHtmlTransform,
 ) {
   const defaultLanguage = languages[0]!;
+  const html = publishedHtml(languages, transformHtml);
   const multilingual = languages.length > 1;
   const routeLanguage = (route: string) => languageAt(route, languages);
   const isLanguageHome = (route: string) => homeAt(route, languages);
@@ -1189,12 +1192,13 @@ export function configuredDelivery(
     isAuthorized,
     publishedHome: (siteOrigin?: string, language?: SiteLanguage): Promise<HomeDelivery> =>
       safely(
-        () => publishedHome(siteOrigin, language),
+        async () => html.home(await publishedHome(siteOrigin, language), language),
         () => notServed("the front page", "store", "The publication store couldn't be loaded"),
       ),
     publishedEntry: (path: string, siteOrigin?: string): Promise<EntryDelivery> =>
       safely(
-        () => publishedEntry(path, siteOrigin),
+        async () =>
+          html.entry(await publishedEntry(path, siteOrigin), routeLanguage(routeOf(path))),
         () => notServed("the entry", "store", "The publication store couldn't be loaded"),
       ),
     pageChrome: (siteOrigin?: string): Promise<SiteChrome | null> =>
