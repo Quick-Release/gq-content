@@ -136,6 +136,14 @@ export function consentCookie(state: ConsentState, { secure = true } = {}): stri
   );
 }
 
+/** Whether the controller changed: both known and different (an unknown one isn't a change). */
+function otherController(state: ConsentState, configuration: ConsentConfiguration) {
+  return (
+    Boolean(state.controller && configuration.controller) &&
+    state.controller !== configuration.controller
+  );
+}
+
 /**
  * Why the visitor must decide now, or null: no decision (`first`), one older
  * than 6 months (`expired`), or a material change since (`material`): a new
@@ -151,7 +159,7 @@ export function promptReason(
   if (!state) return "first";
   if (now - state.decidedAt >= DECISION_VALIDITY_MS || state.decidedAt > now + 60_000)
     return "expired";
-  if (state.controller !== configuration.controller) return "material";
+  if (otherController(state, configuration)) return "material";
   const known = new Set(state.services);
   const knownCategories = new Set<string>(state.services.map((id) => SERVICE_CATALOG[id].category));
   for (const category of configuration.categories) {
@@ -180,7 +188,7 @@ export function serviceGranted(
   if (category === "necessary") return true;
   if (!state) return false;
   if (now - state.decidedAt >= DECISION_VALIDITY_MS || state.decidedAt > now + 60_000) return false;
-  if (state.controller !== configuration.controller) return false;
+  if (otherController(state, configuration)) return false;
   return state.decisions[category] && state.services.includes(id);
 }
 

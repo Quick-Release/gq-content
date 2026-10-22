@@ -299,3 +299,32 @@ test("without consent configured, bodies and chrome are delivered as before", as
   expect(entry.kind === "found" && "legal" in entry.content.chrome).toBe(false);
   expect(api.consentConfiguration(null)).toBeNull();
 });
+
+test("review: a gq-config without consent settings doesn't block chrome refreshes", async () => {
+  const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+  stubWordPress({
+    ...handlers,
+    consent: () => ({
+      ok: true,
+      json: async () => ({
+        errors: [{ message: 'Cannot query field "getquickLegal" on type "RootQuery".' }],
+      }),
+    }),
+  });
+  await refresh();
+  offline();
+  const home = await api.publishedHome();
+  expect(home.kind === "found" && home.content.chrome.menuItems.length).toBe(1);
+  expect(home.kind === "found" && home.content.chrome.legal).toBeNull();
+  expect(home.kind === "found" && home.content.chrome.analytics).toEqual({
+    enabled: false,
+    measurementId: null,
+  });
+  expect(warn).toHaveBeenCalled();
+  stubWordPress({
+    ...handlers,
+    consent: () => data({ getquickLegal: null, googleAnalytics: null }),
+  });
+  vi.setSystemTime(Date.now() + 1000);
+  expect((await deliver("analytics")).status).toBe(200);
+});

@@ -56,11 +56,13 @@ export function createContentRuntime(input: ContentConfig) {
   const consent = config.consent;
   // Embeds depend only on the declared services; GA4 never appears in HTML.
   const embedConfiguration = consent ? consentConfiguration({ services: consent.services }) : null;
-  const firstPartyHosts = [
-    new URL(config.cmsOrigin).hostname,
-    new URL(config.graphqlEndpoint).hostname,
-    ...(consent?.firstPartyHosts ?? []),
-  ];
+  const firstPartyHosts = consent
+    ? [
+        new URL(config.cmsOrigin).hostname,
+        new URL(config.graphqlEndpoint).hostname,
+        ...(consent.firstPartyHosts ?? []),
+      ]
+    : [];
   const delivery = configuredDelivery(
     config,
     languages,

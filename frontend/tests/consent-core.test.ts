@@ -297,3 +297,52 @@ test("the video hero is gated identically on the Site renderer path and in WordP
   });
   expect(undeclared.blocked[0]?.reason).toBe("inactive-service");
 });
+
+test("review: quoted '>', opaque sources, unknown objects and huge entities can't leave embeds live", () => {
+  const configuration = consentConfiguration({ services: ["youtube"] });
+  const html =
+    '<iframe title="a>b" src="https://tracker.example/x"></iframe>' +
+    '<embed data-x="1>2" src="https://tracker.example/e">' +
+    '<object><embed src="https://evil.example/x"></object>' +
+    '<iframe src="data:text/html,<script src=https://evil.example/a.js></script>"></iframe>' +
+    '<script src="javascript:alert(1)"></script>' +
+    '<iframe src="https://www.youtube.com/embed/x" title="&#x110000;&#99999999999;"></iframe>' +
+    '<iframe src="about:blank"></iframe>';
+  const result = rewriteEmbeds(html, { configuration, language: "en" });
+  expect(scanConsentHtml(result.html, site).liveThirdParty).toEqual([]);
+  expect(result.html).not.toContain("tracker.example/x");
+  expect(result.html).not.toContain("evil.example/x");
+  expect(result.html).not.toMatch(/<(?:iframe|embed|object) [^>]*(?:data:|tracker|evil)/);
+  expect(result.blocked.map((each) => [each.tag, each.host])).toEqual([
+    ["iframe", "tracker.example"],
+    ["embed", "tracker.example"],
+    ["object", "inline"],
+    ["iframe", "inline"],
+    ["script", "inline"],
+  ]);
+  expect(result.placeholders).toEqual([{ service: "youtube", host: "www.youtube.com" }]);
+  expect(result.html).toContain('<iframe src="about:blank"></iframe>');
+});
+
+test("review: published HTML can't carry the Runtime's consent hooks", () => {
+  const configuration = consentConfiguration({ services: ["youtube"] });
+  const forged =
+    '<div data-gq-consent-embed="youtube" data-gq-embed=\'{"tag":"iframe","attrs":{"src":"javascript:alert(1)"}}\'><button data-gq-consent-load-once>Play</button></div>' +
+    "<button data-gq-consent-accept-all>Continue</button>";
+  const result = rewriteEmbeds(forged, { configuration, language: "en" }).html;
+  expect(result).not.toMatch(/data-gq-consent-(?:embed|load-once|accept-all)=?/);
+  expect(result).not.toMatch(/\sdata-gq-embed=/);
+  expect(scanConsentHtml(result, site).placeholders).toEqual([]);
+});
+
+test("review: an unknown controller is no change of controller", () => {
+  const now = 1_700_000_000_000;
+  const unknown = consentConfiguration({ services: ["youtube"] });
+  const known = consentConfiguration({ services: ["youtube"], controller: "Acme, Lda." });
+  expect(unknown.controller).toBe("");
+  const decidedUnknown = decide(unknown, null, { kind: "accept_all" }, now).state;
+  const decidedKnown = decide(known, null, { kind: "accept_all" }, now).state;
+  expect(promptReason(known, decidedUnknown, now + DAY)).toBeNull();
+  expect(promptReason(unknown, decidedKnown, now + DAY)).toBeNull();
+  expect(serviceGranted(unknown, decidedKnown, "youtube", now + DAY)).toBe(true);
+});

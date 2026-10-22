@@ -317,3 +317,8 @@ test("behind an adapter the Origin may match the Host header instead of the requ
     201,
   );
 });
+
+test("review: a malformed consent ID is a 400, not a storage failure", async () => {
+  const consent = server();
+  expect((await consent.handle(get("/gq/consent/records/%E0%A4")))?.status).toBe(400);
+});

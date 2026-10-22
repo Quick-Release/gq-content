@@ -3,6 +3,7 @@
 // structural D1 and rate-limit bindings, no content runtime.
 import { OPTIONAL_CATEGORIES } from "./catalog";
 import { CONSENT_PATH } from "./paths";
+import { bearerMatches } from "../bearer";
 import {
   MAX_RECORD_BYTES,
   parseConsentRecordRequest,
@@ -112,15 +113,6 @@ function recordOf(row: Row): ConsentRecord {
 
 const json = (status: number, body: unknown, headers: Record<string, string> = {}) =>
   Response.json(body, { status, headers: { "Cache-Control": "no-store", ...headers } });
-
-/** Comparison whose time doesn't depend on where two strings differ. */
-function same(a: string, b: string): boolean {
-  const left = new TextEncoder().encode(a);
-  const right = new TextEncoder().encode(b);
-  let difference = left.length ^ right.length;
-  for (let i = 0; i < left.length; i++) difference |= left[i]! ^ (right[i] ?? 0);
-  return difference === 0;
-}
 
 /** A UTC day (YYYY-MM-DD) as its first instant, or null. */
 function day(value: string | null): number | null {
@@ -264,9 +256,7 @@ export function createConsentServer(config: ConsentServerConfig) {
           error: "Consent reads are not configured (CONSENT_DB, CONSENT_READ_TOKEN).",
         }),
       };
-    const header = request.headers.get("Authorization") ?? "";
-    const presented = header.startsWith("Bearer ") ? header.slice(7).trim() : "";
-    if (!presented || !same(presented, token))
+    if (!(await bearerMatches(request, token)))
       return {
         response: json(
           401,
@@ -304,7 +294,7 @@ export function createConsentServer(config: ConsentServerConfig) {
     const path = url.pathname.replace(/\/+$/, "");
     try {
       if (path.startsWith(`${CONSENT_PATH}/records/`)) {
-        const consentId = decodeURIComponent(path.slice(`${CONSENT_PATH}/records/`.length));
+        const consentId = path.slice(`${CONSENT_PATH}/records/`.length);
         if (!isConsentId(consentId)) return json(400, { error: "Not a consent ID." });
         const { results } = await db
           .prepare(`SELECT ${columns} FROM consent_records WHERE consent_id = ? ORDER BY id`)

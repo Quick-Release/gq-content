@@ -40,7 +40,7 @@ export interface ConsentConfiguration {
   categories: OptionalCategory[];
   /** GA4's measurement ID, when GA4 is active. */
   measurementId: string | null;
-  /** A short hash of the controller's name; a change is material. */
+  /** A short hash of the controller's name, empty when unknown; a change between known ones is material. */
   controller: string;
   /** The consent configuration version: categories, services, controller and copy revision. */
   version: string;
@@ -66,7 +66,10 @@ export function consentConfiguration(input: ConsentConfigurationInput = {}): Con
   const categories = OPTIONAL_CATEGORIES.filter((category) =>
     services.some((id) => SERVICE_CATALOG[id].category === category),
   );
-  const controller = sha256Hex(`controller:${input.controller?.trim() ?? ""}`).slice(0, 12);
+  // Empty while the Legal Contract hasn't named one: an unknown controller is
+  // no change of controller.
+  const name = input.controller?.trim() ?? "";
+  const controller = name ? sha256Hex(`controller:${name}`).slice(0, 12) : "";
   const version = sha256Hex(
     JSON.stringify({ categories, services, controller, copy: CONSENT_COPY_REVISION }),
   ).slice(0, 16);

@@ -18,6 +18,7 @@ import { routeOf } from "./formatting";
 import type { ContentConfig } from "./server";
 import type { WordPressClient } from "./wordpress";
 import { publishedHtml, type PublishedHtmlTransform } from "./published-html";
+import { bearerMatches } from "./bearer";
 import type {
   Delivery,
   CmsFailureReason,
@@ -1184,17 +1185,7 @@ export function configuredDelivery(
   }
 
   /** Compares a request's bearer token with the bound one, in constant time. */
-  async function isAuthorized(request: Request, token: string) {
-    const presented = /^Bearer (.+)$/.exec(request.headers.get("Authorization") ?? "")?.[1] ?? "";
-    const digest = async (value: string) =>
-      new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value)));
-    const [expected, actual] = await Promise.all([digest(token), digest(presented)]);
-    let difference = presented ? 0 : 1;
-    for (let index = 0; index < expected.length; index += 1) {
-      difference |= expected[index]! ^ actual[index]!;
-    }
-    return difference === 0;
-  }
+  const isAuthorized = bearerMatches;
 
   const safely = async <T>(read: () => Promise<T>, fallback: () => T): Promise<T> => {
     try {

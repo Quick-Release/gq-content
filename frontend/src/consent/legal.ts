@@ -1,3 +1,5 @@
+import { isLegalRoleName, isRecordToken } from "./records";
+
 /**
  * LEGAL-1's Legal Contract, as gq-config publishes it (fixed in the consent
  * execution record): per language, each assigned role's public URL, title and
@@ -92,16 +94,20 @@ export function parseLegalLanguage(value: unknown): LegalLanguage | null {
     },
     roles,
     missingRequired: (Array.isArray(raw.missingRequired) ? raw.missingRequired : []).filter(
-      (role): role is string => typeof role === "string" && /^[a-z_]{1,32}$/.test(role),
+      isLegalRoleName,
     ),
   };
 }
 
-/** The LEGAL-1 revisions in force on a page, recorded with each decision (CN-R7). */
+/**
+ * The LEGAL-1 revisions in force on a page, recorded with each decision
+ * (CN-R7). A revision the record schema can't hold is left out rather than
+ * making every record invalid.
+ */
 export function legalRevisions(legal: LegalLanguage | null | undefined): Record<string, string> {
   return Object.fromEntries(
     (legal?.roles ?? []).flatMap((role) =>
-      role.revision ? [[role.role, role.revision.slice(0, 64)]] : [],
+      isRecordToken(role.revision) ? [[role.role, role.revision]] : [],
     ),
   );
 }

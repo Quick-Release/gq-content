@@ -40,15 +40,28 @@ export interface RewrittenHtml {
 }
 
 const ATTRIBUTE = /([^\s"'<>/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g;
-const ELEMENT =
-  /<(iframe|object)\b([^>]*)>[\s\S]*?<\/\1\s*>|<(script)\b([^>]*)>([\s\S]*?)<\/script\s*>|<(iframe|embed)\b([^>]*?)\/?>/gi;
+// A tag's attributes, quoted values included, so a ">" inside one doesn't end the tag.
+const ATTRIBUTES = `((?:[^>"']|"[^"]*"|'[^']*')*)`;
+const ELEMENT = new RegExp(
+  `<(iframe|object)\\b${ATTRIBUTES}>[\\s\\S]*?<\\/\\1\\s*>|<(script)\\b${ATTRIBUTES}>([\\s\\S]*?)<\\/script\\s*>|<(iframe|embed)\\b${ATTRIBUTES}\\/?>`,
+  "gi",
+);
 const NON_EXECUTABLE =
   /^(?:application\/(?:ld\+)?json|text\/template|text\/x-template|importmap)$/i;
+// The Runtime's own placeholder hooks: published HTML may not carry them, so an
+// author can't place a button that grants consent or loads an arbitrary embed.
+const RUNTIME_HOOKS = /\bdata-gq-(consent-[a-z-]*|embed|decorative|loaded|once)\b/gi;
+
+function codePoint(value: number): string {
+  return Number.isInteger(value) && value >= 0 && value <= 0x10ffff
+    ? String.fromCodePoint(value)
+    : "\ufffd";
+}
 
 function decodeEntities(value: string): string {
   return value
-    .replace(/&#x([0-9a-f]+);/gi, (_, hex: string) => String.fromCodePoint(parseInt(hex, 16)))
-    .replace(/&#(\d+);/g, (_, decimal: string) => String.fromCodePoint(Number(decimal)))
+    .replace(/&#x([0-9a-f]{1,8});/gi, (_, hex: string) => codePoint(parseInt(hex, 16)))
+    .replace(/&#(\d{1,10});/g, (_, decimal: string) => codePoint(Number(decimal)))
     .replaceAll("&quot;", '"')
     .replaceAll("&#039;", "'")
     .replaceAll("&apos;", "'")
@@ -77,20 +90,28 @@ function attributesOf(source: string): Record<string, string> {
   return attributes;
 }
 
-/** The third-party URL a reference contacts, or null when it is the Site's own. */
-function thirdParty(reference: string, firstPartyHosts: readonly string[]): URL | null {
+/**
+ * What a reference contacts: the Site itself (relative, first-party host,
+ * about:blank), a third-party URL, or an opaque document (data:, javascript:,
+ * blob:…) whose own requests can't be known, treated as never loadable.
+ */
+function classify(
+  reference: string,
+  firstPartyHosts: readonly string[],
+): { kind: "first" } | { kind: "third"; url: URL } | { kind: "opaque" } {
   const value = reference.trim();
-  if (!value) return null;
+  if (!value || /^about:blank$/i.test(value)) return { kind: "first" };
   let url: URL;
   try {
     url = new URL(value, "https://first-party.invalid/");
   } catch {
-    return null;
+    return { kind: "opaque" };
   }
-  if (url.protocol !== "https:" && url.protocol !== "http:") return null;
-  if (url.hostname === "first-party.invalid") return null;
-  if (firstPartyHosts.some((host) => hostMatches(url.hostname, host.toLowerCase()))) return null;
-  return url;
+  if (url.protocol !== "https:" && url.protocol !== "http:") return { kind: "opaque" };
+  if (url.hostname === "first-party.invalid") return { kind: "first" };
+  if (firstPartyHosts.some((host) => hostMatches(url.hostname, host.toLowerCase())))
+    return { kind: "first" };
+  return { kind: "third", url };
 }
 
 export interface PlaceholderInput {
@@ -172,54 +193,62 @@ export function rewriteEmbeds(html: string, context: EmbedContext): RewrittenHtm
     blocked.push({ tag, host, service, reason });
     return blockedPlaceholder(host, tag, context.language);
   };
-  const rewritten = html.replace(
-    ELEMENT,
-    (
-      whole,
-      pairedTag?: string,
-      pairedAttrs?: string,
-      scriptTag?: string,
-      scriptAttrs?: string,
-      scriptBody?: string,
-      voidTag?: string,
-      voidAttrs?: string,
-    ) => {
-      if (scriptTag) {
-        const attrs = attributesOf(scriptAttrs ?? "");
-        if (attrs.type && NON_EXECUTABLE.test(attrs.type.trim())) return whole;
-        if (attrs.src !== undefined) {
-          const url = thirdParty(attrs.src, firstParty);
-          return url ? block("script", url.hostname, hostService(url.hostname), "script") : whole;
+  const rewritten = html
+    .replace(RUNTIME_HOOKS, "data-gq-published-$1")
+    .replace(
+      ELEMENT,
+      (
+        whole,
+        pairedTag?: string,
+        pairedAttrs?: string,
+        scriptTag?: string,
+        scriptAttrs?: string,
+        scriptBody?: string,
+        voidTag?: string,
+        voidAttrs?: string,
+      ) => {
+        if (scriptTag) {
+          const attrs = attributesOf(scriptAttrs ?? "");
+          if (attrs.type && NON_EXECUTABLE.test(attrs.type.trim())) return whole;
+          if (attrs.src !== undefined) {
+            const target = classify(attrs.src, firstParty);
+            if (target.kind === "first") return whole;
+            return target.kind === "third"
+              ? block("script", target.url.hostname, hostService(target.url.hostname), "script")
+              : block("script", "inline", null, "script");
+          }
+          return scriptBody?.trim() ? block("script", "inline", null, "script") : whole;
         }
-        return scriptBody?.trim() ? block("script", "inline", null, "script") : whole;
-      }
-      const tag = (pairedTag ?? voidTag)!.toLowerCase() as "iframe" | "object" | "embed";
-      const attrs = attributesOf((pairedAttrs ?? voidAttrs) || "");
-      const reference = tag === "object" ? attrs.data : attrs.src;
-      if (reference === undefined) {
-        return tag === "iframe" && attrs.srcdoc !== undefined
-          ? block(tag, "inline", null, "unknown-host")
-          : whole;
-      }
-      const url = thirdParty(reference, firstParty);
-      if (!url) return whole;
-      const service = tag === "iframe" ? embedService(url) : null;
-      if (!service) return block(tag, url.hostname, hostService(url.hostname), "unknown-host");
-      if (!context.configuration.services.includes(service))
-        return block(tag, url.hostname, service, "inactive-service");
-      placeholders.push({ service, host: url.hostname });
-      const { src: _src, title, width, height, ...rest } = attrs;
-      return embedPlaceholder({
-        service,
-        src: url.href,
-        language: context.language,
-        ...(title !== undefined ? { title } : {}),
-        ...(width !== undefined ? { width } : {}),
-        ...(height !== undefined ? { height } : {}),
-        attributes: rest,
-        decorative: /\bwp-block-getquick-design-video-hero__video\b/.test(attrs.class ?? ""),
-      });
-    },
-  );
+        const tag = (pairedTag ?? voidTag)!.toLowerCase() as "iframe" | "object" | "embed";
+        const attrs = attributesOf((pairedAttrs ?? voidAttrs) || "");
+        const reference = tag === "object" ? attrs.data : attrs.src;
+        if (reference === undefined) {
+          // An iframe without a source is an empty frame; inline documents, and
+          // objects/embeds whose content can't be known, never load.
+          if (tag === "iframe" && attrs.srcdoc === undefined) return whole;
+          return block(tag, "inline", null, "unknown-host");
+        }
+        const target = classify(reference, firstParty);
+        if (target.kind === "first") return whole;
+        if (target.kind === "opaque") return block(tag, "inline", null, "unknown-host");
+        const url = target.url;
+        const service = tag === "iframe" ? embedService(url) : null;
+        if (!service) return block(tag, url.hostname, hostService(url.hostname), "unknown-host");
+        if (!context.configuration.services.includes(service))
+          return block(tag, url.hostname, service, "inactive-service");
+        placeholders.push({ service, host: url.hostname });
+        const { src: _src, title, width, height, ...rest } = attrs;
+        return embedPlaceholder({
+          service,
+          src: url.href,
+          language: context.language,
+          ...(title !== undefined ? { title } : {}),
+          ...(width !== undefined ? { width } : {}),
+          ...(height !== undefined ? { height } : {}),
+          attributes: rest,
+          decorative: /\bwp-block-getquick-design-video-hero__video\b/.test(attrs.class ?? ""),
+        });
+      },
+    );
   return { html: rewritten, placeholders, blocked };
 }

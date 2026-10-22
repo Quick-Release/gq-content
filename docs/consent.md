@@ -47,7 +47,8 @@ visitor decides.
 
 - A decision is valid for 6 months; a rejection is not re-asked sooner.
 - Material changes prompt again: a new category, a new service in a granted
-  category, or another controller. A new service in a rejected category and a
+  category, or another controller (an unknown controller, before the Legal
+  Contract names one, is not a change). A new service in a rejected category and a
   removed service do not. Until the new decision, a service the visitor never
   saw is denied.
 - Actions: `accept_all`, `reject_all`, `custom`; `withdraw` when a category in
@@ -66,8 +67,14 @@ placeholders: no live `src`, the provider and purpose, **Load once** and
 **Always allow external media**. Third-party iframes, embeds and objects of
 unknown hosts or inactive services, and every third-party or inline executable
 script, are replaced by a generic blocked placeholder carrying
-`data-gq-consent-blocked="<host>"`. First-party (relative, CMS origin,
-configured hosts) and non-executable content is untouched. The Getquick Design
+`data-gq-consent-blocked="<host>"`. Opaque sources (`data:`, `javascript:`, `srcdoc`) and
+objects/embeds without a first-party source are blocked too. First-party
+(relative, CMS origin, configured hosts, `about:blank`) and non-executable
+content is untouched. Published HTML cannot carry the Runtime's hooks:
+`data-gq-consent-*`, `data-gq-embed` and similar attributes in it are renamed
+`data-gq-published-*` before rewriting, and the client only acts on decision
+buttons inside its own banner/panel and loads an embed only when its HTTPS URL
+belongs to the catalog service the placeholder names. The Getquick Design
 video hero becomes a decorative placeholder (no notice, loads on a grant).
 Site components call `embedPlaceholder({ service, src, title, width, height, language })`.
 `scanConsentHtml(html, { siteOrigin })` returns live third-party sources and
@@ -168,7 +175,9 @@ it was recorded) more than `retentionDays` ago (default and maximum 1826, i.e.
 With `consent.cmsSettings: true` each language's chrome read also queries
 gq-config's `getquickLegal(language: <slug>)` and `googleAnalytics`, stored as
 `chrome.legal` and `chrome.analytics`. Requires gq-config with the
-`getquickLegal` field; a failed read keeps the last stored chrome. The CMS
+`getquickLegal` field: when gq-config's schema lacks it, the chrome is still
+read with no Contract and GA4 off (a warning is logged); any other failure keeps
+the last stored chrome. A null `googleAnalytics` reads as disabled. The CMS
 sends `legal` and `analytics` settings events, which refresh every language's
 chrome; visitor requests read D1 only.
 

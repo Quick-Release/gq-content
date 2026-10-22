@@ -139,9 +139,14 @@ const rows: Array<[string, unknown]> = [
   ],
   [
     "entry:/en/about/",
-    entry("p2", "/en/about/", "About", `<p>About us</p>${hero}`, "en", [
-      { uri: "/sobre/", language: "pt" },
-    ]),
+    entry(
+      "p2",
+      "/en/about/",
+      "About",
+      `<p>About us</p>${hero}<button data-gq-consent-accept-all>Continue</button>`,
+      "en",
+      [{ uri: "/sobre/", language: "pt" }],
+    ),
   ],
   [
     "entry:/privacidade/",

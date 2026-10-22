@@ -73,6 +73,14 @@ const KEYS = [
   "uiVersion",
 ];
 const TOKEN = /^[A-Za-z0-9._:@/+-]{1,64}$/;
+const ROLE = /^[a-z_]{1,32}$/;
+
+/** Whether a value can be recorded as a legal role (the record schema's rule). */
+export const isLegalRoleName = (value: unknown): value is string =>
+  typeof value === "string" && ROLE.test(value);
+/** Whether a value can be recorded as a revision or UI version: a short token. */
+export const isRecordToken = (value: unknown): value is string =>
+  typeof value === "string" && TOKEN.test(value);
 const LANGUAGE = /^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8}){0,2}$/;
 const ISO = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/;
 
@@ -111,7 +119,7 @@ export function parseConsentRecordRequest(
   const roles = Object.entries(revisions);
   if (roles.length > 16) return fail("too many legal revisions");
   for (const [role, revision] of roles) {
-    if (!/^[a-z_]{1,32}$/.test(role) || typeof revision !== "string" || !TOKEN.test(revision))
+    if (!isLegalRoleName(role) || !isRecordToken(revision))
       return fail("legalRevisions must map roles to short revision tokens");
   }
   return {

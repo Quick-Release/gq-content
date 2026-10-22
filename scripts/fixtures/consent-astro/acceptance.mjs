@@ -428,6 +428,23 @@ try {
     await ctx.close();
   }
 
+  // 8b. A button in published content can't act as the banner (CN-R4: only an explicit choice is consent).
+  {
+    const { ctx, external } = await context();
+    const page = await ctx.newPage();
+    await page.goto(`${origin}/en/about/`, { waitUntil: "networkidle" });
+    await page.$eval("article button", (button) => button.click());
+    await settle(page);
+    assert.equal(await cookieState(ctx), null);
+    assert.equal(await page.isVisible("#gq-consent-banner"), true);
+    assert.deepEqual(external(), []);
+    pass(
+      ["CN-R4", "CN-R3"],
+      "a consent hook forged in WordPress HTML is neutralised: clicking it records and grants nothing",
+    );
+    await ctx.close();
+  }
+
   // 9. CN-C1: no optional service, no banner, no record; the settings control remains.
   {
     const start = records().length;

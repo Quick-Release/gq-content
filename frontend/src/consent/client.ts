@@ -6,11 +6,13 @@
 import {
   OPTIONAL_CATEGORIES,
   SERVICE_CATALOG,
+  embedService,
+  isServiceId,
   type ConsentService,
   type OptionalCategory,
   type ServiceId,
 } from "./catalog";
-import { consentRecordRequest } from "./records";
+import { consentRecordRequest, isLegalRoleName, isRecordToken } from "./records";
 import { CONSENT_CONFIG_ID, type ConsentPageConfig } from "./client-config";
 import {
   consentCookie,
@@ -42,7 +44,6 @@ declare global {
 }
 
 const RETRY_DELAYS_MS = [1_000, 3_000, 10_000, 30_000, 60_000];
-const TOKEN = /^[A-Za-z0-9._:@/+-]{1,64}$/;
 
 function readConfig(): ConsentPageConfig | null {
   const element = document.getElementById(CONSENT_CONFIG_ID);
@@ -51,7 +52,7 @@ function readConfig(): ConsentPageConfig | null {
     const config = JSON.parse(element.textContent) as ConsentPageConfig;
     config.legalRevisions = Object.fromEntries(
       Object.entries(config.legalRevisions ?? {}).filter(
-        ([role, revision]) => /^[a-z_]{1,32}$/.test(role) && TOKEN.test(revision),
+        ([role, revision]) => isLegalRoleName(role) && isRecordToken(revision),
       ),
     );
     return config;
@@ -129,22 +130,49 @@ function ga4(measurementId: string) {
   };
 }
 
-/** Replaces a placeholder's content with its embed, keeping the placeholder to restore. */
-function loadEmbed(placeholder: HTMLElement): void {
+// The iframe attributes a placeholder may restore; never event handlers or srcdoc.
+const EMBED_ATTRIBUTES = new Set([
+  "allow",
+  "allowfullscreen",
+  "aria-hidden",
+  "class",
+  "frameborder",
+  "height",
+  "loading",
+  "referrerpolicy",
+  "tabindex",
+  "title",
+  "width",
+]);
+
+/**
+ * Replaces a placeholder's content with its embed, keeping the placeholder to
+ * restore. Only an HTTPS URL of the catalog service the placeholder names
+ * loads, so markup can't smuggle another host or a script URL through it.
+ */
+function loadEmbed(placeholder: HTMLElement, id: ServiceId): void {
   const data = placeholder.getAttribute("data-gq-embed");
   if (!data || placeholder.hasAttribute("data-gq-loaded")) return;
-  let embed: { tag: string; attrs: Record<string, string> };
+  let embed: { tag?: unknown; attrs?: Record<string, unknown> };
   try {
     embed = JSON.parse(data) as typeof embed;
   } catch {
     return;
   }
-  if (embed.tag !== "iframe") return;
+  if (embed.tag !== "iframe" || !embed.attrs || typeof embed.attrs.src !== "string") return;
+  let src: URL;
+  try {
+    src = new URL(embed.attrs.src);
+  } catch {
+    return;
+  }
+  if (src.protocol !== "https:" || embedService(src) !== id) return;
   const iframe = document.createElement("iframe");
   for (const [name, value] of Object.entries(embed.attrs)) {
-    if (/^on/i.test(name) || name === "srcdoc") continue;
-    iframe.setAttribute(name, value);
+    if (EMBED_ATTRIBUTES.has(name.toLowerCase()) && typeof value === "string")
+      iframe.setAttribute(name, value);
   }
+  iframe.src = src.href;
   const original = placeholder.cloneNode(true) as HTMLElement;
   placeholder.replaceChildren(iframe);
   placeholder.setAttribute("data-gq-loaded", "");
@@ -187,8 +215,9 @@ export function startConsent(): ConsentController | null {
 
   function applyEmbeds() {
     for (const placeholder of document.querySelectorAll<HTMLElement>("[data-gq-consent-embed]")) {
-      const id = placeholder.getAttribute("data-gq-consent-embed") as ServiceId;
-      if (granted(id)) loadEmbed(placeholder);
+      const id = placeholder.getAttribute("data-gq-consent-embed");
+      if (!isServiceId(id)) continue;
+      if (granted(id)) loadEmbed(placeholder, id);
       else if (
         placeholder.hasAttribute("data-gq-loaded") &&
         !placeholder.hasAttribute("data-gq-once")
@@ -218,6 +247,10 @@ export function startConsent(): ConsentController | null {
     analytics?.(granted("ga4"));
   }
 
+  /** One decision, however often its cookie is read again. */
+  const sameDecision = (a: ConsentState | null, b: ConsentState | null) =>
+    Boolean(a && b && a.consentId === b.consentId && a.decidedAt === b.decidedAt);
+
   async function send(attempt = 0): Promise<void> {
     if (!state || state.recorded) return;
     const decided = state;
@@ -237,8 +270,8 @@ export function startConsent(): ConsentController | null {
         credentials: "same-origin",
       });
       if (response.ok) {
-        if (state === decided) {
-          state = { ...decided, recorded: true };
+        if (sameDecision(state, decided)) {
+          state = { ...state!, recorded: true };
           writeCookie(state);
         }
         return;
@@ -247,8 +280,11 @@ export function startConsent(): ConsentController | null {
     } catch {
       // Offline or the Worker failed: retried below. The choice already applies.
     }
-    if (!retryable || state !== decided || attempt >= RETRY_DELAYS_MS.length) return;
-    retry = setTimeout(() => void send(attempt + 1), RETRY_DELAYS_MS[attempt]);
+    if (!retryable || !sameDecision(state, decided) || attempt >= RETRY_DELAYS_MS.length) return;
+    retry = setTimeout(() => {
+      retry = undefined;
+      void send(attempt + 1);
+    }, RETRY_DELAYS_MS[attempt]);
   }
 
   function choose(choice: ConsentChoice) {
@@ -260,6 +296,7 @@ export function startConsent(): ConsentController | null {
     removeStorage(before.filter((category) => !after.includes(category)));
     apply();
     clearTimeout(retry);
+    retry = undefined;
     void send();
   }
 
@@ -294,6 +331,22 @@ export function startConsent(): ConsentController | null {
       "[data-gq-consent-accept-all],[data-gq-consent-reject-all],[data-gq-consent-customise],[data-gq-consent-open],[data-gq-consent-save],[data-gq-consent-close],[data-gq-consent-load-once],[data-gq-consent-allow]",
     );
     if (!target) return;
+    // Decisions come only from the Runtime's own banner and panel; embed
+    // buttons only from a placeholder, and only for its own category.
+    const ui = target.closest("#gq-consent-banner, #gq-consent-preferences");
+    const placeholder = target.closest<HTMLElement>("[data-gq-consent-embed]");
+    const decision =
+      target.hasAttribute("data-gq-consent-accept-all") ||
+      target.hasAttribute("data-gq-consent-reject-all") ||
+      target.hasAttribute("data-gq-consent-save") ||
+      target.hasAttribute("data-gq-consent-close");
+    if (decision && !ui) return;
+    if (
+      (target.hasAttribute("data-gq-consent-load-once") ||
+        target.hasAttribute("data-gq-consent-allow")) &&
+      !placeholder
+    )
+      return;
     event.preventDefault();
     if (target.hasAttribute("data-gq-consent-accept-all")) {
       leaveBanner();
@@ -321,13 +374,16 @@ export function startConsent(): ConsentController | null {
     } else if (target.hasAttribute("data-gq-consent-close")) {
       closePreferences();
     } else if (target.hasAttribute("data-gq-consent-load-once")) {
-      const placeholder = target.closest<HTMLElement>("[data-gq-consent-embed]");
-      if (placeholder) {
-        placeholder.setAttribute("data-gq-once", "");
-        loadEmbed(placeholder);
+      const id = placeholder!.getAttribute("data-gq-consent-embed");
+      if (isServiceId(id)) {
+        placeholder!.setAttribute("data-gq-once", "");
+        loadEmbed(placeholder!, id);
       }
     } else if (target.hasAttribute("data-gq-consent-allow")) {
-      const category = target.getAttribute("data-gq-consent-allow") as OptionalCategory;
+      const id = placeholder!.getAttribute("data-gq-consent-embed");
+      if (!isServiceId(id)) return;
+      const category = SERVICE_CATALOG[id].category;
+      if (category === "necessary") return;
       const decisions = Object.fromEntries(
         OPTIONAL_CATEGORIES.map((each) => [
           each,
@@ -358,8 +414,11 @@ export function startConsent(): ConsentController | null {
     openPreferences,
     refresh() {
       config = readConfig() ?? config;
-      state = readConsentCookie(document.cookie);
+      const read = readConsentCookie(document.cookie);
+      // A navigation keeps the decision (and its pending record and retries).
+      if (!sameDecision(read, state)) state = read;
       apply();
+      if (state && !state.recorded && retry === undefined) void send();
     },
   };
   window.__gqConsent = controller;
