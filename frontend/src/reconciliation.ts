@@ -14,8 +14,9 @@
 //   entry, one whose URI or modification time differs, one stored but no
 //   longer listed, and one withdrawn but published again since are
 //   refreshed. One stored as missing is read again only once WordPress has
-//   modified it since it was last read. A few stored entries are also re-read each run, oldest first,
-//   so a change that didn't touch the modification time is caught too, later.
+//   modified it since it was last read. A few stored entries are also
+//   re-read each run, oldest first, so a change that didn't touch the
+//   modification time is caught too, later.
 //
 // Nothing here decides what is served: a change found in an entry becomes a
 // publication event, recorded and processed like the CMS's own
