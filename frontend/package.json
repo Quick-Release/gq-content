@@ -45,6 +45,18 @@
     "./consent/testing": {
       "types": "./dist/consent-testing.d.ts",
       "import": "./dist/consent-testing.js"
+    },
+    "./metadata": {
+      "types": "./dist/metadata.d.ts",
+      "import": "./dist/metadata.js"
+    },
+    "./metadata/testing": {
+      "types": "./dist/metadata-testing.d.ts",
+      "import": "./dist/metadata-testing.js"
+    },
+    "./metadata/content": {
+      "types": "./dist/metadata-content.d.ts",
+      "import": "./dist/metadata-content.js"
     }
   },
   "publishConfig": {
