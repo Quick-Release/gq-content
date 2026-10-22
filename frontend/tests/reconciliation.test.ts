@@ -543,3 +543,31 @@ test("listed routes stored missing and unmodified since settle instead of fillin
     queries(fetch, "EntryByUri").map(([, init]) => JSON.parse(init.body as string).variables.uri),
   ).toEqual(["/clash-07/"]);
 });
+
+test("a missing route modified since is read again until a read succeeds", async () => {
+  entries.clear();
+  const modified = Date.now() - 60000;
+  const routes: Handler = () =>
+    listing({ uri: "/clash/", id: "clash", modifiedGmt: gmt(modified) });
+  wordpress({ routes });
+  expect((await event("reconcile")).body.status).toBe("reconciled");
+  tick();
+
+  // WordPress modifies it, and the read after that fails.
+  tick();
+  const modifiedAgain = Date.now() - 1000;
+  const later: Handler = () =>
+    listing({ uri: "/clash/", id: "clash", modifiedGmt: gmt(modifiedAgain) });
+  wordpress({ routes: later, entry: () => ({ ok: false, status: 502 }) });
+  expect((await event("reconcile")).body).toMatchObject({
+    status: "failed",
+    entries: { "/clash/": { outcome: "kept" } },
+  });
+  tick();
+  const fetch = wordpress({ routes: later });
+  expect((await event("reconcile")).body).toMatchObject({
+    status: "reconciled",
+    entries: { "/clash/": { outcome: "refreshed" } },
+  });
+  expect(queries(fetch, "EntryByUri").length).toBeGreaterThan(0);
+});
