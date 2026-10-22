@@ -23,14 +23,14 @@ export function load(directory, checkRevision = true) {
   const bytes = readFileSync(join(directory, "release-manifest.json"));
   const manifest = JSON.parse(bytes);
   assert.equal(manifest.schemaVersion, 1);
-  assert.equal(manifest.version, "0.2.0");
+  assert.equal(manifest.version, "0.3.0");
   assert.equal(manifest.tag, `v${manifest.version}`);
   assert.match(manifest.sourceCommit, /^[a-f0-9]{40}$/);
   if (checkRevision) revision(manifest);
   const assets = { "release-manifest.json": bytes };
   for (const [kind, expected] of Object.entries({
-    npm: "getquick-content-0.2.0.tgz",
-    cms: "gq-content-0.2.0.zip",
+    npm: "getquick-content-0.3.0.tgz",
+    cms: "gq-content-0.3.0.zip",
   })) {
     const item = manifest[kind];
     assert.equal(item.filename, expected);
@@ -54,8 +54,8 @@ export function load(directory, checkRevision = true) {
   assert.equal(npm.name, "@getquick/content");
   assert.equal(composer.name, "getquick/gq-content");
   for (const item of [npm, composer]) assert.equal(item.version, manifest.version);
-  assert.match(php, /Version: 0\.2\.0/);
-  assert.match(php, /const VERSION = '0\.2\.0';/);
+  assert.match(php, /Version: 0\.3\.0/);
+  assert.match(php, /const VERSION = '0\.3\.0';/);
   return {
     directory,
     manifest,
@@ -86,15 +86,15 @@ export function build(directory) {
     filename,
     sha256: hash(readFileSync(join(directory, filename))),
   });
-  const npm = identity("getquick-content-0.2.0.tgz");
+  const npm = identity("getquick-content-0.3.0.tgz");
   npm.integrity = "sha512-" + hash(readFileSync(join(directory, npm.filename)), "sha512", "base64");
   const manifest = {
     schemaVersion: 1,
-    version: "0.2.0",
-    tag: "v0.2.0",
+    version: "0.3.0",
+    tag: "v0.3.0",
     sourceCommit,
     npm,
-    cms: identity("gq-content-0.2.0.zip"),
+    cms: identity("gq-content-0.3.0.zip"),
   };
   writeFileSync(
     join(directory, "release-manifest.json"),

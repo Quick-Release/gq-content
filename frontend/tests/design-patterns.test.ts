@@ -7,8 +7,10 @@ import {
   escapeHtml,
   parseDesignBlocks,
   renderDesignPattern,
+  renderWordPressBlocks,
   type DesignBlock,
   type DesignBlockRenderer,
+  type WordPressMenuItem,
 } from "@getquick/content";
 import { createHmac, randomUUID } from "node:crypto";
 import { afterEach, beforeEach, expect, test, vi } from "vite-plus/test";
@@ -298,6 +300,42 @@ test.each([
   expect(served.footer).toEqual({ title: "Main footer", blocks: footerTree });
 });
 
+test("a GQ Design older than designPattern serves the Site's own regions, naming the cause", async () => {
+  const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+  const { header: _header, footer: _footer, ...withoutPatterns } = chrome;
+  // GQ Design before 0.2.17: its schema has no designPattern field.
+  const older: Handler = (variables) =>
+    "template" in variables
+      ? {
+          ok: true,
+          json: async () => ({
+            errors: [{ message: 'Cannot query field "designPattern" on type "RootQuery".' }],
+          }),
+        }
+      : data(withoutPatterns);
+  // A new Site is served (not 503) with its menu, logo and icon.
+  const fetch = wordpress(older);
+  expect((await refresh()).body).toMatchObject({
+    ready: true,
+    chrome: { outcome: "promoted", state: "published" },
+  });
+  expect(await servedChrome()).toMatchObject({
+    menuItems: [{ label: "About us" }],
+    header: null,
+    footer: null,
+  });
+  const [, retry] = queries(fetch, "SiteChrome").at(-1)!;
+  const request = JSON.parse(retry.body as string) as { query: string; variables: unknown };
+  expect(request.query).not.toContain("designPattern");
+  expect(request.variables).toEqual({ location: "PRIMARY" });
+  expect(warn).toHaveBeenCalledWith(expect.stringMatching(/GQ Design 0\.4\.1 or newer/));
+
+  // Once GQ Design is updated, the next refresh stores the selection.
+  wordpress(assigned());
+  expect((await deliver({ action: "settings", setting: "patterns" })).status).toBe(200);
+  expect((await servedChrome()).header?.title).toBe("Main header");
+});
+
 test("chrome stored before patterns were read is served with none, then gains them", async () => {
   await db
     .prepare(
@@ -477,6 +515,74 @@ test("containers without a renderer are wrapped as WordPress would; dynamic leav
   expect(unrendered).toEqual(["getquick/header-navigation", "core/site-title"]);
 });
 
+test("GQ Design containers keep their layout, as the same containers in content do", () => {
+  const paragraph = (text: string): DesignBlock => ({
+    name: "core/paragraph",
+    attributes: {},
+    content: `<p>${text}</p>`,
+    children: [],
+  });
+  const outer = {
+    layout: { type: "constrained", contentSize: "640px", wideSize: "1200px" },
+    style: {
+      spacing: { blockGap: "var:preset|spacing|40", padding: { left: "1rem", right: "2rem" } },
+    },
+  };
+  const inner = { layout: { type: "default" }, style: { spacing: { blockGap: "8px" } } };
+  const blocks: DesignBlock[] = [
+    {
+      name: "getquick-design/container",
+      attributes: outer,
+      content: null,
+      children: [
+        paragraph("Outer"),
+        {
+          name: "getquick-design/container",
+          attributes: inner,
+          content: null,
+          children: [paragraph("Inner")],
+        },
+      ],
+    },
+  ];
+  const html = renderDesignPattern(blocks);
+  expect(html).toBe(
+    '<div class="wp-block-getquick-design-container is-layout-constrained gqd-container-layout gqd-container-layout--constrained" style="--gqd-layout-content:640px;--gqd-layout-wide:1200px;--gqd-layout-gap:var(--wp--preset--spacing--40);--gqd-layout-left:auto;--gqd-layout-right:auto;--gqd-layout-padding-left:1rem;--gqd-layout-padding-right:2rem">' +
+      "<p>Outer</p>" +
+      '<div class="wp-block-getquick-design-container is-layout-default gqd-container-layout" style="--gqd-layout-content:var(--wp--style--global--content-size, none);--gqd-layout-wide:var(--wp--style--global--wide-size, none);--gqd-layout-gap:8px;--gqd-parent-layout-content:640px;--gqd-parent-layout-wide:1200px;--gqd-parent-layout-gap:var(--wp--preset--spacing--40);--gqd-parent-layout-left:auto;--gqd-parent-layout-right:auto;--gqd-parent-layout-padding-left:1rem;--gqd-parent-layout-padding-right:2rem">' +
+      "<p>Inner</p></div></div>",
+  );
+  // The same tree as content renders it, from the same container shells.
+  const shell = (type: string) =>
+    `<div class="wp-block-getquick-design-container is-layout-${type}"></div>`;
+  expect(html).toBe(
+    renderWordPressBlocks([
+      {
+        name: "getquick-design/container",
+        attributes: outer,
+        htmlContent: shell("constrained"),
+        innerBlocks: [
+          { name: "core/paragraph", htmlContent: "<p>Outer</p>" },
+          {
+            name: "getquick-design/container",
+            attributes: inner,
+            htmlContent: shell("default"),
+            innerBlocks: [{ name: "core/paragraph", htmlContent: "<p>Inner</p>" }],
+          },
+        ],
+      },
+    ]),
+  );
+  // A Site renderer still takes precedence.
+  expect(
+    renderDesignPattern(blocks, {
+      blocks: {
+        "getquick-design/container": (_block, context) => `<section>${context.children}</section>`,
+      },
+    }),
+  ).toMatch(/^<section><p>Outer<\/p><section><p>Inner<\/p><\/section><\/section>$/);
+});
+
 test("Site renderers take precedence, see their ancestors and may render children selectively", () => {
   const seen: string[][] = [];
   const html = renderDesignPattern(
@@ -530,6 +636,23 @@ test("links and menus from CMS data are made safe", () => {
     ["Orphan", 0],
   ]);
   expect(designMenuItems(undefined)).toEqual([]);
+  // An item whose ancestors reach a cycle it isn't part of keeps its parent;
+  // the cycle's items are top-level, so the tree is finite.
+  const tree = (items: WordPressMenuItem[]): unknown =>
+    items.map((item) => [item.label, tree(item.children)]);
+  expect(
+    tree(
+      designMenuItems([
+        { id: 1, parentId: 2, label: "A", url: "/a/" },
+        { id: 2, parentId: 3, label: "B", url: "/b/" },
+        { id: 3, parentId: 2, label: "C", url: "/c/" },
+        { id: 4, parentId: 1, label: "D", url: "/d/" },
+      ]),
+    ),
+  ).toEqual([
+    ["B", [["A", [["D", []]]]]],
+    ["C", []],
+  ]);
 
   const logo = renderDesignPattern([
     {

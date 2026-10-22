@@ -42,10 +42,10 @@ let server;
 try {
   cpSync(join(repo, "scripts/fixtures/consent-astro"), consumer, { recursive: true });
   const selected = retained("npm");
-  if (selected) cpSync(selected, join(consumer, "getquick-content-0.2.0.tgz"));
+  if (selected) cpSync(selected, join(consumer, "getquick-content-0.3.0.tgz"));
   else run("vp", ["pm", "pack", "--pack-destination", consumer], { cwd: join(repo, "frontend") });
-  recordArtifact(join(consumer, "getquick-content-0.2.0.tgz"), "consent");
-  const tarball = join(consumer, "getquick-content-0.2.0.tgz");
+  recordArtifact(join(consumer, "getquick-content-0.3.0.tgz"), "consent");
+  const tarball = join(consumer, "getquick-content-0.3.0.tgz");
   const integrity = "sha512-" + createHash("sha512").update(readFileSync(tarball)).digest("base64");
   const lockfile = join(consumer, "pnpm-lock.yaml");
   writeFileSync(lockfile, readFileSync(lockfile, "utf8").replace("TARBALL_INTEGRITY", integrity));

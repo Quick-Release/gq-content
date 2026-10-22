@@ -20,8 +20,12 @@
  *   saves the palette) or the active theme (its theme.json presets);
  * - patterns: a synced pattern (`wp_block`, what GQ Design's Header & Footer
  *   selects), a template or a template part (`wp_template`,
- *   `wp_template_part`, where that selection is saved) saved or deleted, or
- *   the active theme (its templates);
+ *   `wp_template_part`, where that selection is saved) or a navigation menu
+ *   (`wp_navigation`, a core Navigation block's) saved or deleted; a classic
+ *   menu one of them shows by id saved (a menu-backed block, such as
+ *   `getquick/header-navigation`, saves it as `menuId`), unless its menus
+ *   event already refreshes every language's chrome; or the active theme
+ *   (its templates);
  * - legal: gq-config's legal pages and controller identity (LEGAL-1), when it
  *   fires `getquick_config_legal_changed`;
  * - analytics: gq-config's Marketing area (its GA4 toggle and measurement ID,
@@ -294,7 +298,103 @@ function shown_in(int $menu_id): ?array
     return array_values(array_unique($languages));
 }
 
-/** A menu was saved: its languages' menus changed, if it is shown. */
+/** The post types the chrome's header and footer patterns are read from. */
+const PATTERN_TYPES = ['wp_block', 'wp_template', 'wp_template_part', 'wp_navigation'];
+
+/** Those whose blocks may show a classic menu by id (a menu-backed block's `menuId`). */
+const MENU_SOURCE_TYPES = ['wp_block', 'wp_template', 'wp_template_part'];
+
+/**
+ * Which classic menus those posts' blocks show (post id => menu ids), kept as
+ * they are saved and deleted, so a menu or menu item saved is looked up here
+ * rather than by scanning post content.
+ */
+const PATTERN_MENUS_OPTION = 'gq_settings_pattern_menus';
+
+/** The menu ids blocks show, inner blocks included, as GQ Design reads them (positive whole numbers). */
+function block_menu_ids(array $blocks): array
+{
+    $ids = [];
+    foreach ($blocks as $block) {
+        $menu_id = $block['attrs']['menuId'] ?? null;
+        if ((is_int($menu_id) || (is_float($menu_id) && floor($menu_id) === $menu_id)) && $menu_id > 0) {
+            $ids[] = (int) $menu_id;
+        }
+        $ids = [...$ids, ...block_menu_ids(is_array($block['innerBlocks'] ?? null) ? $block['innerBlocks'] : [])];
+    }
+
+    return $ids;
+}
+
+function post_menu_ids(WP_Post $post): array
+{
+    if (!str_contains($post->post_content, '"menuId"')) {
+        return [];
+    }
+    $ids = array_values(array_unique(block_menu_ids(parse_blocks($post->post_content))));
+    sort($ids);
+
+    return $ids;
+}
+
+/** The index; built once from the posts that exist (a Site installed before it), then kept by saves. */
+function pattern_menus(): array
+{
+    $index = get_option(PATTERN_MENUS_OPTION, null);
+    if (is_array($index)) {
+        return $index;
+    }
+    $index = [];
+    $posts = get_posts([
+        'post_type' => MENU_SOURCE_TYPES,
+        'post_status' => array_values(array_diff(get_post_stati(), ['auto-draft'])),
+        'numberposts' => -1,
+        'suppress_filters' => true,
+    ]);
+    foreach ($posts as $post) {
+        $ids = post_menu_ids($post);
+        if ($ids !== []) {
+            $index[$post->ID] = $ids;
+        }
+    }
+    update_option(PATTERN_MENUS_OPTION, $index, false);
+
+    return $index;
+}
+
+/** A pattern, template or template part saved (or deleted: null) updates the index. */
+function index_pattern_menus(int $post_id, ?WP_Post $post): void
+{
+    $index = pattern_menus();
+    $ids = $post instanceof WP_Post ? post_menu_ids($post) : [];
+    if ($ids === ($index[$post_id] ?? [])) {
+        return;
+    }
+    if ($ids === []) {
+        unset($index[$post_id]);
+    } else {
+        $index[$post_id] = $ids;
+    }
+    update_option(PATTERN_MENUS_OPTION, $index, false);
+}
+
+/** Whether a pattern, template or template part shows a classic menu by id. */
+function shown_in_patterns(int $menu_id): bool
+{
+    foreach (pattern_menus() as $ids) {
+        if (in_array($menu_id, (array) $ids, true)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * A menu was saved: its languages' menus changed, if it is shown, and the
+ * patterns did, if one shows it (they are in every language's chrome),
+ * unless its menus event already refreshes every language's chrome.
+ */
 function menu_changed(int $menu_id): void
 {
     $languages = shown_in($menu_id);
@@ -305,6 +405,9 @@ function menu_changed(int $menu_id): void
     }
     foreach ($languages as $language) {
         changed('menus', $language);
+    }
+    if (shown_in_patterns($menu_id)) {
+        changed('patterns');
     }
 }
 
@@ -381,9 +484,6 @@ add_action('added_term_meta', static fn(int $meta_id, int $term_id, string $meta
 add_action('updated_term_meta', static fn(int $meta_id, int $term_id, string $meta_key) => strings_changed($term_id, $meta_key), 10, 3);
 add_action('deleted_term_meta', static fn(array $meta_ids, int $term_id, string $meta_key) => strings_changed($term_id, $meta_key), 10, 3);
 
-/** The post types the chrome's header and footer patterns are read from. */
-const PATTERN_TYPES = ['wp_block', 'wp_template', 'wp_template_part'];
-
 add_action('wp_update_nav_menu', static fn(int $menu_id) => menu_changed($menu_id), 10, 1);
 add_action('wp_update_nav_menu_item', static fn(int $menu_id) => menu_changed($menu_id), 10, 1);
 add_action('wp_delete_nav_menu', static fn() => changed('menus'), 10, 0);
@@ -394,11 +494,17 @@ add_action('deleted_post', static function (int $post_id, ?WP_Post $post = null)
     if ($post instanceof WP_Post && in_array($post->post_type, PATTERN_TYPES, true)) {
         changed('patterns');
     }
+    if ($post instanceof WP_Post && in_array($post->post_type, MENU_SOURCE_TYPES, true)) {
+        index_pattern_menus($post_id, null);
+    }
 }, 10, 2);
 
 foreach (PATTERN_TYPES as $pattern_type) {
     // Trashing, restoring and status changes save the post too.
     add_action("save_post_{$pattern_type}", static fn() => changed('patterns'), 10, 0);
+}
+foreach (MENU_SOURCE_TYPES as $menu_source_type) {
+    add_action("save_post_{$menu_source_type}", static fn(int $post_id, WP_Post $post) => index_pattern_menus($post_id, $post), 10, 2);
 }
 
 // GQ Design also enriches pattern trees from linked pages, media and Site
@@ -469,7 +575,7 @@ if (defined('WP_CLI') && WP_CLI && available()) {
          * recognises it), or a new one if it has none.
          *
          * <setting>
-         * : menus, logo, identity or design; a language's menus or identity
+         * : menus, logo, identity, design, patterns, legal or analytics; a language's menus or identity
          * as menus:<language> or identity:<language>.
          */
         public function retry(array $args): void

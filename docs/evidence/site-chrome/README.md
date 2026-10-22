@@ -40,7 +40,7 @@ Translated pattern trees and language-aware nested/menu serializer data are
 **blocked by [gq-design #53](https://github.com/Quick-Release/gq-design/issues/53)**,
 filed during this work. This implementation exposes the shared selection
 honestly and does not fabricate translated IDs or query arguments. See
-[ADR 0003](../../adr/0003-serve-cms-selected-header-and-footer-patterns-with-site-chrome.md)
+[ADR 0006](../../adr/0006-serve-cms-selected-header-and-footer-patterns-with-site-chrome.md)
 for this explicit exception to language-specific chrome in ADR 0002.
 
 ## Regression coverage
@@ -116,3 +116,29 @@ This reproduces the existing provider access blocker
 `compatibility/README.md` treats failed registry access as a failing gate;
 local credentials are not substituted into CI. Main remains unmodified while
 that gate fails. No private package permissions were changed by this session.
+
+## Review follow-up: merged with main, released as 0.3.0
+
+After the [review](https://github.com/Quick-Release/gq-content/pull/17),
+main (consent, paired releases, 0.2.0, document metadata) was merged in and the
+ADR renumbered to 0006 (0003 and 0004 are main's; 0005 is claimed by #38). The
+follow-up:
+
+- `getquick-design/container` blocks in patterns keep their layout through
+  content's `containerLayoutHtml`/`containerChildLayoutHtml`; a test compares
+  the output with `renderWordPressBlocks` for the same tree.
+- A GQ Design without `designPattern` (before 0.2.17) no longer fails chrome
+  reads: the chrome is read without patterns (both null) and a warning names
+  GQ Design and the 0.4.1 the default route needs. Other failures still retain
+  what is stored.
+- Served patterns' saved HTML passes through `publishedHtml`, so a configured
+  consent transform turns a footer's YouTube embed into a placeholder (home,
+  entry, 404 and `pageChrome`), while the store keeps it as published.
+- The CMS sends `patterns` for `wp_navigation` saves and deletions and for a
+  classic menu a pattern shows by `menuId`, looked up in an index kept on
+  pattern/template saves (`gq_settings_pattern_menus`), not a content scan.
+  `scripts/cms-proof.py` proves these in real WordPress.
+- `designMenuItems` keeps an item's parent when its ancestors reach a cycle it
+  isn't part of.
+- `SiteChrome.header`/`.footer` being required is released as 0.3.0
+  ([release note](../../releases/0.3.0.md)).

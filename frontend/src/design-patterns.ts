@@ -1,5 +1,6 @@
 import type { WordPressMenuItem } from "./content-types";
 import { menuItemHref } from "./formatting";
+import { containerChildLayoutHtml, containerLayoutHtml } from "./wp-container-layout";
 
 /**
  * A block of a GQ Design pattern, as its layout API shapes it (`blocksJson`):
@@ -214,6 +215,8 @@ const CONTAINER_TAGS = new Set([
   "nav",
 ]);
 const SLUG = /^[a-z0-9-]+$/;
+/** GQ Design's layout container, whose width, gap and padding content also restores. */
+const DESIGN_CONTAINER = "getquick-design/container";
 
 /**
  * A container block (one with children) as WordPress wraps it. GQ Design
@@ -222,7 +225,8 @@ const SLUG = /^[a-z0-9-]+$/;
  * class (`wp-block-group` for `core/group`, `wp-block-acme-hero` for
  * `acme/hero`), and the classes WordPress derives from `className`, `align`,
  * its preset colours and its layout type. Other styles (custom colours,
- * spacing, a layout's sizes) need a Site renderer.
+ * spacing) need a Site renderer. GQ Design's own container
+ * (`getquick-design/container`) also gets its layout, as in content.
  */
 function containerHtml(block: DesignBlock, children: string): string {
   const { tagName, className, align, backgroundColor, textColor, layout } = block.attributes;
@@ -259,10 +263,19 @@ export function renderDesignPattern(
   const internalOrigins = options.internalOrigins ?? [];
   const href = (url: unknown) => linkHref(url, internalOrigins);
 
-  const renderAll = (blocks: DesignBlock[], ancestors: DesignBlock[]): string =>
-    blocks.map((block) => renderOne(block, ancestors)).join("");
+  // `parentContainer`: the wrapper of the GQ Design container a block is
+  // directly inside, whose layout it continues, as content's renderer does.
+  const renderAll = (
+    blocks: DesignBlock[],
+    ancestors: DesignBlock[],
+    parentContainer = "",
+  ): string => blocks.map((block) => renderOne(block, ancestors, parentContainer)).join("");
 
-  function renderOne(block: DesignBlock, ancestors: DesignBlock[]): string {
+  function renderOne(
+    block: DesignBlock,
+    ancestors: DesignBlock[],
+    parentContainer: string,
+  ): string {
     const inside = [...ancestors, block];
     const renderer = Object.hasOwn(renderers, block.name) ? renderers[block.name] : undefined;
     if (renderer) {
@@ -277,6 +290,17 @@ export function renderDesignPattern(
         href,
         home: options.home ?? "/",
       });
+    }
+    if (block.name === DESIGN_CONTAINER && (block.children.length > 0 || block.content !== null)) {
+      // The same layout content's containers get (constrained width, gap and
+      // padding), from the shared adapter rather than a copy of it. An empty
+      // one is a leaf without HTML, reported like any other.
+      let wrapper = containerLayoutHtml(
+        block.content ?? containerHtml(block, ""),
+        block.attributes,
+      );
+      if (parentContainer) wrapper = containerChildLayoutHtml(wrapper, parentContainer);
+      return insertChildren(wrapper, renderAll(block.children, inside, wrapper));
     }
     const children = renderAll(block.children, inside);
     if (block.content !== null) return insertChildren(block.content, children);
@@ -293,7 +317,7 @@ export function renderDesignPattern(
  * parentId, label, url, target }`, as GQ Design's serializer filter documents
  * for `getquick/header-navigation`) as a tree, with each link as the
  * Frontend serves it. Items that aren't menu items are left out; one whose
- * parent isn't listed is a top-level item.
+ * parent isn't listed, or that is in a cycle of parents, is a top-level item.
  */
 export function designMenuItems(
   value: unknown,
@@ -322,11 +346,14 @@ export function designMenuItems(
       children: [],
     });
   }
-  // An item in a cycle of parents is a top-level item, so the tree stays finite.
+  // An item in a cycle of parents is a top-level item, so the tree stays
+  // finite. One whose ancestors reach a cycle it isn't part of keeps its
+  // parent (that cycle's items are the top-level ones).
   const inCycle = (start: string) => {
     const visited = new Set<string>();
-    for (let at: string | undefined = start; at !== undefined; at = parentOf.get(at)) {
-      if (visited.has(at)) return true;
+    for (let at = parentOf.get(start); at !== undefined; at = parentOf.get(at)) {
+      if (at === start) return true;
+      if (visited.has(at)) return false;
       visited.add(at);
     }
     return false;

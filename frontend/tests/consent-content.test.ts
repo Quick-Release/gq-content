@@ -328,3 +328,61 @@ test("review: a gq-config without consent settings doesn't block chrome refreshe
   vi.setSystemTime(Date.now() + 1000);
   expect((await deliver("analytics")).status).toBe(200);
 });
+
+test("an embed in a footer pattern is held back until consent, in every way the chrome is served", async () => {
+  const footer = {
+    title: "Main footer",
+    blocksJson: JSON.stringify([
+      {
+        name: "core/group",
+        attributes: {},
+        content: null,
+        children: [
+          { name: "core/paragraph", attributes: {}, content: "<p>Veja</p>", children: [] },
+          { name: "core/embed", attributes: {}, content: youtube, children: [] },
+          { name: "core/html", attributes: {}, content: unknown, children: [] },
+        ],
+      },
+    ]),
+  };
+  stubWordPress({ ...handlers, chrome: () => data({ ...chrome, footer }) });
+  await refresh();
+  // A route WordPress doesn't have: a 404 page, served with the chrome.
+  const missing = await api.publishedEntry("/nowhere/");
+  const fetch = offline();
+  const rendered = (value: { footer: Parameters<typeof api.renderDesignPattern>[0] } | null) =>
+    api.renderDesignPattern(value?.footer);
+  const home = await api.publishedHome();
+  const en = await api.publishedEntry("/en/about/");
+  const page = await api.pageChrome();
+  expect(home.kind).toBe("found");
+  expect(en.kind).toBe("found");
+  expect(missing.kind).toBe("missing");
+  if (home.kind !== "found" || en.kind !== "found" || missing.kind !== "missing") return;
+  for (const html of [
+    rendered(home.content.chrome),
+    rendered(en.content.chrome),
+    rendered(missing.chrome),
+    rendered(page),
+  ]) {
+    const scan = scanConsentHtml(html, site);
+    expect(scan.liveThirdParty).toEqual([]);
+    expect(scan.placeholders).toEqual(["youtube"]);
+    expect(scan.blocked).toEqual([{ host: "tracker.example", tag: "iframe" }]);
+    expect(html).toContain("<p>Veja</p>");
+  }
+  // Placeholders follow the language the chrome is served in.
+  expect(rendered(home.content.chrome)).toContain("Carregar uma vez");
+  expect(rendered(en.content.chrome)).toContain("Load once");
+  expect(fetch).not.toHaveBeenCalled();
+  // The store keeps the pattern as published.
+  const stored = await db.prepare("SELECT body FROM publications WHERE key = 'chrome'").first();
+  expect(String(stored?.body)).toContain("https://www.youtube.com/embed/abcdefghijk");
+
+  // Without consent configured, the pattern is delivered as published.
+  api = runtime();
+  const plain = await api.publishedHome();
+  expect(plain.kind === "found" && rendered(plain.content.chrome)).toContain(
+    'src="https://www.youtube.com/embed/abcdefghijk',
+  );
+});

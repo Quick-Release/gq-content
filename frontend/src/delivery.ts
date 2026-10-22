@@ -1302,7 +1302,7 @@ export function configuredDelivery<X>(
       ),
     pageChrome: (siteOrigin?: string): Promise<SiteChrome | null> =>
       safely(
-        () => pageChrome(siteOrigin),
+        async () => html.chrome(await pageChrome(siteOrigin)),
         () => null,
       ),
     designPresets: (): Promise<DesignPresets | null> =>
