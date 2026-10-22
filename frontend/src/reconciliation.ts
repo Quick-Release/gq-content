@@ -13,7 +13,8 @@
 //   URI, modification time) is compared with the stored entries: a new
 //   entry, one whose URI or modification time differs, one stored but no
 //   longer listed, and one withdrawn but published again since are
-//   refreshed. A few stored entries are also re-read each run, oldest first,
+//   refreshed. One stored as missing is read again only once WordPress has
+//   modified it since it was last read. A few stored entries are also re-read each run, oldest first,
 //   so a change that didn't touch the modification time is caught too, later.
 //
 // Nothing here decides what is served: a change found in an entry becomes a
@@ -309,6 +310,17 @@ export function configuredReconciliation<X>(
       }
       const previousRoute =
         entry.id === null ? undefined : storedAt.get(entry.id)?.find((stored) => stored !== route);
+      // Confirmed missing (WordPress lists the entry but reads another node at
+      // its URI) and not modified since that read: reading it again would find
+      // the same, and would fill every run's budget with it.
+      if (
+        row?.state === "missing" &&
+        !previousRoute &&
+        entry.modifiedAt !== null &&
+        row.attemptedAt > entry.modifiedAt
+      ) {
+        continue;
+      }
       if (previousRoute) left.add(previousRoute);
       found.push({
         change: previousRoute ? "moved" : row ? "changed" : "new",

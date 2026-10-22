@@ -2,7 +2,7 @@ import { createContentRuntime } from "@getquick/content/server";
 import { createHmac, randomUUID } from "node:crypto";
 import { afterEach, beforeEach, expect, test, vi } from "vite-plus/test";
 import { openTestD1, type TestD1 } from "./support/sqlite-d1";
-import { data, gmt, listing, stubWordPress, type Handler } from "./support/wordpress-stub";
+import { data, gmt, listing, queries, stubWordPress, type Handler } from "./support/wordpress-stub";
 const secret = "reconcile-event-key-01234567890123456789012345";
 let db: TestD1;
 let api: ReturnType<typeof createContentRuntime>;
@@ -498,3 +498,48 @@ test.each(["check", "reconcile"])(
     expect(fetch).not.toHaveBeenCalled();
   },
 );
+
+test("listed routes stored missing and unmodified since settle instead of filling every run", async () => {
+  entries.clear();
+  // WordPress lists more entries than one run reads, and reads each as missing
+  // (as when a Page shares its URI with an archive).
+  const missing = new Map(
+    Array.from({ length: 20 }, (_, n) => [
+      `/clash-${String(n).padStart(2, "0")}/`,
+      { id: `clash-${n}`, modified: Date.now() - 60000 },
+    ]),
+  );
+  const routes: Handler = () =>
+    listing(...[...missing].map(([uri, e]) => ({ uri, id: e.id, modifiedGmt: gmt(e.modified) })));
+  const statuses = [];
+  for (let n = 0; n < 2; n++) {
+    wordpress({ routes });
+    statuses.push((await event("reconcile")).body.status);
+    tick();
+  }
+  expect(statuses).toEqual(["behind", "reconciled"]);
+  expect((await event("check")).body).toMatchObject({
+    reconciliation: { outcome: "reconciled", pending: 0 },
+    store: { entries: { missing: 20 } },
+  });
+
+  let fetch = wordpress({ routes });
+  expect((await event("reconcile")).body).toMatchObject({
+    status: "reconciled",
+    pending: 0,
+    entries: {},
+  });
+  expect(queries(fetch, "EntryByUri")).toHaveLength(0);
+
+  // A modification WordPress makes after the last read is read again.
+  tick();
+  missing.get("/clash-07/")!.modified = Date.now();
+  tick();
+  fetch = wordpress({ routes });
+  const run = await event("reconcile");
+  expect(run.body).toMatchObject({ status: "reconciled", pending: 0 });
+  expect(Object.keys(run.body.entries)).toEqual(["/clash-07/"]);
+  expect(
+    queries(fetch, "EntryByUri").map(([, init]) => JSON.parse(init.body as string).variables.uri),
+  ).toEqual(["/clash-07/"]);
+});
