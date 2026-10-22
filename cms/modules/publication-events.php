@@ -1,7 +1,9 @@
 <?php
 
 /*
- * Each publication of a page or post becomes an event: an identity, the time
+ * Each publication of a page, post or public custom post type's item (one
+ * shown in WPGraphQL, which a Frontend may store as a collection) becomes an
+ * event: an identity, the time
  * it happened, the entry's WPGraphQL id and its URI (and the one it left, if
  * it moved). On a multilingual Site (Polylang) it also names the entry's
  * language, its URI is in that language's directory (`/en/about/`), and a
@@ -74,8 +76,26 @@ const META_KEY = '_gq_publication_event';
 /** Deleted entries' last events and their deliveries, by post id, until refreshed. */
 const DELETED_OPTION = 'gq_publication_events_deleted';
 
-/** The post types the Frontend serves as entries. */
+/** The built-in post types the Frontend serves as entries. */
 const POST_TYPES = ['page', 'post'];
+
+/**
+ * The post types whose publications are events: pages, posts, and every
+ * public custom post type shown in WPGraphQL, which a Frontend may store as
+ * a collection (one that doesn't finds its entries missing, and stores
+ * nothing for them).
+ */
+function post_types(): array
+{
+    $types = POST_TYPES;
+    foreach (get_post_types(['public' => true, '_builtin' => false], 'objects') as $type) {
+        if (! empty($type->show_in_graphql)) {
+            $types[] = $type->name;
+        }
+    }
+
+    return array_values(array_unique($types));
+}
 
 /** Seconds the Frontend has to refresh an event before it counts as failed. */
 const TIMEOUT = 15;
@@ -175,7 +195,7 @@ function event_for(WP_Post $post, ?WP_Post $before): ?array
 {
     if (
         site_id() === ''
-        || ! in_array($post->post_type, POST_TYPES, true)
+        || ! in_array($post->post_type, post_types(), true)
         || $post->post_status !== 'publish'
         || $post->post_password !== ''
         || wp_is_post_revision($post)
@@ -212,7 +232,7 @@ function event_for(WP_Post $post, ?WP_Post $before): ?array
  */
 function withdrawal_for(WP_Post $post, ?WP_Post $before): ?array
 {
-    if (site_id() === '' || ! in_array($post->post_type, POST_TYPES, true) || wp_is_post_revision($post) || wp_is_post_autosave($post)) {
+    if (site_id() === '' || ! in_array($post->post_type, post_types(), true) || wp_is_post_revision($post) || wp_is_post_autosave($post)) {
         return null;
     }
     $protected = $post->post_status === 'publish' && $post->post_password !== '';
@@ -450,7 +470,7 @@ add_action('wp_after_insert_post', static function (int $post_id, WP_Post $post,
 add_action('before_delete_post', static function (int $post_id, WP_Post $post): void {
     if (
         site_id() === ''
-        || ! in_array($post->post_type, POST_TYPES, true)
+        || ! in_array($post->post_type, post_types(), true)
         || $post->post_status !== 'publish'
         || wp_is_post_revision($post)
     ) {
@@ -500,7 +520,7 @@ if (defined('WP_CLI') && WP_CLI) {
         public function status(array $args, array $assoc): void
         {
             $posts = get_posts([
-                'post_type' => POST_TYPES,
+                'post_type' => post_types(),
                 'post_status' => 'any',
                 'posts_per_page' => -1,
                 'meta_key' => META_KEY,

@@ -7,9 +7,11 @@
 // (ADR 0009):
 //
 // - the shared rows (each language's front page with its title and tagline,
-//   and its chrome; the design presets) are read and compared with what is
+//   and its chrome; the design presets; on a Site with collections, where
+//   their archives are) are read and compared with what is
 //   stored, so a change to any shared setting is caught whatever saved it;
-// - WordPress's list of published pages and posts in every language (id,
+//   when an archive moves, its old and new addresses are read again first;
+// - WordPress's list of published pages, posts and collection items in every language (id,
 //   URI, modification time) is compared with the stored entries: a new
 //   entry, one whose URI or modification time differs, one stored but no
 //   longer listed, and one withdrawn but published again since are
@@ -51,6 +53,8 @@ export function configuredReconciliation<X>(
   languages: SiteLanguage[],
   delivery: ReturnType<typeof configuredDelivery<X>>,
   wordpress: WordPressClient<X>,
+  /** Whether the Site has collections, whose archives are a shared row too. */
+  collections = false,
 ) {
   const { eachLimited, reconcileShared, refreshEntries, sharedOutcomes } = delivery;
   const { getPublishedEntries } = wordpress;
@@ -64,8 +68,17 @@ export function configuredReconciliation<X>(
    * is asked again without them. Chrome and design have no block recovery.
    */
   const REQUESTS_PER_READ = 2;
-  /** Reserve design once, and each language's home (including recovery) and chrome. */
-  const SHARED_REQUESTS = 1 + (REQUESTS_PER_READ + 1) * languages.length;
+  /**
+   * The archives read can take two requests: a CMS without GETQUICK Archives
+   * yet is asked again without them.
+   */
+  const ARCHIVES_REQUESTS = 2;
+  /**
+   * Reserve design once (and the archives, on a Site with collections), and
+   * each language's home (including recovery) and chrome.
+   */
+  const SHARED_REQUESTS =
+    1 + (collections ? ARCHIVES_REQUESTS : 0) + (REQUESTS_PER_READ + 1) * languages.length;
   /**
    * Stored entries re-read each run, when the budget allows, though WordPress
    * lists them unchanged: published ones, and listed routes settled missing.
@@ -107,9 +120,10 @@ export function configuredReconciliation<X>(
    * (new), holds it at another route (moved), holds another version (changed),
    * or holds it withdrawn though WordPress modified it after the withdrawal
    * (republished); the store holds it and WordPress doesn't list it (removed); or
-   * it was re-read in turn (verified).
+   * it was re-read in turn (verified); or its address became, or stopped
+   * being, a collection's archive (archive).
    */
-  type Change = "new" | "changed" | "moved" | "republished" | "removed" | "verified";
+  type Change = "new" | "changed" | "moved" | "republished" | "removed" | "verified" | "archive";
 
   type EntryOutcome =
     | { outcome: "refreshed" | "superseded" | "withdrawn" }
@@ -212,7 +226,7 @@ export function configuredReconciliation<X>(
     siteOrigin: string | undefined,
     publish: Publish,
   ): Promise<ReconciliationReport> {
-    const [shared, listing] = await Promise.all([
+    const [{ archiveRoutes = [], ...shared }, listing] = await Promise.all([
       reconcileShared(store, siteOrigin),
       getPublishedEntries(),
     ]);
@@ -246,6 +260,8 @@ export function configuredReconciliation<X>(
     const { found, settled } = candidates(listed, index);
     let budget = CMS_REQUEST_BUDGET - SHARED_REQUESTS - requests;
     const chosen: Candidate[] = [];
+    // An address whose archive just moved may now read another node: first.
+    found.unshift(...archived(archiveRoutes, found));
     let pending = 0;
     for (const candidate of found) {
       const cost = (candidate.previousRoute ? 2 : 1) * REQUESTS_PER_READ;
@@ -364,6 +380,14 @@ export function configuredReconciliation<X>(
         a.attemptedAt - b.attemptedAt || (a.route < b.route ? -1 : a.route > b.route ? 1 : 0),
     );
     return { found, settled };
+  }
+
+  /** The addresses whose archive moved, unless already a change, as changes. */
+  function archived(routes: string[], found: Candidate[]): Candidate[] {
+    const changing = new Set(found.flatMap(({ route, previousRoute }) => [route, previousRoute]));
+    return routes
+      .filter((route) => !changing.has(route) && !isLanguageHome(route))
+      .map((route) => ({ change: "archive" as const, route, attemptedAt: 0 }));
   }
 
   /**

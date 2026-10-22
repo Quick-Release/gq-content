@@ -40,6 +40,34 @@ export function stripHtml(value: string) {
     .replace(/\s+/g, " ")
     .trim();
 }
+/** The named character references WordPress's text commonly has (wptexturize writes most as numbers). */
+const NAMED_ENTITIES: Record<string, string> = {
+  amp: "&",
+  lt: "<",
+  gt: ">",
+  quot: '"',
+  apos: "'",
+  nbsp: "\u00A0",
+  ndash: "\u2013",
+  mdash: "\u2014",
+  lsquo: "\u2018",
+  rsquo: "\u2019",
+  ldquo: "\u201C",
+  rdquo: "\u201D",
+  hellip: "\u2026",
+};
+/**
+ * Text with its HTML character references decoded: numeric ones, and the
+ * named ones in NAMED_ENTITIES (any other is left as written).
+ */
+export function decodeEntities(value: string) {
+  return value.replace(/&(#x[0-9a-f]+|#[0-9]+|[a-z]+);/gi, (reference, name: string) => {
+    if (name[0] !== "#") return NAMED_ENTITIES[name.toLowerCase()] ?? reference;
+    const code =
+      name[1] === "x" || name[1] === "X" ? parseInt(name.slice(2), 16) : Number(name.slice(1));
+    return code > 0 && code <= 0x10ffff ? String.fromCodePoint(code) : reference;
+  });
+}
 export function formatDate(value: string, lang = "en") {
   return new Intl.DateTimeFormat(lang, {
     day: "numeric",

@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: GETQUICK Content
- * Description: Publication events, settings events, delivery retries and diagnostics.
+ * Description: Publication events, settings events, delivery retries, archive pages and diagnostics.
  * Version: 0.2.0
  * Author: GETQUICK
  * License: GPL-2.0-or-later
@@ -22,6 +22,7 @@ const VERSION = '0.2.0';
 require_once __DIR__ . '/modules/publication-events.php';
 require_once __DIR__ . '/modules/settings-events.php';
 require_once __DIR__ . '/modules/delivery-retries.php';
+require_once __DIR__ . '/modules/archives.php';
 
 add_filter('debug_information', static function (array $information): array {
     $information['gq_content'] = [
