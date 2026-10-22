@@ -1,0 +1,63 @@
+{"sourceCommit":"51a9f3eb36f90cf069fca8e6fe20a875e452d570","manifestSha256":"d9c58ba865c080bf6cb1bfe3deecd13a2c2eed019c2271dddcddab2fbecc5ef1","npm":{"filename":"getquick-content-0.1.0.tgz","sha256":"837b2e390dcb7606b4acbb4b62b781eba88a58f87d637dd176817a831faf8318","integrity":"sha512-lxzkdqcdgf4Ag1bTDLi59jUZmadU7dgW1Z6+aWWcKuMBvrMt5LWumHTntOEMmZhKYeCwvg4gCaWjAybbPvRX2w=="},"cms":{"filename":"gq-content-0.1.0.zip","sha256":"f892d974d80cde9bb9a36e4595f509661fb37f63e0102b1506483fcfc2c78a5e"}}
+Progress: resolved 0, reused 1, downloaded 0, added 0
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /home/runner/.local/share/pnpm/store/v11
+  Virtual store is at:             node_modules/.pnpm
+Packages: +2
+++
+Progress: resolved 2, reused 2, downloaded 0, added 2, done
+
+dependencies:
++ @getquick/content 0.1.0
+
+Done in 32ms using pnpm v12.11.2
+PASS pair: real Polylang normalizes language routes and resolves translated homes
+PASS pair: whole refresh prepares both language rows through installed handler
+PASS pair: editing a menu shown nowhere emits no settings event
+PASS pair: English menu reassignment: signed settings event and durable source record/wire shape
+PASS pair: English menu reassignment: no entry republish/read or route listing
+PASS pair: real Polylang menu reassignment reads only English chrome
+PASS pair: English menu edit: signed settings event and durable source record/wire shape
+PASS pair: English menu edit: no entry republish/read or route listing
+PASS pair: English menu changes only English chrome
+PASS pair: settings CLI retry retains output and identity without CMS read
+PASS pair: English translated tagline: signed settings event and durable source record/wire shape
+PASS pair: English translated tagline: no entry republish/read or route listing
+PASS pair: canonical alternate objects retained for en
+PASS pair: canonical alternate objects retained for pt
+PASS pair: translated identity reaches only English home
+PASS pair: Shared logo: signed settings event and durable source record/wire shape
+PASS pair: Shared logo: no entry republish/read or route listing
+PASS pair: shared logo reaches both languages and stored entries
+PASS pair: failed real setting retains its identity, failure record and last-known-good public logo
+PASS pair: real failed setting retry completes the same identity
+PASS pair: Shared identity: signed settings event and durable source record/wire shape
+PASS pair: Shared identity: no entry republish/read or route listing
+PASS pair: canonical alternate objects retained for pt
+PASS pair: canonical alternate objects retained for en
+PASS pair: shared identity updates both homes without entry republishing
+PASS pair: Shared site icon: signed settings event and durable source record/wire shape
+PASS pair: Shared site icon: no entry republish/read or route listing
+PASS pair: actual site icon reaches both language chrome rows
+PASS pair: actual global-styles save sends shared design event
+PASS pair: actual global-styles REST save delivers a fresh design event
+PASS pair: canonical alternate objects retained for pt
+PASS pair: canonical alternate objects retained for en
+PASS pair: shared presets persist on both homes and entries during outage
+PASS pair: canonical alternate objects retained for en
+PASS pair: real English home save preserves language and home route identity
+PASS pair: canonical alternate objects retained for en
+PASS pair: canonical alternate objects retained for pt
+PASS pair: real English withdrawal hides only its home
+PASS pair: Identity after withdrawal: signed settings event and durable source record/wire shape
+PASS pair: Identity after withdrawal: no entry republish/read or route listing
+PASS pair: canonical alternate objects retained for en
+PASS pair: settings refresh cannot lift actual withdrawn English home
+PASS pair: canonical alternate objects retained for en
+PASS pair: later actual publication restores English home
+PASS pair: withdrawn translation becomes a home alternate without cross-language fallback
+PASS pair: unavailable English content never falls back to Portuguese
+PASS pair: actual language reassignment retains node identity with new route and language
+PASS pair: language reassignment moves old route and serves new route with English chrome
+PASS pair: settings CLI lists shared and both language subjects with source output fields
+P2/P6 #7 multilingual installed pair passed: real WordPress/Polylang API and HTTP transport; GraphQL boundary fixtures; durable installed-consumer SQLite reads.

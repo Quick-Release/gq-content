@@ -1,0 +1,81 @@
+{"sourceCommit":"51a9f3eb36f90cf069fca8e6fe20a875e452d570","manifestSha256":"d9c58ba865c080bf6cb1bfe3deecd13a2c2eed019c2271dddcddab2fbecc5ef1","npm":{"filename":"getquick-content-0.1.0.tgz","sha256":"837b2e390dcb7606b4acbb4b62b781eba88a58f87d637dd176817a831faf8318","integrity":"sha512-lxzkdqcdgf4Ag1bTDLi59jUZmadU7dgW1Z6+aWWcKuMBvrMt5LWumHTntOEMmZhKYeCwvg4gCaWjAybbPvRX2w=="},"cms":{"filename":"gq-content-0.1.0.zip","sha256":"f892d974d80cde9bb9a36e4595f509661fb37f63e0102b1506483fcfc2c78a5e"}}
+Progress: resolved 0, reused 1, downloaded 0, added 0
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /home/runner/.local/share/pnpm/store/v11
+  Virtual store is at:             node_modules/.pnpm
+Packages: +2
+++
+Progress: resolved 2, reused 2, downloaded 0, added 2, done
+
+dependencies:
++ @getquick/content 0.1.0
+
+Done in 31ms using pnpm v12.11.2
+PASS pair: refresh installs usable chrome through public handler
+PASS pair: saving a draft retains no publication event
+PASS pair: actual CMS signature and configured Site accepted by installed handler
+PASS pair: record key and source event wire fields retained
+PASS pair: default publication HTTP timeout is 15 seconds
+PASS pair: public delivery contains CMS publication from GraphQL boundary
+PASS pair: update has fresh event identity and changes stored public delivery
+PASS pair: timeout filter receives 15 and its numeric result controls transport
+PASS pair: unreachable receiver does not fail a WordPress save
+PASS pair: receiver recovery retries same recorded identity
+PASS pair: actual rename retains previousUri and moves the old stored route
+PASS pair: stored publication survives CMS outage
+PASS pair: retry retains event identity and duplicate acceptance reads no CMS
+PASS pair: actual withdrawal changes public delivery without CMS read
+PASS pair: withdrawal retains source record/wire shape and node identity
+PASS pair: actual withdrawal also hides the moved route without reading CMS
+PASS pair: actual later republication restores public delivery
+PASS pair: password protection sends real withdrawal without CMS reads
+PASS pair: removing password sends real later publication
+PASS pair: trashing a publication sends withdrawal and hides its public route
+PASS pair: permanent deletion withdraws all stored routes without CMS reads
+PASS pair: successfully delivered deletion leaves no dangling deleted-entry record
+PASS retry: explicit reconciliation reaches the installed handler
+PASS retry: invalid configuration retains failed record without claiming public success
+PASS retry: server-cron invocation preserves quiet CLI output contract
+PASS retry: scheduler recovers retained record after configuration is repaired
+PASS retry: WordPress saves while public delivery remains last-known-good
+PASS retry: Frontend failure reason remains secret-safe
+PASS retry: editor REST report separates save and delivery without secrets
+PASS retry: editor delivery route requires edit permission
+PASS retry: scheduler leaves an early retry alone
+PASS retry: due retry persists failure and same event identity
+PASS retry: bounded backoff after attempt 2
+PASS retry: bounded backoff after attempt 3
+PASS retry: bounded backoff after attempt 4
+PASS retry: bounded backoff after attempt 5
+PASS retry: bounded backoff after attempt 6
+PASS retry: bounded backoff after attempt 7
+PASS retry: bounded backoff after attempt 8
+PASS retry: bounded backoff after attempt 9
+PASS retry: bounded backoff after attempt 10
+PASS retry: bounded backoff after attempt 11
+PASS retry: twelve failures stop automatic sends
+PASS retry: Site Health reports exhausted delivery critically and safely
+PASS retry: operator retry recovers exhausted same event without another save
+PASS retry: recovery is visible to editor
+PASS retry: server-cron invocation preserves quiet CLI output contract
+PASS retry: cron retry delivers the saved event to package public reads
+PASS retry: retry preserves envelope identity with a fresh timestamp/signature
+PASS retry: killed real CMS save leaves a new persistent pending identity
+PASS retry: pending record survives commands during request grace
+PASS retry: interrupted pending record recovers after grace
+PASS retry: new save supersedes failed scheduled work
+PASS retry: failed settings record persists with its own identity
+PASS retry: server-cron invocation preserves quiet CLI output contract
+PASS retry: settings retry recovers same event across real commands
+PASS retry: failed permanent deletion retains withdrawal after post is gone
+PASS retry: server-cron invocation preserves quiet CLI output contract
+PASS retry: cron retries deleted withdrawal and removes only confirmed record
+PASS retry: first scheduler starts a real extension callback under lease
+PASS retry: overlapping actual CLI run sends nothing while first callback is active
+PASS retry: 45-second budget bounds real callback HTTP work and defers remainder
+PASS retry: filter retains row fields and callback-owned persistent outcomes
+PASS retry: deferred callback runs on next invocation and completed rows stay complete
+PASS retry: expired lease from killed process can be recovered
+PASS retry: delays table retains scheduler report and JSON retains columns
+P2/P6 #8: real installed CMS/CLI, shell server-cron invocation, callback HTTP work and public package reads passed. No cron daemon claimed.
+P2/P6 #6 installed pair passed: real Bedrock/WordPress transport; GraphQL boundary stub; Node SQLite publication store.

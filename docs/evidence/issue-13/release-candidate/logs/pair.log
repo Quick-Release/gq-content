@@ -1,0 +1,36 @@
+{"sourceCommit":"51a9f3eb36f90cf069fca8e6fe20a875e452d570","manifestSha256":"d9c58ba865c080bf6cb1bfe3deecd13a2c2eed019c2271dddcddab2fbecc5ef1","npm":{"filename":"getquick-content-0.1.0.tgz","sha256":"837b2e390dcb7606b4acbb4b62b781eba88a58f87d637dd176817a831faf8318","integrity":"sha512-lxzkdqcdgf4Ag1bTDLi59jUZmadU7dgW1Z6+aWWcKuMBvrMt5LWumHTntOEMmZhKYeCwvg4gCaWjAybbPvRX2w=="},"cms":{"filename":"gq-content-0.1.0.zip","sha256":"f892d974d80cde9bb9a36e4595f509661fb37f63e0102b1506483fcfc2c78a5e"}}
+Progress: resolved 0, reused 1, downloaded 0, added 0
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /home/runner/.local/share/pnpm/store/v11
+  Virtual store is at:             node_modules/.pnpm
+Packages: +2
+++
+Progress: resolved 2, reused 1, downloaded 1, added 2, done
+
+dependencies:
++ @getquick/content 0.1.0
+
+Done in 36ms using pnpm v12.11.2
+PASS pair: refresh installs usable chrome through public handler
+PASS pair: saving a draft retains no publication event
+PASS pair: actual CMS signature and configured Site accepted by installed handler
+PASS pair: record key and source event wire fields retained
+PASS pair: default publication HTTP timeout is 15 seconds
+PASS pair: public delivery contains CMS publication from GraphQL boundary
+PASS pair: update has fresh event identity and changes stored public delivery
+PASS pair: timeout filter receives 15 and its numeric result controls transport
+PASS pair: unreachable receiver does not fail a WordPress save
+PASS pair: receiver recovery retries same recorded identity
+PASS pair: actual rename retains previousUri and moves the old stored route
+PASS pair: stored publication survives CMS outage
+PASS pair: retry retains event identity and duplicate acceptance reads no CMS
+PASS pair: actual withdrawal changes public delivery without CMS read
+PASS pair: withdrawal retains source record/wire shape and node identity
+PASS pair: actual withdrawal also hides the moved route without reading CMS
+PASS pair: actual later republication restores public delivery
+PASS pair: password protection sends real withdrawal without CMS reads
+PASS pair: removing password sends real later publication
+PASS pair: trashing a publication sends withdrawal and hides its public route
+PASS pair: permanent deletion withdraws all stored routes without CMS reads
+PASS pair: successfully delivered deletion leaves no dangling deleted-entry record
+P2/P6 #6 installed pair passed: real Bedrock/WordPress transport; GraphQL boundary stub; Node SQLite publication store.

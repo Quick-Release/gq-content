@@ -2,8 +2,8 @@
 
 The configured content runtime for WordPress HTML and WPGraphQL. This slice
 provides pure helpers, the configured WordPress client, durable delivery and
-installed SQL migrations, and event/refresh HTTP handlers. This is not a
-completed or published 0.1.0 release pair.
+installed SQL migrations, and event/refresh HTTP handlers. It is released as a
+pair with the Composer package `getquick/gq-content`, at the same version and tag.
 
 ```ts
 import { renderWordPressBlocks, htmlLang } from "@getquick/content";

@@ -29,6 +29,9 @@ export default defineConfig({
       ".vite-hooks/_/",
       "pnpm-lock.yaml",
       "docs/specs/issue-1-content-runtime-extraction.md",
+      // Retained release bytes and live registry responses, kept exactly as received.
+      "docs/evidence/issue-13/release-candidate/",
+      "docs/evidence/issue-13/live/composer-p2-gq-content.json",
     ],
   },
   run: {
