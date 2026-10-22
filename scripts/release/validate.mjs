@@ -19,6 +19,9 @@ export const checks = [
   ["P5-registry", "node", ["compatibility/registry.mjs"]],
   ["P5-types", "vp", ["exec", "tsc", "--noEmit", "-p", "compatibility/tsconfig.json"]],
   ["P5", "node", ["scripts/consumer.mjs", "--design-fixtures"]],
+  ["consent-astro", "node", ["scripts/consent-acceptance.mjs"]],
+  ["consent-worker", "node", ["scripts/consent-worker-consumer.mjs"]],
+  ["consent-tanstack", "node", ["scripts/consent-tanstack-consumer.mjs"]],
   [
     "P7",
     "vp",

@@ -24,6 +24,8 @@ jobs:
           extensions: sqlite3, pdo_sqlite
           tools: composer:2.10.3
       - run: vp install --frozen-lockfile
+      - name: Install Chromium's system dependencies for the consent proofs
+        run: npx -y playwright@1.64.1 install-deps chromium
       - name: Install published fixtures using this repository token
         working-directory: compatibility
         env:

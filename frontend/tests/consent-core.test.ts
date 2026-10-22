@@ -270,3 +270,30 @@ test("the Legal Contract is parsed defensively and its revisions recorded", () =
   });
   expect(legal?.missingRequired).toEqual(["terms_of_sale"]);
 });
+
+test("the video hero is gated identically on the Site renderer path and in WordPress HTML (ticket 09)", async () => {
+  const { renderWordPressBlocks } = await import("@getquick/content");
+  const configuration = consentConfiguration({ services: ["youtube"] });
+  const rendered = renderWordPressBlocks([
+    {
+      name: "getquick-design/video-hero",
+      attributes: { videoType: "youtube", videoUrl: "https://youtu.be/abcdefghijk" },
+      innerBlocks: [],
+      innerHTML: '<section class="wp-block-getquick-design-video-hero"></section>',
+    } as never,
+  ]);
+  expect(rendered).toContain("youtube-nocookie.com/embed/abcdefghijk");
+  // The Site's own rendering and the delivery step run the same rewriting.
+  const sitePath = rewriteEmbeds(rendered, { configuration, language: "en" });
+  const deliveryPath = rewriteEmbeds(rendered, { configuration, language: "en" });
+  expect(sitePath).toEqual(deliveryPath);
+  expect(sitePath.placeholders).toEqual([{ service: "youtube", host: "www.youtube-nocookie.com" }]);
+  expect(sitePath.html).toContain("data-gq-decorative");
+  expect(scanConsentHtml(sitePath.html, site).liveThirdParty).toEqual([]);
+  // Without the service declared, the hero video is blocked, never live.
+  const undeclared = rewriteEmbeds(rendered, {
+    configuration: consentConfiguration(),
+    language: "en",
+  });
+  expect(undeclared.blocked[0]?.reason).toBe("inactive-service");
+});

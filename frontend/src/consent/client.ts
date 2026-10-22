@@ -235,7 +235,6 @@ export function startConsent(): ConsentController | null {
         headers: { "Content-Type": "application/json" },
         body,
         credentials: "same-origin",
-        keepalive: true,
       });
       if (response.ok) {
         if (state === decided) {

@@ -1,0 +1,10 @@
+---
+// CN-C1: a configuration with no service outside `necessary`.
+import Page from "../layouts/Page.astro";
+import { consentConfiguration } from "@getquick/content/consent";
+import { content } from "../lib/site";
+const chrome = await content.pageChrome(Astro.url.origin);
+---
+<Page lang="en" title="Necessary only" chrome={chrome} configuration={consentConfiguration({ controller: "Acme, Lda." })}>
+  <h1>Necessary only</h1>
+</Page>

@@ -26,6 +26,11 @@ package, version and a configured boolean, with no credentials.
 `{"package":"getquick/gq-content","version":"0.1.0"}` even without configuration.
 Existing commands are `status`, `check`, `retry <post-id>`, `settings status`,
 `settings retry <setting>`, `delays`, `retry-due` and `reconcile`.
+Shared settings subjects are `menus`, `logo`, `identity`, `design`, and for
+CONSENT-1/LEGAL-1 `legal` (sent on gq-config's `getquick_config_legal_changed`)
+and `analytics` (sent on `getquick_config_options_updated` for the `marketing`
+area, its GA4 toggle and measurement ID). Both refresh every language's chrome
+on Frontends that enable consent CMS settings; others refresh the chrome as is.
 The server cron remains `wp gq-events retry-due --quiet`; installing this package
 does not install a cron or provision/enroll a Site.
 

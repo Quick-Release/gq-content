@@ -300,3 +300,20 @@ test("purge removes records 5 years after they stop being in force, or a shorter
     createConsentServer({ siteId: "a", bindings: () => ({}), retentionDays: 3000 }),
   ).toThrow();
 });
+
+test("behind an adapter the Origin may match the Host header instead of the request URL", async () => {
+  const consent = server();
+  const { json } = body();
+  const proxied = (origin: string, host: string) =>
+    new Request("http://localhost:4321/gq/consent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Origin: origin, Host: host },
+      body: JSON.stringify(json),
+    });
+  expect((await consent.handle(proxied("https://www.acme.test", "evil.example")))?.status).toBe(
+    403,
+  );
+  expect((await consent.handle(proxied("https://www.acme.test", "www.acme.test")))?.status).toBe(
+    201,
+  );
+});

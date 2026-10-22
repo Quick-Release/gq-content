@@ -58,8 +58,8 @@ runs package-boundary suites, then packs and installs in a disposable consumer
 without private registry configuration. `vp run test` rebuilds before tests;
 `vp test frontend/tests/wordpress-access.test.ts` is useful after an explicit
 `vp pack` during a focused implementation cycle. Build output is intentionally
-untracked. The npm tarball allowlist contains only compiled output, the five original SQL migrations and package
-metadata (npm also includes this README).
+untracked. The npm tarball allowlist contains only compiled output, the five original SQL migrations, the
+separate consent database migrations and package metadata (npm also includes this README).
 
 The public delivery methods are `publishedHome(siteOrigin?, language?)`,
 `publishedEntry(path, siteOrigin?)` and `pageChrome(siteOrigin?)`. Supply a
@@ -127,3 +127,17 @@ WordPress/Polylang CLI and scheduler HTTP into the installed workerd consumer,
 using GraphQL answers projected from real CMS state. It verifies convergence,
 partial runs, outages/recovery and complete pending/failed records across Worker
 updates. Full P6 release evidence remains issue #11.
+
+## Consent and legal links
+
+CONSENT-1/LEGAL-1 ship as isolated entries: `@getquick/content/consent`
+(neutral core), `/consent/client` (browser runtime), `/consent/server` (the
+`/gq/consent` record and read endpoints and purge), `/consent/migrations`
+(the separate consent database), `/consent/astro` (default UI and legal
+footer as HTML) and `/consent/testing` (acceptance suite). They import no
+content runtime, framework or WordPress client. Passing
+`consent: { services: ["youtube"], cmsSettings: true }` to
+`createContentRuntime` rewrites third-party embeds into consent placeholders
+at delivery and stores gq-config's Legal Contract and GA4 settings in each
+language's chrome; `runtime.consentConfiguration(chrome)` returns the page's
+consent configuration. See the repository's `docs/consent.md`.

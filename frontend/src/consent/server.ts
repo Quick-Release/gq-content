@@ -154,7 +154,15 @@ export function createConsentServer(config: ConsentServerConfig) {
     const site = request.headers.get("Sec-Fetch-Site");
     if (site && site !== "same-origin") return false;
     if (!origin) return false;
-    return origin === new URL(request.url).origin || origins.has(origin);
+    if (origin === new URL(request.url).origin || origins.has(origin)) return true;
+    // Behind an adapter or proxy the request URL may name another host
+    // (Astro's Node adapter uses localhost): the browser's Host header is the
+    // origin it posted to.
+    try {
+      return new URL(origin).host === request.headers.get("Host");
+    } catch {
+      return false;
+    }
   }
 
   async function readBody(request: Request): Promise<string | null> {
