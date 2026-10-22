@@ -34,6 +34,7 @@ export interface WordPressClient<X = unknown> {
     Types.Found<{ entries: Types.PublishedEntry[]; requests: number }> | Types.Unavailable
   >;
   getPublishedRoutes(this: void): Promise<Types.Found<string[]> | Types.Unavailable>;
+  getArchives(this: void): Promise<Types.Found<Types.Archives> | Types.Unavailable>;
   getSiteChrome(
     this: void,
     siteOrigin?: string,
@@ -55,12 +56,22 @@ export function configuredWordPress<X>(
   const defaultLanguage = languages[0]!;
   const multilingual = languages.length > 1;
   const extension = config.extension;
+  const collections = Object.entries(config.collections ?? {});
+  /** The collection whose items are of a WPGraphQL type, if one is. */
+  const collectionOf = (typename: string) =>
+    collections.find(([, collection]) => collection.graphqlType === typename);
+  /** The Site's extension fields on a kind of node (an item's, its collection's). */
+  const extensionSelection = (kind: ExtensionNode["kind"], collection?: string) =>
+    (kind === "item"
+      ? extension?.fields.collections?.[collection ?? ""]
+      : extension?.fields[kind]
+    )?.trim();
   /**
    * The Site's extension fields on a kind of node, read with the blocks (left
    * out with them when WordPress fails on them).
    */
-  const extensionFields = (kind: ExtensionNode["kind"]) => {
-    const fields = extension?.fields[kind]?.trim();
+  const extensionFields = (kind: ExtensionNode["kind"], collection?: string) => {
+    const fields = extensionSelection(kind, collection);
     return fields ? `\n... @include(if: $withBlocks) {\n${fields}\n}` : "";
   };
   // The GETQUICK schema the Frontend requires. A field WordPress leaves out, or
@@ -133,6 +144,44 @@ export function configuredWordPress<X>(
   const entryData = z.object({
     postBy: postEntry.nullable(),
     pageBy: pageEntry.nullable(),
+    designTokens,
+  });
+
+  // On a Site with collections, any entry is read as the node at its URI: the
+  // fields a type may lack (its title, content, excerpt or featured image,
+  // per what it supports) are left out for it.
+  const termNode = z.object({
+    slug: z.string(),
+    name: z.string().nullable(),
+    taxonomyName: z.string().nullable(),
+  });
+  const nodeEntry = z
+    .object({
+      __typename: z.string(),
+      id: z.string(),
+      uri: z.string().nullable(),
+      status: z.string().nullable(),
+      isRestricted: z.boolean().nullable(),
+      modifiedGmt: z.string().nullable().optional(),
+      date: z.string().nullable().optional(),
+      title: z.string().nullable().optional(),
+      content: z.string().nullable().optional(),
+      excerpt: z.string().nullable().optional(),
+      featuredImage: imageEdge.optional(),
+      // Left out when read without blocks.
+      blocks: z.unknown().optional(),
+      // A collection's taxonomies' terms, when it has any.
+      terms: z
+        .object({ nodes: z.array(termNode) })
+        .nullable()
+        .optional(),
+      language: languageRef.nullable().optional(),
+      translations: translated.translations.optional(),
+    })
+    // The Site's extension fields, which it validates itself.
+    .passthrough();
+  const nodeEntryData = z.object({
+    node: z.union([nodeEntry, z.object({ __typename: z.string() })]).nullable(),
     designTokens,
   });
 
@@ -380,6 +429,93 @@ export function configuredWordPress<X>(
   const entryQuery = entryQueryText(false);
   const translatedEntryQuery = entryQueryText(true);
 
+  // On a Site with collections: the node at the URI, a page, a post or an
+  // item of a collection. What any of them may have is asked of the
+  // interfaces that have it, so a type that lacks it isn't an error; what is
+  // a type's own (the Site's extension fields, an item's terms, a
+  // multilingual Site's language and translations) of that type.
+  function nodeQueryText(translated: boolean) {
+    const languageFields = translated
+      ? `
+      language {
+        slug
+      }
+      translations {
+        uri
+        language {
+          slug
+        }
+      }`
+      : "";
+    const typeFields = (typename: string, fields: string) =>
+      fields.trim() ? `\n      ... on ${typename} {${fields}\n      }` : "";
+    const itemFields = collections
+      .map(([name, collection]) =>
+        typeFields(
+          collection.graphqlType,
+          `${
+            collection.taxonomies?.length
+              ? `
+        terms(first: 100) {
+          nodes {
+            slug
+            name
+            taxonomyName
+          }
+        }`
+              : ""
+          }${languageFields}${extensionFields("item", name)}`,
+        ),
+      )
+      .join("");
+    return /* GraphQL */ `
+  query EntryByUri($uri: String!, $withBlocks: Boolean = true) {
+    designTokens {
+      colors {
+        slug
+        color
+      }
+      spacingSizes {
+        slug
+        size
+      }
+    }
+    node: nodeByUri(uri: $uri) {
+      __typename
+      ... on ContentNode {
+        id
+        uri
+        date
+        status
+        isRestricted
+        modifiedGmt
+        blocks(attributes: true, htmlContent: true, dynamicContent: true, postTemplate: false)
+          @include(if: $withBlocks)
+      }
+      ... on NodeWithTitle {
+        title
+      }
+      ... on NodeWithContentEditor {
+        content
+      }
+      ... on NodeWithExcerpt {
+        excerpt
+      }
+      ... on NodeWithFeaturedImage {
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+      }${typeFields("Post", `${languageFields}${extensionFields("post")}`)}${typeFields("Page", `${languageFields}${extensionFields("page")}`)}${itemFields}
+    }
+  }
+`;
+  }
+  const nodeQuery = nodeQueryText(false);
+  const translatedNodeQuery = nodeQueryText(true);
+
   // The design presets alone, for a change to them that reaches every page.
   const designQuery = /* GraphQL */ `
     query DesignPresets {
@@ -400,10 +536,19 @@ export function configuredWordPress<X>(
   // revisions. The id and the modification time let reconciliation tell which
   // entries changed without reading each one. On a multilingual Site
   // (`everyLanguage`), the entries of every language (GQ Polylang for WPGraphQL).
+  /** WPGraphQL's ContentTypeEnum: pages, posts and each collection's post type. */
+  const contentTypes = [
+    "PAGE",
+    "POST",
+    ...collections.map(([, { postType }]) => {
+      const name = postType.replace(/[^A-Za-z0-9_]/g, "_").toUpperCase();
+      return /^[A-Z_]/.test(name) ? name : `_${name}`;
+    }),
+  ];
   function publishedRoutesQueryText(everyLanguage: boolean) {
     return /* GraphQL */ `
   query PublishedRoutes($after: String) {
-    contentNodes(first: 100, after: $after, where: { contentTypes: [PAGE, POST]${everyLanguage ? ", language: ALL" : ""} }) {
+    contentNodes(first: 100, after: $after, where: { contentTypes: [${contentTypes.join(", ")}]${everyLanguage ? ", language: ALL" : ""} }) {
       pageInfo {
         hasNextPage
         endCursor
@@ -462,16 +607,19 @@ export function configuredWordPress<X>(
     kind: ExtensionNode["kind"],
     node: Record<string, unknown>,
     blocksOmitted: boolean,
+    collection?: string,
   ): { extension?: X } {
-    if (!extension || !extensionFields(kind) || blocksOmitted) return {};
+    if (!extension || !extensionSelection(kind, collection) || blocksOmitted) return {};
     let value: X | undefined;
     try {
-      value = extension.read({ kind, fields: node });
+      value = extension.read(
+        collection === undefined ? { kind, fields: node } : { kind, collection, fields: node },
+      );
     } catch (error) {
       throw new CmsFailureError(
         {
           reason: "schema",
-          message: `WordPress's ${kind} doesn't match the Site's extension: ${error instanceof Error ? error.message : String(error)}`,
+          message: `WordPress's ${collection === undefined ? kind : `${collection} item`} doesn't match the Site's extension: ${error instanceof Error ? error.message : String(error)}`,
         },
         { cause: error },
       );
@@ -700,6 +848,7 @@ export function configuredWordPress<X>(
    * what any visitor may read.
    */
   async function getEntryByUri(uri: string): Promise<Delivery<EntryContent<X>>> {
+    if (collections.length > 0) return getNodeByUri(uri);
     return deliver(`the entry ${uri}`, async (): Promise<Found<EntryContent<X>> | Missing> => {
       const { data, blocksOmitted } = multilingual
         ? await queryWithBlockRecovery(translatedEntryData, translatedEntryQuery, { uri })
@@ -725,6 +874,79 @@ export function configuredWordPress<X>(
         },
       };
     });
+  }
+
+  /**
+   * On a Site with collections, the published page, post or collection item
+   * at a URI. Missing when the node there is none of them (an archive, a
+   * term, an item of a type the Site doesn't store), or isn't public.
+   */
+  async function getNodeByUri(uri: string): Promise<Delivery<EntryContent<X>>> {
+    return deliver(`the entry ${uri}`, async (): Promise<Found<EntryContent<X>> | Missing> => {
+      const { data, blocksOmitted } = await queryWithBlockRecovery(
+        nodeEntryData,
+        multilingual ? translatedNodeQuery : nodeQuery,
+        { uri },
+      );
+      const node = data.node;
+      if (!node || !("id" in node)) return { kind: "missing" };
+      const item = collectionOf(node.__typename);
+      const kind = node.__typename === "Page" ? "page" : node.__typename === "Post" ? "post" : null;
+      if (!item && !kind) return { kind: "missing" };
+      if (!node.uri || node.isRestricted || node.status !== "publish") return { kind: "missing" };
+
+      const entry: RawEntry = {
+        ...node,
+        uri: node.uri,
+        title: node.title ?? null,
+        content: node.content ?? null,
+        excerpt: node.excerpt ?? null,
+        date: node.date ?? null,
+        featuredImage: node.featuredImage ?? null,
+      };
+      const normalized = normalizePost(entry);
+      const blocks = parseWordPressBlocks(node.blocks);
+      const containsVideoHero = hasVideoHero(blocks);
+      return {
+        kind: "found",
+        content: {
+          ...normalized,
+          content: containsVideoHero ? renderWordPressBlocks(blocks) : normalized.content,
+          hasVideoHero: containsVideoHero,
+          blocksOmitted,
+          modifiedAt: cmsTime(node.modifiedGmt),
+          spacingSizes: data.designTokens.spacingSizes,
+          colors: data.designTokens.colors,
+          ...(multilingual ? languageOf(entry) : {}),
+          ...(item
+            ? {
+                collection: {
+                  name: item[0],
+                  terms: termsOf(item[1].taxonomies ?? [], node.terms?.nodes ?? []),
+                },
+              }
+            : {}),
+          ...(item
+            ? extended("item", node, blocksOmitted, item[0])
+            : extended(kind!, node, blocksOmitted)),
+        },
+      };
+    });
+  }
+
+  /** An item's terms in each of its collection's taxonomies (every one, if it has none). */
+  function termsOf(
+    taxonomies: readonly string[],
+    nodes: Array<z.infer<typeof termNode>>,
+  ): Record<string, Array<{ slug: string; name: string }>> {
+    return Object.fromEntries(
+      taxonomies.map((taxonomy) => [
+        taxonomy,
+        nodes
+          .filter((term) => term.taxonomyName === taxonomy)
+          .map((term) => ({ slug: term.slug, name: term.name ?? term.slug })),
+      ]),
+    );
   }
 
   /** An entry's language and published translations, as a multilingual Site stores them. */
@@ -790,6 +1012,96 @@ export function configuredWordPress<X>(
         reason: "schema",
         message: "WordPress listed more than 100,000 published routes",
       });
+    });
+  }
+
+  // GETQUICK Content's Archives (cms/modules/archives.php): where each public
+  // post type's archive is, the Page assigned to it or its own. With them,
+  // the post types and taxonomies WPGraphQL shows, so a collection whose
+  // type or taxonomy it doesn't fails here, by name, rather than storing
+  // items without their terms.
+  const names = z.object({ nodes: z.array(z.object({ name: z.string() })) }).nullable();
+  const archivesData = z.object({
+    getquickArchives: z
+      .array(z.object({ postType: z.string(), uri: z.string().nullable() }))
+      .nullable()
+      .optional(),
+    contentTypes: names,
+    taxonomies: names,
+  });
+  const archivesQueryText = (archives: boolean) => /* GraphQL */ `
+    query ContentArchives {${
+      archives
+        ? `
+      getquickArchives {
+        postType
+        uri
+      }`
+        : ""
+    }
+      contentTypes(first: 100) {
+        nodes {
+          name
+        }
+      }
+      taxonomies(first: 100) {
+        nodes {
+          name
+        }
+      }
+    }
+  `;
+
+  /**
+   * Where each collection's archive is, by post type: the Page assigned to it
+   * in GETQUICK → Archives, else the type's own archive. A CMS whose GETQUICK
+   * Content doesn't have Archives yet gives none. A collection whose post
+   * type or taxonomy WPGraphQL doesn't show fails the read (`schema`).
+   */
+  async function getArchives(): Promise<Found<Types.Archives> | Unavailable> {
+    return deliver("the archives", async (): Promise<Found<Types.Archives>> => {
+      let data: z.infer<typeof archivesData>;
+      try {
+        data = await query(archivesData, archivesQueryText(true));
+      } catch (error) {
+        if (
+          !(error instanceof CmsFailureError) ||
+          error.failure.reason !== "graphql" ||
+          !/Cannot query field "getquickArchives"/.test(error.failure.message)
+        )
+          throw error;
+        console.warn(
+          `WordPress: GETQUICK Content provides no archives (${error.failure.message}); collections have none`,
+        );
+        data = await query(archivesData, archivesQueryText(false));
+      }
+      const shown = (list: z.infer<typeof names>) =>
+        new Set((list?.nodes ?? []).map(({ name }) => name));
+      const postTypes = shown(data.contentTypes);
+      const taxonomies = shown(data.taxonomies);
+      const hidden = collections.flatMap(([name, collection]) => [
+        ...(postTypes.has(collection.postType)
+          ? []
+          : [`${name}'s post type ${collection.postType}`]),
+        ...(collection.taxonomies ?? [])
+          .filter((taxonomy) => !taxonomies.has(taxonomy))
+          .map((taxonomy) => `${name}'s taxonomy ${taxonomy}`),
+      ]);
+      if (hidden.length > 0) {
+        throw new CmsFailureError({
+          reason: "schema",
+          message: `WPGraphQL doesn't show ${hidden.join(", ")} (show_in_graphql)`,
+        });
+      }
+      const stored = new Set(collections.map(([, { postType }]) => postType));
+      return {
+        kind: "found",
+        content: Object.fromEntries(
+          (data.getquickArchives ?? []).flatMap(({ postType, uri }) =>
+            uri && stored.has(postType) ? [[postType, uriPath(uri)]] : [],
+          ),
+        ),
+      };
     });
   }
 
@@ -902,6 +1214,7 @@ export function configuredWordPress<X>(
     getDesignPresets,
     getPublishedEntries,
     getPublishedRoutes,
+    getArchives,
     getSiteChrome,
   };
 }

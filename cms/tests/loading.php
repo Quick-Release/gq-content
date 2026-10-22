@@ -2,9 +2,9 @@
 $plugin = WPMU_PLUGIN_DIR . '/gq-content/';
 $loaded = array_values(array_map('basename', array_filter(get_included_files(),
     static fn(string $path): bool => str_starts_with($path, $plugin))));
-$expected = ['gq-content.php', 'publication-events.php', 'settings-events.php', 'delivery-retries.php'];
+$expected = ['gq-content.php', 'publication-events.php', 'settings-events.php', 'delivery-retries.php', 'archives.php'];
 if ($loaded !== $expected) {
-    throw new RuntimeException('Entry point must load exactly three modules in dependency order');
+    throw new RuntimeException('Entry point must load exactly four modules in dependency order');
 }
 require_once $plugin . 'gq-content.php';
 foreach (glob($plugin . 'modules/*.php') as $module) {

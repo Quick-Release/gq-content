@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """P2: a fresh real Composer-installed Bedrock/WordPress/WP-CLI consumer."""
+import base64
 import hashlib
 import json
 import os
+import re
 import hmac
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import threading
@@ -43,6 +45,19 @@ def wp(*args, env=None, ok=True):
     return run(['php', '-d', 'error_reporting=24575', '-d', 'memory_limit=512M',
                 str(CACHE / 'wp-cli.phar'), f'--path={SITE}/web/wp', *args],
                cwd=SITE, env=clean, ok=ok)
+
+
+def without_fields(query):
+    """A query without GQ Design's designTokens and wpgraphql-blocks' blocks, which P2's WordPress lacks."""
+    start = query.index('designTokens {')
+    depth, end = 0, start
+    for end in range(start, len(query)):
+        depth += {'{': 1, '}': -1}.get(query[end], 0)
+        if depth == 0 and query[end] == '}':
+            break
+    query = query[:start] + query[end + 1:]
+    query = re.sub(r'blocks\([^)]*\)\s*@include\(if: \$withBlocks\)', '', query)
+    return query.replace(', $withBlocks: Boolean = true', '')
 
 
 def check(name, condition):
@@ -107,7 +122,7 @@ if __name__ == '__main__':
     check('production Site Health reports missing configuration safely',
           diagnostics['health']['status'] == 'critical' and
           diagnostics['fields']['configured']['value'] is False)
-    check('all three modules load once in dependency order through Bedrock',
+    check('all four modules load once in dependency order through Bedrock',
           wp('eval-file', str(ROOT / 'cms/tests/loading.php')).stdout.strip() == 'loaded-once-in-order')
 
     # An external HTTP receiver checks actual WordPress transport/signatures.
@@ -240,6 +255,87 @@ if __name__ == '__main__':
         check('version remains available with an invalid defined identity',
               json.loads(wp('gq-events', 'version', '--format=json', env=base).stdout) ==
               {'package': 'getquick/gq-content', 'version': '0.2.0'})
+
+        # Archives (ADR 0005): real WPGraphQL (the version Nomia runs) resolves
+        # an assigned Page at its custom post type's archive URI.
+        with zipfile.ZipFile(download('wp-graphql-2.24.2.zip',
+                                      'https://downloads.wordpress.org/plugin/wp-graphql.2.24.2.zip')) as archive:
+            archive.extractall(plugins)
+        wp('plugin', 'activate', 'wp-graphql')
+        shutil.copy(ROOT / 'cms/tests/archives-fixture.php', SITE / 'web/app/mu-plugins/proof-collections.php')
+        configure()
+        env = base | {'GQ_CONTENT_SITE_ID': 'archives-proof'}
+        wp('rewrite', 'structure', '/%postname%/', env=env)
+
+        def step(name):
+            return json.loads(wp('eval-file', str(ROOT / 'cms/tests/archives.php'),
+                                 env=env | {'ARCHIVES_STEP': name}).stdout)
+
+        def sent(start, test):
+            return [row for row in received[start:] if row['signed'] and test(row['event'])]
+
+        start = len(received)
+        ids = step('setup')
+        check('a public custom post type\'s item is published as an event at its URI',
+              sent(start, lambda event: event['action'] == 'publish' and
+                   event['entry']['uri'] == '/biblioteca/lei/' and
+                   event['entry']['id'] == base64.b64encode(f'post:{ids["item"]}'.encode()).decode()))
+        before = step('before')
+        check('without an archive Page, the type\'s own archive claims its URI',
+              before['archive'] == 'ContentType' and before['item'] == 'Biblioteca' and
+              before['archives']['biblioteca'] == {'uri': '/biblioteca/', 'page': None} and
+              before['archives']['eventos'] == {'uri': '/eventos/', 'page': None})
+        start = len(received)
+        assigned = step('assign')
+        check('the setting keeps public custom post types, one per existing Page',
+              assigned['sanitized'] == {'biblioteca': ids['page']} and
+              assigned['option'] == {'biblioteca': ids['page']})
+        check('saving the archives sends an archives settings event',
+              sent(start, lambda event: event['action'] == 'settings' and event['setting'] == 'archives'))
+        after = step('after')
+        check('the assigned Page takes over its type\'s archive URI, and the items keep theirs',
+              after['archive'] == 'Page' and after['item'] == 'Biblioteca' and
+              after['other'] == 'ContentType' and not after['archive_rule'] and after['item_rule'])
+        check('getquickArchives says where each archive is: the Page, else the type\'s own',
+              after['archives']['biblioteca'] == {'uri': '/biblioteca/', 'page': ids['page']} and
+              after['archives']['eventos'] == {'uri': '/eventos/', 'page': None})
+        check('Site Health finds every published page reachable at its address', after['health'] == 'good')
+        collision = step('collide')
+        check('Site Health names a page a custom post type\'s item rule hides',
+              collision == {'pages': ['/biblioteca/legislacao/'], 'status': 'recommended'})
+        run(['vp', 'pack'])
+        queries = json.loads(run(['node', 'scripts/collection-queries.mjs']).stdout)
+        queries['EntryByUri'] = without_fields(queries['EntryByUri'])
+        ran = json.loads(wp('eval-file', str(ROOT / 'cms/tests/archives.php'),
+                            env=env | {'ARCHIVES_STEP': 'queries', 'ARCHIVES_QUERIES': json.dumps(queries)}).stdout)
+        item = ran['entry'].get('data', {}).get('node') or {}
+        check('the runtime\'s item read is valid WPGraphQL, with its type\'s terms',
+              'errors' not in ran['entry'] and item.get('__typename') == 'Biblioteca' and
+              item.get('excerpt', '').strip() == '<p>Resumo</p>' and item.get('status') == 'publish' and
+              {'slug': 'legislacao', 'name': 'Legislação', 'taxonomyName': 'category'} in item['terms']['nodes'])
+        check('the same read finds the archive Page at the archive URI, as a page',
+              'errors' not in ran['page'] and ran['page']['data']['node']['__typename'] == 'Page')
+        schema = ran['archives'].get('data') or {}
+        check('the runtime\'s archives read is valid WPGraphQL, with the shown types and taxonomies',
+              'errors' not in ran['archives'] and
+              {'postType': 'biblioteca', 'uri': '/biblioteca/'} in schema['getquickArchives'] and
+              {'name': 'biblioteca'} in schema['contentTypes']['nodes'] and
+              {'name': 'category'} in schema['taxonomies']['nodes'])
+        start = len(received)
+        step('trash')
+        trashed = step('trashed')
+        check('a trashed archive Page is no archive, and its trashing is an archives event',
+              trashed['archives']['biblioteca'] == {'uri': None, 'page': None} and
+              sent(start, lambda event: event['action'] == 'settings' and event['setting'] == 'archives'))
+        deleted = step('delete')
+        check('deleting an archive Page unassigns it', deleted['deleted'] and not deleted['option'])
+        restored = step('deleted')
+        check('an unassigned type has its own archive again',
+              restored['archive'] == 'ContentType' and
+              restored['archives']['biblioteca'] == {'uri': '/biblioteca/', 'page': None})
+        screen = step('screen')
+        check('GETQUICK → Archives (under Settings without gq-config) offers a Page for each type',
+              screen['menu'] == ['options-general.php'] and screen['select'] and screen['sanitized'])
     finally:
         configure()
         receiver.shutdown()
@@ -251,6 +347,6 @@ if __name__ == '__main__':
     print(wp('--version').stdout.strip())
     print('WordPress ' + wp('core', 'version').stdout.strip())
     locked = json.loads((SITE / 'composer.lock').read_text())
-    print('Bedrock project 1.31.7; SQLite integration 3.1.0')
+    print('Bedrock project 1.31.7; SQLite integration 3.1.0; WPGraphQL 2.24.2')
     for package in locked['packages']:
         print(package['name'] + ' ' + package['version'])

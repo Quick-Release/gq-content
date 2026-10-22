@@ -3,7 +3,10 @@
 import { vi } from "vite-plus/test";
 
 export type Answer = { ok: false; status: number } | { ok: true; json: () => Promise<unknown> };
-export type Handler = (variables: Record<string, unknown>) => Answer | Promise<Answer>;
+export type Handler = (
+  variables: Record<string, unknown>,
+  query?: string,
+) => Answer | Promise<Answer>;
 
 export const tokens = { colors: [], spacingSizes: [] };
 
@@ -66,6 +69,7 @@ export function stubWordPress(handlers: {
   design?: Handler;
   routes?: Handler;
   consent?: Handler;
+  archives?: Handler;
 }) {
   const answer = {
     chrome: () => data(chrome),
@@ -86,9 +90,10 @@ export function stubWordPress(handlers: {
       DesignPresets: answer.design,
       PublishedRoutes: answer.routes,
       ConsentSettings: answer.consent,
+      ContentArchives: answer.archives,
     }[name ?? ""];
     if (!handler) throw new Error(`Unexpected query ${name}`);
-    return handler(request.variables ?? {});
+    return handler(request.variables ?? {}, request.query);
   });
   vi.stubGlobal("fetch", fetchMock);
   return fetchMock;

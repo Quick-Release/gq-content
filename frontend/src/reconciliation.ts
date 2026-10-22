@@ -7,9 +7,10 @@
 // (ADR 0009):
 //
 // - the shared rows (each language's front page with its title and tagline,
-//   and its chrome; the design presets) are read and compared with what is
+//   and its chrome; the design presets; on a Site with collections, where
+//   their archives are) are read and compared with what is
 //   stored, so a change to any shared setting is caught whatever saved it;
-// - WordPress's list of published pages and posts in every language (id,
+// - WordPress's list of published pages, posts and collection items in every language (id,
 //   URI, modification time) is compared with the stored entries: a new
 //   entry, one whose URI or modification time differs, one stored but no
 //   longer listed, and one withdrawn but published again since are
@@ -46,6 +47,8 @@ export function configuredReconciliation<X>(
   languages: SiteLanguage[],
   delivery: ReturnType<typeof configuredDelivery<X>>,
   wordpress: WordPressClient<X>,
+  /** Whether the Site has collections, whose archives are a shared row too. */
+  collections = false,
 ) {
   const { eachLimited, reconcileShared, refreshEntries, sharedOutcomes } = delivery;
   const { getPublishedEntries } = wordpress;
@@ -59,8 +62,11 @@ export function configuredReconciliation<X>(
    * is asked again without them. Chrome and design have no block recovery.
    */
   const REQUESTS_PER_READ = 2;
-  /** Reserve design once, and each language's home (including recovery) and chrome. */
-  const SHARED_REQUESTS = 1 + (REQUESTS_PER_READ + 1) * languages.length;
+  /**
+   * Reserve design once (and the archives, on a Site with collections), and
+   * each language's home (including recovery) and chrome.
+   */
+  const SHARED_REQUESTS = (collections ? 2 : 1) + (REQUESTS_PER_READ + 1) * languages.length;
   /** Stored entries re-read each run, when the budget allows, though WordPress lists them unchanged. */
   const VERIFIED_PER_RUN = 2;
   /** How long a run holds the lease; an interrupted run's lease is taken over after it. */

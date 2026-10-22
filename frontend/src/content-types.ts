@@ -53,6 +53,21 @@ export interface HomeContent<X = unknown> extends DesignPresets {
   blocksOmitted: boolean;
 }
 
+/** A term of one of a collection's taxonomies, as an item carries it. */
+export interface CollectionTerm {
+  slug: string;
+  name: string;
+}
+
+/**
+ * The collection an entry is an item of (ContentConfig's `collections`): its
+ * name, and its terms in each of the collection's taxonomies.
+ */
+export interface CollectionMembership {
+  name: string;
+  terms: Record<string, CollectionTerm[]>;
+}
+
 /** A published translation of an entry: its URI and its language's slug. */
 export interface Translation {
   uri: string;
@@ -68,6 +83,8 @@ export interface EntryContent<X = unknown> extends WordPressPost, DesignPresets,
   blocksOmitted: boolean;
   /** When WordPress last modified it (ms, the CMS's clock), if it said. */
   modifiedAt: number | null;
+  /** The collection it is an item of, when it is one (not a page or post). */
+  collection?: CollectionMembership;
 }
 
 /** A published page or post as WordPress lists it: its id, URI and last modification. */
@@ -78,6 +95,9 @@ export interface PublishedEntry {
   /** When WordPress last modified it (ms, the CMS's clock), if it said. */
   modifiedAt: number | null;
 }
+
+/** Where each collection's archive is (a path), by its post type. */
+export type Archives = Record<string, string>;
 
 export interface SiteChrome {
   menuItems: WordPressMenuItem[];

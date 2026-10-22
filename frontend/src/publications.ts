@@ -119,12 +119,36 @@ export interface StoreStatus {
   home: string | null;
   chrome: string | null;
   design: string | null;
+  /** Where each collection's archive is: present once a Site with collections stored them. */
+  archives?: string | null;
   /** The stored entry routes, by state ("published", "missing", "moved", "withdrawn", "unusable"). */
   entries: Record<string, number>;
   /** The withdrawals in force. */
   withdrawals: number;
   /** Recorded events whose processing failed: delayed until the CMS delivers them again. */
   failedEvents: number;
+}
+
+/**
+ * Which of a collection's stored items a query is about: those published in
+ * this format, in the collection, in the language (an item stored without one
+ * is in `defaultLanguage`), with one of the slugs of each taxonomy (`path`,
+ * the JSON path to its terms in the body), and whose search text contains
+ * `search` (already normalized).
+ */
+export interface CollectionFilter {
+  collection: string;
+  language: string | null;
+  defaultLanguage: string;
+  terms: Array<{ path: string; slugs: string[] }>;
+  search: string | null;
+}
+
+/** A stored item, as a collection lists it: its row's body (JSON) and modification time. */
+export interface StoredItem {
+  key: string;
+  body: string;
+  modifiedAt: number | null;
 }
 
 /** The store couldn't be read or written. Says nothing about the content. */
@@ -204,6 +228,23 @@ export interface PublicationStore {
   reconciliation(): Promise<ReconciliationState | null>;
   /** What the store holds, in states and counts. */
   status(): Promise<StoreStatus>;
+  /**
+   * A page of the collection's items the filter matches, newest first (by
+   * WordPress's date, then key), and how many it matches in all.
+   */
+  listItems(
+    filter: CollectionFilter,
+    limit: number,
+    offset: number,
+  ): Promise<{ items: StoredItem[]; total: number }>;
+  /**
+   * The terms at `path` of the collection's items the filter matches, by slug,
+   * with the name last stored for each and how many items have it.
+   */
+  itemTerms(
+    filter: CollectionFilter,
+    path: string,
+  ): Promise<Array<{ slug: string; name: string; count: number }>>;
   /**
    * Records how processing the event ended. A refreshed event supersedes the
    * older ones about the same entry that weren't refreshed, so a retry skips
@@ -665,7 +706,7 @@ export function publicationStore(db: SqlDatabase): PublicationStore {
       const [shared, entries, withdrawals, failed] = await guard("be read", () =>
         db.batch([
           db.prepare(
-            "SELECT key, state, format FROM publications WHERE key IN ('home', 'chrome', 'design')",
+            "SELECT key, state, format FROM publications WHERE key IN ('home', 'chrome', 'design', 'archives')",
           ),
           db
             .prepare(
@@ -689,6 +730,7 @@ export function publicationStore(db: SqlDatabase): PublicationStore {
         home: state("home"),
         chrome: state("chrome"),
         design: state("design"),
+        ...(state("archives") === null ? {} : { archives: state("archives") }),
         entries: Object.fromEntries(
           (entries!.results as Array<{ state: string; count: number }>).map((row) => [
             row.state,
@@ -698,6 +740,63 @@ export function publicationStore(db: SqlDatabase): PublicationStore {
         withdrawals: count(withdrawals),
         failedEvents: count(failed),
       };
+    },
+
+    async listItems(filter, limit, offset) {
+      const { where, values } = itemsWhere(filter);
+      const { results } = await guard("be read", () =>
+        db
+          .prepare(
+            `SELECT key, body, modified_at, count(*) OVER () AS total FROM publications p
+             WHERE ${where}
+             ORDER BY json_extract(p.body, '$.date') DESC, p.key
+             LIMIT ? OFFSET ?`,
+          )
+          .bind(...values, limit, offset)
+          .all<{ key: string; body: string; modified_at: number | null; total: number }>(),
+      );
+      let total = Number(results[0]?.total ?? 0);
+      // Past the last page: no row says how many there are.
+      if (results.length === 0 && offset > 0) {
+        const row = await guard("be read", () =>
+          db
+            .prepare(`SELECT count(*) AS total FROM publications p WHERE ${where}`)
+            .bind(...values)
+            .first<{ total: number }>(),
+        );
+        total = Number(row?.total ?? 0);
+      }
+      return {
+        items: results.map((row) => ({
+          key: row.key,
+          body: row.body,
+          modifiedAt: row.modified_at,
+        })),
+        total,
+      };
+    },
+
+    async itemTerms(filter, path) {
+      const { where, values } = itemsWhere(filter);
+      const { results } = await guard("be read", () =>
+        db
+          .prepare(
+            `SELECT json_extract(t.value, '$.slug') AS slug,
+                    max(json_extract(t.value, '$.name')) AS name,
+                    count(DISTINCT p.key) AS count
+             FROM publications p, json_each(p.body, ?) AS t
+             WHERE ${where} AND json_type(t.value, '$.slug') = 'text'
+             GROUP BY 1
+             ORDER BY 2 COLLATE NOCASE, 1`,
+          )
+          .bind(path, ...values)
+          .all<{ slug: string; name: string | null; count: number }>(),
+      );
+      return results.map((row) => ({
+        slug: row.slug,
+        name: row.name ?? row.slug,
+        count: Number(row.count),
+      }));
     },
 
     async startEvent(id) {
@@ -739,6 +838,33 @@ export function publicationStore(db: SqlDatabase): PublicationStore {
       );
     },
   };
+}
+
+/** The WHERE clause (on `publications p`) for a collection's items, and its values in order. */
+function itemsWhere(filter: CollectionFilter) {
+  const clauses = [
+    "substr(p.key, 1, 6) = 'entry:'",
+    "p.state = 'published'",
+    "p.format = ?",
+    "json_extract(p.body, '$.collection.name') = ?",
+  ];
+  const values: unknown[] = [PUBLICATION_FORMAT, filter.collection];
+  if (filter.language !== null) {
+    clauses.push("coalesce(json_extract(p.body, '$.language'), ?) = ?");
+    values.push(filter.defaultLanguage, filter.language);
+  }
+  if (filter.search !== null) {
+    clauses.push("instr(json_extract(p.body, '$.collection.search'), ?) > 0");
+    values.push(filter.search);
+  }
+  for (const { path, slugs } of filter.terms) {
+    clauses.push(
+      `EXISTS (SELECT 1 FROM json_each(p.body, ?) AS term
+         WHERE json_extract(term.value, '$.slug') IN (SELECT slug.value FROM json_each(?) AS slug))`,
+    );
+    values.push(path, JSON.stringify(slugs));
+  }
+  return { where: clauses.join(" AND "), values };
 }
 
 function movedTo(body: string | null) {
