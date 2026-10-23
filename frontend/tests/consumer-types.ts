@@ -6,7 +6,6 @@ import {
   presetRootStyle,
   menuItemHref,
   containerLayoutHtml,
-  containerChildLayoutHtml,
   htmlLang,
   siteLanguages,
   languageSubject,
@@ -87,7 +86,6 @@ const styles: BlockPresetStyles = blockPresetStyles(spacing, colors);
 const attributes: ContainerAttributes = {};
 void styles;
 containerLayoutHtml("<div></div>", attributes);
-containerChildLayoutHtml("<div></div>", "<div></div>");
 htmlLang("pt_PT_ao90");
 siteLanguages({ languages: [{ locale: "en_US", slug: "en" }] });
 languageSubject(language, "front page");

@@ -1,5 +1,5 @@
 import { DESIGN_GRID, gridLayoutHtml } from "./wp-grid-layout";
-import { containerChildLayoutHtml, containerLayoutHtml } from "./wp-container-layout";
+import { presentationHtml } from "./presentation";
 
 export interface WordPressBlock {
   name: string;
@@ -160,20 +160,17 @@ function appendChildren(html: string, children: string): string {
   return `${html.slice(0, closingTag)}${children}${html.slice(closingTag)}`;
 }
 
-function renderBlock(block: WordPressBlock, parentContainerHtml = ""): string {
-  const isContainer = block.name === "getquick-design/container";
-  let html = isContainer
-    ? containerLayoutHtml(block.htmlContent ?? "", block.attributes ?? {})
-    : (block.htmlContent ?? "");
+function renderBlock(block: WordPressBlock): string {
+  let html = presentationHtml(block.name, block.htmlContent ?? "", block.attributes?.presentation);
   if (block.name === DESIGN_GRID) html = gridLayoutHtml(html, block.attributes ?? {});
-  if (isContainer && parentContainerHtml) {
-    html = containerChildLayoutHtml(html, parentContainerHtml);
-  }
-  const children = (block.innerBlocks ?? [])
-    .map((child) => renderBlock(child, isContainer ? html : ""))
-    .join("");
+  const children = (block.innerBlocks ?? []).map((child) => renderBlock(child)).join("");
 
-  if (block.name === VIDEO_HERO_BLOCK) return renderVideoHero(block, children);
+  if (block.name === VIDEO_HERO_BLOCK)
+    return presentationHtml(
+      block.name,
+      renderVideoHero(block, children),
+      block.attributes?.presentation,
+    );
 
   if (!children || BLOCKS_WITH_RENDERED_CHILDREN.has(block.name)) return html;
   return appendChildren(html, children);

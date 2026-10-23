@@ -162,10 +162,19 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@quick-release/design-contract': file:vendor/design-f3292fe/quick-release-design-contract-f3292fe.tgz
+
 importers:
 
   .:
     devDependencies:
+      '@quick-release/design-contract':
+        specifier: file:vendor/design-f3292fe/quick-release-design-contract-f3292fe.tgz
+        version: file:vendor/design-f3292fe/quick-release-design-contract-f3292fe.tgz
+      '@quick-release/design-renderer':
+        specifier: file:vendor/design-f3292fe/quick-release-design-renderer-8f18a4a.tgz
+        version: file:vendor/design-f3292fe/quick-release-design-renderer-8f18a4a.tgz
       '@types/node':
         specifier: ^24.0.0
         version: 24.19.2
@@ -499,6 +508,14 @@ packages:
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
+
+  '@quick-release/design-contract@file:vendor/design-f3292fe/quick-release-design-contract-f3292fe.tgz':
+    resolution: {integrity: sha512-oWg0VNk0zSDPq7ZNL/AjDoasaSLNPNzmpj1cyCJjTmvrMvckxX86aD76k5THLn74fzBYWHBPlRi1e2LizdCaFg==, tarball: file:vendor/design-f3292fe/quick-release-design-contract-f3292fe.tgz}
+    version: 0.8.1
+
+  '@quick-release/design-renderer@file:vendor/design-f3292fe/quick-release-design-renderer-8f18a4a.tgz':
+    resolution: {integrity: sha512-q3XtrCO/96P59G12kodp/TQ8eYBr8qakDDi9O1dN0n/tokX9les1Obk/aDox42f8/BZbIxT7tVqdftCPM5LtnA==, tarball: file:vendor/design-f3292fe/quick-release-design-renderer-8f18a4a.tgz}
+    version: 0.8.1
 
   '@testing-library/dom@10.4.2':
     resolution: {integrity: sha512-yzr2S9HyAIdhz2/6qHgbs665Q7PKVcDF05vsOlHPxG1mo36gKVesdYVeDLnXgfjJ03CrKRk08knc6+E/9m8v2Q==}
@@ -1356,6 +1373,12 @@ snapshots:
   '@oxlint/plugins@1.79.0': {}
 
   '@polka/url@1.0.0-next.29': {}
+
+  '@quick-release/design-contract@file:vendor/design-f3292fe/quick-release-design-contract-f3292fe.tgz': {}
+
+  '@quick-release/design-renderer@file:vendor/design-f3292fe/quick-release-design-renderer-8f18a4a.tgz':
+    dependencies:
+      '@quick-release/design-contract': file:vendor/design-f3292fe/quick-release-design-contract-f3292fe.tgz
 
   '@testing-library/dom@10.4.2':
     dependencies:

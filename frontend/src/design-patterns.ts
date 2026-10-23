@@ -1,7 +1,7 @@
+import { presentationHtml } from "./presentation";
 import { DESIGN_GRID, gridLayoutHtml } from "./wp-grid-layout";
 import type { WordPressMenuItem } from "./content-types";
 import { menuItemHref } from "./formatting";
-import { containerChildLayoutHtml, containerLayoutHtml } from "./wp-container-layout";
 
 /**
  * A block of a GQ Design pattern, as its layout API shapes it (`blocksJson`):
@@ -264,52 +264,55 @@ export function renderDesignPattern(
   const internalOrigins = options.internalOrigins ?? [];
   const href = (url: unknown) => linkHref(url, internalOrigins);
 
-  // `parentContainer`: the wrapper of the GQ Design container a block is
-  // directly inside, whose layout it continues, as content's renderer does.
-  const renderAll = (
-    blocks: DesignBlock[],
-    ancestors: DesignBlock[],
-    parentContainer = "",
-  ): string => blocks.map((block) => renderOne(block, ancestors, parentContainer)).join("");
+  const renderAll = (blocks: DesignBlock[], ancestors: DesignBlock[]): string =>
+    blocks.map((block) => renderOne(block, ancestors)).join("");
 
-  function renderOne(
-    block: DesignBlock,
-    ancestors: DesignBlock[],
-    parentContainer: string,
-  ): string {
+  function renderOne(block: DesignBlock, ancestors: DesignBlock[]): string {
     const inside = [...ancestors, block];
     const renderer = Object.hasOwn(renderers, block.name) ? renderers[block.name] : undefined;
     if (renderer) {
       // Rendered when the renderer asks for them, once.
       let children: string | undefined;
-      return renderer(block, {
-        get children() {
-          return (children ??= renderAll(block.children, inside));
-        },
-        ancestors,
-        render: (blocks) => renderAll(blocks, inside),
-        href,
-        home: options.home ?? "/",
-      });
+      return presentationHtml(
+        block.name,
+        renderer(block, {
+          get children() {
+            return (children ??= renderAll(block.children, inside));
+          },
+          ancestors,
+          render: (blocks) => renderAll(blocks, inside),
+          href,
+          home: options.home ?? "/",
+        }),
+        block.attributes.presentation,
+      );
     }
     if (block.name === DESIGN_CONTAINER && (block.children.length > 0 || block.content !== null)) {
-      // The same layout content's containers get (constrained width, gap and
-      // padding), from the shared adapter rather than a copy of it. An empty
-      // one is a leaf without HTML, reported like any other.
-      let wrapper = containerLayoutHtml(
+      // The shared presentation applies to chrome and content alike.
+      const wrapper = presentationHtml(
+        block.name,
         block.content ?? containerHtml(block, ""),
-        block.attributes,
+        block.attributes.presentation,
       );
-      if (parentContainer) wrapper = containerChildLayoutHtml(wrapper, parentContainer);
-      return insertChildren(wrapper, renderAll(block.children, inside, wrapper));
+      return insertChildren(wrapper, renderAll(block.children, inside));
     }
     if (block.name === DESIGN_GRID && (block.children.length > 0 || block.content !== null)) {
       const wrapper = gridLayoutHtml(block.content ?? containerHtml(block, ""), block.attributes);
       return insertChildren(wrapper, renderAll(block.children, inside));
     }
     const children = renderAll(block.children, inside);
-    if (block.content !== null) return insertChildren(block.content, children);
-    if (block.children.length > 0) return containerHtml(block, children);
+    if (block.content !== null)
+      return presentationHtml(
+        block.name,
+        insertChildren(block.content, children),
+        block.attributes.presentation,
+      );
+    if (block.children.length > 0)
+      return presentationHtml(
+        block.name,
+        containerHtml(block, children),
+        block.attributes.presentation,
+      );
     options.onUnrendered?.(block);
     return "";
   }

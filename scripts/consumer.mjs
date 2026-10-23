@@ -62,7 +62,7 @@ try {
       type: "module",
       packageManager: "pnpm@12.11.2",
       dependencies: { "@getquick/content": `file:${tarball}` },
-      devDependencies: { "vite-plus": "1.1.0", typescript: "6.0.3" },
+      devDependencies: { "vite-plus": "1.1.0", typescript: "6.0.3", parse5: "8.0.1" },
     }),
   );
   writeFileSync(join(consumer, ".npmrc"), "registry=https://registry.npmjs.org/\n");
@@ -108,7 +108,7 @@ try {
     if (!/^(consent-)?migrations\./.test(file))
       assert.doesNotMatch(
         text,
-        /(?:from|import)\s*\(?\s*["'](?:astro|@astrojs\/|react)|cloudflare:|gq\.ops|import\.meta\.env|\{\{project\}\}|@quick-release|["']node:|migrationsDirectory/,
+        /(?:from|import)\s*\(?\s*["'](?:astro|@astrojs\/|react)|cloudflare:|gq\.ops|import\.meta\.env|\{\{project\}\}|(?:from|import)\s*\(?\s*["']@quick-release|["']node:|migrationsDirectory/,
       );
     if (file.endsWith(".d.ts")) assert.doesNotMatch(text, /from ["']zod|z\.infer|ZodType/);
   }

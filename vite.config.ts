@@ -16,7 +16,7 @@ export default defineConfig({
       "metadata-content": "frontend/src/metadata-content.ts",
     },
     platform: "neutral",
-    deps: { neverBundle: ["node:url"] },
+    deps: { neverBundle: ["node:url"], alwaysBundle: [/^@quick-release\//, "parse5"] },
     target: "es2022",
     format: ["esm"],
     outDir: "frontend/dist",

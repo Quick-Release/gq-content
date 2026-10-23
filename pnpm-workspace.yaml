@@ -1,2 +1,5 @@
 packages:
   - frontend
+
+overrides:
+  "@quick-release/design-contract": file:vendor/design-f3292fe/quick-release-design-contract-f3292fe.tgz

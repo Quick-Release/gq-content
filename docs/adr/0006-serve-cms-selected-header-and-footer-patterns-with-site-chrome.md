@@ -110,3 +110,22 @@ WPGraphQL; the runtime consumes the public field and treats authoritative null
 as removal of its stored pattern on the next successful read. A failed read
 retains last-known-good content, including when the CMS is unreachable after a
 selection changes. There is no separate pattern-withdrawal protocol.
+
+## Tailwind presentation adoption (2026-10-24)
+
+The accepted gq-design ADR 0004 supersedes this ADR's legacy Container
+restoration and dependency-free implementation. `renderDesignPattern` and
+`renderWordPressBlocks` apply `presentationHtml` to rendered shells, including
+Site renderer output. Container uses the canonical neutral presentation model:
+Base and upward overrides, responsive caps, explicit margins and padding, and
+no implicit centering. `containerLayoutHtml` delegates to that same model;
+the former parent-layout restoration helper is removed.
+
+The canonical renderer and contract are pinned immutable build inputs and
+bundled into the content package. Sites import the presentation functions and
+model through `@getquick/content`, without installing managed Design packages.
+Install `presentationStyleSheet(resolvedTheme)` once for chrome and content;
+its complete static mappings support content authored after a build. Preserve
+saved variables when parsed attributes are absent. Theme transport and later
+family targets are separate pending adoption slices, not acceptance of the
+complete catalog.

@@ -516,7 +516,7 @@ test("containers without a renderer are wrapped as WordPress would; dynamic leav
   expect(unrendered).toEqual(["getquick/header-navigation", "core/site-title"]);
 });
 
-test("GQ Design containers keep their layout, as the same containers in content do", () => {
+test("GQ Design containers use shared presentation in chrome and content", () => {
   const paragraph = (text: string): DesignBlock => ({
     name: "core/paragraph",
     attributes: {},
@@ -548,10 +548,8 @@ test("GQ Design containers keep their layout, as the same containers in content 
   ];
   const html = renderDesignPattern(blocks);
   expect(html).toBe(
-    '<div class="wp-block-getquick-design-container is-layout-constrained gqd-container-layout gqd-container-layout--constrained" style="--gqd-layout-content:640px;--gqd-layout-wide:1200px;--gqd-layout-gap:var(--wp--preset--spacing--40);--gqd-layout-left:auto;--gqd-layout-right:auto;--gqd-layout-padding-left:1rem;--gqd-layout-padding-right:2rem">' +
-      "<p>Outer</p>" +
-      '<div class="wp-block-getquick-design-container is-layout-default gqd-container-layout" style="--gqd-layout-content:var(--wp--style--global--content-size, none);--gqd-layout-wide:var(--wp--style--global--wide-size, none);--gqd-layout-gap:8px;--gqd-parent-layout-content:640px;--gqd-parent-layout-wide:1200px;--gqd-parent-layout-gap:var(--wp--preset--spacing--40);--gqd-parent-layout-left:auto;--gqd-parent-layout-right:auto;--gqd-parent-layout-padding-left:1rem;--gqd-parent-layout-padding-right:2rem">' +
-      "<p>Inner</p></div></div>",
+    '<div class="wp-block-getquick-design-container is-layout-constrained gqd-presentation"><p>Outer</p>' +
+      '<div class="wp-block-getquick-design-container is-layout-default gqd-presentation"><p>Inner</p></div></div>',
   );
   // The same tree as content renders it, from the same container shells.
   const shell = (type: string) =>
@@ -581,7 +579,9 @@ test("GQ Design containers keep their layout, as the same containers in content 
         "getquick-design/container": (_block, context) => `<section>${context.children}</section>`,
       },
     }),
-  ).toMatch(/^<section><p>Outer<\/p><section><p>Inner<\/p><\/section><\/section>$/);
+  ).toContain(
+    '<section class="wp-block-getquick-design-container gqd-presentation"><p>Outer</p><section class="wp-block-getquick-design-container gqd-presentation"><p>Inner</p></section></section>',
+  );
 });
 
 test("Site renderers take precedence, see their ancestors and may render children selectively", () => {
