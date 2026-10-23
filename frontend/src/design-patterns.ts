@@ -1,3 +1,4 @@
+import { DESIGN_GRID, gridLayoutHtml } from "./wp-grid-layout";
 import type { WordPressMenuItem } from "./content-types";
 import { menuItemHref } from "./formatting";
 import { containerChildLayoutHtml, containerLayoutHtml } from "./wp-container-layout";
@@ -301,6 +302,10 @@ export function renderDesignPattern(
       );
       if (parentContainer) wrapper = containerChildLayoutHtml(wrapper, parentContainer);
       return insertChildren(wrapper, renderAll(block.children, inside, wrapper));
+    }
+    if (block.name === DESIGN_GRID) {
+      const wrapper = gridLayoutHtml(block.content ?? containerHtml(block, ""), block.attributes);
+      return insertChildren(wrapper, renderAll(block.children, inside));
     }
     const children = renderAll(block.children, inside);
     if (block.content !== null) return insertChildren(block.content, children);

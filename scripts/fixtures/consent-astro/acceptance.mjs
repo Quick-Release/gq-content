@@ -1,3 +1,4 @@
+import { gridAcceptance } from "./grid-acceptance.mjs";
 // CONSENT-1 / LEGAL-1 acceptance on the minimal Astro fixture (seam 1: the
 // Site Frontend as a visitor sees it), in a real Chromium against the packed
 // package. Third-party requests are captured and answered locally, so no
@@ -25,6 +26,7 @@ const records = () =>
 const settle = (page, ms = 400) => page.waitForTimeout(ms);
 
 const browser = await chromium.launch();
+await gridAcceptance(browser);
 // Every context answers third-party requests locally after they are captured.
 async function context(options = {}) {
   const ctx = await browser.newContext(options);

@@ -25,7 +25,7 @@ if consumer.exists():
     shutil.rmtree(consumer)
 consumer.mkdir()
 prepare_npm(ROOT, WORK)
-(consumer / 'package.json').write_text(json.dumps({'private': True, 'type': 'module', 'packageManager': 'pnpm@12.11.2', 'dependencies': {'@getquick/content': 'file:' + str(WORK / 'getquick-content-0.3.0.tgz')}}))
+(consumer / 'package.json').write_text(json.dumps({'private': True, 'type': 'module', 'packageManager': 'pnpm@12.11.2', 'dependencies': {'@getquick/content': 'file:' + str(WORK / 'getquick-content-0.3.1.tgz')}}))
 subprocess.run(['vp', 'install', '--ignore-scripts'], cwd=consumer, check=True)
 shutil.copy(ROOT / 'scripts/pair-receiver.mjs', consumer)
 shutil.copy(ROOT / 'frontend/tests/support/sqlite-d1.ts', consumer)

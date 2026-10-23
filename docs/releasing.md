@@ -17,7 +17,7 @@ node scripts/release.mjs validate .artifacts/release-candidate
 
 Build requires an empty destination. Never rerun build over an existing candidate.
 Retain the entire directory: `release-manifest.json`, the ZIP, npm tarball,
-`validation.json` and `logs/`. Manifest schema 1 binds the pair's version (0.3.0), its tag (v0.3.0),
+`validation.json` and `logs/`. Manifest schema 1 binds the pair's version (0.3.1), its tag (v0.3.1),
 source commit, both filenames and SHA-256 digests, and npm SHA-512 integrity.
 Artifact inspection verifies metadata and the PHP version constant used by CLI;
 actual installed WP-CLI bare/JSON version checks run in P2. File creation refuses

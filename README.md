@@ -39,3 +39,20 @@ on the CMS side.
 candidate, validating its exact bytes, and safely resuming publication. Publication
 requires exact-revision CI proofs and owner-provided registry enrollment/access;
 local checks alone cannot declare the pair released.
+
+CMS-selected Grid blocks use the same responsive classes as saved content. Sites
+rendering either must install the shared stylesheet once in the document head:
+
+```ts
+import { designGridStyle } from "@getquick/content";
+const gridCss = designGridStyle(); // render as <style> in the document head
+```
+
+This covers chrome outside the prose wrapper too. Columns default to 3 desktop
+(64rem and up), 2 tablet (48rem to 64rem), and 1 mobile; valid counts are 1–6.
+Saved Grid shells retain their existing classes and block support attributes.
+Pattern wrappers restore classes from the serialized attributes. Site per-block
+renderers still take precedence. Upgrade both runtime packages together to
+0.3.1 through the Site's blueprint-managed pins. No CMS resave or data migration
+is required. Three configured desktop tracks with two children leave the third
+track empty; change that in the editor only if the design calls for two tracks.

@@ -1,3 +1,4 @@
+import { DESIGN_GRID, gridLayoutHtml } from "./wp-grid-layout";
 import { containerChildLayoutHtml, containerLayoutHtml } from "./wp-container-layout";
 
 export interface WordPressBlock {
@@ -164,6 +165,7 @@ function renderBlock(block: WordPressBlock, parentContainerHtml = ""): string {
   let html = isContainer
     ? containerLayoutHtml(block.htmlContent ?? "", block.attributes ?? {})
     : (block.htmlContent ?? "");
+  if (block.name === DESIGN_GRID) html = gridLayoutHtml(html, block.attributes ?? {});
   if (isContainer && parentContainerHtml) {
     html = containerChildLayoutHtml(html, parentContainerHtml);
   }
