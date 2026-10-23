@@ -16,3 +16,5 @@ export type {
   CollectionConfig,
   ContentRuntime,
 } from "./server";
+
+export { designGridStyle } from "./wp-grid-layout";

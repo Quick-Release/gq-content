@@ -3,6 +3,7 @@
 // through the Site's block renderers.
 import { createContentRuntime } from "@getquick/content/server";
 import {
+  designGridStyle,
   designMenuItems,
   escapeHtml,
   parseDesignBlocks,
@@ -705,4 +706,99 @@ test("unregistered block names never resolve inherited JavaScript properties as 
     ),
   ).toBe("");
   expect(unrendered).toEqual(["toString", "constructor"]);
+});
+
+test("CMS grid chrome retains responsive columns and renders like saved content", async () => {
+  const children = headerTree()[0]!.children.map((child): DesignBlock => ({
+    name: "getquick-design/container",
+    attributes: {},
+    content: null,
+    children: [child],
+  }));
+  const grid: DesignBlock = {
+    name: "getquick-design/grid",
+    attributes: { columns: 3, tabletColumns: 2, mobileColumns: 1 },
+    content: null,
+    children,
+  };
+  wordpress(chromeWith(pattern("Header navigation", [grid]), null));
+  await refresh();
+  const html = runtime().renderDesignPattern((await servedChrome()).header, {
+    blocks: { "getquick/header-navigation": siteNavigation },
+  });
+  expect(html).toContain(
+    'class="wp-block-getquick-design-grid gqd-grid--3 gqd-grid--tablet-2 gqd-grid--mobile-1"',
+  );
+  expect(designGridStyle()).toContain("display:grid");
+  expect(designGridStyle()).toContain("@media (48rem <= width < 64rem)");
+  expect(designGridStyle()).toContain("@media (width >= 64rem)");
+  expect(html).toContain('class="site-navigation"');
+  // Preserve the editor's three tracks even though only two items are present.
+  const renderedChildren = children.map((child) =>
+    runtime().renderDesignPattern([child], {
+      blocks: { "getquick/header-navigation": siteNavigation },
+    }),
+  );
+  expect(html).toBe(
+    renderWordPressBlocks([
+      {
+        name: grid.name,
+        attributes: grid.attributes,
+        htmlContent:
+          '<div class="wp-block-getquick-design-grid gqd-grid--3 gqd-grid--tablet-2 gqd-grid--mobile-1"></div>',
+        innerBlocks: renderedChildren.map((htmlContent) => ({ name: "core/html", htmlContent })),
+      },
+    ]),
+  );
+});
+
+test("grids bound untrusted columns, keep saved supports, and allow Site overrides", () => {
+  const grid: DesignBlock = {
+    name: "getquick-design/grid",
+    attributes: {
+      columns: '3" onload="alert(1)',
+      tabletColumns: 7,
+      mobileColumns: 1.5,
+      className: 'custom" onclick="x',
+      align: "wide",
+    },
+    content: null,
+    children: [],
+  };
+  const withChild = {
+    ...grid,
+    children: [{ name: "core/paragraph", attributes: {}, content: "<p>Item</p>", children: [] }],
+  };
+  const html = renderDesignPattern([withChild]);
+  expect(html).toContain(
+    "custom&quot; onclick=&quot;x alignwide gqd-grid--3 gqd-grid--tablet-2 gqd-grid--mobile-1",
+  );
+  expect(html).not.toContain("onload");
+  const saved =
+    '<div id="grid" class="wp-block-getquick-design-grid gqd-grid--6 gqd-grid--tablet-1 gqd-grid--mobile-4" style="gap:2rem"></div>';
+  expect(renderDesignPattern([{ ...grid, content: saved }])).toBe(saved);
+  expect(renderWordPressBlocks([{ name: grid.name, htmlContent: saved }])).toBe(saved);
+  expect(renderDesignPattern([grid], { blocks: { [grid.name]: () => "override" } })).toBe(
+    "override",
+  );
+  for (let columns = 1; columns <= 6; columns++) {
+    expect(
+      renderDesignPattern([
+        { ...withChild, attributes: { columns, tabletColumns: columns, mobileColumns: columns } },
+      ]),
+    ).toContain(`gqd-grid--${columns} gqd-grid--tablet-${columns} gqd-grid--mobile-${columns}`);
+  }
+});
+
+test("empty grid leaves are reported and arbitrary CMS wrappers remain authoritative", () => {
+  const unrendered: string[] = [];
+  expect(
+    renderDesignPattern(
+      [{ name: "getquick-design/grid", attributes: {}, content: null, children: [] }],
+      { onUnrendered: (block) => unrendered.push(block.name) },
+    ),
+  ).toBe("");
+  expect(unrendered).toEqual(["getquick-design/grid"]);
+  const saved = '<div class="cms-output">CMS content</div>';
+  expect(renderWordPressBlocks([{ name: "getquick-design/grid", htmlContent: saved }])).toBe(saved);
 });

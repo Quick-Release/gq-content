@@ -13,10 +13,10 @@ test.skipIf(!process.env.GQ_RELEASE_BUNDLE)(
     const tar = candidate.assets[candidate.manifest.npm.filename];
     globalThis.fetch = async (url) => {
       const path = new URL(url).pathname;
-      if (path.endsWith("content/0.3.0"))
+      if (path.endsWith("content/0.3.1"))
         return Response.json({
           name: "@getquick/content",
-          version: "0.3.0",
+          version: "0.3.1",
           dist: {
             integrity: mismatch ? "sha512-wrong" : candidate.manifest.npm.integrity,
             tarball: "https://registry.npmjs.org/content.tgz",
@@ -29,10 +29,10 @@ test.skipIf(!process.env.GQ_RELEASE_BUNDLE)(
             "getquick/gq-content": [
               {
                 name: "getquick/gq-content",
-                version: "0.3.0",
+                version: "0.3.1",
                 type: "wordpress-muplugin",
                 source: {
-                  reference: "v0.3.0",
+                  reference: "v0.3.1",
                   url: "https://github.com/Quick-Release/gq-content.git",
                 },
                 dist: { type: "zip", url: "https://composer.getquick.io/dist/content.zip" },
