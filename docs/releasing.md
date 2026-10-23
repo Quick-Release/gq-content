@@ -87,6 +87,83 @@ Inspect/retry the same candidate to resolve that uncertainty. Only live matching
 npm **and** Composer archives yield `status: complete`, `handoff: true`, exit 0.
 No local journal or cached proof can mark a registry complete.
 
+## Recovering an npm browser-2FA failure
+
+Manual publication of the retained npm tarball is the supported recovery path
+when the publishing account requires browser approval for writes. The release
+CLI's npm subprocess is non-interactive and suppresses its output; it cannot
+complete that approval. A successful account authentication in the preflight
+does not establish permission to publish without 2FA. The CLI's generic
+`npm publication failed` error does not by itself diagnose 2FA: credentials,
+permissions and network failures can produce the same message.
+
+Use this procedure only for an already-authorized publication whose CLI run
+passed the CI/proof/access gates and stopped at npm publication. Tag and GitHub
+assets may already exist; `status: incomplete` does not mean nothing was written.
+Keep the original successful CI run ID and its complete, unmodified downloaded
+bundle. Stay on that bundle's exact source commit with a clean checkout; do not
+rebuild, repack, bump the version or edit the manifest to recover.
+
+1. Reinspect the retained bundle before any manual npm write:
+
+   ```sh
+   BUNDLE=/absolute/path/to/paired-release-candidate
+   CI_RUN_ID=123456789 # The original successful paired-release-validation run.
+   node scripts/release.mjs inspect "$BUNDLE"
+   ```
+
+   Inspection checks both retained archives against their manifest SHA-256
+   digests and checks the npm tarball's SHA-512 against `npm.integrity`, as well
+   as package identities, versions and the clean source revision. Stop if any
+   check fails. Keep the bundle outside the checkout so it stays clean.
+
+2. Retry the original release command first. It checks live registry identities
+   and skips matching completed stages, including an npm upload whose response
+   was lost:
+
+   ```sh
+   node scripts/release.mjs publish "$BUNDLE" "$CI_RUN_ID"
+   ```
+
+   If it completes, no manual upload is needed. If it returns `status: partial`,
+   npm is already available and Composer is pending: follow the registry-owner
+   retry procedure above. Stop on an identity mismatch or a failed preflight;
+   never overwrite or unpublish an existing version. Continue below only if the
+   command again reaches the npm publication failure and browser approval is
+   required for the publishing account.
+
+3. In an operator-controlled interactive terminal, publish the exact inspected
+   tarball, using the filename from the manifest rather than a package directory:
+
+   ```sh
+   npm_tarball="$(node --input-type=module -e '
+     import { readFileSync } from "node:fs";
+     import { resolve } from "node:path";
+     const bundle = process.argv[1];
+     const manifest = JSON.parse(readFileSync(resolve(bundle, "release-manifest.json"), "utf8"));
+     console.log(resolve(bundle, manifest.npm.filename));
+   ' "$BUNDLE")"
+   npm publish "$npm_tarball" --access public --ignore-scripts --auth-type=web --registry=https://registry.npmjs.org
+   ```
+
+   Complete npm's browser approval when prompted. Use the operator's configured
+   npm credential; never put tokens or one-time codes in these commands, release
+   logs, issues or CI secrets. Do not publish `.` or `frontend/`: those paths can
+   produce new bytes. If npm reports an existing version, or the response is
+   lost, proceed to verification through the CLI rather than forcing a write.
+   npm documents [interactive 2FA](https://docs.npmjs.com/requiring-2fa-for-package-publishing-and-settings-modification/)
+   and [tarball publication](https://docs.npmjs.com/cli/commands/npm-publish/).
+
+4. Rerun the same `publish "$BUNDLE" "$CI_RUN_ID"` command. It downloads and
+   verifies npm's live tarball identity, skips the matching npm stage, resumes
+   Composer dispatch/verification and rechecks the pair. A successful manual
+   npm command alone is not a completed paired release. Only
+   `status: complete`, `handoff: true`, exit 0 establishes completion; a pending
+   Composer rebuild remains `status: partial`, `handoff: false`, exit 2. Retry
+   with the same bundle after the registry owner confirms completion.
+
+## Release validation evidence
+
 Validation also runs the consent proofs against the selected bytes: the Astro
 fixture in Chromium (`consent-astro`), the workerd/local D1 Worker consumer
 (`consent-worker`) and the TanStack Start consumer (`consent-tanstack`). They
