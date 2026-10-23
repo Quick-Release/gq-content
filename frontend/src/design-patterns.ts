@@ -303,7 +303,7 @@ export function renderDesignPattern(
       if (parentContainer) wrapper = containerChildLayoutHtml(wrapper, parentContainer);
       return insertChildren(wrapper, renderAll(block.children, inside, wrapper));
     }
-    if (block.name === DESIGN_GRID) {
+    if (block.name === DESIGN_GRID && (block.children.length > 0 || block.content !== null)) {
       const wrapper = gridLayoutHtml(block.content ?? containerHtml(block, ""), block.attributes);
       return insertChildren(wrapper, renderAll(block.children, inside));
     }

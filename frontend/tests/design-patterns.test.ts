@@ -765,7 +765,11 @@ test("grids bound untrusted columns, keep saved supports, and allow Site overrid
     content: null,
     children: [],
   };
-  const html = renderDesignPattern([grid]);
+  const withChild = {
+    ...grid,
+    children: [{ name: "core/paragraph", attributes: {}, content: "<p>Item</p>", children: [] }],
+  };
+  const html = renderDesignPattern([withChild]);
   expect(html).toContain(
     "custom&quot; onclick=&quot;x alignwide gqd-grid--3 gqd-grid--tablet-2 gqd-grid--mobile-1",
   );
@@ -780,8 +784,21 @@ test("grids bound untrusted columns, keep saved supports, and allow Site overrid
   for (let columns = 1; columns <= 6; columns++) {
     expect(
       renderDesignPattern([
-        { ...grid, attributes: { columns, tabletColumns: columns, mobileColumns: columns } },
+        { ...withChild, attributes: { columns, tabletColumns: columns, mobileColumns: columns } },
       ]),
     ).toContain(`gqd-grid--${columns} gqd-grid--tablet-${columns} gqd-grid--mobile-${columns}`);
   }
+});
+
+test("empty grid leaves are reported and arbitrary CMS wrappers remain authoritative", () => {
+  const unrendered: string[] = [];
+  expect(
+    renderDesignPattern(
+      [{ name: "getquick-design/grid", attributes: {}, content: null, children: [] }],
+      { onUnrendered: (block) => unrendered.push(block.name) },
+    ),
+  ).toBe("");
+  expect(unrendered).toEqual(["getquick-design/grid"]);
+  const saved = '<div class="cms-output">CMS content</div>';
+  expect(renderWordPressBlocks([{ name: "getquick-design/grid", htmlContent: saved }])).toBe(saved);
 });

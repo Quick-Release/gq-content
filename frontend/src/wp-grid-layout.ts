@@ -9,6 +9,9 @@ const columnCount = (value: unknown, fallback: number): number =>
 /** Restore the classes omitted by the pattern serializer. Saved content shells
  * already have these classes and remain authoritative, including block supports. */
 export function gridLayoutHtml(html: string, attributes: Record<string, unknown>): string {
+  // An arbitrary CMS wrapper is authoritative; adapt only recognizable Grid shells.
+  if (html && !/^\s*<div\b[^>]*\sclass="[^"]*\bwp-block-getquick-design-grid\b[^"]*"/i.test(html))
+    return html;
   const columns = [
     ["gqd-grid--", columnCount(attributes.columns, 3)],
     ["gqd-grid--tablet-", columnCount(attributes.tabletColumns, 2)],
