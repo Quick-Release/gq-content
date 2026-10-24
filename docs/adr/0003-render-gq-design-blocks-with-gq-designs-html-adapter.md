@@ -115,8 +115,8 @@ runtime's manifest comparison reports the drift.
   ([headless block support](https://github.com/Quick-Release/gq-design/blob/main/docs/research/headless-block-support.md))
   records where it currently does not: Grid columns, Video Hero media and
   Social Links profiles.
-- The content read changes from WPGraphQL's block shape to Design contract
-  nodes for gq-design blocks, with WordPress HTML kept per node for the
+- The content read moves from WPGraphQL's block shape to gq-design's
+  `getquickBlocksJson`, which must carry WordPress HTML per node for the
   fallback.
 - Gutenberg's editor rendering and the adapter's HTML are two renderings of the
   same block in one repository. gq-design's shared saved-document fixtures must
@@ -125,6 +125,27 @@ runtime's manifest comparison reports the drift.
   required. Sites not yet migrated keep serving their stored format.
 - Core and third-party blocks continue to depend on WordPress's markup and theme
   CSS. This ADR does not attempt to own them.
+
+### Read block data through WPGraphQL
+
+The Frontend reads the block tree from gq-design's `getquickBlocksJson` field on
+`Post` and `Page`, in the same WPGraphQL query it already makes for content,
+design tokens, settings and translations. gq-design's REST field
+`getquickBlocks` is built by the same reader and carries the same data, so the
+choice is about transport only.
+
+GraphQL keeps one request per entry read. REST would need separate requests
+for the entry, tokens, settings and translations, which lengthens refreshes
+and spends more of reconciliation's request budget. Visitor latency is
+unaffected either way: visitors are served from the publication store, and
+the CMS is read only on publication, reconciliation and cold lookup. Staying
+on WPGraphQL also keeps a single CMS client, with its credential and
+destination rules already proven.
+
+The whole-page `content` field is no longer needed once pages are composed per
+block. Dropping it from the query should reduce the CMS's rendering work per
+read, since blocks are currently rendered both there and in `dynamicContent`.
+That saving is to be measured, not assumed.
 
 ### Ship the Tailwind release first
 
@@ -138,8 +159,5 @@ for not holding back a release that is almost done.
 
 ## Open questions
 
-- **Transport.** Whether content reads contract nodes through WPGraphQL or
-  gq-design's REST surface (`getquickBlocks`, `getquick-design/v1`), and how
-  per-node fallback HTML travels with them.
 - **Existing Sites.** Generated Sites keep their copied helpers (issue #2).
   Their migration to the adapter is a separate rollout decision.
