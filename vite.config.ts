@@ -1,8 +1,10 @@
+import { publicBundleComments } from "./scripts/release/public-bundle";
 import { defineConfig } from "vite-plus";
 export default defineConfig({
   pack: {
     entry: {
       index: "frontend/src/index.ts",
+      "design-client": "frontend/src/design-client.ts",
       server: "frontend/src/server.ts",
       migrations: "frontend/src/migrations.ts",
       consent: "frontend/src/consent/index.ts",
@@ -16,7 +18,14 @@ export default defineConfig({
       "metadata-content": "frontend/src/metadata-content.ts",
     },
     platform: "neutral",
-    deps: { neverBundle: ["node:url"] },
+    deps: { neverBundle: ["node:url"], alwaysBundle: [/^@quick-release\//, "parse5"] },
+    // Keep legal notices while omitting generated private source-path markers.
+    plugins: [
+      {
+        name: "public-bundle-comments",
+        renderChunk: (code) => ({ code: publicBundleComments(code), map: null }),
+      },
+    ],
     target: "es2022",
     format: ["esm"],
     outDir: "frontend/dist",
@@ -27,6 +36,16 @@ export default defineConfig({
   fmt: {
     ignorePatterns: [
       ".agents/",
+      // Immutable upstream saved/public fixture bytes, retained with provenance.
+      "frontend/tests/fixtures/presentation/",
+      "frontend/tests/fixtures/query-composition/",
+      "frontend/tests/fixtures/image-source/public.json",
+      "frontend/tests/fixtures/navigation/neutral.json",
+      "frontend/tests/fixtures/navigation/producer/",
+      "frontend/tests/fixtures/navigation/language/",
+      "frontend/tests/fixtures/navigation/language-flags/",
+      "frontend/tests/fixtures/navigation/language-a11y/",
+      "frontend/tests/fixtures/typography/",
       "frontend/dist/",
       "node_modules/",
       ".vite-hooks/_/",

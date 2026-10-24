@@ -2,7 +2,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@getquick/content": "file:getquick-content-0.3.1.tgz",
+    "@getquick/content": "file:getquick-content-0.3.2.tgz",
     "@tanstack/react-router": "1.170.45",
     "@tanstack/react-start": "1.169.3",
     "react": "19.3.1",

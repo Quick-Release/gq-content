@@ -1,6 +1,6 @@
 {
   "name": "@getquick/content",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "license": "UNLICENSED",
   "files": [
     "dist",
@@ -57,6 +57,10 @@
     "./metadata/content": {
       "types": "./dist/metadata-content.d.ts",
       "import": "./dist/metadata-content.js"
+    },
+    "./design/client": {
+      "types": "./dist/design-client.d.ts",
+      "import": "./dist/design-client.js"
     }
   },
   "publishConfig": {

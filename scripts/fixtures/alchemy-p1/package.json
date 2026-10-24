@@ -3,7 +3,7 @@
   "type": "module",
   "dependencies": {
     "@effect/platform-node": "4.0.0-rc.115",
-    "@getquick/content": "file:getquick-content-0.3.1.tgz",
+    "@getquick/content": "file:getquick-content-0.3.2.tgz",
     "alchemy": "2.0.0-beta.79",
     "effect": "4.0.0-rc.115"
   },

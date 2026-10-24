@@ -290,3 +290,84 @@ content runtime, framework or WordPress client. Passing
 at delivery and stores gq-config's Legal Contract and GA4 settings in each
 language's chrome; `runtime.consentConfiguration(chrome)` returns the page's
 consent configuration. See the repository's `docs/consent.md`.
+
+## Design presentation and composition
+
+Sites import the canonical presentation and theme APIs from `@getquick/content`.
+The package bundles its pinned Design renderer and contract; Sites do not install
+those packages themselves. Apply `gqd-content` to body and chrome regions and emit
+`designThemeStyleSheet(theme)` followed by `presentationStyleSheet(theme)` once
+per response, using the delivered `theme` from entry/home/chrome. Resolve defaults
+with `resolveDesignTheme` for older stored publications. A changed theme requires
+regenerating both stylesheets, including its media thresholds.
+
+`presentationHtml(name, shell, presentation, { attributes, model? })` decorates an
+existing root shell. Pass the complete block attributes for native Group layout
+context. `presentationVariables` takes the same attributes context. Both delegate
+validation and responsive rules to the bundled renderer; saved variables survive
+when parsed attributes are absent. An optional extended `model` must also be
+passed to the corresponding canonical stylesheet generator.
+
+`renderDesignPattern` restores native text/list structures, media and layout
+wrappers, resolved Navigation and Query composition. Site `options.blocks`
+renderers retain precedence. Complete saved media HTML stays authoritative;
+source-only Image nodes use `renderDesignImage`. The public low-level HTML
+adapters also support parsed Site adapters without a second presentation parser.
+
+Carousel uses `renderDesignCarousel(attributes, orderedChildren, shell?)`, where
+children carry `{ name, attributes, html }` and each `html` is the complete rendered
+child. Supply exactly one navigation child, even though WordPress saves its HTML
+as null. `renderDesignCarouselItem` accepts its rendered foreground children and
+an optional saved figure shell. Emit `designCarouselStyle()` once. Video Hero
+uses `renderDesignVideoHero` and the canonical `videoHeroStyleSheet()`; deferred
+iframes remain `data-src` until consent and motion preferences allow playback.
+Navigation uses `navigationStyleSheet(theme)` for interaction geometry.
+
+Browser lifecycle is isolated in `@getquick/content/design/client`, exporting
+`mountDesignCarousels`, `mountVideoHero` and `mountDesignNavigation`. Each returns
+cleanup; mount again after navigation replaces the DOM. Importing the root does
+not require browser globals. The configured runtime gates generated Hero media
+before composing already-delivered children, so consent hooks are not rewritten
+a second time.
+
+For a producer-resolved Query, preload outside the synchronous renderer:
+
+```ts
+const loaded = await runtime.preloadDesignQueryPosts(pattern, siteOrigin);
+const html = runtime.renderDesignPattern(pattern, {
+  siteOrigin,
+  resolvePost: loaded.resolvePost,
+});
+```
+
+This uses the existing `publishedEntry(item.uri)` read for standard Post/Page
+items. Its optional `databaseId` and canonical `designBlocks` become a typed
+`DesignPostContext` through `designPostContext`. Older publications without the
+neutral tree cannot supply that context. Custom post types require an explicit
+authorized preloaded record through `preloadDesignQueryPosts(pattern, load)`;
+this API adds no custom post type GraphQL field or query selection engine.
+Delivered item order, count and duplicates are preserved without applying Query
+arguments again. Synced references add no layout wrapper, and Post Content
+recursively renders the matching preloaded neutral blocks.
+
+Native decorative Cover backgrounds use the same explicit Site lifecycle:
+
+```ts
+import { mountDesignCoverVideos } from "@getquick/content/design/client";
+const cleanup = mountDesignCoverVideos(document);
+// Invoke cleanup before removing/replacing the rendered page; remount afterward.
+```
+
+The configured publication delivery and `presentationHtml("core/cover", ...)`
+remove eager `autoplay` from direct native Cover background videos. The initializer
+plays when reduced motion is off, pauses when enabled, resumes when disabled,
+and pauses/removes its preference listener on cleanup. It does not own foreground
+or ordinary content videos. If a Site renders raw Cover HTML outside these paths,
+apply `enhanceDesignCoverVideosHtml(html)` before SSR. Sources, posters and ordered
+foreground remain authoritative; no legacy appearance properties are inferred.
+
+`mountDesignNavigation` also enhances native Polylang dropdowns inside
+`.wp-block-polylang-language-switcher`, including ordinary published HTML whose
+inline controller was removed during delivery. It navigates to the delivered
+selected option's HTTP(S) URL; it does not resolve languages or evaluate inline
+scripts. Cleanup removes that handler and restores the original selection.

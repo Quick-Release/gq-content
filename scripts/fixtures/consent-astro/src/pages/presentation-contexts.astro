@@ -1,0 +1,41 @@
+---
+import hero from "../fixtures/presentation/video-hero-public.json";
+import { renderWordPressBlocks, renderDesignPattern, resolveDesignTheme, designThemeStyleSheet, presentationStyleSheet, navigationStyleSheet, videoHeroStyleSheet } from "@getquick/content";
+// Explicit loaded Site contexts, not a new captured CMS producer document.
+const post = { id: 17, title: "Loaded post", uri: "/loaded-post/", blocks: [], featuredImage: { sourceUrl: new URL("/context-image.svg", Astro.url).href, altText: "Loaded post image" } };
+const logo = { url: "https://example.test/primary.svg", alt: "Primary logo", width: 120, height: 30 };
+const logoDark = { url: "https://example.test/dark.svg", alt: "Dark logo", width: 120, height: 30 };
+const node = (name, attributes) => ({ name, attributes, content: null, children: [] });
+const logoNode = node("core/site-logo", { logo, logoDark, presentation: { base: { width: 32 } } });
+const titleNode = node("core/site-logo", { logo: null, logoDark: null, logoVariation: logo });
+const coverShell = '<div class="wp-block-cover" style="min-height:500px"><span class="wp-block-cover__background"></span><div class="wp-block-cover__inner-container">Native shell</div></div>';
+const coverVideoShell = `<div class="wp-block-cover"><video class="wp-block-cover__video-background" src="/native-video.webm" autoplay muted loop playsinline poster="/context-image.svg"></video><div class="wp-block-cover__inner-container"><a href="#cover-destination">Cover foreground</a></div></div>`;
+const paths = {
+  coverVideoNeutral: renderDesignPattern([node("core/cover", { backgroundType: "video", url: "/native-video.webm", presentation: { base: { height: 64 } } })]),
+  coverVideoSaved: renderDesignPattern([{ ...node("core/cover", {}), content: coverVideoShell }]),
+  coverVideoParsed: renderWordPressBlocks([{ name: "core/cover", dynamicContent: coverVideoShell }]),
+  coverDefault: renderDesignPattern([node("core/cover", {})]),
+  coverNative: renderDesignPattern([{ ...node("core/cover", {}), content: coverShell }]),
+  coverHeight: renderDesignPattern([{ ...node("core/cover", { presentation: { base: { height: 48 } } }), content: coverShell }]),
+  coverAspect: renderDesignPattern([{ ...node("core/cover", { presentation: { base: { aspectRatio: "video" } } }), content: coverShell }]),
+  actualHero: renderDesignPattern([hero.blocks[0].node]),
+  selfHosted: renderDesignPattern([{ name: "getquick-design/video-hero", attributes: { videoType: "self-hosted", videoUrl: new URL("/native-video.webm", Astro.url).href, posterUrl: new URL("/context-image.svg", Astro.url).href, presentation: { base: { height: 64, width: "1/2" } } }, content: null, children: [{ name: "core/paragraph", attributes: {}, content: '<p><a href="#destination">Foreground link</a></p>', children: [] }] }]),
+  featured: renderDesignPattern([node("core/post-featured-image", { isLink: true, presentation: { base: { height: 48, width: "full", objectFit: "cover" } } })], { post }),
+  primary: renderDesignPattern([logoNode]),
+  dark: renderDesignPattern([logoNode], { colorScheme: "dark" }),
+  title: renderDesignPattern([titleNode], { textContext: { site: { title: "Loaded Site title" } } }),
+  language: renderDesignPattern([node("polylang/language-switcher", { dropdown: true, show_names: false, show_flags: true, hide_if_no_translation: true, links: [
+    { slug: "en", locale: "en_US", label: "English", url: "/en/", flagUrl: "/context-image.svg", current: true, direction: "ltr", noTranslation: false },
+    { slug: "ar", locale: "ar", label: "العربية", url: "/ar/", flagUrl: "/context-image.svg", current: false, direction: "rtl", noTranslation: false },
+    { slug: "pt", locale: "pt_PT", label: "Português", url: "/pt/", flagUrl: null, current: false, direction: "ltr", noTranslation: true },
+  ] })]),
+};
+const theme = resolveDesignTheme();
+---
+<html lang="en"><head><meta charset="utf-8"/><title>Explicit loaded Site contexts</title><style is:global set:html={designThemeStyleSheet(theme) + presentationStyleSheet(theme) + navigationStyleSheet(theme) + videoHeroStyleSheet()} /></head><body class="gqd-content">{Object.entries(paths).map(([path, html]) => <section data-context={path} style="width:600px;max-width:100%" set:html={html} />)}<script>
+import { mountDesignCoverVideos, mountDesignNavigation, mountVideoHero } from "@getquick/content/design/client";
+mountDesignNavigation();
+const cleanups = [mountDesignCoverVideos(), ...[...document.querySelectorAll<HTMLElement>(".wp-block-getquick-design-video-hero")].map(mountVideoHero)];
+window.addEventListener("gqd:test-cover-cleanup", () => cleanups[0]());
+window.addEventListener("pagehide", () => cleanups.forEach((cleanup) => cleanup()));
+</script></body></html>

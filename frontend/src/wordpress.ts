@@ -1,3 +1,5 @@
+import { designBlocksJsonSchema } from "./design-blocks";
+import { designThemeSchema } from "./design-theme";
 import { z } from "zod";
 import type * as Types from "./content-types";
 import type { ContentConfig, ExtensionNode } from "./server";
@@ -18,7 +20,12 @@ import type {
 } from "./content-types";
 import { languageSubject, type SiteLanguage } from "./site-language";
 import { cmsTime, uriPath, menuItemHref } from "./formatting";
-import { hasVideoHero, parseWordPressBlocks, renderWordPressBlocks } from "./wp-block-renderer";
+import {
+  hasDesignCarousel,
+  hasVideoHero,
+  parseWordPressBlocks,
+  renderWordPressBlocks,
+} from "./wp-block-renderer";
 import { parseDesignBlocks, type DesignPattern } from "./design-patterns";
 import { parseLegalLanguage } from "./consent/legal";
 
@@ -85,6 +92,7 @@ export function configuredWordPress<X>(
   const imageEdge = z.object({ node: image.nullable() }).nullable();
 
   const designTokens = z.object({
+    theme: designThemeSchema.optional(),
     spacingSizes: z.array(z.object({ slug: z.string(), size: z.string() })),
     colors: z.array(z.object({ slug: z.string(), color: z.string() })),
   });
@@ -97,6 +105,8 @@ export function configuredWordPress<X>(
           .object({
             __typename: z.literal("Page"),
             id: z.string().nullable().optional(),
+            databaseId: z.number().int().positive().optional(),
+            getquickBlocksJson: designBlocksJsonSchema,
             isFrontPage: z.boolean(),
             title: z.string().nullable(),
             content: z.string().nullable(),
@@ -114,6 +124,8 @@ export function configuredWordPress<X>(
   const pageEntry = z
     .object({
       id: z.string(),
+      databaseId: z.number().int().positive().optional(),
+      getquickBlocksJson: designBlocksJsonSchema,
       title: z.string().nullable(),
       content: z.string().nullable(),
       uri: z.string(),
@@ -162,6 +174,8 @@ export function configuredWordPress<X>(
   const nodeEntry = z
     .object({
       __typename: z.string(),
+      databaseId: z.number().int().positive().optional(),
+      getquickBlocksJson: designBlocksJsonSchema,
       id: z.string(),
       uri: z.string().nullable(),
       status: z.string().nullable(),
@@ -185,7 +199,16 @@ export function configuredWordPress<X>(
     // The Site's extension fields, which it validates itself.
     .passthrough();
   const nodeEntryData = z.object({
-    node: z.union([nodeEntry, z.object({ __typename: z.string() })]).nullable(),
+    node: z
+      .union([
+        nodeEntry,
+        z.object({
+          __typename: z
+            .string()
+            .refine((name) => name !== "Post" && name !== "Page" && !collectionOf(name)),
+        }),
+      ])
+      .nullable(),
     designTokens,
   });
 
@@ -285,6 +308,8 @@ export function configuredWordPress<X>(
         __typename
         ... on Page {
           id
+          databaseId
+          getquickBlocksJson @include(if: $withBlocks)
           title
           content
           blocks(attributes: true, htmlContent: true, dynamicContent: true, postTemplate: false)
@@ -293,6 +318,7 @@ export function configuredWordPress<X>(
         }
       }
       designTokens {
+        theme
         spacingSizes {
           slug
           size
@@ -316,6 +342,8 @@ export function configuredWordPress<X>(
         __typename
         ... on Page {
           id
+          databaseId
+          getquickBlocksJson @include(if: $withBlocks)
           title
           content
           blocks(attributes: true, htmlContent: true, dynamicContent: true, postTemplate: false)
@@ -324,6 +352,7 @@ export function configuredWordPress<X>(
         }
       }
       designTokens {
+        theme
         spacingSizes {
           slug
           size
@@ -411,6 +440,7 @@ export function configuredWordPress<X>(
     return /* GraphQL */ `
   query EntryByUri($uri: String!, $withBlocks: Boolean = true) {
     designTokens {
+        theme
       colors {
         slug
         color
@@ -422,6 +452,8 @@ export function configuredWordPress<X>(
     }
     postBy(uri: $uri) {
       id
+      databaseId
+      getquickBlocksJson @include(if: $withBlocks)
       title
       excerpt
       content
@@ -441,6 +473,8 @@ export function configuredWordPress<X>(
     }
     pageBy(uri: $uri) {
       id
+      databaseId
+      getquickBlocksJson @include(if: $withBlocks)
       title
       content
       blocks(attributes: true, htmlContent: true, dynamicContent: true, postTemplate: false)
@@ -504,6 +538,7 @@ export function configuredWordPress<X>(
     return /* GraphQL */ `
   query EntryByUri($uri: String!, $withBlocks: Boolean = true) {
     designTokens {
+        theme
       colors {
         slug
         color
@@ -541,7 +576,17 @@ export function configuredWordPress<X>(
             altText
           }
         }
-      }${typeFields("Post", `${languageFields}${extensionFields("post")}`)}${typeFields("Page", `${languageFields}${extensionFields("page")}`)}${itemFields}
+      }${typeFields(
+        "Post",
+        `
+        databaseId
+        getquickBlocksJson @include(if: $withBlocks)${languageFields}${extensionFields("post")}`,
+      )}${typeFields(
+        "Page",
+        `
+        databaseId
+        getquickBlocksJson @include(if: $withBlocks)${languageFields}${extensionFields("page")}`,
+      )}${itemFields}
     }
   }
 `;
@@ -553,6 +598,7 @@ export function configuredWordPress<X>(
   const designQuery = /* GraphQL */ `
     query DesignPresets {
       designTokens {
+        theme
         spacingSizes {
           slug
           size
@@ -605,6 +651,8 @@ export function configuredWordPress<X>(
   function normalizePost(post: RawEntry): WordPressPost {
     return {
       id: post.id,
+      ...(post.databaseId !== undefined ? { databaseId: post.databaseId } : {}),
+      ...(post.getquickBlocksJson !== undefined ? { designBlocks: post.getquickBlocksJson } : {}),
       title: post.title ?? "",
       excerpt: post.excerpt ?? "",
       content: post.content ?? "",
@@ -620,6 +668,7 @@ export function configuredWordPress<X>(
     constructor(
       readonly failure: CmsFailure,
       options?: { cause?: unknown },
+      readonly graphqlErrors?: string[],
     ) {
       super(failure.message, options);
     }
@@ -757,10 +806,14 @@ export function configuredWordPress<X>(
     // Any GraphQL error fails the read, even next to partial data: a field it
     // nulled out isn't evidence that the content is gone.
     if (result?.errors?.length) {
-      throw new CmsFailureError({
-        reason: "graphql",
-        message: safeMessage(result.errors.map((error) => error.message).join(", ")),
-      });
+      throw new CmsFailureError(
+        {
+          reason: "graphql",
+          message: safeMessage(result.errors.map((error) => error.message).join(", ")),
+        },
+        undefined,
+        result.errors.map((error) => error.message),
+      );
     }
 
     const parsed = schema.safeParse(result?.data);
@@ -794,12 +847,32 @@ export function configuredWordPress<X>(
     queryText: string,
     variables: Record<string, string | boolean> = {},
   ): Promise<{ data: z.infer<S>; blocksOmitted: boolean }> {
+    // Retain the compatible document if the subsequent read needs HTTP recovery.
+    const read = async (readVariables: Record<string, string | boolean>): Promise<z.infer<S>> => {
+      try {
+        return await query(schema, queryText, readVariables);
+      } catch (error) {
+        if (
+          !(error instanceof CmsFailureError) ||
+          error.failure.reason !== "graphql" ||
+          !error.graphqlErrors?.length ||
+          !error.graphqlErrors.every((message) =>
+            /^Cannot query field "getquickBlocksJson" on type "(?:Post|Page)"\.(?: Did you mean [^\n]+)?$/.test(
+              message,
+            ),
+          )
+        )
+          throw error;
+        queryText = queryText.replace(/getquickBlocksJson @include\(if: \$withBlocks\)/g, "");
+        return query(schema, queryText, readVariables);
+      }
+    };
     try {
-      return { data: await query(schema, queryText, variables), blocksOmitted: false };
+      return { data: await read(variables), blocksOmitted: false };
     } catch (error) {
       if (!isServerError(error)) throw error;
       try {
-        const data = await query(schema, queryText, { ...variables, withBlocks: false });
+        const data = await read({ ...variables, withBlocks: false });
         return { data, blocksOmitted: true };
       } catch (retryError) {
         if (!(retryError instanceof CmsFailureError)) throw retryError;
@@ -861,14 +934,22 @@ export function configuredWordPress<X>(
               description: data.generalSettings.description ?? "",
             },
             page: {
+              ...(node.databaseId !== undefined ? { databaseId: node.databaseId } : {}),
+              ...(node.getquickBlocksJson !== undefined
+                ? { designBlocks: node.getquickBlocksJson }
+                : {}),
               title: node.title ?? "",
-              content: containsVideoHero ? renderWordPressBlocks(blocks) : (node.content ?? ""),
+              content:
+                containsVideoHero || hasDesignCarousel(blocks)
+                  ? renderWordPressBlocks(blocks)
+                  : (node.content ?? ""),
               hasVideoHero: containsVideoHero,
               ...extended("page", node, blocksOmitted),
             },
             blocksOmitted,
             spacingSizes: data.designTokens.spacingSizes,
             colors: data.designTokens.colors,
+            ...(data.designTokens.theme ? { theme: data.designTokens.theme } : {}),
           },
         };
       },
@@ -896,12 +977,16 @@ export function configuredWordPress<X>(
         kind: "found",
         content: {
           ...normalized,
-          content: containsVideoHero ? renderWordPressBlocks(blocks) : normalized.content,
+          content:
+            containsVideoHero || hasDesignCarousel(blocks)
+              ? renderWordPressBlocks(blocks)
+              : normalized.content,
           hasVideoHero: containsVideoHero,
           blocksOmitted,
           modifiedAt: cmsTime(post.modifiedGmt),
           spacingSizes: data.designTokens.spacingSizes,
           colors: data.designTokens.colors,
+          ...(data.designTokens.theme ? { theme: data.designTokens.theme } : {}),
           ...(multilingual ? languageOf(post) : {}),
           ...extended(data.postBy ? "post" : "page", post, blocksOmitted),
         },
@@ -944,12 +1029,16 @@ export function configuredWordPress<X>(
         kind: "found",
         content: {
           ...normalized,
-          content: containsVideoHero ? renderWordPressBlocks(blocks) : normalized.content,
+          content:
+            containsVideoHero || hasDesignCarousel(blocks)
+              ? renderWordPressBlocks(blocks)
+              : normalized.content,
           hasVideoHero: containsVideoHero,
           blocksOmitted,
           modifiedAt: cmsTime(node.modifiedGmt),
           spacingSizes: data.designTokens.spacingSizes,
           colors: data.designTokens.colors,
+          ...(data.designTokens.theme ? { theme: data.designTokens.theme } : {}),
           ...(multilingual ? languageOf(entry) : {}),
           ...(item
             ? {
@@ -1000,7 +1089,11 @@ export function configuredWordPress<X>(
       const { designTokens } = await query(designData, designQuery);
       return {
         kind: "found",
-        content: { spacingSizes: designTokens.spacingSizes, colors: designTokens.colors },
+        content: {
+          spacingSizes: designTokens.spacingSizes,
+          colors: designTokens.colors,
+          ...(designTokens.theme ? { theme: designTokens.theme } : {}),
+        },
       };
     });
   }

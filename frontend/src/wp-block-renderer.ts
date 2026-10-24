@@ -1,5 +1,17 @@
+import { DESIGN_NAVIGATION_BLOCKS, renderDesignNavigation } from "./design-navigation";
+import { renderDesignText } from "./design-text";
+import { renderDesignImage } from "./design-image";
+import { renderDesignVideoHero, VIDEO_HERO_BLOCK } from "./design-video";
+export { VIDEO_HERO_BLOCK, youtubeVideoId } from "./design-video";
+import {
+  DESIGN_CAROUSEL,
+  DESIGN_CAROUSEL_ITEM,
+  DESIGN_CAROUSEL_NAVIGATION,
+  renderDesignCarousel,
+  renderDesignCarouselItem,
+} from "./carousel";
 import { DESIGN_GRID, gridLayoutHtml } from "./wp-grid-layout";
-import { containerChildLayoutHtml, containerLayoutHtml } from "./wp-container-layout";
+import { presentationHtml } from "./presentation";
 
 export interface WordPressBlock {
   name: string;
@@ -10,9 +22,6 @@ export interface WordPressBlock {
   innerBlocks?: WordPressBlock[];
 }
 
-export const VIDEO_HERO_BLOCK = "getquick-design/video-hero";
-
-const YOUTUBE_ID_PATTERN = /^[A-Za-z0-9_-]{11}$/;
 const BLOCKS_WITH_RENDERED_CHILDREN = new Set([
   "core/cover",
   "core/media-text",
@@ -59,98 +68,16 @@ export function parseWordPressBlocks(value: unknown): WordPressBlock[] {
   return parsed.map(normalizeBlock).filter((block): block is WordPressBlock => block !== null);
 }
 
+export function hasDesignCarousel(blocks: WordPressBlock[]): boolean {
+  return blocks.some(
+    (block) => block.name === DESIGN_CAROUSEL || hasDesignCarousel(block.innerBlocks ?? []),
+  );
+}
+
 export function hasVideoHero(blocks: WordPressBlock[]): boolean {
   return blocks.some(
     (block) => block.name === VIDEO_HERO_BLOCK || hasVideoHero(block.innerBlocks ?? []),
   );
-}
-
-function escapeAttribute(value: string): string {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;");
-}
-
-function safeMediaUrl(value: unknown): string {
-  if (typeof value !== "string") return "";
-  const url = value.trim();
-  if (!url || url.startsWith("//")) return "";
-  if (url.startsWith("/")) return url;
-
-  try {
-    const parsed = new URL(url);
-    return parsed.protocol === "https:" || parsed.protocol === "http:" ? url : "";
-  } catch {
-    return "";
-  }
-}
-
-export function youtubeVideoId(value: string): string {
-  try {
-    const url = new URL(value);
-    if (url.protocol !== "https:" && url.protocol !== "http:") return "";
-
-    const host = url.hostname.toLowerCase().replace(/^www\./, "");
-    let id = "";
-
-    if (host === "youtu.be") {
-      id = url.pathname.split("/").filter(Boolean)[0] ?? "";
-    } else if (["youtube.com", "m.youtube.com", "youtube-nocookie.com"].includes(host)) {
-      id = url.searchParams.get("v") ?? "";
-      if (!id) {
-        id = url.pathname.match(/^\/(?:embed|shorts|live)\/([^/]+)/)?.[1] ?? "";
-      }
-    }
-
-    return YOUTUBE_ID_PATTERN.test(id) ? id : "";
-  } catch {
-    return "";
-  }
-}
-
-function videoMarkup(attributes: Record<string, unknown>): string {
-  const posterUrl = safeMediaUrl(attributes.posterUrl);
-  const poster = posterUrl
-    ? `<img class="wp-block-getquick-design-video-hero__poster" src="${escapeAttribute(posterUrl)}" alt="" decoding="async" />`
-    : "";
-
-  if (attributes.videoType === "youtube") {
-    const videoId =
-      typeof attributes.videoUrl === "string" ? youtubeVideoId(attributes.videoUrl) : "";
-    if (!videoId) return poster;
-
-    const query = new URLSearchParams({
-      autoplay: "1",
-      mute: "1",
-      controls: "0",
-      loop: "1",
-      playlist: videoId,
-      playsinline: "1",
-      rel: "0",
-    });
-    return `${poster}<iframe class="wp-block-getquick-design-video-hero__video wp-block-getquick-design-video-hero__video--youtube" src="https://www.youtube-nocookie.com/embed/${videoId}?${query.toString()}" title="Decorative background video" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" tabindex="-1" aria-hidden="true"></iframe>`;
-  }
-
-  const videoUrl = safeMediaUrl(attributes.videoUrl);
-  if (!videoUrl) return poster;
-
-  const posterAttribute = posterUrl ? ` poster="${escapeAttribute(posterUrl)}"` : "";
-  return `<video class="wp-block-getquick-design-video-hero__video" src="${escapeAttribute(videoUrl)}"${posterAttribute} autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>`;
-}
-
-function rootSectionShell(html: string): string {
-  const openingTag = html.match(/^\s*(<section\b[^>]*>)/i)?.[1];
-  return openingTag ?? '<section class="wp-block-getquick-design-video-hero">';
-}
-
-function renderVideoHero(block: WordPressBlock, children: string): string {
-  const openingTag = rootSectionShell(block.htmlContent ?? "");
-  const attributes = block.attributes ?? {};
-  const media = videoMarkup(attributes);
-
-  return `${openingTag}<div class="wp-block-getquick-design-video-hero__media" aria-hidden="true">${media}</div><div class="wp-block-getquick-design-video-hero__content">${children}</div></section>`;
 }
 
 function appendChildren(html: string, children: string): string {
@@ -160,21 +87,45 @@ function appendChildren(html: string, children: string): string {
   return `${html.slice(0, closingTag)}${children}${html.slice(closingTag)}`;
 }
 
-function renderBlock(block: WordPressBlock, parentContainerHtml = ""): string {
-  const isContainer = block.name === "getquick-design/container";
-  let html = isContainer
-    ? containerLayoutHtml(block.htmlContent ?? "", block.attributes ?? {})
-    : (block.htmlContent ?? "");
+function renderBlock(block: WordPressBlock): string {
+  if (block.name === DESIGN_CAROUSEL)
+    return renderDesignCarousel(
+      block.attributes ?? {},
+      (block.innerBlocks ?? []).map((child) => ({
+        name: child.name,
+        attributes: child.attributes,
+        html: child.name === DESIGN_CAROUSEL_NAVIGATION ? "" : renderBlock(child),
+      })),
+      block.htmlContent || undefined,
+    );
+  if (block.name === DESIGN_CAROUSEL_ITEM)
+    return renderDesignCarouselItem(
+      block.attributes ?? {},
+      (block.innerBlocks ?? []).map((child) => renderBlock(child)).join(""),
+      block.htmlContent || undefined,
+    );
+  let html = presentationHtml(
+    block.name,
+    (BLOCKS_WITH_RENDERED_CHILDREN.has(block.name) ? block.dynamicContent : undefined) ||
+      block.htmlContent ||
+      "",
+    block.attributes?.presentation,
+    { attributes: block.attributes },
+  );
   if (block.name === DESIGN_GRID) html = gridLayoutHtml(html, block.attributes ?? {});
-  if (isContainer && parentContainerHtml) {
-    html = containerChildLayoutHtml(html, parentContainerHtml);
+  const children = (block.innerBlocks ?? []).map((child) => renderBlock(child)).join("");
+
+  if (block.name === VIDEO_HERO_BLOCK)
+    return renderDesignVideoHero(block.attributes ?? {}, children, block.htmlContent || undefined);
+
+  if (DESIGN_NAVIGATION_BLOCKS.has(block.name))
+    return renderDesignNavigation(block.name, block.attributes ?? {}, children, html);
+  if (block.name === "core/image")
+    return renderDesignImage(block.attributes ?? {}, html || undefined);
+  if (!html) {
+    const text = renderDesignText(block.name, block.attributes ?? {}, children);
+    if (text !== undefined) return text;
   }
-  const children = (block.innerBlocks ?? [])
-    .map((child) => renderBlock(child, isContainer ? html : ""))
-    .join("");
-
-  if (block.name === VIDEO_HERO_BLOCK) return renderVideoHero(block, children);
-
   if (!children || BLOCKS_WITH_RENDERED_CHILDREN.has(block.name)) return html;
   return appendChildren(html, children);
 }

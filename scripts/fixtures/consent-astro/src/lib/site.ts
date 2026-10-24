@@ -1,3 +1,6 @@
+import enLanguageHtml from "../fixtures/navigation/language-flags/en-rendered.html?raw";
+import frLanguageHtml from "../fixtures/navigation/language-flags/fr-rendered.html?raw";
+import hero from "../fixtures/presentation/video-hero-youtube.html?raw";
 // The fixture Site's wiring, as a Blueprint would do it: the content runtime
 // with CONSENT-1 configured, its publication store seeded with what a refresh
 // would have stored, and the consent endpoints on their own database.
@@ -13,8 +16,6 @@ export const consentDb = d1(`${dir}/consent.sqlite`, consentMigrationsDirectory,
 
 const youtube = (id: string) =>
   `<figure class="wp-block-embed is-provider-youtube"><div class="wp-block-embed__wrapper"><iframe title="Video" width="560" height="315" src="https://www.youtube.com/embed/${id}?feature=oembed" allowfullscreen></iframe></div></figure>`;
-const hero =
-  '<section class="wp-block-getquick-design-video-hero"><div class="wp-block-getquick-design-video-hero__media" aria-hidden="true"><iframe class="wp-block-getquick-design-video-hero__video wp-block-getquick-design-video-hero__video--youtube" src="https://www.youtube-nocookie.com/embed/abcdefghijk?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=abcdefghijk" title="Decorative background video" allow="autoplay; encrypted-media" tabindex="-1" aria-hidden="true"></iframe></div><div class="wp-block-getquick-design-video-hero__content"><h1>Hero</h1></div></section>';
 
 const legal = (lang: "pt" | "en") => ({
   controller: { name: "Acme, Lda.", privacyEmail: "privacy@acme.test", dpoContact: null },
@@ -155,6 +156,16 @@ const rows: Array<[string, unknown]> = [
   ["entry:/cookies/", entry("p4", "/cookies/", "Política de cookies", "<p>Cookies.</p>", "pt", [])],
   ["entry:/en/cookies/", entry("p5", "/en/cookies/", "Cookie policy", "<p>Cookies.</p>", "en", [])],
 ];
+rows.push(
+  [
+    "entry:/native-language-en/",
+    entry("language-en", "/native-language-en/", "Captured EN language", enLanguageHtml, "pt", []),
+  ],
+  [
+    "entry:/native-language-fr/",
+    entry("language-fr", "/native-language-fr/", "Captured FR language", frLanguageHtml, "pt", []),
+  ],
+);
 for (const [key, body] of rows) {
   publications.sqlite
     .prepare(

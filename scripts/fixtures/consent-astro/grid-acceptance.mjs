@@ -1,75 +1,70 @@
-// Run against the installed retained package in Chromium, with no Site CSS.
+// Actual Gutenberg/sidebar->REST snapshots, rendered by the installed production package.
 import assert from "node:assert/strict";
-import { designGridStyle, renderDesignPattern, renderWordPressBlocks } from "@getquick/content";
-
-export async function gridAcceptance(browser) {
+export async function gridAcceptance(browser, origin) {
   const page = await browser.newPage();
   try {
-    const children = ["logo", "navigation"].map((label) => ({
-      name: "getquick-design/container",
-      attributes: {},
-      content: null,
-      children: [{ name: `getquick/${label}`, attributes: {}, content: null, children: [] }],
-    }));
-    const options = {
-      blocks: {
-        "getquick/logo": () => "<span>Logo</span>",
-        "getquick/navigation": () => "<nav>Navigation</nav>",
-      },
-    };
-    for (const columns of [1, 2, 3, 4, 5, 6, undefined, '3" onload="x']) {
-      const attributes = { columns, tabletColumns: columns, mobileColumns: columns };
-      const pattern = renderDesignPattern(
-        [
-          {
-            name: "getquick-design/grid",
-            attributes,
-            content: null,
-            children,
-          },
-        ],
-        options,
-      );
-      const expected = (fallback) => (Number.isInteger(columns) ? columns : fallback);
-      const content = renderWordPressBlocks([
-        {
-          name: "getquick-design/grid",
-          attributes,
-          htmlContent: `<div class="wp-block-getquick-design-grid gqd-grid--${expected(3)} gqd-grid--tablet-${expected(2)} gqd-grid--mobile-${expected(1)}"></div>`,
-          innerBlocks: children.map((child) => ({
-            name: "core/html",
-            htmlContent: renderDesignPattern([child], options),
-          })),
-        },
-      ]);
-      assert.equal(pattern, content);
-      await page.setContent(`<style>${designGridStyle()}</style>${pattern}`);
-      for (const width of [375, 767, 768, 1023, 1024, 1920]) {
-        await page.setViewportSize({ width, height: 800 });
-        const layout = await page.locator(".wp-block-getquick-design-grid").evaluate((grid) => {
-          const css = getComputedStyle(grid);
-          return {
-            display: css.display,
-            tracks: css.gridTemplateColumns.split(" ").length,
-            gap: css.gap,
-            items: [...grid.children].map((child) => ({
-              y: child.getBoundingClientRect().y,
-              minWidth: getComputedStyle(child).minWidth,
-              margin: getComputedStyle(child).marginBlock,
-            })),
-          };
-        });
-        const count = expected(width < 768 ? 1 : width < 1024 ? 2 : 3);
-        assert.equal(layout.display, "grid");
-        assert.equal(layout.tracks, count);
-        assert.equal(layout.gap, "16px");
-        assert.equal(layout.items[0].minWidth, "0px");
-        assert.equal(layout.items[0].margin, "0px");
-        assert.equal(layout.items[0].y === layout.items[1].y, count > 1);
+    await page.goto(`${origin}/presentation-layout`);
+    for (const width of [
+      639, 640, 641, 767, 768, 769, 1023, 1024, 1025, 1279, 1280, 1281, 1535, 1536, 1537,
+    ]) {
+      await page.setViewportSize({ width, height: 800 });
+      for (const direction of ["ltr", "rtl"]) {
+        await page.locator("body").evaluate((node, dir) => (node.dir = dir), direction);
+        for (const path of ["pattern", "html"]) {
+          const result = await page.locator(`[data-path=${path}]`).evaluate((root) => {
+            const grid = root.querySelector(".wp-block-getquick-design-grid");
+            const group = root.querySelector(".wp-block-group");
+            const columns = root.querySelector(".wp-block-columns");
+            const items = [...columns.children];
+            const spacer = root.querySelector(".wp-block-spacer");
+            const separator = root.querySelector(".wp-block-separator");
+            const narrow = root.querySelector("#narrow-grid");
+            const narrowBox = narrow.getBoundingClientRect();
+            const parentBox = root.querySelector("#narrow-parent").getBoundingClientRect();
+            return {
+              display: getComputedStyle(grid).display,
+              tracks: getComputedStyle(grid).gridTemplateColumns.split(" ").length,
+              gap: getComputedStyle(grid).columnGap,
+              rowGap: getComputedStyle(grid).rowGap,
+              groupDisplay: getComputedStyle(group).display,
+              narrowColumns: getComputedStyle(narrow).gridTemplateColumns.split(" ").length,
+              narrowRowGap: getComputedStyle(narrow).rowGap,
+              narrowColumnGap: getComputedStyle(narrow).columnGap,
+              narrowFits: narrowBox.left >= parentBox.left && narrowBox.right <= parentBox.right,
+              groupGap: getComputedStyle(group).gap,
+              direction: getComputedStyle(group).flexDirection,
+              columnDisplay: getComputedStyle(columns).display,
+              ratio:
+                items[1].getBoundingClientRect().width / items[0].getBoundingClientRect().width,
+              align: getComputedStyle(items[1]).alignSelf,
+              spacer: spacer.getBoundingClientRect().height,
+              opacity: getComputedStyle(separator).opacity,
+            };
+          });
+          assert.equal(result.display, "grid");
+          assert.equal(result.tracks, width < 768 ? 3 : width < 1280 ? 4 : width < 1536 ? 1 : 3);
+          assert.equal(result.gap, "16px");
+          assert.equal(result.rowGap, width < 768 ? "16px" : "0px");
+          assert.equal(result.groupDisplay, "flex");
+          assert.equal(result.narrowColumns, 2);
+          assert.equal(result.narrowRowGap, width < 768 ? "0px" : width < 1280 ? "16px" : "0px");
+          assert.equal(result.narrowColumnGap, width < 768 ? "8px" : width < 1280 ? "16px" : "0px");
+          assert.equal(result.narrowFits, true);
+          assert.equal(result.groupGap, "24px");
+          assert.equal(result.direction, width < 1024 ? "row" : "column");
+          assert.equal(result.columnDisplay, "flex");
+          assert.ok(
+            Math.abs(result.ratio - 3) < 0.05,
+            `${path}: unequal Columns ratio ${result.ratio}`,
+          );
+          assert.equal(result.align, width < 1024 ? "center" : "end");
+          assert.equal(result.spacer, width < 768 ? 37 : width < 1280 ? 32 : 0);
+          assert.equal(result.opacity, "0.5");
+        }
       }
     }
     console.log(
-      "PASS Grid chrome/content parity: 1–6 columns, defaults, unsafe input, 375/767/768/1023/1024/1920px",
+      "PASS real saved layout: production Astro public pattern/WP HTML, 15 breakpoint boundaries, RTL, narrow parent, Grid tracks/gaps, Group flex, native 25/75 Columns, Spacer and Separator",
     );
   } finally {
     await page.close();

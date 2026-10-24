@@ -21,8 +21,6 @@ jobs:
           node-version-file: .node-version
           run-install: false
           cache: false
-      - name: Install public development dependencies
-        run: vp install --frozen-lockfile
       - name: Configure only the private package registry credential
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}
@@ -30,6 +28,10 @@ jobs:
           umask 077
           printf '%s\n' '@quick-release:registry=https://npm.pkg.github.com' '//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}' > "$RUNNER_TEMP/design.npmrc"
           echo "NPM_CONFIG_USERCONFIG=$RUNNER_TEMP/design.npmrc" >> "$GITHUB_ENV"
+      - name: Install exact published build dependencies
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+        run: vp install --frozen-lockfile
       - name: Verify live registry identity and this repository's package access
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}

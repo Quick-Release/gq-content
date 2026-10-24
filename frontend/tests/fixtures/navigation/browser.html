@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><title>Navigation adapter acceptance fixture</title>
+  <body>
+    <main id="fixture"></main>
+    <script type="module">
+      import {
+        renderDesignNavigation,
+        navigationStyleSheet,
+      } from "../../../src/design-navigation.ts";
+      import { mountDesignNavigation } from "../../../src/navigation-client.ts";
+      import { presentationStyleSheet } from "../../../src/presentation.ts";
+      import fixtures from "./neutral.json";
+      const node = fixtures.blocks.find((entry) => entry.fixture === "getquick-navigation").node;
+      const style = document.createElement("style");
+      const wideTheme = new URLSearchParams(location.search).has("wide-theme")
+        ? { breakpoints: { lg: "100rem", xl: "112rem", "2xl": "128rem" } }
+        : undefined;
+      style.textContent = navigationStyleSheet(wideTheme) + presentationStyleSheet(wideTheme);
+      document.head.append(style);
+      const fixture = document.querySelector("#fixture");
+      fixture.innerHTML =
+        '<a href="#before">Before</a>' +
+        renderDesignNavigation(node.name, {
+          ...node.attributes,
+          ...(new URLSearchParams(location.search).has("always-overlay")
+            ? { overlayMenu: "always" }
+            : {}),
+        }) +
+        '<a href="#after">After</a>';
+      window.cleanupNavigation = mountDesignNavigation(fixture);
+      window.remountNavigation = () => mountDesignNavigation(fixture);
+      window.renderNavigation = renderDesignNavigation;
+      window.navigationFixture = node;
+      window.navigationReady = true;
+    </script>
+  </body>
+</html>

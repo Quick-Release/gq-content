@@ -1,0 +1,19 @@
+---
+import { nativeNavigationShell, customNavigationShell } from "../fixtures/navigation/saved-shells";
+import producer from "../fixtures/navigation/producer/nodes.json";
+import producerHtml from "../fixtures/navigation/producer/rendered.html?raw";
+import fixture from "../fixtures/navigation/neutral.json";
+import { renderDesignPattern, resolveDesignTheme, designThemeStyleSheet, presentationStyleSheet, navigationStyleSheet, renderDesignNavigation, enhanceDesignNavigationHtml } from "@getquick/content";
+const savedShells = renderDesignNavigation("core/navigation", {}, "", nativeNavigationShell) + renderDesignNavigation("getquick-design/navigation", {}, "", customNavigationShell);
+const theme = resolveDesignTheme({ breakpoints: { lg: "60rem" } });
+const nodes = ["getquick-navigation-responsive", "core-navigation-responsive"].map((id) => structuredClone(fixture.blocks.find((entry) => entry.fixture === id).node));
+// Interaction variant: the owning fixture's links/presentation are unchanged;
+// enable mobile overlay explicitly to exercise this consumer's client lifecycle.
+for (const node of nodes) node.attributes.overlayMenu = "mobile";
+---
+<html lang="en"><head><meta charset="utf-8"/><title>Navigation facade</title><style is:global set:html={designThemeStyleSheet(theme) + presentationStyleSheet(theme) + navigationStyleSheet(theme)} /></head><body class="gqd-content"><button id="outside">Outside</button><main set:html={renderDesignPattern(nodes) + savedShells + renderDesignPattern(producer) + enhanceDesignNavigationHtml(producerHtml)} /><script>
+import { mountDesignNavigation } from "@getquick/content/design/client";
+let cleanup = mountDesignNavigation();
+document.addEventListener("astro:before-swap", () => cleanup());
+document.addEventListener("astro:page-load", () => { cleanup(); cleanup = mountDesignNavigation(); });
+</script></body></html>

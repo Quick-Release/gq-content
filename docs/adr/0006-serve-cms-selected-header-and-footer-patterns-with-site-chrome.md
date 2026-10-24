@@ -110,3 +110,33 @@ WPGraphQL; the runtime consumes the public field and treats authoritative null
 as removal of its stored pattern on the next successful read. A failed read
 retains last-known-good content, including when the CMS is unreachable after a
 selection changes. There is no separate pattern-withdrawal protocol.
+
+## Tailwind presentation adoption (2026-10-24)
+
+The accepted gq-design ADR 0004 supersedes this ADR's legacy Container
+restoration and dependency-free implementation. `renderDesignPattern` and
+`renderWordPressBlocks` apply `presentationHtml` to rendered shells, including
+Site renderer output. Container uses the canonical neutral presentation model:
+Base and upward overrides, responsive caps, explicit margins and padding, and
+no implicit centering. `containerLayoutHtml` delegates to that same model;
+the former parent-layout restoration helper is removed.
+
+The canonical renderer and contract are pinned immutable build inputs and
+bundled into the content package. Sites import the presentation functions and
+model through `@getquick/content`, without installing managed Design packages.
+Install `presentationStyleSheet(resolvedTheme)` once for chrome and content;
+its complete static mappings support content authored after a build. Preserve
+saved variables when parsed attributes are absent. Resolved theme is carried through GraphQL and stored delivery. Family adapters
+restore null-content native text, media, layout, navigation and preloaded Query
+composition through the same public runtime. Carousel and decorative Hero
+lifecycle live in a browser-only content entry; generated media passes through
+the configured consent boundary before child composition.
+
+Neutral Post/Page content is an optional canonical block tree on existing
+publications. Preloading selected Query item URIs uses the existing publication
+loader before synchronous rendering; the renderer never fetches or selects
+posts. Custom post type neutral delivery remains explicit caller-owned context.
+
+Immutable owning Gutenberg/public fixtures support adapter and production Astro
+browser checks. Those checks and consumer Site evidence are reported separately;
+no single Container or synthetic fixture pass establishes full catalog acceptance.

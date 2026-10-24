@@ -1,0 +1,8 @@
+---
+import fixture from "../fixtures/typography/inline-public.json";
+import { renderDesignPattern, resolveDesignTheme, designThemeStyleSheet, presentationStyleSheet } from "@getquick/content";
+const entry = fixture.cases[Astro.url.searchParams.has("override") ? 1 : 0];
+const theme = resolveDesignTheme(entry.tokens.theme);
+const paths = { pattern: renderDesignPattern(entry.neutralNodes), html: entry.renderedHTML };
+---
+<html lang="en"><head><meta charset="utf-8"/><title>Actual saved text</title><style is:global set:html={designThemeStyleSheet(theme) + presentationStyleSheet(theme)} /></head><body class="gqd-content">{Object.entries(paths).map(([path, html]) => <main data-path={path} set:html={html} />)}</body></html>

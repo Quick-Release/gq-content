@@ -33,7 +33,7 @@ try {
   mkdirSync(artifacts);
   const selected = retained("npm");
   if (!selected) run("vp", ["pm", "pack", "--pack-destination", artifacts], join(repo, "frontend"));
-  const tarball = selected ?? join(artifacts, "getquick-content-0.3.1.tgz");
+  const tarball = selected ?? join(artifacts, "getquick-content-0.3.2.tgz");
   recordArtifact(tarball, "consumer");
   const listing = execFileSync("tar", ["-tzf", tarball], { encoding: "utf8" }).trim().split("\n");
   for (const file of listing) {
@@ -48,7 +48,7 @@ try {
       [
         "scripts/inspect-artifacts.mjs",
         tarball,
-        retained("cms") ?? join(repo, ".artifacts/gq-content-0.3.1.zip"),
+        retained("cms") ?? join(repo, ".artifacts/gq-content-0.3.2.zip"),
       ],
       repo,
     );
@@ -62,7 +62,7 @@ try {
       type: "module",
       packageManager: "pnpm@12.11.2",
       dependencies: { "@getquick/content": `file:${tarball}` },
-      devDependencies: { "vite-plus": "1.1.0", typescript: "6.0.3" },
+      devDependencies: { "vite-plus": "1.1.0", typescript: "6.0.3", parse5: "8.0.1" },
     }),
   );
   writeFileSync(join(consumer, ".npmrc"), "registry=https://registry.npmjs.org/\n");
@@ -83,6 +83,7 @@ try {
     "./metadata",
     "./metadata/testing",
     "./metadata/content",
+    "./design/client",
   ]);
   // Both migrations exports resolve, from the consumer, to the SQL shipped in the package.
   const directories = JSON.parse(
@@ -108,7 +109,7 @@ try {
     if (!/^(consent-)?migrations\./.test(file))
       assert.doesNotMatch(
         text,
-        /(?:from|import)\s*\(?\s*["'](?:astro|@astrojs\/|react)|cloudflare:|gq\.ops|import\.meta\.env|\{\{project\}\}|@quick-release|["']node:|migrationsDirectory/,
+        /(?:from|import)\s*\(?\s*["'](?:astro|@astrojs\/|react)|cloudflare:|gq\.ops|import\.meta\.env|\{\{project\}\}|(?:from|import)\s*\(?\s*["']@quick-release|["']node:|migrationsDirectory/,
       );
     if (file.endsWith(".d.ts")) assert.doesNotMatch(text, /from ["']zod|z\.infer|ZodType/);
   }

@@ -1,0 +1,92 @@
+{
+  "description": "Captured from the real Gutenberg Carousel editor save and parse round trip; presentation is comment-only.",
+  "html": "<!-- wp:getquick-design/sliders {\"presentation\":{\"base\":{\"height\":\"150px\",\"display\":\"grid\",\"visibility\":\"visible\"},\"md\":{\"height\":\"240px\",\"display\":\"none\"},\"xl\":{\"height\":\"auto\",\"display\":\"reset\"}}} -->\n<div class=\"wp-block-getquick-design-sliders\"><!-- wp:getquick-design/slider {\"imageUrl\":\"https://example.test/1.svg\",\"imageAlt\":\"Slide 1\",\"linkUrl\":\"/first-slide\"} -->\n<figure class=\"wp-block-getquick-design-slider\"><a href=\"/first-slide\"><img src=\"https://example.test/1.svg\" alt=\"Slide 1\"/></a><div class=\"wp-block-getquick-design-slider__content\"><!-- wp:heading -->\n<h2 class=\"wp-block-heading\">First slide heading</h2>\n<!-- /wp:heading --></div></figure>\n<!-- /wp:getquick-design/slider -->\n\n<!-- wp:getquick-design/slider {\"imageUrl\":\"https://example.test/2.svg\",\"imageAlt\":\"Slide 2\"} -->\n<figure class=\"wp-block-getquick-design-slider\"><img src=\"https://example.test/2.svg\" alt=\"Slide 2\"/><div class=\"wp-block-getquick-design-slider__content\"></div></figure>\n<!-- /wp:getquick-design/slider -->\n\n<!-- wp:getquick-design/slider {\"imageUrl\":\"https://example.test/3.svg\",\"imageAlt\":\"Slide 3\"} -->\n<figure class=\"wp-block-getquick-design-slider\"><img src=\"https://example.test/3.svg\" alt=\"Slide 3\"/><div class=\"wp-block-getquick-design-slider__content\"></div></figure>\n<!-- /wp:getquick-design/slider -->\n\n<!-- wp:getquick-design/carousel-navigation {\"visible\":false,\"navigationType\":\"lines\",\"navigationPosition\":\"inside\",\"autoplay\":true,\"slideDuration\":3,\"navigationBackgroundColor\":\"rgb(1, 2, 3)\",\"indicatorColor\":\"rgb(4, 5, 6)\",\"lock\":{\"move\":true,\"remove\":true}} /--></div>\n<!-- /wp:getquick-design/sliders -->",
+  "document": [
+    {
+      "name": "getquick-design/sliders",
+      "attributes": {
+        "presentation": {
+          "base": {
+            "height": "150px",
+            "display": "grid",
+            "visibility": "visible"
+          },
+          "md": {
+            "height": "240px",
+            "display": "none"
+          },
+          "xl": {
+            "height": "auto",
+            "display": "reset"
+          }
+        }
+      },
+      "html": "<!-- wp:getquick-design/sliders {\"presentation\":{\"base\":{\"height\":\"150px\",\"display\":\"grid\",\"visibility\":\"visible\"},\"md\":{\"height\":\"240px\",\"display\":\"none\"},\"xl\":{\"height\":\"auto\",\"display\":\"reset\"}}} -->\n<div class=\"wp-block-getquick-design-sliders\"><!-- wp:getquick-design/slider {\"imageUrl\":\"https://example.test/1.svg\",\"imageAlt\":\"Slide 1\",\"linkUrl\":\"/first-slide\"} -->\n<figure class=\"wp-block-getquick-design-slider\"><a href=\"/first-slide\"><img src=\"https://example.test/1.svg\" alt=\"Slide 1\"/></a><div class=\"wp-block-getquick-design-slider__content\"><!-- wp:heading -->\n<h2 class=\"wp-block-heading\">First slide heading</h2>\n<!-- /wp:heading --></div></figure>\n<!-- /wp:getquick-design/slider -->\n\n<!-- wp:getquick-design/slider {\"imageUrl\":\"https://example.test/2.svg\",\"imageAlt\":\"Slide 2\"} -->\n<figure class=\"wp-block-getquick-design-slider\"><img src=\"https://example.test/2.svg\" alt=\"Slide 2\"/><div class=\"wp-block-getquick-design-slider__content\"></div></figure>\n<!-- /wp:getquick-design/slider -->\n\n<!-- wp:getquick-design/slider {\"imageUrl\":\"https://example.test/3.svg\",\"imageAlt\":\"Slide 3\"} -->\n<figure class=\"wp-block-getquick-design-slider\"><img src=\"https://example.test/3.svg\" alt=\"Slide 3\"/><div class=\"wp-block-getquick-design-slider__content\"></div></figure>\n<!-- /wp:getquick-design/slider -->\n\n<!-- wp:getquick-design/carousel-navigation {\"visible\":false,\"navigationType\":\"lines\",\"navigationPosition\":\"inside\",\"autoplay\":true,\"slideDuration\":3,\"navigationBackgroundColor\":\"rgb(1, 2, 3)\",\"indicatorColor\":\"rgb(4, 5, 6)\",\"lock\":{\"move\":true,\"remove\":true}} /--></div>\n<!-- /wp:getquick-design/sliders -->",
+      "children": [
+        {
+          "name": "getquick-design/slider",
+          "attributes": {
+            "imageId": 0,
+            "imageUrl": "https://example.test/1.svg",
+            "imageAlt": "Slide 1",
+            "linkUrl": "/first-slide"
+          },
+          "html": "<!-- wp:getquick-design/slider {\"imageUrl\":\"https://example.test/1.svg\",\"imageAlt\":\"Slide 1\",\"linkUrl\":\"/first-slide\"} -->\n<figure class=\"wp-block-getquick-design-slider\"><a href=\"/first-slide\"><img src=\"https://example.test/1.svg\" alt=\"Slide 1\"/></a><div class=\"wp-block-getquick-design-slider__content\"><!-- wp:heading -->\n<h2 class=\"wp-block-heading\">First slide heading</h2>\n<!-- /wp:heading --></div></figure>\n<!-- /wp:getquick-design/slider -->",
+          "children": [
+            {
+              "name": "core/heading",
+              "attributes": {
+                "content": "First slide heading",
+                "level": 2
+              },
+              "html": "<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">First slide heading</h2>\n<!-- /wp:heading -->",
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "getquick-design/slider",
+          "attributes": {
+            "imageId": 0,
+            "imageUrl": "https://example.test/2.svg",
+            "imageAlt": "Slide 2",
+            "linkUrl": ""
+          },
+          "html": "<!-- wp:getquick-design/slider {\"imageUrl\":\"https://example.test/2.svg\",\"imageAlt\":\"Slide 2\"} -->\n<figure class=\"wp-block-getquick-design-slider\"><img src=\"https://example.test/2.svg\" alt=\"Slide 2\"/><div class=\"wp-block-getquick-design-slider__content\"></div></figure>\n<!-- /wp:getquick-design/slider -->",
+          "children": []
+        },
+        {
+          "name": "getquick-design/slider",
+          "attributes": {
+            "imageId": 0,
+            "imageUrl": "https://example.test/3.svg",
+            "imageAlt": "Slide 3",
+            "linkUrl": ""
+          },
+          "html": "<!-- wp:getquick-design/slider {\"imageUrl\":\"https://example.test/3.svg\",\"imageAlt\":\"Slide 3\"} -->\n<figure class=\"wp-block-getquick-design-slider\"><img src=\"https://example.test/3.svg\" alt=\"Slide 3\"/><div class=\"wp-block-getquick-design-slider__content\"></div></figure>\n<!-- /wp:getquick-design/slider -->",
+          "children": []
+        },
+        {
+          "name": "getquick-design/carousel-navigation",
+          "attributes": {
+            "visible": false,
+            "showArrows": true,
+            "navigationType": "lines",
+            "navigationPosition": "inside",
+            "autoplay": true,
+            "slideDuration": 3,
+            "navigationBackgroundColor": "rgb(1, 2, 3)",
+            "arrowColor": "",
+            "indicatorColor": "rgb(4, 5, 6)",
+            "lock": {
+              "move": true,
+              "remove": true
+            }
+          },
+          "html": "<!-- wp:getquick-design/carousel-navigation {\"visible\":false,\"navigationType\":\"lines\",\"navigationPosition\":\"inside\",\"autoplay\":true,\"slideDuration\":3,\"navigationBackgroundColor\":\"rgb(1, 2, 3)\",\"indicatorColor\":\"rgb(4, 5, 6)\",\"lock\":{\"move\":true,\"remove\":true}} /-->",
+          "children": []
+        }
+      ]
+    }
+  ]
+}

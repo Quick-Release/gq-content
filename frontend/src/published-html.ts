@@ -9,7 +9,7 @@ import type { DesignBlock, DesignPattern } from "./design-patterns";
  * what the publication store holds: changing the transform (a Site enabling a
  * consent service, say) needs no republication, and stored rows, their
  * ordering and withdrawals are untouched by it. The chrome's header and footer
- * patterns pass through it too: each block's saved HTML is transformed, so an
+ * patterns and canonical publication block trees pass through it too: each block's saved HTML is transformed, so an
  * embed a pattern holds is treated as one in the page's body. What a Site's
  * block renderer makes from attributes, and a Site's extension, are served as
  * read: the Site renders them, and transforms their HTML itself.
@@ -60,7 +60,16 @@ export function publishedHtml<X = unknown>(
       ...delivery,
       content: {
         ...delivery.content,
-        home: { ...home, page: { ...home.page, content: transform(home.page.content, served) } },
+        home: {
+          ...home,
+          page: {
+            ...home.page,
+            content: transform(home.page.content, served),
+            ...(home.page.designBlocks
+              ? { designBlocks: blocks(home.page.designBlocks, served) }
+              : {}),
+          },
+        },
         chrome: chrome(delivery.content.chrome, served),
       },
     };
@@ -76,7 +85,11 @@ export function publishedHtml<X = unknown>(
       ...delivery,
       content: {
         ...delivery.content,
-        entry: { ...entry, content: transform(entry.content, served) },
+        entry: {
+          ...entry,
+          content: transform(entry.content, served),
+          ...(entry.designBlocks ? { designBlocks: blocks(entry.designBlocks, served) } : {}),
+        },
         chrome: chrome(delivery.content.chrome, served),
       },
     };

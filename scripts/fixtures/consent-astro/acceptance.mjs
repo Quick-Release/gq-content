@@ -1,3 +1,10 @@
+import { languageAcceptance } from "./language-acceptance.mjs";
+import { contextsAcceptance } from "./contexts-acceptance.mjs";
+import { nativeColumnsAcceptance } from "./native-columns-acceptance.mjs";
+import { navigationAcceptance } from "./navigation-acceptance.mjs";
+import { textAcceptance } from "./text-acceptance.mjs";
+import { carouselAcceptance } from "./carousel-acceptance.mjs";
+import { presentationAcceptance } from "./presentation-acceptance.mjs";
 import { gridAcceptance } from "./grid-acceptance.mjs";
 // CONSENT-1 / LEGAL-1 acceptance on the minimal Astro fixture (seam 1: the
 // Site Frontend as a visitor sees it), in a real Chromium against the packed
@@ -17,8 +24,11 @@ const pass = (criteria, detail) => {
   evidence.push({ criteria, detail, passed: true });
   console.log(`PASS ${criteria.join(", ")}: ${detail}`);
 };
-const site = { siteOrigin: origin };
-const thirdParty = (url) => new URL(url).origin !== origin;
+const site = { siteOrigin: origin, firstPartyHosts: ["example.test"] };
+// The immutable saved media fixture uses example.test for the owning CMS's
+// poster. Serve that image locally; optional-service assertions track embeds.
+const thirdParty = (url) =>
+  new URL(url).origin !== origin && new URL(url).hostname !== "example.test";
 const records = () =>
   new DatabaseSync(`${data}/consent.sqlite`, { readOnly: true })
     .prepare("SELECT * FROM consent_records ORDER BY id")
@@ -26,10 +36,27 @@ const records = () =>
 const settle = (page, ms = 400) => page.waitForTimeout(ms);
 
 const browser = await chromium.launch();
-await gridAcceptance(browser);
+if (!process.env.GQ_CAROUSEL_ONLY) await languageAcceptance(browser, origin);
+if (!process.env.GQ_CAROUSEL_ONLY) await contextsAcceptance(browser, origin);
+if (!process.env.GQ_CAROUSEL_ONLY) await nativeColumnsAcceptance(browser, origin);
+if (!process.env.GQ_CAROUSEL_ONLY) await navigationAcceptance(browser, origin);
+if (!process.env.GQ_CAROUSEL_ONLY) await textAcceptance(browser, origin);
+if (!process.env.GQ_CAROUSEL_ONLY) await gridAcceptance(browser, origin);
+if (!process.env.GQ_CAROUSEL_ONLY) await presentationAcceptance(browser);
+await carouselAcceptance(browser, origin);
+if (process.env.GQ_PRESENTATION_ONLY) {
+  await browser.close();
+  process.exit(0);
+}
 // Every context answers third-party requests locally after they are captured.
 async function context(options = {}) {
   const ctx = await browser.newContext(options);
+  await ctx.route("https://example.test/**", (route) =>
+    route.fulfill({
+      contentType: "image/svg+xml",
+      body: '<svg xmlns="http://www.w3.org/2000/svg" width="560" height="315"><rect width="560" height="315" fill="black"/></svg>',
+    }),
+  );
   await ctx.route(
     (url) => thirdParty(url.href),
     (route) => {
@@ -398,7 +425,7 @@ try {
     // Client-side navigation keeps gating: the video hero loads only after the grant.
     await page.click("header a[href='/sobre/']");
     await page.waitForURL(`${origin}/sobre/`);
-    await page.waitForSelector("[data-gq-consent-embed='youtube'][data-gq-decorative] iframe");
+    await page.waitForSelector("iframe[data-gq-consent-embed='youtube'][data-gq-decorative][src]");
     pass(
       ["CN-R1"],
       "after client-side navigation the granted video hero loads from its placeholder",
@@ -536,6 +563,51 @@ try {
     ["LG-R4", "LG-R5", "LG-R6", "LG-R2"],
     "translated and untranslated routes link every role in their language (fallback for the untranslated privacy policy) with the banner open, from stored chrome with the CMS unreachable; legal pages are reachable and readable with the banner open",
   );
+  {
+    const { ctx, external } = await context({ reducedMotion: "reduce" });
+    const page = await ctx.newPage();
+    await page.goto(`${origin}/sobre/`, { waitUntil: "networkidle" });
+    const frame = page.locator(".gqd-video-hero__media > iframe.gqd-video-hero__video");
+    assert.equal(await frame.count(), 0, "no deferred player exists before a grant");
+    await page.click("#gq-consent-banner [data-gq-consent-accept-all]");
+    await frame.waitFor({ state: "attached" });
+    assert.equal(
+      await frame.getAttribute("src"),
+      null,
+      "grant under reduced motion stays deferred",
+    );
+    assert.ok(await frame.getAttribute("data-src"));
+    assert.equal(
+      external().some((url) => url.includes("youtube-nocookie")),
+      false,
+    );
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await frame.locator(":scope[src]").waitFor({ state: "attached" });
+    assert.ok((await frame.getAttribute("src")).includes("youtube-nocookie.com"));
+    assert.equal(
+      await frame.evaluate((node) => node.parentElement.className),
+      "gqd-video-hero__media",
+    );
+    const size = await page
+      .locator(".gqd-video-hero__media")
+      .evaluate((node) => node.getBoundingClientRect().height);
+    assert.equal(size, 256);
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.waitForFunction(
+      () => !document.querySelector(".gqd-video-hero__media > iframe")?.hasAttribute("src"),
+    );
+    await page.click("footer [data-gq-consent-open]");
+    await page.click("#gq-consent-preferences [data-gq-consent-reject-all]");
+    await page
+      .locator(".gqd-video-hero__media > [data-gq-decorative]:not(iframe)")
+      .waitFor({ state: "attached" });
+    assert.equal(await frame.count(), 0);
+    await ctx.close();
+    pass(
+      ["CN-R1", "CN-R6", "CN-R13"],
+      "real saved Hero: deferred consent grant, direct canonical media target, reduced-motion source gating, 256px media and withdrawal cleanup",
+    );
+  }
 } finally {
   await browser.close();
   if (process.env.CONSENT_EVIDENCE)

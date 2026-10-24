@@ -162,10 +162,19 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@quick-release/design-contract': 0.9.0
+
 importers:
 
   .:
     devDependencies:
+      '@quick-release/design-contract':
+        specifier: 0.9.0
+        version: 0.9.0
+      '@quick-release/design-renderer':
+        specifier: 0.9.0
+        version: 0.9.0
       '@types/node':
         specifier: ^24.0.0
         version: 24.19.2
@@ -499,6 +508,12 @@ packages:
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
+
+  '@quick-release/design-contract@0.9.0':
+    resolution: {integrity: sha512-2K8c51w5UjQXXk852t1DpGfRbeTHCnR24NL1kUpbaYGYdsLfr0ZrV+XmuCWXGrh3trQ/wbyBZ6LlD2hiU+OgJA==, tarball: https://npm.pkg.github.com/download/@quick-release/design-contract/0.9.0/54dee331db34c1da913805b1570f1be84d5acde6}
+
+  '@quick-release/design-renderer@0.9.0':
+    resolution: {integrity: sha512-weBgGrIWhmTFwXsYV/hyj8AUBrsJAO7/sdRzv9AjIh6FYC6vKXhdUaJPvEhzAPsPBhJsh1zhSuoIi7+ZQdDyQA==, tarball: https://npm.pkg.github.com/download/@quick-release/design-renderer/0.9.0/197fccd37aa066848254002ff828049503202b4d}
 
   '@testing-library/dom@10.4.2':
     resolution: {integrity: sha512-yzr2S9HyAIdhz2/6qHgbs665Q7PKVcDF05vsOlHPxG1mo36gKVesdYVeDLnXgfjJ03CrKRk08knc6+E/9m8v2Q==}
@@ -1356,6 +1371,12 @@ snapshots:
   '@oxlint/plugins@1.79.0': {}
 
   '@polka/url@1.0.0-next.29': {}
+
+  '@quick-release/design-contract@0.9.0': {}
+
+  '@quick-release/design-renderer@0.9.0':
+    dependencies:
+      '@quick-release/design-contract': 0.9.0
 
   '@testing-library/dom@10.4.2':
     dependencies:
