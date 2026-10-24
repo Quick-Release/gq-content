@@ -153,3 +153,13 @@ seeded unchanged into the production fixture publication store and read through
 unsafe supporting option values, and exercise cleanup/remount. This closes the
 scriptless delivery path without executing captured scripts or deriving URLs;
 it is distinct from the earlier independent raw-HTML initial-SSR check.
+
+Preview10 runtime source is `52bbd6db056adc99915eaa18525a85f9c231d42a`, using
+unchanged canonical stage `634f58c`. Immutable archive
+`getquick-content-634f58c-preview10.tgz` has SHA256
+`14d1f7675af9d7e8e4102de529a286e913be442501d8f634bca111ab7d845edd`.
+Quality/build, 505 unit tests (3 skipped), and 500 clean installed-package tests
+pass. Round5 review reports Standards zero documented violations/new actionable
+smells and Spec zero concrete findings. The production keyboard check starts on
+the opposite captured option before Home/End so it exercises an actual change,
+independently of ordinary body default selection versus layout current metadata.

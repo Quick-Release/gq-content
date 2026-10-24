@@ -140,6 +140,14 @@ export async function languageAcceptance(browser, origin) {
       );
       await page.goto(`${origin}/presentation-language?body&flags&delivery&lang=${lang}`);
       const keyboardSelect = page.getByRole("combobox");
+      // Captured native FR markup defaults to its first option independently of
+      // explicit layout current metadata. Start on the opposite actual option
+      // so Home/End exercises a real native selection change in both languages.
+      await keyboardSelect.evaluate((element, destination) => {
+        element.selectedIndex = [...element.options].findIndex(
+          (option) => option.value !== destination,
+        );
+      }, target.url);
       await keyboardSelect.focus();
       await Promise.all([
         page.waitForURL(target.url, { timeout: 3000 }),
