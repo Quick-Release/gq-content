@@ -163,3 +163,19 @@ pass. Round5 review reports Standards zero documented violations/new actionable
 smells and Spec zero concrete findings. The production keyboard check starts on
 the opposite captured option before Home/End so it exercises an actual change,
 independently of ordinary body default selection versus layout current metadata.
+
+## Final functional candidate adoption
+
+The final facade build inputs are the immutable owning pair at
+`c4bcc5a9ef72ecad2b48495596464c9d4daa8c8b` (Design 0.9.0 / wire 2.0.0),
+recorded with exact archive hashes in `vendor/design-c4bcc5a/README.md` and pinned
+through relative file dependencies plus the matching contract override/lockfile.
+This stage adds final plain-tag identity isolation, combined 23 producer snapshots
+and refreshed Hero/Carousel inline fixtures. No facade interface or Site-managed
+package pin changes in this adoption.
+
+The draft remains gated on coordinated release/package version decisions, the
+owning root's performance/test orchestration and release evidence, and the bounded
+Site/editor/public journeys documented above. There is no publish, tag, deployment
+or live content mutation. Cover supporting video and supplied dynamic contexts do
+not become new CMS producer captures through dependency adoption.
