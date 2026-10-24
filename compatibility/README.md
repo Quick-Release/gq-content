@@ -1,18 +1,20 @@
 # Published Design fixture compatibility
 
-This isolated development workspace targets exact `@quick-release/design-contract`
-**0.9.0** from GitHub Packages. Its manifest and lockfile must be updated to that
-exact published version before running the release gate. It is intentionally outside the root pnpm
-workspace: `vp install`, `vp run verification` and `vp run installed` do not
-install private packages. The public Frontend manifest has no private dependency.
+This isolated development workspace pins exact `@quick-release/design-contract`
+**0.9.0** from GitHub Packages. Root development dependencies also pin the
+published Design contract and renderer at 0.9.0 so both build and fixture
+installation require approved package access. The fixture workspace stays
+outside the root pnpm workspace. The packed public Frontend has no private
+package dependency, and installed-consumer checks run without registry credentials.
 Both workspaces pin pnpm 12.11.2; all JavaScript commands use Vite+.
 
-Install the root dependencies with `vp install --frozen-lockfile`. With an
-existing approved local package token helper, or a narrow `read:packages`
-credential configured only for `//npm.pkg.github.com/`, run:
+Before either installation, configure the existing approved package token helper
+or a narrow `read:packages` credential only for `//npm.pkg.github.com/`. Never
+write credential values to the repository. Then run:
 
 ```sh
-# From the repository root: confirm live registry identity/access.
+# From the repository root, with approved package access configured:
+vp install --frozen-lockfile
 node compatibility/registry.mjs
 cd compatibility
 vp install --frozen-lockfile --ignore-scripts
