@@ -1,3 +1,4 @@
+import { nativeBlockHtml } from "./native-block";
 import { parseFragment } from "parse5";
 import { escapeAttribute, safeContentUrl } from "./html";
 import { presentationHtml } from "./presentation";
@@ -125,7 +126,10 @@ export function renderDesignVideoHero(
       : '<section class="wp-block-getquick-design-video-hero">';
   return presentationHtml(
     VIDEO_HERO_BLOCK,
-    `${opening}<div class="gqd-video-hero__media" aria-hidden="true">${media}</div><div class="gqd-video-hero__content">${children}</div></section>`,
+    nativeBlockHtml(
+      `${opening}<div class="gqd-video-hero__media" aria-hidden="true">${media}</div><div class="gqd-video-hero__content">${children}</div></section>`,
+      attributes,
+    ),
     attributes.presentation,
     { attributes },
   );

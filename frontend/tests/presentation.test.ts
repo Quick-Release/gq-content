@@ -110,3 +110,17 @@ test("native Group layout context is forwarded and remains idempotent", () => {
   expect(once).toContain("--gqd-display:flex");
   expect(presentationHtml("core/group", once, undefined, { attributes })).toBe(once);
 });
+
+test("actual Hero REST source retains authored native foreground colors without a saved shell", async () => {
+  const { readFileSync } = await import("node:fs");
+  const fixture = JSON.parse(
+    readFileSync(
+      new URL("./fixtures/presentation/video-hero-public.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  const html = renderDesignPattern([fixture.blocks[0].node]);
+  expect(html).toContain("background-color:#000000");
+  expect(html).toContain("color:#ffffff");
+  expect(html).toContain("Explore the collection");
+});

@@ -1,0 +1,19 @@
+---
+import enBody from "../fixtures/navigation/language/en-rendered.html?raw";
+import frBody from "../fixtures/navigation/language/fr-rendered.html?raw";
+import enFlagsBody from "../fixtures/navigation/language-flags/en-rendered.html?raw";
+import frFlagsBody from "../fixtures/navigation/language-flags/fr-rendered.html?raw";
+import enFlags from "../fixtures/navigation/language-flags/en-nodes.json";
+import frFlags from "../fixtures/navigation/language-flags/fr-nodes.json";
+import en from "../fixtures/navigation/language/en-nodes.json";
+import fr from "../fixtures/navigation/language/fr-nodes.json";
+import { renderDesignPattern, resolveDesignTheme, designThemeStyleSheet, presentationStyleSheet, navigationStyleSheet } from "@getquick/content";
+const capture = Astro.url.searchParams.has("flags") ? { en: enFlags, fr: frFlags } : { en, fr };
+const body = Astro.url.searchParams.has("flags") ? { en: enFlagsBody, fr: frFlagsBody } : { en: enBody, fr: frBody };
+const bodyLanguage = Astro.url.searchParams.get("lang") === "fr" ? "fr" : "en";
+const theme = resolveDesignTheme();
+---
+<html lang="en"><head><meta charset="utf-8"/><title>Actual conditional language capture</title><style is:global set:html={designThemeStyleSheet(theme) + presentationStyleSheet(theme) + navigationStyleSheet(theme)} /></head><body class="gqd-content">{Astro.url.searchParams.has("body") ? <section set:html={body[bodyLanguage]} /> : <><section data-language-source="en" set:html={renderDesignPattern(capture.en)} /><section data-language-source="fr" set:html={renderDesignPattern(capture.fr)} /></>}<script>
+import { mountDesignNavigation } from "@getquick/content/design/client";
+mountDesignNavigation();
+</script></body></html>

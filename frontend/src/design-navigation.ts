@@ -243,6 +243,12 @@ function savedNavigation(shell: string, attrs: Attributes): string {
       owned.some((node) => attr(node, "data-gqd-navigation-close") !== undefined)
     )
       continue;
+    const authoredOverlayControl = owned.some(
+      (node) =>
+        node.tagName === "button" &&
+        (hasClass(node, "wp-block-navigation__responsive-container-open") ||
+          hasClass(node, "gqd-navigation__toggle")),
+    );
     let panel = owned.find(
       (node) =>
         hasClass(node, "wp-block-navigation__responsive-container") ||
@@ -293,7 +299,9 @@ function savedNavigation(shell: string, attrs: Attributes): string {
         ? "never"
         : attrs.overlayMenu === "always" || hasClass(open, "always-shown")
           ? "always"
-          : "mobile",
+          : attrs.overlayMenu === "mobile" || authoredOverlayControl
+            ? "mobile"
+            : "never",
     );
     setAttr(
       nav,
@@ -464,10 +472,12 @@ export function renderDesignNavigation(
   if (name === "core/social-link")
     return `<li data-social-service="${escapeAttribute(text(attrs.service))}">${link({ ...attrs, label: text(attrs.label) || text(attrs.service) }, "wp-block-social-link-anchor")}</li>`;
   if (name === "polylang/language-switcher") {
+    // The producer already resolves eligible URLs (including force_home and
+    // Polylang URL filters). noTranslation describes the source translation;
+    // it is not permission to discard an already resolved public destination.
     const entries = objects(attrs.links).filter(
       (entry) =>
-        !(attrs.dropdown !== true && attrs.hide_current === true && entry.current === true) &&
-        !(attrs.hide_if_no_translation === true && entry.noTranslation === true),
+        !(attrs.dropdown !== true && attrs.hide_current === true && entry.current === true),
     );
     if (!entries.length) return "";
     const contents = entries

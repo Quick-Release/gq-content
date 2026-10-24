@@ -34,6 +34,8 @@ export default defineConfig({
       "frontend/tests/fixtures/image-source/public.json",
       "frontend/tests/fixtures/navigation/neutral.json",
       "frontend/tests/fixtures/navigation/producer/",
+      "frontend/tests/fixtures/navigation/language/",
+      "frontend/tests/fixtures/navigation/language-flags/",
       "frontend/tests/fixtures/typography/",
       "frontend/dist/",
       "node_modules/",

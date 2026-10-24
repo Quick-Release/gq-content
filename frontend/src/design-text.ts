@@ -1,3 +1,4 @@
+import { nativeBlockHtml } from "./native-block";
 import { parseFragment, type DefaultTreeAdapterMap } from "parse5";
 import { escapeAttribute, safeContentUrl } from "./html";
 import { presentationHtml } from "./presentation";
@@ -85,7 +86,9 @@ export function renderDesignText(
     if (typeof context.post?.excerpt !== "string") return undefined;
     html = `<div class="wp-block-post-excerpt"><p class="wp-block-post-excerpt__excerpt">${safeDesignRichText(context.post.excerpt)}</p></div>`;
   } else return undefined;
-  return presentationHtml(name, html, attributes.presentation, { attributes });
+  return presentationHtml(name, nativeBlockHtml(html, attributes), attributes.presentation, {
+    attributes,
+  });
 }
 
 function headingTag(level: unknown, fallback: number): string {

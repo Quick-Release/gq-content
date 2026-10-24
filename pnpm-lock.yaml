@@ -163,18 +163,18 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@quick-release/design-contract': file:vendor/design-0a14c1f/quick-release-design-contract-0.9.0.tgz
+  '@quick-release/design-contract': file:vendor/design-634f58c/quick-release-design-contract-0.9.0.tgz
 
 importers:
 
   .:
     devDependencies:
       '@quick-release/design-contract':
-        specifier: file:vendor/design-0a14c1f/quick-release-design-contract-0.9.0.tgz
-        version: file:vendor/design-0a14c1f/quick-release-design-contract-0.9.0.tgz
+        specifier: file:vendor/design-634f58c/quick-release-design-contract-0.9.0.tgz
+        version: file:vendor/design-634f58c/quick-release-design-contract-0.9.0.tgz
       '@quick-release/design-renderer':
-        specifier: file:vendor/design-0a14c1f/quick-release-design-renderer-0.9.0.tgz
-        version: file:vendor/design-0a14c1f/quick-release-design-renderer-0.9.0.tgz
+        specifier: file:vendor/design-634f58c/quick-release-design-renderer-0.9.0.tgz
+        version: file:vendor/design-634f58c/quick-release-design-renderer-0.9.0.tgz
       '@types/node':
         specifier: ^24.0.0
         version: 24.19.2
@@ -509,12 +509,12 @@ packages:
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
 
-  '@quick-release/design-contract@file:vendor/design-0a14c1f/quick-release-design-contract-0.9.0.tgz':
-    resolution: {integrity: sha512-tBFYPgH9QvLhlouqgHwiAWSvzYU2v/1ni+CWg/JyfwRfz1GBooayXprkkCHvFId/slBYxixIx14q2Ty1piglnw==, tarball: file:vendor/design-0a14c1f/quick-release-design-contract-0.9.0.tgz}
+  '@quick-release/design-contract@file:vendor/design-634f58c/quick-release-design-contract-0.9.0.tgz':
+    resolution: {integrity: sha512-rfdsFGOpEnHhHqsIb4lAR1GNl/YQVrk/PRtqN5ygNig7aL5fYw2KY9yvKxqeQYQH+2jqXSnxkElfex/ZpQaqHA==, tarball: file:vendor/design-634f58c/quick-release-design-contract-0.9.0.tgz}
     version: 0.9.0
 
-  '@quick-release/design-renderer@file:vendor/design-0a14c1f/quick-release-design-renderer-0.9.0.tgz':
-    resolution: {integrity: sha512-GF+Ft7OoUPlal5+zRqOiCIo1w1MDpm8d1a7r1KAtIvJI9qwTb41NXXoaAHOnguzPnHaymG+m28MV+j9SEKd+BQ==, tarball: file:vendor/design-0a14c1f/quick-release-design-renderer-0.9.0.tgz}
+  '@quick-release/design-renderer@file:vendor/design-634f58c/quick-release-design-renderer-0.9.0.tgz':
+    resolution: {integrity: sha512-dbX/3K0Nzsz48porShiVtjTj/MdlM40qFvEXfOXJ8Xm64HW+ywxe8Q1iWaIWHhKiveLsXI5M8qZjfPmxchRO/g==, tarball: file:vendor/design-634f58c/quick-release-design-renderer-0.9.0.tgz}
     version: 0.9.0
 
   '@testing-library/dom@10.4.2':
@@ -1374,11 +1374,11 @@ snapshots:
 
   '@polka/url@1.0.0-next.29': {}
 
-  '@quick-release/design-contract@file:vendor/design-0a14c1f/quick-release-design-contract-0.9.0.tgz': {}
+  '@quick-release/design-contract@file:vendor/design-634f58c/quick-release-design-contract-0.9.0.tgz': {}
 
-  '@quick-release/design-renderer@file:vendor/design-0a14c1f/quick-release-design-renderer-0.9.0.tgz':
+  '@quick-release/design-renderer@file:vendor/design-634f58c/quick-release-design-renderer-0.9.0.tgz':
     dependencies:
-      '@quick-release/design-contract': file:vendor/design-0a14c1f/quick-release-design-contract-0.9.0.tgz
+      '@quick-release/design-contract': file:vendor/design-634f58c/quick-release-design-contract-0.9.0.tgz
 
   '@testing-library/dom@10.4.2':
     dependencies:

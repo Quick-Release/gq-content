@@ -1,13 +1,13 @@
 # Canonical Design build inputs
 
 Immutable owning pair from clean gq-design integration
-`0a14c1fabdde666988b9c7678d41a3ec312c1fdc`, Design 0.9.0 / wire 2.0.0.
+`634f58c8e42c8a1e7f8334e937126b472387d405`, Design 0.9.0 / wire 2.0.0.
 These are tarball build dependencies, not mutable source copies. Content bundles
 them into its public package; consuming Sites install only `@getquick/content`.
 No absolute local path or unpublished managed Site pin is part of the package.
 
-- Contract SHA256: `4d653777703f279f652aeff7acb3dc293a959b2c47108b0a102b5e1359c0f456`
-- Renderer SHA256: `17e23650faf5ef315f5232ac2dbe86d5bcb374a42a090cb0a3cc026581e8cb37`
+- Contract SHA256: `5d9b953a33fb64f68c7d38dfe5d7357c4650cc6f9c700c622f43428c9c26938d`
+- Renderer SHA256: `6ecae5e42a0813c0cb63c7bf6769061c55109af26a5fecf206f1dda2ad2af7f4`
 
 Both archives must be installed together. The root override ensures the renderer
 uses the exact matching contract. The Hero browser facade uses the public pure
@@ -18,3 +18,6 @@ Navigation, strict canonical list validation, source Image DTOs and canonical
 media/Hero CSS. It also includes native Columns structural rules/context and the sanitized
 Heading/Paragraph inline source DTOs. Owning and consumer acceptance remain
 separate from artifact adoption.
+
+This stage also includes the canonical Cover 430px omission baseline and the
+refreshed actual Hero REST-dispatcher fixture with canonical inline child DTOs.

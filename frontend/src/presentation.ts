@@ -17,7 +17,7 @@ export type {
   Property as PresentationProperty,
 } from "@quick-release/design-renderer";
 
-import { escapeAttribute } from "./html";
+import { rootAttributesHtml } from "./html";
 
 /** Apply the canonical presentation to a saved block's root shell, preserving
  * its content and attributes. Install presentationStyleSheet once for the Site.
@@ -36,7 +36,6 @@ export function presentationHtml(
     (node) => "tagName" in node,
   );
   if (!root || !("attrs" in root) || !root.sourceCodeLocation?.startTag) return html;
-  const location = root.sourceCodeLocation.startTag;
   const classes = new Set(
     (root.attrs.find((attr) => attr.name === "class")?.value ?? "").split(/\s+/).filter(Boolean),
   );
@@ -61,20 +60,10 @@ export function presentationHtml(
   ]
     .filter(Boolean)
     .join(";");
-  let opening = html.slice(location.startOffset, location.endOffset);
-  const removed = ["class", "style"]
-    .map((attr) => root.sourceCodeLocation?.attrs?.[attr])
-    .filter((attr) => attr !== undefined)
-    .sort((a, b) => b.startOffset - a.startOffset);
-  for (const attr of removed)
-    opening =
-      opening.slice(0, attr.startOffset - location.startOffset) +
-      opening.slice(attr.endOffset - location.startOffset);
-  opening = opening.replace(
-    /\s*\/?>$/,
-    `${` class="${escapeAttribute([...classes].join(" "))}"`}${style ? ` style="${escapeAttribute(style)}"` : ""}>`,
-  );
-  return html.slice(0, location.startOffset) + opening + html.slice(location.endOffset);
+  return rootAttributesHtml(html, {
+    class: [...classes].join(" "),
+    style: style || undefined,
+  });
 }
 
 export {

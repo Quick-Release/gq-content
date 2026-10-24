@@ -1,3 +1,4 @@
+import { nativeBlockHtml } from "./native-block";
 import { parseFragment, type DefaultTreeAdapterMap } from "parse5";
 import { escapeAttribute, safeContentUrl } from "./html";
 import { presentationHtml } from "./presentation";
@@ -26,7 +27,10 @@ export function renderDesignImage(
       : "";
   return presentationHtml(
     name,
-    `<figure class="${name === "core/image" ? "wp-block-image" : "wp-block-post-featured-image"}">${image}${caption}</figure>`,
+    nativeBlockHtml(
+      `<figure class="${name === "core/image" ? "wp-block-image" : "wp-block-post-featured-image"}">${image}${caption}</figure>`,
+      attributes,
+    ),
     attributes.presentation,
     { attributes },
   );

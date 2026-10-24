@@ -59,21 +59,21 @@ explicit neutral overrides, including RTL. No Site policy fork is present.
 
 ## Bounded final matrix
 
-| Family               | Content-owned evidence                                                                                                                                                      | Limits                                                                                                                                  |
-| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| Container            | Saved/serializer snapshots; pattern/parsed/shell geometry, all breakpoint edges, RTL, native alignment and reset                                                            | Site owners separately prove workerd/editor/public journeys                                                                             |
-| Theme                | Typed GraphQL → store → offline delivery; settings refresh; actual default/override CSS                                                                                     | Theme authoring remains Design-owned                                                                                                    |
-| Layout               | Actual 893ea2d six-root Grid/Group/narrow-parent gap chronology; actual 3a5d6be native Columns without core CSS; Spacer/Separator                                           | Full Site CSS matrices run independently                                                                                                |
-| Typography           | Actual b11b763 and 57f5ba6 captures, both themes; null Lists/List Items; inline source attrs-only variants; Button                                                          | Captured layout endpoint remains 422, not a published layout                                                                            |
-| Media                | Actual sourced Image fixture; null-content Cover reconstruction; canonical structural CSS                                                                                   | Featured Image and Branding are explicit loaded Site context variants, not invented producer captures                                   |
-| Carousel             | Real saved document and standalone HTTP neutral node; pattern/parsed paths; literal height/linked images; inactive state, controls, keyboard, pause, reduced motion, colors | Visible controls are a labelled variant of saved visible=false; no raw WPGraphQL capture claim                                          |
-| Hero                 | Real saved YouTube fixture, consent grant/motion/revoke; generated chrome gate; real native video playback supporting clip                                                  | Native playback clip is a local first-party test resource, not an additional CMS save capture                                           |
-| Navigation           | Actual 802c9a1 nodes/HTML, source-preserving shared hooks; overlay/theme boundary/RTL/focus/Escape; saved shells and delivery integration                                   | WP body may retain draft labels/omit dynamic descendants while neutral resolver differs; each source contract is asserted independently |
-| Query                | Refreshed 6b5f746 untouched Post GraphQL records → existing URI read/store/offline preload → matching recursive Post Content and transparent references                     | No new live HTTP capture, custom post type loader or query selection engine                                                             |
-| Conditional language | Supplied links, flag-only accessible labels, filtering, dropdown, RTL and keyboard in production Astro                                                                      | Actual Polylang capture is still pending its owner; supporting context does not close that producer gate                                |
+| Family               | Content-owned evidence                                                                                                                                                      | Limits                                                                                                                                                            |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Container            | Saved/serializer snapshots; pattern/parsed/shell geometry, all breakpoint edges, RTL, native alignment and reset                                                            | Site owners separately prove workerd/editor/public journeys                                                                                                       |
+| Theme                | Typed GraphQL → store → offline delivery; settings refresh; actual default/override CSS                                                                                     | Theme authoring remains Design-owned                                                                                                                              |
+| Layout               | Actual 893ea2d six-root Grid/Group/narrow-parent gap chronology; actual 3a5d6be native Columns without core CSS; Spacer/Separator                                           | Full Site CSS matrices run independently                                                                                                                          |
+| Typography           | Actual b11b763 and 57f5ba6 captures, both themes; null Lists/List Items; inline source attrs-only variants; Button                                                          | Captured layout endpoint remains 422, not a published layout                                                                                                      |
+| Media                | Actual sourced Image fixture; null-content Cover reconstruction; canonical structural CSS                                                                                   | Featured Image and Branding are explicit loaded Site context variants, not invented producer captures                                                             |
+| Carousel             | Real saved document and standalone HTTP neutral node; pattern/parsed paths; literal height/linked images; inactive state, controls, keyboard, pause, reduced motion, colors | Visible controls are a labelled variant of saved visible=false; no raw WPGraphQL capture claim                                                                    |
+| Hero                 | Real saved YouTube fixture, consent grant/motion/revoke; generated chrome gate; real native video playback supporting clip                                                  | Native playback clip is a local first-party test resource, not an additional CMS save capture                                                                     |
+| Navigation           | Actual 802c9a1 nodes/HTML, source-preserving shared hooks; overlay/theme boundary/RTL/focus/Escape; saved shells and delivery integration                                   | WP body may retain draft labels/omit dynamic descendants while neutral resolver differs; each source contract is asserted independently                           |
+| Query                | Refreshed 6b5f746 untouched Post GraphQL records → existing URI read/store/offline preload → matching recursive Post Content and transparent references                     | No new live HTTP capture, custom post type loader or query selection engine                                                                                       |
+| Conditional language | Supplied links, flag-only accessible labels, filtering, dropdown, RTL and keyboard in production Astro                                                                      | Actual e1984c7/ed0afd9 FREE captures now prove resolved links, current state, dropdown keyboard and exact PNG decoding; no Pro or broad HTML/neutral parity claim |
 
 Verification at preview7: build/typecheck/lint pass; `pnpm exec vp test` passes
-498 tests (3 skipped); `node scripts/consumer.mjs` passes 493 installed-package
+501 tests (3 skipped); `node scripts/consumer.mjs` passes 496 installed-package
 tests plus public declaration/runtime checks. `node scripts/consent-acceptance.mjs`
 passes the production presentation routes and all 48 shared consent checks,
 additional record/navigation/legal scenarios and saved Hero grant/motion/revoke.
@@ -84,3 +84,34 @@ Immutable preview7 is `getquick-content-0a14c1f-preview7.tgz`, SHA256
 It bundles the verified Design 0.9.0 / wire 2.0.0 pair at
 `0a14c1fabdde666988b9c7678d41a3ec312c1fdc`. It is a local preview, not a
 published package pin. No PR, tag, deployment or live Site content change was made.
+
+## Follow-up corrections and current stage
+
+Preview8 bundles exact Design stage `634f58c8e42c8a1e7f8334e937126b472387d405`.
+Archive `getquick-content-634f58c-preview8.tgz`, SHA256
+`b6b4db473c00f6ade0d7c379ea83d4bb9e76a2360e0ee8ebbc6cfd32b627bebf`.
+The main family commit is `bc267fbe3435dd821c02a9bf883b5cb90ba721c5`.
+
+The final review caught an overlay-disabled native shell becoming mobile-overlay
+navigation during ordinary HTML delivery. The follow-up infers policy from the
+original shell before adding hooks. Actual conditional language captures then
+exposed `noTranslation` being treated as eligibility: the renderer now trusts
+already resolved public URLs, including force-home and Polylang filter results.
+It never derives URLs or alters the captured DTO. e1984c7 null flags prove an
+accessible label fallback; ed0afd9 supplies actual PNG assets, served byte-for-byte
+at their original URLs by the test transport. Both EN/FR current states, all three
+modes and dropdown keyboard behavior pass. Captured native WP HTML retains its
+own inline select change controller; initial SSR navigation is tested separately
+from the neutral adapter, without asserting arbitrary HTML client-swap parity.
+
+The refreshed actual Hero dispatcher capture e696635 retains explicit native
+foreground/background colors and canonical nested inline child links. Only
+reconstructed native shells restore those native support attributes; complete
+saved shells and Site renderer output stay authoritative. Presentation still
+uses the canonical compiler. Opening-tag mutation now has one shared primitive.
+
+Cover checks independently prove canonical omitted 430px, saved HTML inline
+500px, authored neutral height 192px and 16:9 at 600px (337.5px). Per the parent
+scope decision, attrs-only legacy native minHeight/minHeightUnit is intentionally
+unsupported: no legacy DTO, appearance compatibility layer or numeric CSS grammar
+was added. Current neutral minHeight remains canonical and supported.

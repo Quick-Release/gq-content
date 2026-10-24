@@ -2,4 +2,4 @@ packages:
   - frontend
 
 overrides:
-  "@quick-release/design-contract": file:vendor/design-0a14c1f/quick-release-design-contract-0.9.0.tgz
+  "@quick-release/design-contract": file:vendor/design-634f58c/quick-release-design-contract-0.9.0.tgz

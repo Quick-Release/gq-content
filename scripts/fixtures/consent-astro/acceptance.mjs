@@ -1,3 +1,4 @@
+import { languageAcceptance } from "./language-acceptance.mjs";
 import { contextsAcceptance } from "./contexts-acceptance.mjs";
 import { nativeColumnsAcceptance } from "./native-columns-acceptance.mjs";
 import { navigationAcceptance } from "./navigation-acceptance.mjs";
@@ -35,6 +36,7 @@ const records = () =>
 const settle = (page, ms = 400) => page.waitForTimeout(ms);
 
 const browser = await chromium.launch();
+if (!process.env.GQ_CAROUSEL_ONLY) await languageAcceptance(browser, origin);
 if (!process.env.GQ_CAROUSEL_ONLY) await contextsAcceptance(browser, origin);
 if (!process.env.GQ_CAROUSEL_ONLY) await nativeColumnsAcceptance(browser, origin);
 if (!process.env.GQ_CAROUSEL_ONLY) await navigationAcceptance(browser, origin);

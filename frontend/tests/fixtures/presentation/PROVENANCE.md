@@ -32,3 +32,9 @@ newer layout-final.json (893ea2d) snapshot and matching canonical compiler. Medi
 fixture deliberately has no Post Featured Image or Branding logo context; tests
 must supply actual Site contexts independently. Supplemental context/safety
 variants do not become additional producer captures.
+
+`video-hero-public.json` is the refreshed registered real REST-dispatcher capture
+at e696635 (packages/design-contract/fixtures/blocks/video-hero-saved.json), SHA256
+`0fc5b229f2e67658fb2844098bfa56eea3891b658747990d678a399b377a9cc2`.
+Its presentation document is poster-only; the playable native stream is a separate
+supporting context. This is not an external HTTP Hero capture.

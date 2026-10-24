@@ -126,14 +126,14 @@ test("Polylang resolved links preserve languages, direction, filtering and flag-
     show_flags: true,
     hide_current: true,
     hide_if_no_translation: true,
-    force_home: true,
+    force_home: false,
   });
   expect(html).toContain("<details ");
   expect(html).toContain('href="/ar/"');
   expect(html).toContain('dir="rtl"');
   expect(html).toContain('alt="العربية"');
   expect(html).toContain('href="/en/"');
-  expect(html).not.toContain('href="/pt/"');
+  expect(html).toContain('href="/pt/"');
   expect(
     renderDesignNavigation("polylang/language-switcher", { links: [], dropdown: false }),
   ).not.toContain("<details ");
@@ -361,4 +361,35 @@ test("ordinary delivered HTML enhancement is idempotent and retains authoritativ
   expect(once).toContain('data-tracking="saved"');
   expect(once).toContain('href="/published"');
   expect(enhanceDesignNavigationHtml(once)).toBe(once);
+});
+
+test("ordinary overlay-disabled native HTML keeps visible links without inventing mobile overlay", async () => {
+  const { enhanceDesignNavigationHtml } = await import("@getquick/content");
+  const shell =
+    '<nav class="wp-block-navigation"><ul class="wp-block-navigation__container"><li><a href="/published">Published</a></li></ul></nav>';
+  expect(enhanceDesignNavigationHtml(shell)).toContain('data-gqd-overlay="never"');
+  expect(renderDesignNavigation("core/navigation", { overlayMenu: "never" }, "", shell)).toContain(
+    'data-gqd-overlay="never"',
+  );
+});
+
+test("actual resolved force-home Language links survive missing translation metadata", async () => {
+  const { readFileSync } = await import("node:fs");
+  for (const lang of ["en", "fr"]) {
+    const nodes = JSON.parse(
+      readFileSync(
+        new URL(`./fixtures/navigation/language/${lang}-nodes.json`, import.meta.url),
+        "utf8",
+      ),
+    );
+    for (const node of nodes) {
+      const html = renderDesignPattern([node]);
+      expect(html).not.toBe("");
+      for (const entry of node.attributes.links) {
+        expect(html).toContain(`href="${entry.url}"`);
+        expect(html).toContain(entry.label);
+      }
+      expect(html).not.toContain("<img"); // Actual flags are null, never invent a bitmap.
+    }
+  }
 });

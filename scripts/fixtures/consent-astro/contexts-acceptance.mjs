@@ -11,6 +11,26 @@ export async function contextsAcceptance(browser, origin) {
   try {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(`${origin}/presentation-contexts`);
+    for (const [name, height] of [
+      ["coverDefault", 430],
+      ["coverNative", 500],
+      ["coverHeight", 192],
+      ["coverAspect", 337.5],
+    ]) {
+      assert.equal(
+        await page
+          .locator(`[data-context=${name}] .wp-block-cover`)
+          .evaluate((node) => node.getBoundingClientRect().height),
+        height,
+      );
+    }
+    const actualHero = page.locator("[data-context=actualHero] section");
+    const actualColors = await actualHero.evaluate((node) => ({
+      color: getComputedStyle(node).color,
+      background: getComputedStyle(node).backgroundColor,
+    }));
+    assert.deepEqual(actualColors, { color: "rgb(255, 255, 255)", background: "rgb(0, 0, 0)" });
+    assert.equal(await actualHero.locator('a[href="#destination"]').count(), 1);
     const video = page.locator("[data-context=selfHosted] video");
     assert.equal(await video.evaluate((node) => node.paused), true);
     assert.equal(await video.getAttribute("autoplay"), null);
@@ -52,7 +72,7 @@ export async function contextsAcceptance(browser, origin) {
     assert.equal(await menu.locator('a[href="/ar/"]').isVisible(), true);
     assert.equal(await menu.locator('[dir="rtl"]').count(), 1);
     assert.equal(await menu.locator('img[alt="العربية"]').count(), 1, await menu.innerHTML());
-    assert.equal(await menu.locator('a[href="/pt/"]').count(), 0);
+    assert.equal(await menu.locator('a[href="/pt/"]').count(), 1);
     await page.keyboard.press("Escape");
     assert.equal(await menu.evaluate((node) => node.open), false);
     console.log(

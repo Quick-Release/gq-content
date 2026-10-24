@@ -30,8 +30,8 @@ export function safeContentUrl(value: unknown): string {
 /** Change only named root attributes, preserving the saved subtree and source. */
 export function rootAttributesHtml(
   html: string,
-  values: Record<string, string>,
-  defaults: Record<string, string> = {},
+  values: Record<string, string | undefined>,
+  defaults: Record<string, string | undefined> = {},
 ): string {
   const root = parseFragment(html, { sourceCodeLocationInfo: true }).childNodes.find(
     (node) => "tagName" in node,
@@ -40,7 +40,9 @@ export function rootAttributesHtml(
   const location = root.sourceCodeLocation.startTag;
   const attrs = {
     ...Object.fromEntries(
-      Object.entries(defaults).filter(([name]) => !root.attrs.some((attr) => attr.name === name)),
+      Object.entries(defaults).filter(
+        ([name, value]) => value !== undefined && !root.attrs.some((attr) => attr.name === name),
+      ),
     ),
     ...values,
   };
@@ -56,6 +58,7 @@ export function rootAttributesHtml(
   opening = opening.replace(
     /\s*\/?>$/,
     Object.entries(attrs)
+      .filter((entry): entry is [string, string] => entry[1] !== undefined)
       .map(([name, value]) => ` ${name}="${escapeAttribute(value)}"`)
       .join("") + ">",
   );

@@ -1,4 +1,5 @@
 ---
+import hero from "../fixtures/presentation/video-hero-public.json";
 import { renderDesignPattern, resolveDesignTheme, designThemeStyleSheet, presentationStyleSheet, navigationStyleSheet, videoHeroStyleSheet } from "@getquick/content";
 // Explicit loaded Site contexts, not a new captured CMS producer document.
 const post = { id: 17, title: "Loaded post", uri: "/loaded-post/", blocks: [], featuredImage: { sourceUrl: new URL("/context-image.svg", Astro.url).href, altText: "Loaded post image" } };
@@ -7,7 +8,13 @@ const logoDark = { url: "https://example.test/dark.svg", alt: "Dark logo", width
 const node = (name, attributes) => ({ name, attributes, content: null, children: [] });
 const logoNode = node("core/site-logo", { logo, logoDark, presentation: { base: { width: 32 } } });
 const titleNode = node("core/site-logo", { logo: null, logoDark: null, logoVariation: logo });
+const coverShell = '<div class="wp-block-cover" style="min-height:500px"><span class="wp-block-cover__background"></span><div class="wp-block-cover__inner-container">Native shell</div></div>';
 const paths = {
+  coverDefault: renderDesignPattern([node("core/cover", {})]),
+  coverNative: renderDesignPattern([{ ...node("core/cover", {}), content: coverShell }]),
+  coverHeight: renderDesignPattern([{ ...node("core/cover", { presentation: { base: { height: 48 } } }), content: coverShell }]),
+  coverAspect: renderDesignPattern([{ ...node("core/cover", { presentation: { base: { aspectRatio: "video" } } }), content: coverShell }]),
+  actualHero: renderDesignPattern([hero.blocks[0].node]),
   selfHosted: renderDesignPattern([{ name: "getquick-design/video-hero", attributes: { videoType: "self-hosted", videoUrl: new URL("/native-video.webm", Astro.url).href, posterUrl: new URL("/context-image.svg", Astro.url).href, presentation: { base: { height: 64, width: "1/2" } } }, content: null, children: [{ name: "core/paragraph", attributes: {}, content: '<p><a href="#destination">Foreground link</a></p>', children: [] }] }]),
   featured: renderDesignPattern([node("core/post-featured-image", { isLink: true, presentation: { base: { height: 48, width: "full", objectFit: "cover" } } })], { post }),
   primary: renderDesignPattern([logoNode]),
