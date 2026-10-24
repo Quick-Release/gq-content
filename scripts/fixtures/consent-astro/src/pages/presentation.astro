@@ -1,0 +1,19 @@
+---
+import fixture from "../fixtures/presentation/carousel.json";
+import { renderDesignPattern, renderWordPressBlocks, designCarouselStyle, presentationStyleSheet, designThemeStyleSheet, resolveDesignTheme } from "@getquick/content";
+const saved = structuredClone(fixture.document);
+if (Astro.url.searchParams.has("controls")) saved[0].children.find((child) => child.name === "getquick-design/carousel-navigation").attributes.visible = true;
+const pattern = (node) => ({ name: node.name, attributes: node.attributes, content: node.html || null, children: (node.children ?? []).map(pattern) });
+const wordpress = (node) => ({ name: node.name, attributes: node.attributes, htmlContent: node.html, innerBlocks: (node.children ?? []).map(wordpress) });
+const theme = resolveDesignTheme();
+const paths = { pattern: renderDesignPattern(saved.map(pattern)), parsed: renderWordPressBlocks(saved.map(wordpress)) };
+---
+<html lang="en"><head><meta charset="utf-8"/><title>Saved Carousel runtime</title><style is:global set:html={designThemeStyleSheet(theme) + presentationStyleSheet(theme) + designCarouselStyle()} /></head><body class="gqd-content"><button id="outside">Outside</button>{Object.entries(paths).map(([path, html]) => <section data-path={path} set:html={html} />)}
+<script>
+import { mountDesignCarousels } from "@getquick/content/design/client";
+let cleanup = mountDesignCarousels();
+document.addEventListener("astro:before-swap", () => cleanup());
+document.addEventListener("astro:page-load", () => { cleanup(); cleanup = mountDesignCarousels(); });
+window.addEventListener("pagehide", () => cleanup());
+window.addEventListener("pageshow", () => { cleanup(); cleanup = mountDesignCarousels(); });
+</script></body></html>

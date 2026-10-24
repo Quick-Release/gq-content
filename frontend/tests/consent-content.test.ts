@@ -369,7 +369,7 @@ test("an embed in a footer pattern is held back until consent, in every way the 
     expect(scan.liveThirdParty).toEqual([]);
     expect(scan.placeholders).toEqual(["youtube"]);
     expect(scan.blocked).toEqual([{ host: "tracker.example", tag: "iframe" }]);
-    expect(html).toContain("<p>Veja</p>");
+    expect(html).toMatch(/<p[^>]*>Veja<\/p>/);
   }
   // Placeholders follow the language the chrome is served in.
   expect(rendered(home.content.chrome)).toContain("Carregar uma vez");
@@ -385,4 +385,67 @@ test("an embed in a footer pattern is held back until consent, in every way the 
   expect(plain.kind === "found" && rendered(plain.content.chrome)).toContain(
     'src="https://www.youtube.com/embed/abcdefghijk',
   );
+});
+
+test("canonical publication trees are consent-gated before preloaded Post Content rendering", async () => {
+  const original = entries["/sobre/"];
+  entries["/sobre/"] = {
+    ...(original as Record<string, unknown>),
+    databaseId: 17,
+    // Deliberate content-boundary variant: the canonical tree has raw media,
+    // independently of the rendered body. The store must retain that source.
+    getquickBlocksJson: JSON.stringify([
+      { name: "core/paragraph", attributes: {}, content: youtube, children: [], supported: true },
+    ]),
+  };
+  try {
+    wordpress();
+    await refresh();
+    const fetch = offline();
+    const delivered = await api.publishedEntry("/sobre/");
+    if (delivered.kind !== "found") throw new Error("Missing canonical publication");
+    const blocks = delivered.content.entry.designBlocks;
+    expect(blocks).toBeDefined();
+    const html = api.renderDesignPattern(blocks);
+    expect(scanConsentHtml(html, site).liveThirdParty).toEqual([]);
+    expect(scanConsentHtml(html, site).placeholders).toEqual(["youtube"]);
+    expect(fetch).not.toHaveBeenCalled();
+    const stored = await db
+      .prepare("SELECT body FROM publications WHERE key = 'entry:/sobre/'")
+      .first();
+    const raw = JSON.parse(String(stored?.body));
+    expect(raw.designBlocks[0].content).toContain(
+      '<iframe title="Clip" src="https://www.youtube.com/',
+    );
+  } finally {
+    entries["/sobre/"] = original;
+  }
+});
+
+test("ordinary stored WordPress Navigation HTML gains shared lifecycle without a consent configuration", async () => {
+  const { readFileSync } = await import("node:fs");
+  const original = entries["/sobre/"];
+  const source = readFileSync(
+    new URL("./fixtures/navigation/producer/rendered.html", import.meta.url),
+    "utf8",
+  );
+  entries["/sobre/"] = { ...(original as Record<string, unknown>), content: source };
+  try {
+    api = runtime();
+    wordpress();
+    await refresh();
+    offline();
+    const delivered = await api.publishedEntry("/sobre/");
+    if (delivered.kind !== "found") throw new Error("Missing published Navigation");
+    expect(delivered.content.entry.content).toContain("data-gqd-navigation");
+    expect(delivered.content.entry.content).toContain("Products");
+    expect(delivered.content.entry.content).toContain("Shop");
+    expect(delivered.content.entry.content).toContain("data-gqd-submenu");
+    const stored = await db
+      .prepare("SELECT body FROM publications WHERE key = 'entry:/sobre/'")
+      .first();
+    expect(JSON.parse(String(stored?.body)).content).toBe(source);
+  } finally {
+    entries["/sobre/"] = original;
+  }
 });

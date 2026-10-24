@@ -1,13 +1,16 @@
+import type { DesignTheme } from "./presentation";
 import type { LegalLanguage } from "./consent/legal";
 import type { AnalyticsSettings } from "./consent/configuration";
 
-import type { DesignPattern } from "./design-patterns";
+import type { DesignBlock, DesignPattern } from "./design-patterns";
 export interface WordPressImage {
   sourceUrl: string;
   altText: string;
 }
 
 export interface WordPressPost {
+  databaseId?: number;
+  designBlocks?: DesignBlock[];
   id: string;
   title: string;
   excerpt: string;
@@ -32,6 +35,8 @@ export interface WordPressSettings {
 }
 
 export interface DesignPresets {
+  /** Resolved CMS theme; absent in publications written before theme delivery. */
+  theme?: DesignTheme;
   spacingSizes: Array<{ slug: string; size: string }>;
   colors: Array<{ slug: string; color: string }>;
 }
@@ -49,7 +54,13 @@ export interface HomeContent<X = unknown> extends DesignPresets {
   /** The front page's WordPress entry (WPGraphQL's global id), if WordPress gave it. */
   nodeId: string | null;
   settings: WordPressSettings;
-  page: { title: string; content: string; hasVideoHero: boolean } & Extended<X>;
+  page: {
+    title: string;
+    content: string;
+    hasVideoHero: boolean;
+    databaseId?: number;
+    designBlocks?: DesignBlock[];
+  } & Extended<X>;
   /** WordPress failed on the blocks, so this is the page without them. */
   blocksOmitted: boolean;
 }

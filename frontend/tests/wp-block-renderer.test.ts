@@ -37,12 +37,13 @@ test("parses WPGraphQL Blocks JSON strings and retains every attribute", () => {
 test("renders a self-hosted looping video with poster and inner blocks from GraphQL", () => {
   const html = renderWordPressBlocks([videoHero]);
 
-  expect(html).toContain('class="wp-block-getquick-design-video-hero alignfull"');
+  expect(html).toContain('class="wp-block-getquick-design-video-hero alignfull gqd-presentation"');
   expect(html).toContain('src="https://media.example.test/intro.mp4?token=abc&amp;size=large"');
   expect(html).toContain('poster="https://media.example.test/intro-poster.jpg"');
-  expect(html).toMatch(/autoplay muted loop playsinline preload="metadata"/);
+  expect(html).toMatch(/muted loop playsinline preload="metadata"/);
   expect(html).not.toContain("controls");
-  expect(html).toContain('<h1 class="wp-block-heading">Welcome</h1>');
+  expect(html).not.toContain(" autoplay");
+  expect(html).toMatch(/<h1 class="wp-block-heading[^"]*">Welcome<\/h1>/);
 });
 
 test("renders unlisted YouTube URLs as muted looping privacy-enhanced embeds", () => {
@@ -112,8 +113,26 @@ test("reconstructs wrappers from block HTML and renders unknown content as-is", 
     { name: "vendor/unknown", htmlContent: "<div>Fallback</div>" },
   ]);
 
-  expect(html).toContain('<div class="wp-block-group"><p>Inside</p></div>');
+  expect(html).toContain(
+    '<div class="wp-block-group gqd-presentation"><p class="gqd-presentation">Inside</p></div>',
+  );
   expect(html).toContain("Already rendered");
   expect(html).not.toContain("Do not duplicate");
   expect(html).toContain("<div>Fallback</div>");
+});
+
+test("complete dynamic native HTML retains Cover foreground and neutral presentation", () => {
+  const html = renderWordPressBlocks([
+    {
+      name: "core/cover",
+      attributes: { presentation: { base: { width: "1/2" } } },
+      htmlContent: '<div class="wp-block-cover"></div>',
+      dynamicContent:
+        '<div class="wp-block-cover"><div class="wp-block-cover__inner-container"><h2>Kept foreground</h2></div></div>',
+      innerBlocks: [{ name: "core/heading", htmlContent: "<h2>Kept foreground</h2>" }],
+    },
+  ]);
+  expect(html.match(/Kept foreground/g)).toHaveLength(1);
+  expect(html).toContain("wp-block-cover__inner-container");
+  expect(html).toContain("--gqd-base-width:50.00000000%");
 });

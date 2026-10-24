@@ -1,0 +1,7 @@
+---
+import fixture from "../fixtures/presentation/native-columns.json";
+import { renderDesignPattern, resolveDesignTheme, designThemeStyleSheet, presentationStyleSheet } from "@getquick/content";
+const theme = resolveDesignTheme();
+const paths = { pattern: renderDesignPattern(fixture.nodes), html: fixture.html };
+---
+<html lang="en"><head><meta charset="utf-8"/><title>Native Columns without core CSS</title><style is:global set:html={designThemeStyleSheet(theme) + presentationStyleSheet(theme)} /></head><body class="gqd-content">{Object.entries(paths).map(([path, html]) => <main data-path={path} style="width:600px;max-width:100%" set:html={html} />)}</body></html>

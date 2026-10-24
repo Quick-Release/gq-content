@@ -16,7 +16,7 @@ assert.equal(
   renderWordPressBlocks(
     parseWordPressBlocks('[{"name":"core/paragraph","htmlContent":"<p>Installed</p>"}]'),
   ),
-  "<p>Installed</p>",
+  '<p class="gqd-presentation">Installed</p>',
 );
 assert.equal(
   renderDesignPattern(
@@ -28,7 +28,7 @@ assert.equal(
     },
     { blocks: { "getquick/header-navigation": () => "<nav>Site</nav>" } },
   ),
-  '<div class="wp-block-group"><nav>Site</nav></div>',
+  '<div class="wp-block-group gqd-presentation"><nav>Site</nav></div>',
 );
 const server = createServer(async (request, response) => {
   assert.equal(request.url, "/graphql");

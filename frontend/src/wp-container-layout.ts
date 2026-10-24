@@ -8,5 +8,6 @@ export function containerLayoutHtml(html: string, attributes: ContainerAttribute
     "getquick-design/container",
     html || '<div class="wp-block-getquick-design-container"></div>',
     attributes.presentation,
+    { attributes },
   );
 }

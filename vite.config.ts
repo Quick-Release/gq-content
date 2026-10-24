@@ -3,6 +3,7 @@ export default defineConfig({
   pack: {
     entry: {
       index: "frontend/src/index.ts",
+      "design-client": "frontend/src/design-client.ts",
       server: "frontend/src/server.ts",
       migrations: "frontend/src/migrations.ts",
       consent: "frontend/src/consent/index.ts",
@@ -27,6 +28,13 @@ export default defineConfig({
   fmt: {
     ignorePatterns: [
       ".agents/",
+      // Immutable upstream saved/public fixture bytes, retained with provenance.
+      "frontend/tests/fixtures/presentation/",
+      "frontend/tests/fixtures/query-composition/",
+      "frontend/tests/fixtures/image-source/public.json",
+      "frontend/tests/fixtures/navigation/neutral.json",
+      "frontend/tests/fixtures/navigation/producer/",
+      "frontend/tests/fixtures/typography/",
       "frontend/dist/",
       "node_modules/",
       ".vite-hooks/_/",

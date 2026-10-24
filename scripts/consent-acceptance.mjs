@@ -41,6 +41,21 @@ const port = await new Promise((done) => {
 let server;
 try {
   cpSync(join(repo, "scripts/fixtures/consent-astro"), consumer, { recursive: true });
+  cpSync(
+    join(repo, "frontend/tests/fixtures/presentation"),
+    join(consumer, "src/fixtures/presentation"),
+    { recursive: true },
+  );
+  cpSync(
+    join(repo, "frontend/tests/fixtures/typography"),
+    join(consumer, "src/fixtures/typography"),
+    { recursive: true },
+  );
+  cpSync(
+    join(repo, "frontend/tests/fixtures/navigation"),
+    join(consumer, "src/fixtures/navigation"),
+    { recursive: true },
+  );
   const selected = retained("npm");
   if (selected) cpSync(selected, join(consumer, "getquick-content-0.3.1.tgz"));
   else run("vp", ["pm", "pack", "--pack-destination", consumer], { cwd: join(repo, "frontend") });

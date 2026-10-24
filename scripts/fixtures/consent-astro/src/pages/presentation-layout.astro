@@ -1,0 +1,7 @@
+---
+import fixture from "../fixtures/presentation/layout-final.json";
+import { renderDesignPattern, presentationStyleSheet, designThemeStyleSheet, resolveDesignTheme } from "@getquick/content";
+const theme = resolveDesignTheme();
+const paths = { pattern: renderDesignPattern(fixture.nodes), html: fixture.html };
+---
+<html lang="en"><head><meta charset="utf-8"/><title>Actual saved layout</title><style is:global set:html={designThemeStyleSheet(theme) + presentationStyleSheet(theme)} /></head><body class="gqd-content">{Object.entries(paths).map(([path, html]) => <main data-path={path} style="width:360px" set:html={html} />)}</body></html>

@@ -221,7 +221,7 @@ export function rewriteEmbeds(html: string, context: EmbedContext): RewrittenHtm
         }
         const tag = (pairedTag ?? voidTag)!.toLowerCase() as "iframe" | "object" | "embed";
         const attrs = attributesOf((pairedAttrs ?? voidAttrs) || "");
-        const reference = tag === "object" ? attrs.data : attrs.src;
+        const reference = tag === "object" ? attrs.data : (attrs.src ?? attrs["data-src"]);
         if (reference === undefined) {
           // An iframe without a source is an empty frame; inline documents, and
           // objects/embeds whose content can't be known, never load.
@@ -246,7 +246,10 @@ export function rewriteEmbeds(html: string, context: EmbedContext): RewrittenHtm
           ...(width !== undefined ? { width } : {}),
           ...(height !== undefined ? { height } : {}),
           attributes: rest,
-          decorative: /\bwp-block-getquick-design-video-hero__video\b/.test(attrs.class ?? ""),
+          decorative:
+            /\b(?:wp-block-getquick-design-video-hero__video|gqd-video-hero__video)\b/.test(
+              attrs.class ?? "",
+            ),
         });
       },
     );

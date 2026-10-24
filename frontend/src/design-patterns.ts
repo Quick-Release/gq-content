@@ -1,4 +1,23 @@
-import { presentationHtml } from "./presentation";
+import { selectSiteLogo } from "@quick-release/design-renderer";
+import { DESIGN_NAVIGATION_BLOCKS, renderDesignNavigation } from "./design-navigation";
+import { renderDesignText, type DesignTextContext } from "./design-text";
+import { renderDesignImage } from "./design-image";
+import {
+  renderDesignQuery,
+  renderDesignPostBlock,
+  type DesignPostContext,
+  type DesignQueryResolverOptions,
+} from "./design-query";
+import { renderDesignVideoHero, VIDEO_HERO_BLOCK } from "./design-video";
+import { renderDesignCover } from "./design-media";
+import {
+  DESIGN_CAROUSEL,
+  DESIGN_CAROUSEL_ITEM,
+  DESIGN_CAROUSEL_NAVIGATION,
+  renderDesignCarousel,
+  renderDesignCarouselItem,
+} from "./carousel";
+import { type PresentationModel, presentationHtml } from "./presentation";
 import { DESIGN_GRID, gridLayoutHtml } from "./wp-grid-layout";
 import type { WordPressMenuItem } from "./content-types";
 import { menuItemHref } from "./formatting";
@@ -79,12 +98,16 @@ export function escapeHtml(value: string): string {
 
 /** What a block renderer is given besides its block. */
 export interface DesignRenderContext {
+  colorScheme?: "light" | "dark";
+  siteTitle?: string;
+  /** Current preloaded post when rendering a Query item or a post body. */
+  post?: DesignPostContext;
   /** The block's children, rendered in order by the same renderers (when read). */
   children: string;
   /** The blocks it is inside, outermost first. */
   ancestors: DesignBlock[];
   /** Renders other blocks (a subset of the children, say) by the same renderers. */
-  render(this: void, blocks: DesignBlock[]): string;
+  render(this: void, blocks: DesignBlock[], post?: DesignPostContext): string;
   /**
    * A link from CMS data as the Frontend serves it: one into this Site (the
    * CMS or the Site origin) becomes its path, another http(s) link stays
@@ -101,7 +124,17 @@ export interface DesignRenderContext {
  */
 export type DesignBlockRenderer = (block: DesignBlock, context: DesignRenderContext) => string;
 
-export interface DesignRenderOptions {
+export interface DesignRenderOptions extends DesignQueryResolverOptions {
+  /** Explicit surface scheme for the canonical Branding logo selection. */
+  colorScheme?: "light" | "dark";
+  /** Preloaded native Site text sources; no lookup occurs during rendering. */
+  textContext?: DesignTextContext;
+  /** Explicit Site-added capability model, shared with its stylesheet. */
+  presentationModel?: PresentationModel;
+  /** Gate generated media before composing already-delivered child HTML. */
+  mediaHtml?: (html: string) => string;
+  /** Preloaded context for native Post Title/Post Content outside a Query. */
+  post?: DesignPostContext;
   /**
    * The Site's renderers, by block name: its own blocks (such as
    * `getquick/header-navigation`), and any core block it renders itself.
@@ -165,7 +198,8 @@ function mediaUrl(value: unknown): string | null {
 function designLogo(value: unknown): DesignLogo | null {
   const url = isRecord(value) ? mediaUrl(value.url) : null;
   if (!isRecord(value) || !url) return null;
-  const size = (item: unknown) => (typeof item === "number" && item > 0 ? item : null);
+  const size = (item: unknown) =>
+    typeof item === "number" && Number.isFinite(item) && item > 0 ? item : null;
   return {
     url,
     alt: typeof value.alt === "string" ? value.alt : "",
@@ -181,8 +215,13 @@ function designLogo(value: unknown): DesignLogo | null {
  * renderer can show its title instead.
  */
 const renderSiteLogo: DesignBlockRenderer = (block, context) => {
-  const logo = designLogo(block.attributes.logo);
-  if (!logo) return "";
+  const selected = selectSiteLogo(block.attributes, context.colorScheme ?? "light");
+  const logo = designLogo(selected.image);
+  if (!logo) {
+    if (context.siteTitle === undefined) return "";
+    const title = escapeHtml(context.siteTitle);
+    return `<div class="wp-block-site-logo">${block.attributes.isLink === false ? title : `<a href="${escapeHtml(context.href(context.home))}" rel="home">${title}</a>`}</div>`;
+  }
   const width = typeof block.attributes.width === "number" ? block.attributes.width : logo.width;
   const size = [
     width ? ` width="${width}"` : "",
@@ -241,10 +280,28 @@ function containerHtml(block: DesignBlock, children: string): string {
   if (typeof textColor === "string" && SLUG.test(textColor)) {
     classes.push(`has-${textColor}-color`, "has-text-color");
   }
+  if (block.name === "core/columns" && block.attributes.isStackedOnMobile === false)
+    classes.push("is-not-stacked-on-mobile");
+  const verticalAlignment = block.attributes.verticalAlignment;
+  if (
+    (block.name === "core/columns" || block.name === "core/column") &&
+    typeof verticalAlignment === "string" &&
+    ["top", "center", "bottom"].includes(verticalAlignment)
+  )
+    classes.push(
+      `${block.name === "core/columns" ? "are" : "is"}-vertically-aligned-${verticalAlignment}`,
+    );
+  const styles: string[] = [];
+  if (
+    block.name === "core/column" &&
+    typeof block.attributes.width === "string" &&
+    /^\d+(?:\.\d+)?(?:%|px|rem|em|vw)$/.test(block.attributes.width)
+  )
+    styles.push(`flex-basis:${block.attributes.width}`);
   const layoutType = isRecord(layout) ? layout.type : undefined;
   if (typeof layoutType === "string" && SLUG.test(layoutType))
     classes.push(`is-layout-${layoutType}`);
-  return `<${tag} class="${escapeHtml(classes.join(" "))}">${children}</${tag}>`;
+  return `<${tag}${typeof block.attributes.anchor === "string" && block.attributes.anchor.trim() ? ` id="${escapeHtml(block.attributes.anchor)}"` : ""} class="${escapeHtml(classes.join(" "))}"${styles.length ? ` style="${styles.join(";")}"` : ""}>${children}</${tag}>`;
 }
 
 /**
@@ -264,10 +321,18 @@ export function renderDesignPattern(
   const internalOrigins = options.internalOrigins ?? [];
   const href = (url: unknown) => linkHref(url, internalOrigins);
 
-  const renderAll = (blocks: DesignBlock[], ancestors: DesignBlock[]): string =>
-    blocks.map((block) => renderOne(block, ancestors)).join("");
+  const renderAll = (
+    blocks: DesignBlock[],
+    ancestors: DesignBlock[],
+    post: DesignPostContext | undefined = options.post,
+  ): string => blocks.map((block) => renderOne(block, ancestors, post)).join("");
 
-  function renderOne(block: DesignBlock, ancestors: DesignBlock[]): string {
+  function renderOne(
+    block: DesignBlock,
+    ancestors: DesignBlock[],
+    post?: DesignPostContext,
+  ): string {
+    if (ancestors.length > 32) throw new RangeError("Design composition exceeds 32 levels");
     const inside = [...ancestors, block];
     const renderer = Object.hasOwn(renderers, block.name) ? renderers[block.name] : undefined;
     if (renderer) {
@@ -277,41 +342,103 @@ export function renderDesignPattern(
         block.name,
         renderer(block, {
           get children() {
-            return (children ??= renderAll(block.children, inside));
+            return (children ??= renderAll(block.children, inside, post));
           },
           ancestors,
-          render: (blocks) => renderAll(blocks, inside),
+          post,
+          colorScheme: options.colorScheme,
+          siteTitle: options.textContext?.site?.title,
+          render: (blocks, contextPost = post) => renderAll(blocks, inside, contextPost),
           href,
           home: options.home ?? "/",
         }),
         block.attributes.presentation,
+        { attributes: block.attributes, model: options.presentationModel },
       );
     }
+    const context = {
+      post,
+      resolvePost: options.resolvePost,
+      href,
+      render: (blocks: DesignBlock[], current = post) => renderAll(blocks, inside, current),
+    };
+    const composed = renderDesignQuery(block, context) ?? renderDesignPostBlock(block, context);
+    if (composed !== undefined) return composed;
+    if (block.name === VIDEO_HERO_BLOCK)
+      return renderDesignVideoHero(
+        block.attributes,
+        renderAll(block.children, inside, post),
+        block.content ?? undefined,
+        { mediaHtml: options.mediaHtml },
+      );
+    if (block.name === DESIGN_CAROUSEL) {
+      return renderDesignCarousel(
+        block.attributes,
+        block.children.map((child) => ({
+          name: child.name,
+          attributes: child.attributes,
+          html: child.name === DESIGN_CAROUSEL_NAVIGATION ? "" : renderOne(child, inside, post),
+        })),
+        block.content ?? undefined,
+      );
+    }
+    if (block.name === DESIGN_CAROUSEL_ITEM)
+      return renderDesignCarouselItem(
+        block.attributes,
+        renderAll(block.children, inside, post),
+        block.content ?? undefined,
+      );
     if (block.name === DESIGN_CONTAINER && (block.children.length > 0 || block.content !== null)) {
       // The shared presentation applies to chrome and content alike.
       const wrapper = presentationHtml(
         block.name,
         block.content ?? containerHtml(block, ""),
         block.attributes.presentation,
+        { attributes: block.attributes, model: options.presentationModel },
       );
-      return insertChildren(wrapper, renderAll(block.children, inside));
+      return insertChildren(wrapper, renderAll(block.children, inside, post));
     }
     if (block.name === DESIGN_GRID && (block.children.length > 0 || block.content !== null)) {
       const wrapper = gridLayoutHtml(block.content ?? containerHtml(block, ""), block.attributes);
-      return insertChildren(wrapper, renderAll(block.children, inside));
+      return insertChildren(wrapper, renderAll(block.children, inside, post));
     }
-    const children = renderAll(block.children, inside);
+    const children = renderAll(block.children, inside, post);
+    if (DESIGN_NAVIGATION_BLOCKS.has(block.name))
+      return renderDesignNavigation(block.name, block.attributes, children, block.content ?? "");
+    if (block.name === "core/post-featured-image" && block.content === null) {
+      if (!post?.featuredImage) return "";
+      return renderDesignImage(
+        {
+          ...block.attributes,
+          url: post.featuredImage.sourceUrl,
+          alt: post.featuredImage.altText,
+          href: block.attributes.isLink === true ? post.uri : undefined,
+        },
+        undefined,
+        { name: "core/post-featured-image" },
+      );
+    }
+    if (block.name === "core/image")
+      return renderDesignImage(block.attributes, block.content ?? undefined);
+    if (block.content === null) {
+      const text = renderDesignText(block.name, block.attributes, children, options.textContext);
+      if (text !== undefined) return text;
+    }
+    if (block.name === "core/cover" && block.content === null)
+      return renderDesignCover(block.attributes, children, post);
     if (block.content !== null)
       return presentationHtml(
         block.name,
         insertChildren(block.content, children),
         block.attributes.presentation,
+        { attributes: block.attributes, model: options.presentationModel },
       );
     if (block.children.length > 0)
       return presentationHtml(
         block.name,
         containerHtml(block, children),
         block.attributes.presentation,
+        { attributes: block.attributes, model: options.presentationModel },
       );
     options.onUnrendered?.(block);
     return "";

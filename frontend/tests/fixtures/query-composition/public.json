@@ -1,0 +1,230 @@
+{
+  "blocks": [
+    {
+      "name": "getquick-design/query",
+      "attributes": {
+        "items": [
+          {
+            "id": 644,
+            "type": "gqd81_item",
+            "slug": "beta",
+            "uri": "/gqd81_item/beta/"
+          },
+          {
+            "id": 645,
+            "type": "gqd81_item",
+            "slug": "gamma",
+            "uri": "/gqd81_item/gamma/"
+          }
+        ],
+        "offset": 1,
+        "order": "asc",
+        "orderBy": "title",
+        "patternId": 646,
+        "perPage": 2,
+        "postType": "gqd81_item"
+      },
+      "content": null,
+      "children": [
+        {
+          "name": "core/post-title",
+          "attributes": {
+            "level": 2,
+            "presentation": {
+              "base": {
+                "fontSize": "2xl"
+              }
+            }
+          },
+          "content": null,
+          "children": [],
+          "supported": true,
+          "dataRequirements": [
+            "post"
+          ]
+        },
+        {
+          "name": "core/post-content",
+          "attributes": {
+            "presentation": {
+              "base": {
+                "paddingBlock": 2
+              }
+            }
+          },
+          "content": null,
+          "children": [],
+          "supported": true,
+          "dataRequirements": [
+            "post"
+          ]
+        },
+        {
+          "name": "core/block",
+          "attributes": {
+            "ref": 641
+          },
+          "content": null,
+          "children": [
+            {
+              "name": "getquick-design/grid",
+              "attributes": {
+                "presentation": {
+                  "base": {
+                    "gridColumns": "1",
+                    "gap": 4
+                  },
+                  "md": {
+                    "gridColumns": "2"
+                  }
+                }
+              },
+              "content": null,
+              "children": [
+                {
+                  "name": "getquick-design/container",
+                  "attributes": {},
+                  "content": null,
+                  "children": [
+                    {
+                      "name": "core/heading",
+                      "attributes": {
+                        "level": 3,
+                        "presentation": {
+                          "base": {
+                            "fontSize": "xl",
+                            "fontWeight": "bold"
+                          }
+                        }
+                      },
+                      "content": "<h3 class=\"wp-block-heading\">Pattern details</h3>",
+                      "children": [],
+                      "supported": true
+                    }
+                  ],
+                  "supported": true
+                },
+                {
+                  "name": "getquick-design/container",
+                  "attributes": {},
+                  "content": null,
+                  "children": [
+                    {
+                      "name": "core/buttons",
+                      "attributes": {
+                        "presentation": {
+                          "base": {
+                            "gap": 2
+                          }
+                        }
+                      },
+                      "content": null,
+                      "children": [
+                        {
+                          "name": "core/button",
+                          "attributes": {
+                            "presentation": {
+                              "base": {
+                                "paddingInline": 4,
+                                "borderRadius": "lg"
+                              }
+                            },
+                            "tagName": "a",
+                            "url": "#details",
+                            "text": "Read item"
+                          },
+                          "content": "<div class=\"wp-block-button\"><a class=\"wp-block-button__link wp-element-button\" href=\"#details\">Read item</a></div>",
+                          "children": [],
+                          "supported": true
+                        }
+                      ],
+                      "supported": true
+                    }
+                  ],
+                  "supported": true
+                }
+              ],
+              "supported": true
+            }
+          ],
+          "supported": true
+        }
+      ],
+      "supported": true
+    }
+  ],
+  "items": [
+    {
+      "id": 644,
+      "title": "Beta",
+      "blocks": [
+        {
+          "name": "core/paragraph",
+          "attributes": {},
+          "content": "<p>Beta content</p>",
+          "children": [],
+          "supported": true
+        },
+        {
+          "name": "core/block",
+          "attributes": {
+            "ref": 642
+          },
+          "content": null,
+          "children": [
+            {
+              "name": "core/paragraph",
+              "attributes": {
+                "presentation": {
+                  "base": {
+                    "fontSize": "lg"
+                  }
+                }
+              },
+              "content": "<p>Nested item body</p>",
+              "children": [],
+              "supported": true
+            }
+          ],
+          "supported": true
+        }
+      ]
+    },
+    {
+      "id": 645,
+      "title": "Gamma",
+      "blocks": [
+        {
+          "name": "core/paragraph",
+          "attributes": {},
+          "content": "<p>Gamma content</p>",
+          "children": [],
+          "supported": true
+        },
+        {
+          "name": "core/block",
+          "attributes": {
+            "ref": 642
+          },
+          "content": null,
+          "children": [
+            {
+              "name": "core/paragraph",
+              "attributes": {
+                "presentation": {
+                  "base": {
+                    "fontSize": "lg"
+                  }
+                }
+              },
+              "content": "<p>Nested item body</p>",
+              "children": [],
+              "supported": true
+            }
+          ],
+          "supported": true
+        }
+      ]
+    }
+  ]
+}

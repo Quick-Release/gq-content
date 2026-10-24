@@ -126,6 +126,17 @@ bundled into the content package. Sites import the presentation functions and
 model through `@getquick/content`, without installing managed Design packages.
 Install `presentationStyleSheet(resolvedTheme)` once for chrome and content;
 its complete static mappings support content authored after a build. Preserve
-saved variables when parsed attributes are absent. Theme transport and later
-family targets are separate pending adoption slices, not acceptance of the
-complete catalog.
+saved variables when parsed attributes are absent. Resolved theme is carried through GraphQL and stored delivery. Family adapters
+restore null-content native text, media, layout, navigation and preloaded Query
+composition through the same public runtime. Carousel and decorative Hero
+lifecycle live in a browser-only content entry; generated media passes through
+the configured consent boundary before child composition.
+
+Neutral Post/Page content is an optional canonical block tree on existing
+publications. Preloading selected Query item URIs uses the existing publication
+loader before synchronous rendering; the renderer never fetches or selects
+posts. Custom post type neutral delivery remains explicit caller-owned context.
+
+Immutable owning Gutenberg/public fixtures support adapter and production Astro
+browser checks. Those checks and consumer Site evidence are reported separately;
+no single Container or synthetic fixture pass establishes full catalog acceptance.

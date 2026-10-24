@@ -20,3 +20,24 @@ export type {
 export { designGridStyle } from "./wp-grid-layout";
 
 export * from "./presentation";
+export * from "./carousel";
+export { renderDesignCover } from "./design-media";
+export { renderDesignVideoHero } from "./design-video";
+export type {
+  DesignPostContext,
+  DesignQueryItem,
+  DesignQueryResolverOptions,
+} from "./design-query";
+export { designQueryItems, designPostContext, preloadDesignQueryPosts } from "./design-query";
+export type { DesignPreloadedPosts, DesignPostRecord } from "./design-query";
+
+export { renderDesignText, safeDesignRichText } from "./design-text";
+export type { DesignTextContext } from "./design-text";
+export { renderDesignImage } from "./design-image";
+export {
+  renderDesignNavigation,
+  navigationStyleSheet,
+  enhanceDesignNavigationHtml,
+} from "./design-navigation";
+export { renderDesignQuery, renderDesignPostBlock } from "./design-query";
+export type { DesignQueryRenderContext } from "./design-query";

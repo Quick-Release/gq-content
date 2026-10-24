@@ -469,15 +469,17 @@ test("Site block renderers render custom blocks such as getquick/header-navigati
     blocks: { "getquick/header-navigation": siteNavigation },
   });
   expect(html).toBe(
-    '<header class="wp-block-group gqd-site-header is-layout-flex">' +
-      '<div class="wp-block-site-logo"><a href="/" class="custom-logo-link" rel="home">' +
+    '<header class="wp-block-group gqd-site-header is-layout-flex gqd-presentation" style="--gqd-display:flex">' +
+      '<div class="wp-block-site-logo gqd-presentation"><a href="/" class="custom-logo-link" rel="home">' +
       '<img class="custom-logo" src="https://media.example/logo.png" alt="Acme" width="120" height="30" decoding="async" /></a></div>' +
       '<nav class="site-navigation" aria-label="Primary"><ul>' +
       '<li><a href="/about/">About us</a><ul><li><a href="/about/team/">Team</a></li></ul></li>' +
       '<li><a href="https://shop.example/" target="_blank">Shop</a></li>' +
       "</ul></nav></header>",
   );
-  expect(runtime().renderDesignPattern(served.footer)).toBe("<p>© Acme</p>");
+  expect(runtime().renderDesignPattern(served.footer)).toBe(
+    '<p class="gqd-presentation">© Acme</p>',
+  );
 });
 
 test("containers without a renderer are wrapped as WordPress would; dynamic leaves are reported", () => {
@@ -510,8 +512,8 @@ test("containers without a renderer are wrapped as WordPress would; dynamic leav
   expect(
     renderDesignPattern(blocks, { onUnrendered: (block) => unrendered.push(block.name) }),
   ).toBe(
-    '<div class="wp-block-group site-footer&quot; onload=&quot;x alignfull has-brand-background-color has-background has-white-color has-text-color is-layout-constrained">' +
-      '<div class="wp-block-acme-columns"><p>Kept</p></div></div>',
+    '<div class="wp-block-group site-footer&quot; onload=&quot;x alignfull has-brand-background-color has-background has-white-color has-text-color is-layout-constrained gqd-presentation" style="--gqd-display:block">' +
+      '<div class="wp-block-acme-columns"><p class="gqd-presentation">Kept</p></div></div>',
   );
   expect(unrendered).toEqual(["getquick/header-navigation", "core/site-title"]);
 });
@@ -548,8 +550,8 @@ test("GQ Design containers use shared presentation in chrome and content", () =>
   ];
   const html = renderDesignPattern(blocks);
   expect(html).toBe(
-    '<div class="wp-block-getquick-design-container is-layout-constrained gqd-presentation"><p>Outer</p>' +
-      '<div class="wp-block-getquick-design-container is-layout-default gqd-presentation"><p>Inner</p></div></div>',
+    '<div class="wp-block-getquick-design-container is-layout-constrained gqd-presentation"><p class="gqd-presentation">Outer</p>' +
+      '<div class="wp-block-getquick-design-container is-layout-default gqd-presentation"><p class="gqd-presentation">Inner</p></div></div>',
   );
   // The same tree as content renders it, from the same container shells.
   const shell = (type: string) =>
@@ -580,7 +582,7 @@ test("GQ Design containers use shared presentation in chrome and content", () =>
       },
     }),
   ).toContain(
-    '<section class="wp-block-getquick-design-container gqd-presentation"><p>Outer</p><section class="wp-block-getquick-design-container gqd-presentation"><p>Inner</p></section></section>',
+    '<section class="wp-block-getquick-design-container gqd-presentation"><p class="gqd-presentation">Outer</p><section class="wp-block-getquick-design-container gqd-presentation"><p class="gqd-presentation">Inner</p></section></section>',
   );
 });
 
@@ -600,7 +602,9 @@ test("Site renderers take precedence, see their ancestors and may render childre
       },
     },
   );
-  expect(html).toBe("<header><nav></nav></header>");
+  expect(html).toBe(
+    '<header class="wp-block-group gqd-presentation" style="--gqd-display:flex"><nav></nav></header>',
+  );
   // Only the selective render: children nobody reads aren't rendered.
   expect(seen).toEqual([["core/group"]]);
 });
@@ -674,7 +678,7 @@ test("links and menus from CMS data are made safe", () => {
     },
   ]);
   expect(logo).toBe(
-    '<div class="wp-block-site-logo &quot;&gt;&lt;script&gt;"><img class="custom-logo" src="https://media.example/a.svg" alt="&quot;Acme&quot;" decoding="async" /></div>',
+    '<div class="wp-block-site-logo &quot;&gt;&lt;script&gt; gqd-presentation"><img class="custom-logo" src="https://media.example/a.svg" alt="&quot;Acme&quot;" decoding="async" /></div>',
   );
 });
 
@@ -708,89 +712,47 @@ test("unregistered block names never resolve inherited JavaScript properties as 
   expect(unrendered).toEqual(["toString", "constructor"]);
 });
 
-test("CMS grid chrome retains responsive columns and renders like saved content", async () => {
-  const children = headerTree()[0]!.children.map((child): DesignBlock => ({
-    name: "getquick-design/container",
-    attributes: {},
-    content: null,
-    children: [child],
-  }));
-  const grid: DesignBlock = {
-    name: "getquick-design/grid",
-    attributes: { columns: 3, tabletColumns: 2, mobileColumns: 1 },
-    content: null,
-    children,
-  };
-  wordpress(chromeWith(pattern("Header navigation", [grid]), null));
-  await refresh();
-  const html = runtime().renderDesignPattern((await servedChrome()).header, {
-    blocks: { "getquick/header-navigation": siteNavigation },
-  });
-  expect(html).toContain(
-    'class="wp-block-getquick-design-grid gqd-grid--3 gqd-grid--tablet-2 gqd-grid--mobile-1"',
-  );
-  expect(designGridStyle()).toContain("display:grid");
-  expect(designGridStyle()).toContain("@media (48rem <= width < 64rem)");
-  expect(designGridStyle()).toContain("@media (width >= 64rem)");
-  expect(html).toContain('class="site-navigation"');
-  // Preserve the editor's three tracks even though only two items are present.
-  const renderedChildren = children.map((child) =>
-    runtime().renderDesignPattern([child], {
-      blocks: { "getquick/header-navigation": siteNavigation },
-    }),
-  );
-  expect(html).toBe(
-    renderWordPressBlocks([
-      {
-        name: grid.name,
-        attributes: grid.attributes,
-        htmlContent:
-          '<div class="wp-block-getquick-design-grid gqd-grid--3 gqd-grid--tablet-2 gqd-grid--mobile-1"></div>',
-        innerBlocks: renderedChildren.map((htmlContent) => ({ name: "core/html", htmlContent })),
+test("Grid uses neutral upward columns in both chrome and parsed content", () => {
+  const name = "getquick-design/grid";
+  for (let columns = 1; columns <= 12; columns++) {
+    const attributes = {
+      presentation: {
+        base: { gridColumns: String(columns), gap: 4 },
+        md: { gridColumns: "reset" },
       },
-    ]),
-  );
+    };
+    const content = '<div class="wp-block-getquick-design-grid"></div>';
+    const pattern = renderDesignPattern([{ name, attributes, content, children: [] }]);
+    expect(pattern).toBe(renderWordPressBlocks([{ name, attributes, htmlContent: content }]));
+    expect(pattern).toContain(`--gqd-base-gridColumns:repeat(${columns}, minmax(0, 1fr))`);
+    expect(pattern).not.toContain("gqd-grid--");
+  }
+  expect(designGridStyle()).not.toContain("width < 48rem");
 });
 
-test("grids bound untrusted columns, keep saved supports, and allow Site overrides", () => {
-  const grid: DesignBlock = {
+test("Grid ignores retired device presets and preserves saved attributes and Site overrides", () => {
+  const block: DesignBlock = {
     name: "getquick-design/grid",
-    attributes: {
-      columns: '3" onload="alert(1)',
-      tabletColumns: 7,
-      mobileColumns: 1.5,
-      className: 'custom" onclick="x',
-      align: "wide",
-    },
-    content: null,
+    attributes: { columns: 6, tabletColumns: 3, mobileColumns: 2 },
+    content: '<div id="grid" class="custom" style="color:red"><p>Kept</p></div>',
     children: [],
   };
-  const withChild = {
-    ...grid,
-    children: [{ name: "core/paragraph", attributes: {}, content: "<p>Item</p>", children: [] }],
-  };
-  const html = renderDesignPattern([withChild]);
-  expect(html).toContain(
-    "custom&quot; onclick=&quot;x alignwide gqd-grid--3 gqd-grid--tablet-2 gqd-grid--mobile-1",
-  );
-  expect(html).not.toContain("onload");
-  const saved =
-    '<div id="grid" class="wp-block-getquick-design-grid gqd-grid--6 gqd-grid--tablet-1 gqd-grid--mobile-4" style="gap:2rem"></div>';
-  expect(renderDesignPattern([{ ...grid, content: saved }])).toBe(saved);
-  expect(renderWordPressBlocks([{ name: grid.name, htmlContent: saved }])).toBe(saved);
-  expect(renderDesignPattern([grid], { blocks: { [grid.name]: () => "override" } })).toBe(
+  const html = renderDesignPattern([block]);
+  expect(html).toContain('id="grid"');
+  expect(html).toContain("color:red");
+  expect(html).toContain("<p>Kept</p>");
+  expect(html).not.toContain("gqd-grid--");
+  expect(renderDesignPattern([block], { blocks: { [block.name]: () => "override" } })).toBe(
     "override",
   );
-  for (let columns = 1; columns <= 6; columns++) {
-    expect(
-      renderDesignPattern([
-        { ...withChild, attributes: { columns, tabletColumns: columns, mobileColumns: columns } },
-      ]),
-    ).toContain(`gqd-grid--${columns} gqd-grid--tablet-${columns} gqd-grid--mobile-${columns}`);
-  }
+  expect(() =>
+    renderDesignPattern([
+      { ...block, attributes: { presentation: { base: { gridColumns: '3" onload="x' } } } },
+    ]),
+  ).toThrow();
 });
 
-test("empty grid leaves are reported and arbitrary CMS wrappers remain authoritative", () => {
+test("empty Grid leaves are reported", () => {
   const unrendered: string[] = [];
   expect(
     renderDesignPattern(
@@ -799,6 +761,32 @@ test("empty grid leaves are reported and arbitrary CMS wrappers remain authorita
     ),
   ).toBe("");
   expect(unrendered).toEqual(["getquick-design/grid"]);
-  const saved = '<div class="cms-output">CMS content</div>';
-  expect(renderWordPressBlocks([{ name: "getquick-design/grid", htmlContent: saved }])).toBe(saved);
+});
+
+test("explicit Site Branding contexts select primary/dark logos and title fallback", () => {
+  // Loaded Site context variants, not additional captured CMS producer fixtures.
+  const node = (attributes: Record<string, unknown>): DesignBlock => ({
+    name: "core/site-logo",
+    attributes,
+    content: null,
+    children: [],
+  });
+  const logo = { url: "https://media.example/primary.svg", alt: "Primary", width: 120, height: 30 };
+  const dark = { url: "https://media.example/dark.svg", alt: "Dark", width: 120, height: 30 };
+  expect(renderDesignPattern([node({ logo, logoDark: dark })])).toContain(
+    'src="https://media.example/primary.svg"',
+  );
+  expect(renderDesignPattern([node({ logo, logoDark: dark })], { colorScheme: "dark" })).toContain(
+    'src="https://media.example/dark.svg"',
+  );
+  expect(renderDesignPattern([node({ logo, logoDark: null })], { colorScheme: "dark" })).toContain(
+    'src="https://media.example/primary.svg"',
+  );
+  const title = renderDesignPattern([node({ logo: null, logoDark: null, logoVariation: dark })], {
+    textContext: { site: { title: "Site & title" } },
+    home: "/en/",
+  });
+  expect(title).toContain('href="/en/"');
+  expect(title).toContain("Site &amp; title");
+  expect(title).not.toContain("<img");
 });

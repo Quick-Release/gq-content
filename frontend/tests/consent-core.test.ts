@@ -1,3 +1,5 @@
+import { renderWordPressBlocks } from "@getquick/content";
+import { createContentRuntime } from "@getquick/content/server";
 // The neutral consent core (#21, #23, #24, #25): categories, catalog,
 // configuration version, the consent cookie, decisions and embed rewriting.
 import { expect, test } from "vite-plus/test";
@@ -272,7 +274,6 @@ test("the Legal Contract is parsed defensively and its revisions recorded", () =
 });
 
 test("the video hero is gated identically on the Site renderer path and in WordPress HTML (ticket 09)", async () => {
-  const { renderWordPressBlocks } = await import("@getquick/content");
   const configuration = consentConfiguration({ services: ["youtube"] });
   const rendered = renderWordPressBlocks([
     {
@@ -345,4 +346,42 @@ test("review: an unknown controller is no change of controller", () => {
   expect(promptReason(known, decidedUnknown, now + DAY)).toBeNull();
   expect(promptReason(unknown, decidedKnown, now + DAY)).toBeNull();
   expect(serviceGranted(unknown, decidedKnown, "youtube", now + DAY)).toBe(true);
+});
+
+test("canonical deferred Video Hero is consent-gated before any browser initializer", () => {
+  const hero =
+    '<section class="wp-block-getquick-design-video-hero"><div class="gqd-video-hero__media"><iframe class="gqd-video-hero__video" data-src="https://www.youtube-nocookie.com/embed/abcdefghijk?autoplay=1" title="Background"></iframe></div></section>';
+  const result = rewriteEmbeds(hero, { configuration: youtube, language: "en" });
+  expect(result.placeholders).toEqual([{ service: "youtube", host: "www.youtube-nocookie.com" }]);
+  expect(result.html).not.toContain("<iframe");
+  expect(result.html).toContain("data-gq-decorative");
+});
+
+test("runtime gates generated chrome Hero media before composing already-gated children", async () => {
+  const runtime = createContentRuntime({
+    site: "Acme",
+    graphqlEndpoint: "https://cms.test/graphql",
+    cmsOrigin: "https://cms.test",
+    isServer: () => true,
+    bindings: () => ({}),
+    consent: { services: ["youtube"] },
+  });
+  const trustedChild = embedPlaceholder({
+    service: "youtube",
+    src: "https://www.youtube.com/embed/abcdefghijk",
+    title: "Existing child",
+    language: "en",
+  });
+  const html = runtime.renderDesignPattern([
+    {
+      name: "getquick-design/video-hero",
+      attributes: { videoType: "youtube", videoUrl: "https://youtu.be/abcdefghijk" },
+      content: null,
+      children: [{ name: "core/html", attributes: {}, content: trustedChild, children: [] }],
+    },
+  ]);
+  expect(html).not.toContain("<iframe");
+  expect(html).toContain("data-gq-decorative");
+  expect(html).toContain(trustedChild);
+  expect(html).not.toContain("data-gq-untrusted");
 });

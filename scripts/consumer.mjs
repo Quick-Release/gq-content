@@ -83,6 +83,7 @@ try {
     "./metadata",
     "./metadata/testing",
     "./metadata/content",
+    "./design/client",
   ]);
   // Both migrations exports resolve, from the consumer, to the SQL shipped in the package.
   const directories = JSON.parse(

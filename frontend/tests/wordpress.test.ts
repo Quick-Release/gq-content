@@ -100,7 +100,7 @@ test("renders a homepage Video Hero from its structured GraphQL attributes", asy
   expect(result.content.page.hasVideoHero).toBe(true);
   expect(result.content.page.content).toContain("youtube-nocookie.com/embed/abcdefghijk");
   expect(result.content.page.content).toContain("playlist=abcdefghijk");
-  expect(result.content.page.content).toContain("<h1>Welcome</h1>");
+  expect(result.content.page.content).toMatch(/<h1[^>]*>Welcome<\/h1>/);
   expect(result.content.page.content).not.toContain("Saved block HTML");
 });
 

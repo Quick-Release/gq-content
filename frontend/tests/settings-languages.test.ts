@@ -924,3 +924,25 @@ test("missed home, menu, logo, icon, identity and design changes reach both lang
   expect((await home("en")).chrome.menuItems[0]?.label).toBe("Who we are");
   expect((await entry()).entry.colors).toEqual([{ slug: "brand", color }]);
 });
+
+test("resolved theme crosses GraphQL, publication storage and design refresh to every delivered page", async () => {
+  const { resolveDesignTheme } = await import("@getquick/content");
+  const first = resolveDesignTheme({ spacing: "0.5rem", breakpoints: { md: "50rem" } });
+  wordpress({ design: () => data({ designTokens: { ...presets(), theme: first } }) });
+  expect((await refresh()).status).toBe(200);
+  offline();
+  expect((await api.designPresets())?.theme).toEqual(first);
+  expect((await home()).home.theme).toEqual(first);
+  expect((await entry()).entry.theme).toEqual(first);
+  vi.advanceTimersByTime(1000);
+  const second = resolveDesignTheme({ spacing: "1rem", breakpoints: { md: "52rem" } });
+  const fetch = wordpress({
+    design: () => data({ designTokens: { ...presets(), theme: second } }),
+  });
+  expect((await deliver(event({ setting: "design" }))).status).toBe(200);
+  expect(queries(fetch, "DesignPresets")[0][1].body).toContain("theme");
+  offline();
+  expect((await api.designPresets())?.theme).toEqual(second);
+  expect((await home("en")).home.theme).toEqual(second);
+  expect((await entry()).entry.theme).toEqual(second);
+});

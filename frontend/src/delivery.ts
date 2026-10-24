@@ -1,3 +1,5 @@
+import { designBlocksSchema } from "./design-blocks";
+import { designThemeSchema } from "./design-theme";
 import { z } from "zod";
 import {
   publicationStore,
@@ -152,10 +154,13 @@ export function configuredDelivery<X>(
       title: z.string(),
       content: z.string(),
       hasVideoHero: z.boolean(),
+      databaseId: z.number().int().positive().optional(),
+      designBlocks: designBlocksSchema.optional(),
       ...extended,
     }),
     spacingSizes,
     colors,
+    theme: designThemeSchema.optional(),
   });
   const translation = z.object({ uri: z.string(), language: z.string() });
   const term = z.object({ slug: z.string(), name: z.string() });
@@ -184,8 +189,11 @@ export function configuredDelivery<X>(
     date: z.string(),
     featuredImage: image,
     hasVideoHero: z.boolean(),
+    databaseId: z.number().int().positive().optional(),
+    designBlocks: designBlocksSchema.optional(),
     spacingSizes,
     colors,
+    theme: designThemeSchema.optional(),
     ...extended,
   });
   const legalRole = z.object({
@@ -229,7 +237,7 @@ export function configuredDelivery<X>(
     legal: legal.optional(),
     analytics: z.object({ enabled: z.boolean(), measurementId: z.string().nullable() }).optional(),
   });
-  const designPresets = z.object({ spacingSizes, colors });
+  const designPresets = z.object({ spacingSizes, colors, theme: designThemeSchema.optional() });
   const archives = z.record(z.string());
 
   const parseWith = (schema: z.ZodType) => (body: unknown) => {
@@ -279,7 +287,12 @@ export function configuredDelivery<X>(
   /** A page's content with the shared design presets, when they are stored. */
   function withDesign<T extends DesignPresets>(content: T, design: DesignPresets | null): T {
     return design
-      ? { ...content, spacingSizes: design.spacingSizes, colors: design.colors }
+      ? {
+          ...content,
+          spacingSizes: design.spacingSizes,
+          colors: design.colors,
+          theme: design.theme,
+        }
       : content;
   }
 

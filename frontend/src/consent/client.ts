@@ -172,13 +172,33 @@ function loadEmbed(placeholder: HTMLElement, id: ServiceId): void {
     if (EMBED_ATTRIBUTES.has(name.toLowerCase()) && typeof value === "string")
       iframe.setAttribute(name, value);
   }
-  iframe.src = src.href;
   const original = placeholder.cloneNode(true) as HTMLElement;
-  placeholder.replaceChildren(iframe);
-  placeholder.setAttribute("data-gq-loaded", "");
-  placeholder.removeAttribute("role");
-  placeholder.removeAttribute("aria-label");
-  originals.set(placeholder, original);
+  const deferredHero =
+    placeholder.hasAttribute("data-gq-decorative") &&
+    iframe.classList.contains("gqd-video-hero__video");
+  if (deferredHero) {
+    // Keep the canonical player a direct media child. The owning media runtime
+    // observes replacement and attaches data-src only when motion permits.
+    iframe.dataset.src = src.href;
+    for (const name of [
+      "data-gq-consent-embed",
+      "data-gq-category",
+      "data-gq-embed",
+      "data-gq-decorative",
+    ])
+      if (placeholder.hasAttribute(name))
+        iframe.setAttribute(name, placeholder.getAttribute(name)!);
+    iframe.setAttribute("data-gq-loaded", "");
+    placeholder.replaceWith(iframe);
+    originals.set(iframe, original);
+  } else {
+    iframe.src = src.href;
+    placeholder.replaceChildren(iframe);
+    placeholder.setAttribute("data-gq-loaded", "");
+    placeholder.removeAttribute("role");
+    placeholder.removeAttribute("aria-label");
+    originals.set(placeholder, original);
+  }
 }
 const originals = new WeakMap<HTMLElement, HTMLElement>();
 

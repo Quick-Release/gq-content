@@ -1,3 +1,5 @@
+import { enhanceDesignNavigationHtml } from "./design-navigation";
+import { preloadDesignQueryPosts as preloadQueryPosts } from "./design-query";
 import { configuredEvents } from "./events";
 import { configuredRefresh } from "./refresh";
 import {
@@ -154,18 +156,16 @@ export function createContentRuntime<X = never>(input: ContentConfig<X>) {
         ...(consent.firstPartyHosts ?? []),
       ]
     : [];
-  const delivery = configuredDelivery(
-    config,
-    languages,
-    wordpress,
-    embedConfiguration
-      ? (html, language) =>
-          rewriteEmbeds(html, {
+  const delivery = configuredDelivery(config, languages, wordpress, (html, language) =>
+    enhanceDesignNavigationHtml(
+      embedConfiguration
+        ? rewriteEmbeds(html, {
             configuration: embedConfiguration,
             language: language.lang,
             firstPartyHosts,
           }).html
-      : undefined,
+        : html,
+    ),
   );
   const events = configuredEvents(config, languages, delivery, wordpress);
   const refresh = configuredRefresh(languages, delivery);
@@ -224,6 +224,17 @@ export function createContentRuntime<X = never>(input: ContentConfig<X>) {
      * `renderDesignPattern`), with links into the CMS or `siteOrigin` served
      * as this Site's paths.
      */
+    /** Preload selected standard Post/Page records through the existing store reader. */
+    preloadDesignQueryPosts: (
+      pattern: DesignPattern | DesignBlock[] | null | undefined,
+      siteOrigin?: string,
+    ) =>
+      preloadQueryPosts(pattern, async (item) => {
+        if (item.type && item.type !== "post" && item.type !== "page")
+          throw new Error(`Neutral query preload is not available for ${item.type}`);
+        const delivered = await delivery.publishedEntry(item.uri!, siteOrigin);
+        return delivered.kind === "found" ? delivered.content.entry : null;
+      }),
     renderDesignPattern: (
       pattern: DesignPattern | DesignBlock[] | null | undefined,
       options: DesignRenderOptions & { siteOrigin?: string } = {},
@@ -231,6 +242,14 @@ export function createContentRuntime<X = never>(input: ContentConfig<X>) {
       const { siteOrigin, internalOrigins: extraOrigins = [], ...rest } = options;
       return renderDesignPattern(pattern, {
         ...rest,
+        mediaHtml: embedConfiguration
+          ? (html) =>
+              rewriteEmbeds(html, {
+                configuration: embedConfiguration,
+                language: routeLanguage(rest.home ?? "/", languages).lang,
+                firstPartyHosts,
+              }).html
+          : rest.mediaHtml,
         internalOrigins: [...internalOrigins(config, siteOrigin), ...extraOrigins],
       });
     },
