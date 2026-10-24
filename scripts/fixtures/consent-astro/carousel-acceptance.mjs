@@ -34,6 +34,17 @@ export async function carouselAcceptance(browser, origin) {
           .evaluate((node) => node.getBoundingClientRect().height),
         150,
       );
+      const foreground = root.locator('a[href="/first-slide"]');
+      await foreground.focus();
+      for (const key of ["ArrowRight", "Home", "End"]) {
+        await page.keyboard.press(key);
+        assert.equal(
+          await slides.nth(0).isVisible(),
+          true,
+          "foreground shortcuts must not hide focus",
+        );
+        assert.equal(await foreground.evaluate((node) => node === document.activeElement), true);
+      }
       await root.getByRole("button", { name: "Next slide", exact: true }).click();
       assert.equal(
         await slides.nth(1).isVisible(),

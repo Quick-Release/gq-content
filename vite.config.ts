@@ -36,6 +36,7 @@ export default defineConfig({
       "frontend/tests/fixtures/navigation/producer/",
       "frontend/tests/fixtures/navigation/language/",
       "frontend/tests/fixtures/navigation/language-flags/",
+      "frontend/tests/fixtures/navigation/language-a11y/",
       "frontend/tests/fixtures/typography/",
       "frontend/dist/",
       "node_modules/",

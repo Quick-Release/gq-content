@@ -115,3 +115,18 @@ Cover checks independently prove canonical omitted 430px, saved HTML inline
 scope decision, attrs-only legacy native minHeight/minHeightUnit is intentionally
 unsupported: no legacy DTO, appearance compatibility layer or numeric CSS grammar
 was added. Current neutral minHeight remains canonical and supported.
+
+The final Carousel review found that shortcuts from foreground links could hide
+focused content. Shortcuts now apply only to persistent navigation controls;
+foreground Arrow/Home/End retain their native behavior and focus. The production
+Astro regression failed before this correction and passes for both pattern and
+parsed-block paths afterward.
+
+The separate actual native null-flag accessibility capture `2e7e447` is retained
+unchanged under `frontend/tests/fixtures/navigation/language-a11y/`; all 14 payload
+hashes match. Its future native HTML supplies the missing accessible language
+names. Production body checks use that capture independently of the historical
+null-flag capture and the actual PNG capture; no source or URL is rewritten.
+Root Site title/tagline rendering remains supplied context through existing
+`publishedHome.settings`, since the typography capture's layout endpoint is 422.
+No valid published dynamic layout is inferred from that supporting context.

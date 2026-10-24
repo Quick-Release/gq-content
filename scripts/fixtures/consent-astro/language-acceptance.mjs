@@ -92,6 +92,12 @@ export async function languageAcceptance(browser, origin) {
       await Promise.all([page.waitForURL(target.url), select.selectOption(target.url)]);
       assert.equal(page.url(), target.url);
     }
+    for (const lang of ["en", "fr"]) {
+      await page.goto(`${origin}/presentation-language?body&a11y&lang=${lang}`);
+      const flagsOnly = page.locator(".gqd-capture-language-flags");
+      assert.equal(await flagsOnly.getByRole("link", { name: "English", exact: true }).count(), 1);
+      assert.equal(await flagsOnly.getByRole("link", { name: "Français", exact: true }).count(), 1);
+    }
     console.log(
       "PASS actual Polylang FREE EN/FR null/flag captures: eligible home URLs, names/flags-only accessible fallback, exact PNG decoding, current metadata, dropdown retains current, keyboard; no DTO URL rewrite",
     );

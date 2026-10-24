@@ -109,6 +109,16 @@ export function mountDesignCarousels(root?: ParentNode): () => void {
         target.closest("input,textarea,select,[contenteditable=true]")
       )
         return;
+      // Shortcuts belong to persistent controls. A foreground link/button must
+      // retain its native keys and focus instead of becoming hidden/inert.
+      const control = target.closest(
+        "button[data-gqd-next],button[data-gqd-previous],button[data-gqd-go]",
+      );
+      if (
+        !control ||
+        control.closest(".wp-block-getquick-design-carousel-navigation")?.parentElement !== carousel
+      )
+        return;
       if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
       event.preventDefault();
       const rtl = view.getComputedStyle(carousel).direction === "rtl";
