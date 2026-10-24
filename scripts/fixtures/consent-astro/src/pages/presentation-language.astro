@@ -1,4 +1,5 @@
 ---
+import { content } from "../lib/site";
 import enA11yBody from "../fixtures/navigation/language-a11y/en-rendered.html?raw";
 import frA11yBody from "../fixtures/navigation/language-a11y/fr-rendered.html?raw";
 import enBody from "../fixtures/navigation/language/en-rendered.html?raw";
@@ -14,9 +15,13 @@ const capture = Astro.url.searchParams.has("flags") ? { en: enFlags, fr: frFlags
 const body = Astro.url.searchParams.has("flags") ? { en: enFlagsBody, fr: frFlagsBody } : { en: enBody, fr: frBody };
 const nativeBody = Astro.url.searchParams.has("a11y") ? { en: enA11yBody, fr: frA11yBody } : body;
 const bodyLanguage = Astro.url.searchParams.get("lang") === "fr" ? "fr" : "en";
+const delivered = Astro.url.searchParams.has("delivery") ? await content.publishedEntry(`/native-language-${bodyLanguage}/`) : null;
+const deliveredHtml = delivered?.kind === "found" ? delivered.content.entry.content : nativeBody[bodyLanguage];
 const theme = resolveDesignTheme();
 ---
-<html lang="en"><head><meta charset="utf-8"/><title>Actual conditional language capture</title><style is:global set:html={designThemeStyleSheet(theme) + presentationStyleSheet(theme) + navigationStyleSheet(theme)} /></head><body class="gqd-content">{Astro.url.searchParams.has("body") ? <section set:html={nativeBody[bodyLanguage]} /> : <><section data-language-source="en" set:html={renderDesignPattern(capture.en)} /><section data-language-source="fr" set:html={renderDesignPattern(capture.fr)} /></>}<script>
+<html lang="en"><head><meta charset="utf-8"/><title>Actual conditional language capture</title><style is:global set:html={designThemeStyleSheet(theme) + presentationStyleSheet(theme) + navigationStyleSheet(theme)} /></head><body class="gqd-content">{Astro.url.searchParams.has("body") ? <section set:html={deliveredHtml} /> : <><section data-language-source="en" set:html={renderDesignPattern(capture.en)} /><section data-language-source="fr" set:html={renderDesignPattern(capture.fr)} /></>}<script>
 import { mountDesignNavigation } from "@getquick/content/design/client";
-mountDesignNavigation();
+let cleanup = mountDesignNavigation();
+window.addEventListener("gqd:test-navigation-cleanup", () => cleanup());
+window.addEventListener("gqd:test-navigation-remount", () => { cleanup(); cleanup = mountDesignNavigation(); });
 </script></body></html>

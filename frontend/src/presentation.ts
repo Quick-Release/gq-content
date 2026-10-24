@@ -1,3 +1,4 @@
+import { enhanceDesignCoverVideosHtml } from "./cover-video-html";
 import { parseFragment } from "parse5";
 import {
   type PresentationModel,
@@ -29,6 +30,7 @@ export function presentationHtml(
   presentation?: unknown,
   options: { model?: PresentationModel; attributes?: Record<string, unknown> } = {},
 ): string {
+  if (name === "core/cover") html = enhanceDesignCoverVideosHtml(html);
   const model = options.model ?? presentationModel;
   if (!Object.hasOwn(model.capabilities, name) && presentation === undefined) return html;
   const variables = presentationVariables(name, presentation, options);

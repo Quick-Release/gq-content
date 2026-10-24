@@ -349,3 +349,25 @@ this API adds no custom post type GraphQL field or query selection engine.
 Delivered item order, count and duplicates are preserved without applying Query
 arguments again. Synced references add no layout wrapper, and Post Content
 recursively renders the matching preloaded neutral blocks.
+
+Native decorative Cover backgrounds use the same explicit Site lifecycle:
+
+```ts
+import { mountDesignCoverVideos } from "@getquick/content/design/client";
+const cleanup = mountDesignCoverVideos(document);
+// Invoke cleanup before removing/replacing the rendered page; remount afterward.
+```
+
+The configured publication delivery and `presentationHtml("core/cover", ...)`
+remove eager `autoplay` from direct native Cover background videos. The initializer
+plays when reduced motion is off, pauses when enabled, resumes when disabled,
+and pauses/removes its preference listener on cleanup. It does not own foreground
+or ordinary content videos. If a Site renders raw Cover HTML outside these paths,
+apply `enhanceDesignCoverVideosHtml(html)` before SSR. Sources, posters and ordered
+foreground remain authoritative; no legacy appearance properties are inferred.
+
+`mountDesignNavigation` also enhances native Polylang dropdowns inside
+`.wp-block-polylang-language-switcher`, including ordinary published HTML whose
+inline controller was removed during delivery. It navigates to the delivered
+selected option's HTTP(S) URL; it does not resolve languages or evaluate inline
+scripts. Cleanup removes that handler and restores the original selection.

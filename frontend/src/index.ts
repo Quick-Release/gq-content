@@ -1,3 +1,4 @@
+export { enhanceDesignCoverVideosHtml } from "./cover-video-html";
 export * from "./wp-block-styles";
 export * from "./wp-block-renderer";
 export * from "./design-patterns";

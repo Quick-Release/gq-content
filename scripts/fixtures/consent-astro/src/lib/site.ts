@@ -1,3 +1,5 @@
+import enLanguageHtml from "../fixtures/navigation/language-flags/en-rendered.html?raw";
+import frLanguageHtml from "../fixtures/navigation/language-flags/fr-rendered.html?raw";
 import hero from "../fixtures/presentation/video-hero-youtube.html?raw";
 // The fixture Site's wiring, as a Blueprint would do it: the content runtime
 // with CONSENT-1 configured, its publication store seeded with what a refresh
@@ -154,6 +156,16 @@ const rows: Array<[string, unknown]> = [
   ["entry:/cookies/", entry("p4", "/cookies/", "Política de cookies", "<p>Cookies.</p>", "pt", [])],
   ["entry:/en/cookies/", entry("p5", "/en/cookies/", "Cookie policy", "<p>Cookies.</p>", "en", [])],
 ];
+rows.push(
+  [
+    "entry:/native-language-en/",
+    entry("language-en", "/native-language-en/", "Captured EN language", enLanguageHtml, "pt", []),
+  ],
+  [
+    "entry:/native-language-fr/",
+    entry("language-fr", "/native-language-fr/", "Captured FR language", frLanguageHtml, "pt", []),
+  ],
+);
 for (const [key, body] of rows) {
   publications.sqlite
     .prepare(

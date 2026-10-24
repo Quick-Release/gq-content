@@ -449,3 +449,27 @@ test("ordinary stored WordPress Navigation HTML gains shared lifecycle without a
     entries["/sobre/"] = original;
   }
 });
+
+test("ordinary stored Cover video defers autoplay at delivery while keeping the stored source", async () => {
+  const original = entries["/sobre/"];
+  const source =
+    '<div class="wp-block-cover"><video class="wp-block-cover__video-background" autoplay muted loop playsinline src="/native.webm" poster="/poster.jpg"></video><div class="wp-block-cover__inner-container"><a href="#next">Next</a></div></div>';
+  entries["/sobre/"] = { ...(original as Record<string, unknown>), content: source };
+  try {
+    api = runtime();
+    wordpress();
+    await refresh();
+    offline();
+    const delivered = await api.publishedEntry("/sobre/");
+    if (delivered.kind !== "found") throw new Error("Missing published Cover");
+    expect(delivered.content.entry.content).not.toContain("autoplay");
+    expect(delivered.content.entry.content).toContain('poster="/poster.jpg"');
+    expect(delivered.content.entry.content).toContain('<a href="#next">Next</a>');
+    const stored = await db
+      .prepare("SELECT body FROM publications WHERE key = 'entry:/sobre/'")
+      .first();
+    expect(JSON.parse(String(stored?.body)).content).toBe(source);
+  } finally {
+    entries["/sobre/"] = original;
+  }
+});

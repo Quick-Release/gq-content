@@ -1,3 +1,4 @@
+import { enhanceDesignCoverVideosHtml } from "./cover-video-html";
 import { enhanceDesignNavigationHtml } from "./design-navigation";
 import { preloadDesignQueryPosts as preloadQueryPosts } from "./design-query";
 import { configuredEvents } from "./events";
@@ -158,13 +159,15 @@ export function createContentRuntime<X = never>(input: ContentConfig<X>) {
     : [];
   const delivery = configuredDelivery(config, languages, wordpress, (html, language) =>
     enhanceDesignNavigationHtml(
-      embedConfiguration
-        ? rewriteEmbeds(html, {
-            configuration: embedConfiguration,
-            language: language.lang,
-            firstPartyHosts,
-          }).html
-        : html,
+      enhanceDesignCoverVideosHtml(
+        embedConfiguration
+          ? rewriteEmbeds(html, {
+              configuration: embedConfiguration,
+              language: language.lang,
+              firstPartyHosts,
+            }).html
+          : html,
+      ),
     ),
   );
   const events = configuredEvents(config, languages, delivery, wordpress);

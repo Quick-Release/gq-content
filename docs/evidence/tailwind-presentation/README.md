@@ -130,3 +130,26 @@ null-flag capture and the actual PNG capture; no source or URL is rewritten.
 Root Site title/tagline rendering remains supplied context through existing
 `publishedHome.settings`, since the typography capture's layout endpoint is 422.
 No valid published dynamic layout is inferred from that supporting context.
+
+## Native decorative Cover motion follow-up
+
+A supporting real first-party WebM case exposed saved native Cover's eager
+`autoplay` and the absence of a Cover playback lifecycle. Neutral output already
+had no eager attribute, but stayed paused even when motion was allowed. The shared
+presentation/delivery paths now remove only direct decorative Cover autoplay;
+`mountDesignCoverVideos(root?)` owns preference-driven play/pause/resume and
+cleanup. Production Astro tests cover neutral, saved and parsed paths, retain
+poster/source/foreground, and verify no resume after cleanup. An ordinary
+publication/store/offline regression retains the stored source while deferring
+playback on delivery. This is a labelled supporting video context, not a new
+saved WordPress producer capture; native foreground videos keep their own policy.
+
+The configured publication seam subsequently exposed native Polylang's missing
+inline controller after content sanitation. The same actual ed0afd9 HTML is now
+seeded unchanged into the production fixture publication store and read through
+`publishedEntry`, with the captured script absent. Its select change was red
+(no navigation), then green with recognized native-select support in the existing
+`mountDesignNavigation`. Tests retain delivered URLs, labels and options, reject
+unsafe supporting option values, and exercise cleanup/remount. This closes the
+scriptless delivery path without executing captured scripts or deriving URLs;
+it is distinct from the earlier independent raw-HTML initial-SSR check.

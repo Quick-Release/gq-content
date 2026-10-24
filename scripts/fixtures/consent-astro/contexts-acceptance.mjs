@@ -24,6 +24,16 @@ export async function contextsAcceptance(browser, origin) {
         height,
       );
     }
+    const coverVideos = page.locator('[data-context^="coverVideo"] video');
+    assert.equal(await coverVideos.count(), 3);
+    for (const video of await coverVideos.all()) {
+      assert.equal(
+        await video.getAttribute("autoplay"),
+        null,
+        "Cover must not eagerly autoplay before motion gating",
+      );
+      assert.equal(await video.evaluate((node) => node.paused), true);
+    }
     const actualHero = page.locator("[data-context=actualHero] section");
     const actualColors = await actualHero.evaluate((node) => ({
       color: getComputedStyle(node).color,
@@ -43,9 +53,43 @@ export async function contextsAcceptance(browser, origin) {
     await page.waitForFunction(
       () => !document.querySelector("[data-context=selfHosted] video").paused,
     );
+    await page.waitForFunction(() =>
+      [...document.querySelectorAll('[data-context^="coverVideo"] video')].every(
+        (node) => !node.paused,
+      ),
+    );
     await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.waitForFunction(() =>
+      [...document.querySelectorAll('[data-context^="coverVideo"] video')].every(
+        (node) => node.paused,
+      ),
+    );
     await page.waitForFunction(
       () => document.querySelector("[data-context=selfHosted] video").paused,
+    );
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.waitForFunction(() =>
+      [...document.querySelectorAll('[data-context^="coverVideo"] video')].every(
+        (node) => !node.paused,
+      ),
+    );
+    await page.evaluate(() => window.dispatchEvent(new Event("gqd:test-cover-cleanup")));
+    for (const cover of await coverVideos.all())
+      assert.equal(await cover.evaluate((node) => node.paused), true);
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.evaluate(
+      () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))),
+    );
+    for (const cover of await coverVideos.all())
+      assert.equal(
+        await cover.evaluate((node) => node.paused),
+        true,
+        "cleanup must prevent preference-driven resume",
+      );
+    assert.equal(
+      await page.locator("[data-context=coverVideoSaved] a").getAttribute("href"),
+      "#cover-destination",
     );
     const feature = page.locator("[data-context=featured] figure");
     await feature.locator("img").evaluate((node) => node.decode());
@@ -76,7 +120,7 @@ export async function contextsAcceptance(browser, origin) {
     await page.keyboard.press("Escape");
     assert.equal(await menu.evaluate((node) => node.open), false);
     console.log(
-      "PASS explicit loaded Site contexts (supporting variants): native self-hosted video play/pause/motion/256px, Featured Image 192px/link/alt, primary/dark/title Branding and conditional language dropdown/RTL/flags/keyboard",
+      "PASS explicit loaded Site contexts (supporting variants): native Cover neutral/saved/parsed motion/play/pause/resume/cleanup and self-hosted Hero video play/pause/motion/256px, Featured Image 192px/link/alt, primary/dark/title Branding and conditional language dropdown/RTL/flags/keyboard",
     );
   } finally {
     await page.close();

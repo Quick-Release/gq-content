@@ -93,6 +93,69 @@ export async function languageAcceptance(browser, origin) {
       assert.equal(page.url(), target.url);
     }
     for (const lang of ["en", "fr"]) {
+      const nodes = JSON.parse(
+        readFileSync(
+          new URL(`./src/fixtures/navigation/language-flags/${lang}-nodes.json`, import.meta.url),
+          "utf8",
+        ),
+      );
+      const target = nodes[2].attributes.links.find((link) => !link.current);
+      await page.goto(`${origin}/presentation-language?body&flags&delivery&lang=${lang}`);
+      const select = page.getByRole("combobox");
+      assert.equal(
+        await select.locator("..").locator("script").count(),
+        0,
+        "publication delivery strips the captured inline controller",
+      );
+      const originalUrl = page.url();
+      await select.evaluate((element) => {
+        for (const value of [
+          "javascript:window.gqdUnsafeLanguage=true",
+          "https://user:pass@example.test/",
+          "https://example.test/\\evil",
+        ]) {
+          const option = document.createElement("option");
+          option.value = value;
+          option.text = "Unsafe supporting option";
+          element.append(option);
+          element.value = value;
+          element.dispatchEvent(new Event("change", { bubbles: true }));
+          option.remove();
+        }
+      });
+      assert.equal(page.url(), originalUrl);
+      assert.equal(await page.evaluate(() => window.gqdUnsafeLanguage), undefined);
+      await page.evaluate(() => window.dispatchEvent(new Event("gqd:test-navigation-cleanup")));
+      await select.selectOption(target.url);
+      assert.equal(page.url(), originalUrl, "cleanup removes the native dropdown handler");
+      await page.evaluate(() => window.dispatchEvent(new Event("gqd:test-navigation-remount")));
+      await Promise.all([
+        page.waitForURL(target.url, { timeout: 3000 }),
+        select.selectOption(target.url),
+      ]);
+      assert.equal(
+        page.url(),
+        target.url,
+        "shared native controller must survive scriptless delivery",
+      );
+      await page.goto(`${origin}/presentation-language?body&flags&delivery&lang=${lang}`);
+      const keyboardSelect = page.getByRole("combobox");
+      await keyboardSelect.focus();
+      await Promise.all([
+        page.waitForURL(target.url, { timeout: 3000 }),
+        page.keyboard.press(
+          nodes[2].attributes.links.findIndex((link) => link.url === target.url) === 0
+            ? "Home"
+            : "End",
+        ),
+      ]);
+      assert.equal(
+        page.url(),
+        target.url,
+        "native keyboard selection uses the delivered destination",
+      );
+    }
+    for (const lang of ["en", "fr"]) {
       await page.goto(`${origin}/presentation-language?body&a11y&lang=${lang}`);
       const flagsOnly = page.locator(".gqd-capture-language-flags");
       assert.equal(await flagsOnly.getByRole("link", { name: "English", exact: true }).count(), 1);

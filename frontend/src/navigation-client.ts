@@ -32,6 +32,46 @@ export function mountDesignNavigation(root?: ParentNode): () => void {
   const scope = root ?? (typeof document === "undefined" ? undefined : document);
   if (!scope) return () => {};
   const cleanups: (() => void)[] = [];
+  const languageSelects = [
+    ...scope.querySelectorAll<HTMLSelectElement>(
+      ".wp-block-polylang-language-switcher select.pll-switcher-select",
+    ),
+  ];
+  if (
+    "matches" in scope &&
+    typeof scope.matches === "function" &&
+    scope.matches(".wp-block-polylang-language-switcher select.pll-switcher-select")
+  )
+    languageSelects.unshift(scope as HTMLSelectElement);
+  for (const select of languageSelects) {
+    const view = select.ownerDocument.defaultView;
+    if (!view || mounted.has(select)) continue;
+    mounted.add(select);
+    const original = select.selectedIndex;
+    const change = (event: Event) => {
+      // Own this recognized control while mounted, including raw native HTML
+      // whose original bubble listener would otherwise navigate a second time.
+      event.stopImmediatePropagation();
+      const option = select.selectedOptions[0];
+      const value = option?.value.trim();
+      if (!option || option.disabled || !value || value.includes("\\")) return;
+      for (let index = 0; index < value.length; index++)
+        if (value.charCodeAt(index) <= 32 || value.charCodeAt(index) === 127) return;
+      try {
+        const url = new URL(value, select.ownerDocument.baseURI);
+        if (!["http:", "https:"].includes(url.protocol) || url.username || url.password) return;
+        view.location.assign(url.href);
+      } catch {
+        // An invalid published option is inert; never evaluate a URL as code.
+      }
+    };
+    select.addEventListener("change", change, true);
+    cleanups.push(() => {
+      select.removeEventListener("change", change, true);
+      select.selectedIndex = original;
+      mounted.delete(select);
+    });
+  }
   const languageMenus = [
     ...scope.querySelectorAll<HTMLDetailsElement>("details[data-gqd-language-menu]"),
   ];
