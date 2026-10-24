@@ -1,3 +1,4 @@
+import { publicBundleComments } from "./scripts/release/public-bundle";
 import { defineConfig } from "vite-plus";
 export default defineConfig({
   pack: {
@@ -18,6 +19,13 @@ export default defineConfig({
     },
     platform: "neutral",
     deps: { neverBundle: ["node:url"], alwaysBundle: [/^@quick-release\//, "parse5"] },
+    // Keep legal notices while omitting generated private source-path markers.
+    plugins: [
+      {
+        name: "public-bundle-comments",
+        renderChunk: (code) => ({ code: publicBundleComments(code), map: null }),
+      },
+    ],
     target: "es2022",
     format: ["esm"],
     outDir: "frontend/dist",

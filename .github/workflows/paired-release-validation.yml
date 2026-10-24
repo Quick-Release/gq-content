@@ -23,7 +23,17 @@ jobs:
           php-version: "8.5"
           extensions: sqlite3, pdo_sqlite
           tools: composer:2.10.3
-      - run: vp install --frozen-lockfile
+      - name: Configure private build dependency registry
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+        run: |
+          umask 077
+          printf '%s\n' '@quick-release:registry=https://npm.pkg.github.com' '//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}' > "$RUNNER_TEMP/design.npmrc"
+          echo "NPM_CONFIG_USERCONFIG=$RUNNER_TEMP/design.npmrc" >> "$GITHUB_ENV"
+      - name: Install exact published build dependencies
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+        run: vp install --frozen-lockfile
       - name: Install Chromium's system dependencies for the consent proofs
         run: npx -y playwright@1.64.1 install-deps chromium
       - name: Install published fixtures using this repository token

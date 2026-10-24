@@ -31,7 +31,11 @@ assert.deepEqual(npmFiles.filter((file) => file.endsWith(".sql")).sort(), sql.to
 for (const file of npmFiles) {
   if (!sql.includes(file))
     assert.match(file, /^package\/((?:package\.json|README\.md)|dist\/[\w-]+\.(js|d\.ts))$/);
-  const text = execFileSync("tar", ["-xOzf", tarball, file], { encoding: "utf8" });
+  const text = execFileSync("tar", ["-xOzf", tarball, file], {
+    encoding: "utf8",
+    // Canonical standalone validators exceed Node's 1 MiB subprocess default.
+    maxBuffer: 64 * 1024 * 1024,
+  });
   assert.doesNotMatch(text, forbidden, file);
   if (file === "package/package.json") {
     const manifest = JSON.parse(text);

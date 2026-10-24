@@ -19,8 +19,8 @@
     "proof:multilingual": "vp run multilingual"
   },
   "devDependencies": {
-    "@quick-release/design-contract": "file:vendor/design-c4bcc5a/quick-release-design-contract-0.9.0.tgz",
-    "@quick-release/design-renderer": "file:vendor/design-c4bcc5a/quick-release-design-renderer-0.9.0.tgz",
+    "@quick-release/design-contract": "0.9.0",
+    "@quick-release/design-renderer": "0.9.0",
     "@types/node": "^24.0.0",
     "parse5": "8.0.1",
     "typescript": "6.0.3",
