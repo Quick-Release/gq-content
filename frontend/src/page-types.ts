@@ -123,3 +123,37 @@ export interface CollectionTermCount extends CollectionTerm {
 }
 
 export type CollectionTermListing = { kind: "found"; terms: CollectionTermCount[] } | NotServed;
+
+/** Search public content already delivered to this Site's publication store. */
+export interface SearchQuery {
+  /** Text to find in titles, excerpts or bodies, ignoring case and accents. Blank finds nothing. */
+  search: string;
+  /** Page from 1; defaults to 1. URL strings are accepted. */
+  page?: number | string;
+  /** Results per page, 1–100; defaults to 12. URL strings are accepted. */
+  perPage?: number | string;
+  /** Configured language slug; defaults to the Site's default language. */
+  language?: string;
+}
+
+export interface SearchItem {
+  /** Canonical path on this Site. */
+  uri: string;
+  /** Plain text, suitable for escaped text rendering. */
+  title: string;
+  /** Plain text excerpt, or a bounded body-text fallback. */
+  excerpt: string;
+  /** Configured language slug, including on monolingual Sites. */
+  language: string;
+}
+
+export interface SearchPage {
+  items: SearchItem[];
+  total: number;
+  page: number;
+  perPage: number;
+  /** Zero when nothing matches. */
+  totalPages: number;
+}
+
+export type SearchDelivery = Found<SearchPage> | NotServed;

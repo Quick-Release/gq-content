@@ -1,8 +1,11 @@
 import { designBlocksSchema } from "./design-blocks";
+import { parseFragment, type DefaultTreeAdapterMap } from "parse5";
+import { safeContentUrl } from "./html";
 import { designThemeSchema } from "./design-theme";
 import { z } from "zod";
 import {
   publicationStore,
+  PUBLICATION_FORMAT,
   StoreFailure,
   type PublicationStore,
   type PublicationEvent,
@@ -45,6 +48,9 @@ import type {
   CollectionListing as CollectionListingOf,
   CollectionItem as CollectionItemOf,
   CollectionTermListing,
+  SearchQuery,
+  SearchDelivery,
+  SearchItem,
 } from "./page-types";
 
 export function configuredDelivery<X>(
@@ -1489,6 +1495,113 @@ export function configuredDelivery<X>(
     };
   }
 
+  /** Search a single snapshot, validating before counting or paging it. Never reads WordPress. */
+  async function search(query: SearchQuery): Promise<SearchDelivery> {
+    const subject = "site search";
+    const language =
+      query.language === undefined
+        ? defaultLanguage
+        : languages.find((each) => each.slug === query.language);
+    if (!language) throw new Error(`${query.language} isn't one of the Site's languages`);
+    const page = searchWhole("page", query.page, 1);
+    const perPage = Math.min(100, searchWhole("perPage", query.perPage, 12));
+    if (typeof query.search !== "string") throw new Error("search must be text");
+    const needle = searchText(query.search);
+    const store = await listingStore(subject);
+    if ("kind" in store) return store;
+    let rows;
+    try {
+      rows = await store.searchRows(homeKey(language), chromeKey(language));
+    } catch (error) {
+      if (!(error instanceof StoreFailure)) throw error;
+      return notServed(subject, "store", error.message);
+    }
+    const unreadable = () =>
+      notServed(
+        subject,
+        "not-ready",
+        "Search requires readable publications and this language's home and chrome in the publication store",
+      );
+    const home = rows.find((row) => row.key === homeKey(language));
+    const chrome = rows.find((row) => row.key === chromeKey(language));
+    // Even zero matches must distinguish a prepared store from an empty database.
+    if (
+      !home ||
+      !chrome ||
+      home.format !== PUBLICATION_FORMAT ||
+      chrome.format !== PUBLICATION_FORMAT
+    )
+      return unreadable();
+    const parseBody = <T>(body: string | null, parse: (value: unknown) => T | undefined) => {
+      try {
+        return body === null ? undefined : parse(JSON.parse(body));
+      } catch {
+        return undefined;
+      }
+    };
+    if (chrome.state !== "published" || !parseBody(chrome.body, parseChrome)) return unreadable();
+    if (!["published", "missing", "withdrawn"].includes(home.state)) return unreadable();
+    const matches: Array<SearchItem & { date: string }> = [];
+    const add = (uri: string, title: string, excerpt: string, body: string, date: string) => {
+      const plainTitle = searchPlainText(title);
+      const plainExcerpt = searchPlainText(excerpt);
+      const plainBody = searchPlainText(body);
+      if (needle && searchText(`${plainTitle} ${plainExcerpt} ${plainBody}`).includes(needle))
+        matches.push({
+          uri,
+          title: plainTitle,
+          excerpt: Array.from(plainExcerpt || plainBody)
+            .slice(0, 240)
+            .join(""),
+          language: language.slug,
+          date,
+        });
+    };
+    if (home.state === "published") {
+      const content = parseBody(home.body, parseHome);
+      if (!content) return unreadable();
+      add(language.home, content.page.title, "", content.page.content, "");
+    }
+    for (const row of rows) {
+      if (!row.key.startsWith("entry:")) continue;
+      const route = row.key.slice(6);
+      if (isLanguageHome(route) || routeLanguage(route).slug !== language.slug) continue;
+      if (row.format !== PUBLICATION_FORMAT) return unreadable();
+      const entry = parseBody(row.body, parseEntry);
+      if (!entry) return unreadable();
+      if (!inLanguage(entry, language)) continue;
+      // A removed collection is no longer part of this Site's public runtime.
+      if (entry.collection && !Object.hasOwn(collections, entry.collection.name)) continue;
+      // Old routes must never produce duplicate results or external links.
+      if (routeOf(entry.uri) !== route || !entry.uri.startsWith("/") || !safeContentUrl(entry.uri))
+        return unreadable();
+      add(entry.uri, entry.title, entry.excerpt, entry.content, entry.date);
+    }
+    matches.sort((a, b) =>
+      a.date === b.date ? (a.uri < b.uri ? -1 : a.uri > b.uri ? 1 : 0) : a.date > b.date ? -1 : 1,
+    );
+    const total = matches.length;
+    return {
+      kind: "found",
+      content: {
+        items: matches
+          .slice((page - 1) * perPage, page * perPage)
+          .map(({ date: _date, ...item }) => item),
+        total,
+        page,
+        perPage,
+        totalPages: Math.ceil(total / perPage),
+      },
+    };
+  }
+
+  function searchWhole(option: string, value: unknown, fallback: number) {
+    const number = value === undefined || value === "" ? fallback : Number(value);
+    if (!Number.isSafeInteger(number) || number < 1 || number > Number.MAX_SAFE_INTEGER / 100)
+      throw new Error(`${option} must be a positive safe whole number`);
+    return number;
+  }
+
   /** A listing's whole-number option (as a number, or a string of one, from a URL), else its default. */
   function whole(option: string, value: unknown, fallback: number): number {
     if (value === undefined || value === null || value === "") return fallback;
@@ -1539,7 +1652,7 @@ export function configuredDelivery<X>(
       return notServed(
         subject,
         "not-ready",
-        "this Frontend has no publication store bound (PUBLICATION_DB); collections are only listed from one",
+        "this Frontend has no publication store bound (PUBLICATION_DB); listings require one",
       );
     }
     return store;
@@ -1627,6 +1740,7 @@ export function configuredDelivery<X>(
         () => pageDesign(),
         () => null,
       ),
+    search,
     list,
     terms,
     archiveUri: (collection: string): Promise<string | null> => {
@@ -1649,4 +1763,18 @@ export function searchText(text: string) {
     .toLowerCase()
     .replace(/\s+/g, " ")
     .trim();
+}
+
+const searchTextBoundary =
+  /^(address|article|aside|blockquote|br|dd|div|dl|dt|figcaption|figure|footer|h[1-6]|header|hr|li|main|nav|ol|p|pre|section|table|td|th|tr|ul)$/;
+
+/** Visible text for search and escaped result rendering, excluding script/style contents. */
+function searchPlainText(value: string) {
+  const text = (node: DefaultTreeAdapterMap["node"]): string => {
+    if (node.nodeName === "#text" && "value" in node) return node.value;
+    if ("tagName" in node && ["script", "style", "template"].includes(node.tagName)) return "";
+    const children = "childNodes" in node ? node.childNodes.map(text).join("") : "";
+    return "tagName" in node && searchTextBoundary.test(node.tagName) ? ` ${children} ` : children;
+  };
+  return text(parseFragment(value)).replace(/\s+/g, " ").trim();
 }

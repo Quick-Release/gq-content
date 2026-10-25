@@ -204,6 +204,8 @@ export function createContentRuntime<X = never>(input: ContentConfig<X>) {
     handleRefresh: guarded("Refresh", "Refresh with POST.", refresh.handleRefresh),
     publishedHome: delivery.publishedHome,
     publishedEntry: delivery.publishedEntry,
+    /** Site-wide text search over delivered public content; never reads WordPress. */
+    search: delivery.search,
     /**
      * A page of a collection's items, from the publication store alone (never
      * WordPress), newest first: those with the given terms and text, in the

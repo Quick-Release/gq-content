@@ -153,6 +153,14 @@ export interface StoredItem {
   modifiedAt: number | null;
 }
 
+/** One row of a search snapshot; shared rows establish delivery readiness. */
+export interface SearchRow {
+  key: string;
+  state: string;
+  format: number;
+  body: string | null;
+}
+
 /** The store couldn't be read or written. Says nothing about the content. */
 export class StoreFailure extends Error {}
 
@@ -164,6 +172,8 @@ interface PublicationRow {
 }
 
 export interface PublicationStore {
+  /** Entries and this language's home/chrome, in one consistent store read. */
+  searchRows(home: string, chrome: string): Promise<SearchRow[]>;
   /** The row at key, null if nothing was ever promoted there. */
   read<T>(
     key: string,
@@ -745,6 +755,19 @@ export function publicationStore(db: SqlDatabase): PublicationStore {
         withdrawals: count(withdrawals),
         failedEvents: count(failed),
       };
+    },
+
+    async searchRows(home, chrome) {
+      const { results } = await guard("be read", () =>
+        db
+          .prepare(
+            `SELECT key, state, format, body FROM publications
+           WHERE key IN (?, ?) OR (substr(key, 1, 6) = 'entry:' AND state = 'published')`,
+          )
+          .bind(home, chrome)
+          .all<SearchRow>(),
+      );
+      return results;
     },
 
     async listItems(filter, limit, offset) {

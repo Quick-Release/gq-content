@@ -1,0 +1,91 @@
+name: Content nightly
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+  packages: read
+concurrency:
+  group: content-nightly
+  cancel-in-progress: false
+env:
+  VP_GIT_HOOKS: "0"
+jobs:
+  publish:
+    name: Build and publish development artifact pair without test suites
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      packages: read
+    outputs:
+      tag: ${{ steps.prepare.outputs.tag }}
+      version: ${{ steps.prepare.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: voidzero-dev/setup-vp@v1
+        with:
+          version: "1.1.0"
+          node-version-file: .node-version
+          run-install: false
+          cache: false
+      - name: Configure private build dependency access
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+        run: |
+          umask 077
+          printf '%s\n' '@quick-release:registry=https://npm.pkg.github.com' '//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}' > "$RUNNER_TEMP/design.npmrc"
+          echo "NPM_CONFIG_USERCONFIG=$RUNNER_TEMP/design.npmrc" >> "$GITHUB_ENV"
+      - name: Install locked build dependencies
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+        run: vp install --frozen-lockfile
+      - name: Stage unique paired nightly versions
+        id: prepare
+        run: node scripts/release/nightly.mjs prepare
+      - name: Build frontend without test suites
+        run: vp pack
+      - name: Pack plugin, npm tarball and exact-source manifest
+        run: node scripts/release/nightly.mjs pack
+      - name: Attach immutable artifact pair, then publish complete prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.prepare.outputs.tag }}
+        run: |
+          node scripts/release/nightly.mjs verify
+          gh release create "$RELEASE_TAG" .artifacts/nightly/assets/* \
+            --target "$GITHUB_SHA" --draft --prerelease --latest=false \
+            --title "$RELEASE_TAG" \
+            --notes "Development Content pair from $GITHUB_SHA. Install the hashed plugin ZIP and npm tarball in content-release.json. Bugs and breaking changes are expected. No stable npm/Composer publication."
+          gh release edit "$RELEASE_TAG" --draft=false --prerelease --latest=false
+      - name: Retain exact identity and artifacts for diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: content-nightly-${{ github.run_number }}-${{ github.run_attempt }}
+          path: .artifacts/nightly/
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Remove credential configuration
+        if: always()
+        run: rm -f "$RUNNER_TEMP/design.npmrc"
+  notify-development-site:
+    name: Notify opted-in Nomia development Site
+    needs: publish
+    if: vars.NIGHTLY_DEPLOY_REPOSITORY == 'Quick-Release/nomia-bnq'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions: {}
+    steps:
+      - name: Dispatch exact Content nightly identity
+        env:
+          GH_TOKEN: ${{ secrets.NIGHTLY_DISPATCH_TOKEN }}
+          RELEASE_TAG: ${{ needs.publish.outputs.tag }}
+          RELEASE_VERSION: ${{ needs.publish.outputs.version }}
+        run: |
+          test -n "$GH_TOKEN" || { echo 'NIGHTLY_DISPATCH_TOKEN is required for producer dispatch; Nomia can also poll completed releases.' >&2; exit 1; }
+          jq -cn --arg tag "$RELEASE_TAG" --arg version "$RELEASE_VERSION" --arg sha "$GITHUB_SHA" \
+            '{event_type:"gq_content_nightly",client_payload:{repository:"Quick-Release/gq-content",tag:$tag,version:$version,sourceSha:$sha,manifestAsset:"content-release.json"}}' \
+            > "$RUNNER_TEMP/content-dispatch.json"
+          gh api --method POST repos/Quick-Release/nomia-bnq/dispatches --input "$RUNNER_TEMP/content-dispatch.json"

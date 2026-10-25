@@ -16,7 +16,8 @@
     "proof:p2": "vp run cms",
     "build:cms": "vp run cms-package",
     "proof:pair": "vp run pair",
-    "proof:multilingual": "vp run multilingual"
+    "proof:multilingual": "vp run multilingual",
+    "release:nightly": "node scripts/release/nightly.mjs"
   },
   "devDependencies": {
     "@quick-release/design-contract": "0.9.0",
