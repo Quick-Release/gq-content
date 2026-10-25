@@ -105,10 +105,9 @@ does not claim that every CMS publication was delivered.
 
 ## Adoption
 
-`@getquick/content` 0.3.2 has no `search` method. This change needs review and a
-new supported paired runtime release through the existing release gates before
-Nomia pins/adopts it. This branch leaves package versions unchanged and does
-not authorize a release, registry publication, deployment or merge. Follow the
-paired adoption policy in [releasing.md](releasing.md); no migration or mandatory
-CMS reread is added. Nomia owns its `/pesquisa/?q=…&pagina=…` page and Site-only
-header blocks; none are implemented in this repository or in global GQ Design.
+`@getquick/content` 0.3.2 has no `search` method. Nomia can adopt the exact
+CMS/frontend [development nightly pair](nightly-releases.md) containing this API,
+or a later tested stable pair through [releasing.md](releasing.md). Stable source
+versions remain unchanged; no migration or mandatory CMS reread is added. Nomia
+owns its `/pesquisa/?q=…&pagina=…` page and Site-only header blocks; none are
+implemented in this repository or in global GQ Design.

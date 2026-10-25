@@ -1,5 +1,9 @@
 # Paired release
 
+This is the tested **stable** release path. Development nightlies use the
+[separate artifact channel](nightly-releases.md), authorized for Nomia by ADR 0007;
+they do not publish stable npm/Composer versions or weaken these gates.
+
 The release CLI runs directly, outside cached task execution. Requires the pinned
 Node/Vite+/pnpm toolchain, PHP/SQLite, Composer, Python, Docker and the published
 Design compatibility development dependency. See the compatibility README for

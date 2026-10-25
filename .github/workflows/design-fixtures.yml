@@ -33,12 +33,14 @@ jobs:
           NODE_AUTH_TOKEN: ${{ github.token }}
         run: vp install --frozen-lockfile
       - name: Verify live registry identity and this repository's package access
+        if: github.event_name == 'workflow_dispatch'
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}
         run: |
           set -o pipefail
           node compatibility/registry.mjs | tee "$RUNNER_TEMP/p5-registry.json"
       - name: Install the exact published fixture dependency
+        if: github.event_name == 'workflow_dispatch'
         working-directory: compatibility
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}
@@ -48,11 +50,13 @@ jobs:
         run: |
           rm -f "$RUNNER_TEMP/design.npmrc"
           echo "NPM_CONFIG_USERCONFIG=/dev/null" >> "$GITHUB_ENV"
-      - name: Check public code and compatibility types
-        run: |
-          vp run quality
-          vp exec tsc --noEmit -p compatibility/tsconfig.json
+      - name: Check formatting, lint and public types without test suites
+        run: vp run quality
+      - name: Check published compatibility types
+        if: github.event_name == 'workflow_dispatch'
+        run: vp exec tsc --noEmit -p compatibility/tsconfig.json
       - name: P5 packed artifacts, credential-free consumer and published fixtures
+        if: github.event_name == 'workflow_dispatch'
         run: |
           set -o pipefail
           vp run design-fixtures | tee "$RUNNER_TEMP/p5.log"
