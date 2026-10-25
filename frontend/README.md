@@ -1,5 +1,11 @@
 # @getquick/content
 
+The runtime's public `search({ search, page?, perPage?, language? })` searches
+delivered pages, posts, declared collections and the language's front page
+from the publication store alone. It returns a `found.content` page with
+`items`, `total`, `page`, `perPage`, `totalPages`, or `unavailable.failure`.
+See the [search contract and adoption guide](../docs/search.md).
+
 The configured content runtime for WordPress HTML and WPGraphQL. This slice
 provides pure helpers, the configured WordPress client, durable delivery and
 installed SQL migrations, and event/refresh HTTP handlers. It is released as a

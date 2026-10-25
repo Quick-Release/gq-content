@@ -463,6 +463,13 @@ test("events publish and withdraw items, and listings follow", async () => {
   expect(titles(await runtime.list({ collection: "biblioteca", search: "anotado" }))).toEqual([
     "Código civil anotado",
   ]);
+  expect(await runtime.search({ search: "anotado" })).toMatchObject({
+    kind: "found",
+    content: {
+      items: [{ uri: "/biblioteca/codigo-civil/", title: "Código civil anotado" }],
+      total: 1,
+    },
+  });
 
   const withdraw = await event(runtime, {
     action: "withdraw",
@@ -480,6 +487,110 @@ test("events publish and withdraw items, and listings follow", async () => {
   expect(await runtime.publishedEntry("/biblioteca/lei-de-bases/")).toMatchObject({
     kind: "missing",
   });
+  // Withdrawal applies to search immediately, with the CMS offline too.
+  unavailable = true;
+  fetchMock.mockClear();
+  expect(await runtime.search({ search: "lei de bases" })).toMatchObject({
+    kind: "found",
+    content: { items: [], total: 0 },
+  });
+  expect(await runtime.search({ search: "anotado" })).toMatchObject({
+    kind: "found",
+    content: { total: 1 },
+  });
+  expect(fetchMock).not.toHaveBeenCalled();
+});
+
+test("site search receives pages, posts and resources through ordinary full refresh", async () => {
+  published.set("/noticia/", {
+    id: "post-search",
+    typename: "Post",
+    title: "Pesquisa geral notícia",
+    date: day(9),
+    modified: 9,
+  });
+  published.get("/biblioteca/")!.title = "Pesquisa geral página";
+  published.get("/recursos-educativos/guia/")!.title = "Pesquisa geral recurso";
+  const runtime = api();
+  expect((await refresh(runtime)).status).toBe(200);
+  expect(await runtime.search({ search: "pesquisa geral" })).toMatchObject({
+    kind: "found",
+    content: {
+      items: [
+        { uri: "/noticia/", title: "Pesquisa geral notícia" },
+        { uri: "/recursos-educativos/guia/", title: "Pesquisa geral recurso" },
+        { uri: "/biblioteca/", title: "Pesquisa geral página" },
+      ],
+      total: 3,
+    },
+  });
+});
+
+test("site search follows ordered withdrawal and republication, and canonical moves", async () => {
+  const base = Date.now();
+  const clock = vi.spyOn(Date, "now").mockReturnValue(base);
+  try {
+    const runtime = api();
+    await refresh(runtime);
+    clock.mockReturnValue(base + 1_000);
+    expect(
+      (
+        await event(runtime, {
+          action: "withdraw",
+          entry: { id: "b1", uri: "/biblioteca/lei-de-bases/" },
+        })
+      ).body,
+    ).toMatchObject({ status: "withdrawn" });
+    clock.mockReturnValue(base + 2_000);
+    // Ordinary refresh cannot undo an authoritative withdrawal.
+    await refresh(runtime);
+    expect(await runtime.search({ search: "lei de bases" })).toMatchObject({
+      kind: "found",
+      content: { total: 0 },
+    });
+    clock.mockReturnValue(base + 3_000);
+    expect(
+      (
+        await event(runtime, {
+          action: "publish",
+          entry: { id: "b1", uri: "/biblioteca/lei-de-bases/" },
+        })
+      ).body,
+    ).toMatchObject({ status: "refreshed" });
+    expect(await runtime.search({ search: "lei de bases" })).toMatchObject({
+      kind: "found",
+      content: { items: [{ uri: "/biblioteca/lei-de-bases/" }], total: 1 },
+    });
+    clock.mockReturnValue(base + 4_000);
+    const renamed = published.get("/biblioteca/lei-de-bases/")!;
+    published.delete("/biblioteca/lei-de-bases/");
+    published.set("/biblioteca/lei-renomeada/", renamed);
+    expect(
+      (
+        await event(runtime, {
+          action: "publish",
+          entry: {
+            id: "b1",
+            uri: "/biblioteca/lei-renomeada/",
+            previousUri: "/biblioteca/lei-de-bases/",
+          },
+        })
+      ).status,
+    ).toBe(200);
+    // A delayed withdrawal older than the accepted publication cannot hide it.
+    clock.mockReturnValue(base + 5_000);
+    await event(runtime, {
+      action: "withdraw",
+      occurredAt: base + 1_000,
+      entry: { id: "b1", uri: "/biblioteca/lei-de-bases/" },
+    });
+    expect(await runtime.search({ search: "lei de bases" })).toMatchObject({
+      kind: "found",
+      content: { items: [{ uri: "/biblioteca/lei-renomeada/" }], total: 1 },
+    });
+  } finally {
+    clock.mockRestore();
+  }
 });
 
 test("an item of a type the Site doesn't store, or not public, or another node, is missing", async () => {

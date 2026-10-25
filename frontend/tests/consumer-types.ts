@@ -46,6 +46,10 @@ import {
   type ContainerAttributes,
   type ContentExtension,
   type ExtensionNode,
+  type SearchQuery,
+  type SearchDelivery,
+  type SearchPage,
+  type SearchItem,
 } from "@getquick/content";
 import { createContentRuntime, type ContentConfig as ServerConfig } from "@getquick/content/server";
 const bindings: ContentBindings = {};
@@ -99,6 +103,27 @@ const publishedEntry: Promise<EntryDelivery> = runtime.publishedEntry(
   "https://site.test",
 );
 const pageChrome: Promise<SiteChrome | null> = runtime.pageChrome("https://site.test");
+const searchQuery: SearchQuery = {
+  search: "bioeconomia",
+  page: "2",
+  perPage: 12,
+  language: language.slug,
+};
+const searchDelivery: Promise<SearchDelivery> = runtime.search(searchQuery);
+const searchItem: SearchItem = {
+  uri: "/about/",
+  title: "About",
+  excerpt: "About us",
+  language: language.slug,
+};
+const searchPage: SearchPage = {
+  items: [searchItem],
+  total: 1,
+  page: 1,
+  perPage: 12,
+  totalPages: 1,
+};
+void [searchDelivery, searchPage];
 void [publishedHome, publishedEntry, pageChrome];
 
 // The Site block seam: the chrome's header and footer, by the Site's renderers.
