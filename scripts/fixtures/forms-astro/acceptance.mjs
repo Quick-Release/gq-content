@@ -1,9 +1,9 @@
 // Headless Gravity Forms acceptance (ADR 0009) in the installed consumer: a
 // stand-in for the CMS's Gravity Forms REST API records what reaches it; the
-// Astro Site is built for Cloudflare Workers and served by workerd (astro
-// preview); Chromium visits it without JavaScript, and Turnstile is verified
+// Astro Site is built for Cloudflare Workers and served by local workerd
+// (wrangler dev); Chromium visits it without JavaScript, and Turnstile is verified
 // with Cloudflare's real siteverify and test keys. Evidence: FORMS_EVIDENCE.
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawn } from "node:child_process";
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { join } from "node:path";
@@ -18,6 +18,12 @@ import {
   formBody,
   gravityFormsStub,
 } from "@getquick/content/forms/testing";
+
+// Never hang a release validation: the whole proof has ten minutes.
+setTimeout(() => {
+  console.error("Forms acceptance timed out");
+  process.exit(1);
+}, 600_000).unref();
 
 const checks = [];
 function check(name, ok, detail) {
@@ -101,7 +107,26 @@ check(
 
 const port = await freePort();
 const origin = `http://127.0.0.1:${port}`;
-run("node_modules/.bin/astro", ["preview", "--port", String(port)]);
+// The built Worker in local workerd, as a child this proof owns and stops
+// (`astro preview` would stay in the foreground, or leave a daemon behind).
+const worker = spawn(
+  "node_modules/.bin/wrangler",
+  [
+    "dev",
+    "--config",
+    "dist/server/wrangler.json",
+    "--ip",
+    "127.0.0.1",
+    "--port",
+    String(port),
+    "--show-interactive-dev-session=false",
+  ],
+  {
+    stdio: ["ignore", "inherit", "inherit"],
+    detached: true,
+    env: { ...process.env, WRANGLER_SEND_METRICS: "false" },
+  },
+);
 let browser;
 try {
   for (let attempt = 0; ; attempt++) {
@@ -110,7 +135,7 @@ try {
     } catch {
       // Not listening yet.
     }
-    if (attempt > 200) throw new Error("The Astro Worker didn't start");
+    if (attempt > 900) throw new Error("The Astro Worker didn't start");
     await new Promise((done) => setTimeout(done, 100));
   }
   browser = await chromium.launch();
@@ -292,10 +317,12 @@ try {
 } finally {
   await browser?.close();
   try {
-    run("node_modules/.bin/astro", ["preview", "stop"]);
-  } finally {
-    cms.close();
+    // The whole group: wrangler and the workerd it started.
+    process.kill(-worker.pid, "SIGTERM");
+  } catch {
+    // Already gone.
   }
+  cms.close();
 }
 
 writeFileSync(
@@ -320,3 +347,4 @@ if (failures.length) {
   process.exit(1);
 }
 console.log(`Headless Gravity Forms acceptance: ${checks.length} checks passed.`);
+process.exit(0);
