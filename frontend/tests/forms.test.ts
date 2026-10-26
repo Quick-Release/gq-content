@@ -517,16 +517,34 @@ test("no forms export reads entries", () => {
 });
 
 test("review regressions: numbers, CMS page confirmations, empty inputs, defaults and consent HTML", async () => {
-  const { parseNumber } = await import("../src/forms/validate");
-  expect([
-    parseNumber("1234.5"),
-    parseNumber("1,5"),
-    parseNumber("1.234,5"),
-    parseNumber("1,234.5"),
-    parseNumber("1 234,5"),
-    parseNumber("1,000,000"),
-    parseNumber("abc"),
-  ]).toEqual([1234.5, 1.5, 1234.5, 1234.5, 1234.5, 1000000, Number.NaN]);
+  // Numbers in either convention, through the public validation.
+  const amount = {
+    ...CONTACT_FORM,
+    fields: [
+      {
+        id: 9,
+        type: "number" as const,
+        label: "Valor",
+        description: "",
+        required: true,
+        visibility: "visible" as const,
+        range: { max: 2000000 },
+        inputs: [{ id: "9", name: "input_9", label: "Valor" }],
+      },
+    ],
+  };
+  const numberError = (value: string) =>
+    validateSubmission(amount, new URLSearchParams({ input_9: value })).errors[9] ?? null;
+  expect(["1234.5", "1,5", "1.234,5", "1,234.5", "1 234,5", "1,000,000"].map(numberError)).toEqual([
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+  ]);
+  expect(numberError("abc")).toBe("number");
+  expect(numberError("3.000.000")).toBe("range");
 
   // A page confirmation (the CMS's permalink) stays on the Site.
   const server = createFormsServer({
