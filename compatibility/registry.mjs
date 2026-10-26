@@ -6,7 +6,7 @@ const metadata = JSON.parse(
     [
       "pm",
       "view",
-      "@quick-release/design-contract@0.9.3",
+      "@quick-release/design-contract@0.9.4",
       "--json",
       "--",
       "--registry=https://npm.pkg.github.com",
@@ -14,10 +14,10 @@ const metadata = JSON.parse(
     { encoding: "utf8" },
   ),
 );
-assert.equal(metadata.version, "0.9.3");
+assert.equal(metadata.version, "0.9.4");
 assert.equal(
   metadata.dist.integrity,
-  "sha512-c0nXmDuk9c8xoMXhQfX6GC8eAo6ZUbpqbklk0vDHxqyIJb2cbWedIlopCz+vNqbjANsXXQPIsa+YgJU4mzOHug==",
+  "sha512-mSnZK0bThlcUeRMthO4X91mweEStJqaG8de215S4uCvl+26LjtagHKPoJiC34G5nScIaKhoa0TCw06yHqV/B2Q==",
 );
 console.log(
   JSON.stringify(
