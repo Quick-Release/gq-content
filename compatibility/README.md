@@ -1,8 +1,8 @@
 # Published Design fixture compatibility
 
 This isolated development workspace pins exact `@quick-release/design-contract`
-**0.9.3** from GitHub Packages. Root development dependencies also pin the
-published Design contract and renderer at 0.9.3 so both build and fixture
+**0.9.4** from GitHub Packages. Root development dependencies also pin the
+published Design contract and renderer at 0.9.4 so both build and fixture
 installation require approved package access. The fixture workspace stays
 outside the root pnpm workspace. The packed public Frontend has no private
 package dependency, and installed-consumer checks run without registry credentials.
@@ -82,8 +82,8 @@ context must fail explicitly. Published Logo attributes are null and no Featured
 Image source is supplied: these fixtures establish empty/title fallback behavior,
 not positive image identity coverage.
 
-The exact registry `0.9.3` installation and packed consumer run are release gates.
-A local run using root-installed vendored `0.9.3` fixtures and an existing local
+The exact registry `0.9.4` installation and packed consumer run are release gates.
+A local run using root-installed vendored `0.9.4` fixtures and an existing local
 build is useful implementation feedback but does not establish registry access,
 published artifact identity or a fresh packed-consumer pass. Fixtures are always
 read through package exports; no fixture copies or fallback parsers are used.
