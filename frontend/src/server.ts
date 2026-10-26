@@ -225,7 +225,9 @@ export function createContentRuntime<X = never>(input: ContentConfig<X>) {
       siteOrigin?: string,
     ): Promise<FormDescriptor | null> => {
       if (!config.forms) return null;
-      const route = new URL(path, "https://site.invalid").pathname;
+      const pathname = new URL(path, "https://site.invalid").pathname;
+      // A language home may be posted from without its trailing slash (`/en`).
+      const route = isLanguageHome(`${pathname}/`, languages) ? `${pathname}/` : pathname;
       if (isLanguageHome(route, languages)) {
         const home = await delivery.publishedHome(siteOrigin, routeLanguage(route, languages));
         return home.kind === "found" ? findForm(home.content.home.page.forms, formId) : null;

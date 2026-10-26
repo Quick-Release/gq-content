@@ -43,6 +43,13 @@ export function escapeHtml(value: string): string {
     .replaceAll("'", "&#39;");
 }
 
+/** Text without tags: Gravity Forms allows HTML in a consent's checkbox label. */
+const tagless = (value: string) =>
+  value
+    .replace(/<[^>]*>/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
 const attribute = (name: string, value: string | null | undefined) =>
   value === null || value === undefined ? "" : ` ${name}="${escapeHtml(value)}"`;
 
@@ -78,8 +85,14 @@ function errorText(field: FormField, context: FieldContext): string | null {
 }
 
 /** The value to show: what the visitor typed, after a failed post, else the field's default. */
+/** What the visitor typed, when the outcome kept it; otherwise the form shows its defaults. */
+function typed(context: FieldContext): Record<string, string> | null {
+  const state = context.state;
+  return state && state.status !== "sent" && Object.keys(state.values).length ? state.values : null;
+}
+
 function shown(name: string, field: FormField, context: FieldContext): string {
-  const values = context.state?.status === "sent" ? null : context.state?.values;
+  const values = typed(context);
   if (values) return values[name] ?? "";
   return field.defaultValue ?? "";
 }
@@ -163,7 +176,7 @@ function renderField(field: FormField, context: FieldContext): string {
       const input = field.type === "checkbox" ? field.inputs[index] : first;
       if (!input) return "";
       const id = `${inputId(formId, input.name)}-${index}`;
-      const values = context.state?.status === "sent" ? null : context.state?.values;
+      const values = typed(context);
       const checked = values ? values[input.name] === choice.value : choice.selected;
       return (
         `<div class="gq-form__choice"><input type="${field.type}" id="${id}" name="${escapeHtml(input.name)}" value="${escapeHtml(choice.value)}"${checked ? " checked" : ""}${attribute("aria-describedby", notes.describedBy)}${notes.invalid ? ' aria-invalid="true"' : ""}>` +
@@ -195,7 +208,7 @@ function renderField(field: FormField, context: FieldContext): string {
       notes.html +
       consentText +
       `<div class="gq-form__choice"><input type="checkbox" id="${id}" name="${escapeHtml(first.name)}" value="1"${checked ? " checked" : ""}${attribute("aria-describedby", describedBy || null)}${notes.invalid ? ' aria-invalid="true"' : ""}${field.required ? ' required aria-required="true"' : ""}>` +
-      `<label for="${id}">${escapeHtml(field.consent?.checkboxLabel ?? field.label)}</label>${policy}</div>` +
+      `<label for="${id}">${escapeHtml(tagless(field.consent?.checkboxLabel ?? "") || field.label)}</label>${policy}</div>` +
       `</fieldset>`
     );
   }
@@ -225,10 +238,7 @@ function renderField(field: FormField, context: FieldContext): string {
   if (field.type === "textarea") {
     control = `<textarea id="${id}" name="${escapeHtml(first.name)}" rows="6"${common}>${escapeHtml(shown(first.name, field, context))}</textarea>`;
   } else if (field.type === "select") {
-    const value =
-      context.state?.values && context.state.status !== "sent"
-        ? shown(first.name, field, context)
-        : null;
+    const value = typed(context) ? shown(first.name, field, context) : null;
     const choices = field.choices ?? [];
     const hasEmpty = choices.some((choice) => choice.value === "");
     const options =
@@ -314,10 +324,11 @@ export function renderGravityForm(input: GravityFormInput): string {
       const error = errorText(field, context);
       if (!error) return [];
       const target = field.inputs[0];
-      const anchor =
-        field.type === "radio" || field.type === "checkbox"
-          ? `${inputId(formId, target!.name)}-0`
-          : inputId(formId, target!.name);
+      const anchor = !target
+        ? `gq-form-${formId}`
+        : field.type === "radio" || field.type === "checkbox"
+          ? `${inputId(formId, target.name)}-0`
+          : inputId(formId, target.name);
       return [`<li><a href="#${anchor}">${escapeHtml(field.label)}: ${escapeHtml(error)}</a></li>`];
     });
     const summary =

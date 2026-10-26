@@ -76,6 +76,7 @@ $unsupported = [
         ['id' => 4, 'type' => 'page', 'label' => 'Página 2'],
         ['id' => 5, 'type' => 'text', 'label' => 'Condicional', 'conditionalLogic' => ['actionType' => 'show', 'rules' => [['fieldId' => 1]]]],
         ['id' => 6, 'type' => 'address', 'label' => 'Morada'],
+        ['id' => 7, 'type' => 'option', 'inputType' => 'select', 'label' => 'Extra', 'choices' => [['text' => 'A', 'value' => 'a|5']]],
     ],
     'confirmations' => [['isDefault' => true, 'type' => 'redirect', 'url' => 'https://nomia.test/obrigado/']],
 ];
@@ -90,10 +91,12 @@ $out = match (getenv('FORMS_STEP')) {
     ],
     'setup' => (static function () use ($contact, $unsupported, $inactive): array {
         update_option('proof_gf_forms', [1 => $contact, 2 => $unsupported, 3 => $inactive]);
-        $pattern = wp_insert_post(['post_type' => 'wp_block', 'post_title' => 'Formulário', 'post_status' => 'publish', 'post_content' => '<!-- wp:gravityforms/form {"formId":"3"} /-->'], true);
+        $inner = wp_insert_post(['post_type' => 'wp_block', 'post_title' => 'Formulário', 'post_status' => 'publish', 'post_content' => '<!-- wp:gravityforms/form {"formId":"3"} /-->'], true);
+        // A synced pattern inside another: the page shows form 3 two levels down.
+        $pattern = wp_insert_post(['post_type' => 'wp_block', 'post_title' => 'Secção', 'post_status' => 'publish', 'post_content' => '<!-- wp:block {"ref":' . $inner . '} /-->'], true);
         $ids = [
             'contactos' => wp_insert_post(['post_type' => 'page', 'post_name' => 'contactos', 'post_title' => 'Contactos', 'post_status' => 'publish', 'post_content' => '<!-- wp:columns --><div class="wp-block-columns"><!-- wp:column --><div class="wp-block-column"><!-- wp:gravityforms/form {"formId":"1","title":false} /--></div><!-- /wp:column --></div><!-- /wp:columns -->'], true),
-            'candidatura' => wp_insert_post(['post_type' => 'page', 'post_name' => 'candidatura', 'post_title' => 'Candidatura', 'post_status' => 'publish', 'post_content' => '<!-- wp:shortcode -->[gravityform id="2" title="false"]<!-- /wp:shortcode -->'], true),
+            'candidatura' => wp_insert_post(['post_type' => 'page', 'post_name' => 'candidatura', 'post_title' => 'Candidatura', 'post_status' => 'publish', 'post_content' => '<!-- wp:shortcode -->[gravityform id="2" title="false" field_values="source=ad&id=7"]<!-- /wp:shortcode -->'], true),
             'padrao' => wp_insert_post(['post_type' => 'page', 'post_name' => 'padrao', 'post_title' => 'Padrão', 'post_status' => 'publish', 'post_content' => '<!-- wp:block {"ref":' . $pattern . '} /-->'], true),
             'protegida' => wp_insert_post(['post_type' => 'page', 'post_name' => 'protegida', 'post_title' => 'Protegida', 'post_status' => 'publish', 'post_password' => 'segredo', 'post_content' => '<!-- wp:gravityforms/form {"formId":"1"} /-->'], true),
             'sem' => wp_insert_post(['post_type' => 'page', 'post_name' => 'sem', 'post_title' => 'Sem', 'post_status' => 'publish', 'post_content' => '<!-- wp:paragraph --><p>Nada</p><!-- /wp:paragraph -->'], true),

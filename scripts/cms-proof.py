@@ -479,11 +479,11 @@ if __name__ == '__main__':
                   [(each['code'], each.get('fieldId')) for each in unsupported['diagnostics']] == [
                       ('unsupported-captcha', 1), ('unsupported-file-upload', 2), ('unsupported-payment', 3),
                       ('unsupported-multi-page', 4), ('unsupported-conditional-logic', 5),
-                      ('unsupported-field', 6), ('requires-login', None)] and
+                      ('unsupported-field', 6), ('unsupported-payment', 7), ('requires-login', None)] and
                   [field['id'] for field in unsupported['fields']] == [5] and
                   unsupported['confirmation'] == {'type': 'redirect', 'url': 'https://nomia.test/obrigado/'})
-            check('a shortcode and a synced pattern\'s form are referenced; an inactive form is unavailable',
-                  read['padrao']['forms'][0]['id'] == 3 and read['padrao']['forms'][0]['available'] is False and
+            check('a shortcode (by its own id) and a nested synced pattern\'s form are referenced; an inactive form is unavailable',
+                  [form['id'] for form in read['candidatura']['forms']] == [2] and read['padrao']['forms'][0]['id'] == 3 and read['padrao']['forms'][0]['available'] is False and
                   read['padrao']['forms'][0]['diagnostics'][0]['code'] == 'unavailable')
             check('a password-protected entry delivers no descriptors; one without forms delivers none',
                   read['protegida'] is None and read['sem']['forms'] == [])
@@ -508,7 +508,7 @@ if __name__ == '__main__':
                   [row['event']['entry']['uri'] for row in received[start:] if row['signed']] == ['/candidatura/'])
             start = len(received)
             trashed = forms_step('trash')
-            check('trashing a form publishes again the entries that show it through a synced pattern',
+            check('trashing a form publishes again the entries that show it through nested synced patterns',
                   trashed['queued'] == [int(ids['padrao'])] and
                   [row['event']['entry']['uri'] for row in received[start:] if row['signed']] == ['/padrao/'])
             report = forms_step('status')

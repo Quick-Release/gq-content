@@ -146,3 +146,51 @@ test("an entry without forms stores none, and null from the CMS means none", asy
   const none = await runtime.wordpress.getEntryByUri("/contactos/");
   expect(none.kind === "found" && "forms" in none.content).toBe(false);
 });
+
+test("a CMS found without getquickForms isn't asked for it again", async () => {
+  const fetch = wordpress({
+    entry: (variables, query) =>
+      query?.includes("getquickForms")
+        ? {
+            ok: true,
+            json: async () => ({
+              errors: [{ message: 'Cannot query field "getquickForms" on type "Page".' }],
+            }),
+          }
+        : entry(variables, query),
+  });
+  const runtime = createContentRuntime({ ...config, forms: true });
+  await runtime.wordpress.getEntryByUri("/contactos/");
+  await runtime.wordpress.getEntryByUri("/contactos/");
+  expect(queries(fetch, "EntryByUri")).toHaveLength(3);
+});
+
+test("a language home posted without its trailing slash finds its form", async () => {
+  // Live reads (development, no store): the English home is read as a home.
+  const fetch = wordpress({
+    home: (variables, query) =>
+      data({
+        generalSettings: { title: "Acme", description: "" },
+        language: { title: "Acme", description: "" },
+        nodeByUri: {
+          __typename: "Page",
+          id: `front:${JSON.stringify(variables.uri ?? "/")}`,
+          isFrontPage: true,
+          title: "Home",
+          content: "",
+          ...(query?.includes("getquickForms") ? { getquickForms: formsField } : {}),
+        },
+        designTokens: presets,
+      }),
+  });
+  const runtime = createContentRuntime({
+    ...config,
+    development: true,
+    bindings: () => ({}),
+    forms: true,
+    wordpress: { locale: "pt_PT", languages: [{ locale: "en_GB", slug: "en" }] },
+  });
+  expect(await runtime.publishedForm("/en", 1)).toEqual(CONTACT_FORM);
+  expect(queries(fetch, "HomePage").length).toBeGreaterThan(0);
+  expect(queries(fetch, "EntryByUri")).toHaveLength(0);
+});

@@ -30,6 +30,24 @@ function webAddress(value: string): boolean {
   }
 }
 
+/**
+ * A number as visitors type it in either convention (1234.5, 1,234.5, 1.234,5,
+ * 1 234,5): the last separator is the decimal one when both appear. NaN when
+ * it isn't one; Gravity Forms checks its own number format again.
+ */
+export function parseNumber(value: string): number {
+  let text = value.replace(/[\s\u00a0']/g, "");
+  const dot = text.lastIndexOf(".");
+  const comma = text.lastIndexOf(",");
+  if (dot >= 0 && comma >= 0)
+    text = dot > comma ? text.replaceAll(",", "") : text.replaceAll(".", "").replace(",", ".");
+  else if (comma >= 0)
+    // One comma is a decimal comma; several are thousands separators.
+    text = text.indexOf(",") === comma ? text.replace(",", ".") : text.replaceAll(",", "");
+  else if ((text.match(/\./g) ?? []).length > 1) text = text.replaceAll(".", "");
+  return /^-?\d+(\.\d+)?$/.test(text) ? Number(text) : Number.NaN;
+}
+
 /** A posted value, without surrounding whitespace, bounded. */
 function read(values: SubmittedValues, name: string): string {
   return (values.get(name) ?? "").trim().slice(0, MAX_VALUE_LENGTH);
@@ -109,7 +127,7 @@ function check(
       }
       if (field.type === "website" && !webAddress(value)) return "url";
       if (field.type === "number") {
-        const number = Number(value.replace(",", "."));
+        const number = parseNumber(value);
         if (!Number.isFinite(number)) return "number";
         if (
           (field.range?.min !== undefined && number < field.range.min) ||

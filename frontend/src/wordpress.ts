@@ -851,6 +851,8 @@ export function configuredWordPress<X>(
     );
   }
 
+  /** Optional fields (getquickBlocksJson, getquickForms) this CMS has answered it lacks. */
+  const absentFields = new Set<string>();
   const OPTIONAL_FIELD_ERROR =
     /^Cannot query field "(getquickBlocksJson|getquickForms)" on type "(?:Post|Page|ContentNode)"\.(?: Did you mean [^\n]+)?$/;
 
@@ -865,6 +867,9 @@ export function configuredWordPress<X>(
     queryText: string,
     variables: Record<string, string | boolean> = {},
   ): Promise<{ data: z.infer<S>; blocksOmitted: boolean }> {
+    // Fields this CMS was found to lack are left out of every later read.
+    for (const field of absentFields)
+      queryText = queryText.replaceAll(`${field} @include(if: $withBlocks)`, "");
     // Retain the compatible document if the subsequent read needs HTTP recovery.
     const read = async (readVariables: Record<string, string | boolean>): Promise<z.infer<S>> => {
       try {
@@ -881,6 +886,7 @@ export function configuredWordPress<X>(
         // (gq-content's forms module is dormant then): read without them.
         for (const message of error.graphqlErrors) {
           const field = OPTIONAL_FIELD_ERROR.exec(message)![1]!;
+          absentFields.add(field);
           queryText = queryText.replaceAll(`${field} @include(if: $withBlocks)`, "");
         }
         return query(schema, queryText, readVariables);

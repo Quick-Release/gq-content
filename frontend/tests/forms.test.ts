@@ -458,12 +458,12 @@ test("a redirect confirmation sends the visitor on; a CMS failure is a failure, 
       Response.json({
         is_valid: true,
         confirmation_type: "redirect",
-        confirmation_redirect: "https://www.acme.test/obrigado/",
+        confirmation_redirect: "https://partner.example/obrigado/",
       }),
   });
   const response = (await server.handle(post(contactSubmission())))!;
   expect(response.status).toBe(303);
-  expect(response.headers.get("Location")).toBe("https://www.acme.test/obrigado/");
+  expect(response.headers.get("Location")).toBe("https://partner.example/obrigado/");
 
   for (const fetch of [
     async () => new Response("Bad gateway", { status: 502 }),
@@ -514,4 +514,96 @@ test("no forms export reads entries", () => {
       { method: "GET", url: "/wp-json/gf/v2/forms/1/entries", headers: {}, body: null },
     ]),
   ).toThrow(/entry read/);
+});
+
+test("review regressions: numbers, CMS page confirmations, empty inputs, defaults and consent HTML", async () => {
+  const { parseNumber } = await import("../src/forms/validate");
+  expect([
+    parseNumber("1234.5"),
+    parseNumber("1,5"),
+    parseNumber("1.234,5"),
+    parseNumber("1,234.5"),
+    parseNumber("1 234,5"),
+    parseNumber("1,000,000"),
+    parseNumber("abc"),
+  ]).toEqual([1234.5, 1.5, 1234.5, 1234.5, 1234.5, 1000000, Number.NaN]);
+
+  // A page confirmation (the CMS's permalink) stays on the Site.
+  const server = createFormsServer({
+    cmsOrigin: CMS,
+    descriptor: () => CONTACT_FORM,
+    bindings: () => ({}),
+    fetch: async () =>
+      Response.json({
+        is_valid: true,
+        confirmation_type: "redirect",
+        confirmation_redirect: `${CMS}/obrigado/?x=1`,
+      }),
+  });
+  const response = (await server.handle(post(contactSubmission())))!;
+  expect(response.headers.get("Location")).toBe("/obrigado/?x=1");
+
+  // A field without inputs that Gravity Forms refuses doesn't break the page.
+  const bare = {
+    ...CONTACT_FORM,
+    fields: [{ ...CONTACT_FORM.fields[0]!, inputs: [] }, ...CONTACT_FORM.fields.slice(1)],
+  };
+  const html = renderGravityForm({
+    descriptor: bare,
+    source: "/contactos/",
+    language: "en",
+    state: { formId: 1, status: "invalid", errors: {}, messages: { 1: "Required." }, values: {} },
+  });
+  expect(html).toContain('<a href="#gq-form-1">Nome: Required.</a>');
+
+  // An outcome that kept nothing typed leaves the defaults and preselections.
+  const choosing = {
+    ...CONTACT_FORM,
+    fields: [
+      {
+        ...CONTACT_FORM.fields[2]!,
+        defaultValue: "Geral",
+      },
+      {
+        id: 8,
+        type: "select" as const,
+        label: "Tema",
+        description: "",
+        required: false,
+        visibility: "visible" as const,
+        choices: [
+          { text: "A", value: "a", selected: false },
+          { text: "B", value: "b", selected: true },
+        ],
+        inputs: [{ id: "8", name: "input_8", label: "Tema" }],
+      },
+    ],
+  };
+  const limited = renderGravityForm({
+    descriptor: choosing,
+    source: "/",
+    language: "en",
+    state: { formId: 1, status: "too-many", errors: {}, messages: {}, values: {} },
+  });
+  expect(limited).toContain('value="Geral"');
+  expect(limited).toContain('<option value="b" selected>');
+
+  // Gravity Forms allows HTML in a consent's checkbox label: shown as text.
+  const consent = {
+    ...CONTACT_FORM,
+    fields: CONTACT_FORM.fields.map((field) =>
+      field.type === "consent"
+        ? {
+            ...field,
+            consent: { ...field.consent!, checkboxLabel: 'I agree to the <a href="/p">policy</a>' },
+          }
+        : field,
+    ),
+  };
+  const agreed = renderGravityForm({ descriptor: consent, source: "/", language: "en" });
+  expect(agreed).toContain('<label for="gq-form-1-input_5_1">I agree to the policy</label>');
+  // …and submitted exactly as Gravity Forms renders it, for its state check.
+  expect(
+    validateSubmission(consent, new URLSearchParams(contactSubmission())).input.input_5_2,
+  ).toBe('I agree to the <a href="/p">policy</a>');
 });

@@ -300,11 +300,18 @@ export function createFormsServer(config: FormsServerConfig) {
         } catch {
           target = null;
         }
+        // A page confirmation is the CMS's permalink: the Site serves it at the same path.
+        if (target && target.origin === cms.origin)
+          target = new URL(`${target.pathname}${target.search}${target.hash}`, request.url);
         if (target && (target.protocol === "https:" || target.protocol === "http:")) {
-          if (wantsJson(request)) return json(200, { status: "sent", redirect: target.href });
+          const location =
+            target.origin === new URL(request.url).origin
+              ? `${target.pathname}${target.search}${target.hash}`
+              : target.href;
+          if (wantsJson(request)) return json(200, { status: "sent", redirect: location });
           return new Response(null, {
             status: 303,
-            headers: { Location: target.href, "Cache-Control": "no-store" },
+            headers: { Location: location, "Cache-Control": "no-store" },
           });
         }
       }

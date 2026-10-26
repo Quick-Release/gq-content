@@ -82,8 +82,11 @@ function referenced(string $content, array $patterns = []): array
     if (str_contains($content, '<!-- wp:')) {
         $walk(parse_blocks($content));
     }
-    if (preg_match_all('/\[gravityforms?\b[^\]]*\bid=["\']?(\d+)/i', $content, $matches)) {
-        array_push($ids, ...array_map('intval', $matches[1]));
+    if (preg_match_all('/\[gravityforms?\b([^\]]*)\]/i', $content, $matches)) {
+        foreach ($matches[1] as $attributes) {
+            $parsed = shortcode_parse_atts($attributes);
+            $ids[] = is_array($parsed) ? (int) ($parsed['id'] ?? 0) : 0;
+        }
     }
 
     return array_values(array_unique(array_filter($ids, static fn(int $id): bool => $id > 0)));
@@ -128,12 +131,13 @@ function honeypot_name(array $form): string
 /** The diagnostic for an unsupported field type, or null for a supported one. */
 function unsupported(string $type, string $input_type): ?array
 {
-    if (in_array($input_type, SUPPORTED, true)) {
-        return null;
-    }
+    // Pricing fields often use a supported input type (a product drop-down, an option's radios).
     $pricing = in_array($type, ['product', 'option', 'quantity', 'shipping', 'total', 'calculation', 'donation', 'singleproduct', 'singleshipping'], true)
         || preg_match('/creditcard|paypal|stripe|square|payment/', $type) === 1
         || (class_exists('GFCommon') && method_exists('GFCommon', 'is_pricing_field') && \GFCommon::is_pricing_field($type));
+    if (! $pricing && in_array($input_type, SUPPORTED, true)) {
+        return null;
+    }
     [$code, $message] = match (true) {
         $type === 'captcha' || $input_type === 'captcha' || str_contains($type, 'turnstile') || str_contains($type, 'recaptcha') => ['unsupported-captcha', 'Gravity Forms\' CAPTCHA can\'t be shown on the Frontend; remove it and use the Site\'s spam controls.'],
         in_array($input_type, ['fileupload', 'post_image', 'signature'], true) => ['unsupported-file-upload', 'File uploads aren\'t supported.'],
@@ -365,12 +369,10 @@ function referencing(?int $form_id = null): array
     $types = \GetQuick\Site\PublicationEvents\post_types();
     $patterns = [];
     $mention = '%' . $wpdb->esc_like('gravityform') . '%';
-    $rows = $wpdb->get_results($wpdb->prepare(
-        "SELECT ID, post_content FROM {$wpdb->posts} WHERE post_type = 'wp_block' AND post_status = 'publish' AND post_content LIKE %s",
-        $mention,
-    ));
+    // Every published synced pattern showing the form, also through nested patterns.
+    $rows = $wpdb->get_results("SELECT ID, post_content FROM {$wpdb->posts} WHERE post_type = 'wp_block' AND post_status = 'publish'");
     foreach ($rows as $row) {
-        $ids = referenced((string) $row->post_content);
+        $ids = referenced((string) $row->post_content, [(int) $row->ID => true]);
         if ($ids !== [] && ($form_id === null || in_array($form_id, $ids, true))) {
             $patterns[] = (int) $row->ID;
         }
