@@ -88,6 +88,7 @@ $out = match (getenv('FORMS_STEP')) {
         'page' => $has('pages'),
         'node' => $has('contentNodes'),
         'status' => Forms\status(),
+        'published' => Forms\published(1),
     ],
     'setup' => (static function () use ($contact, $unsupported, $inactive): array {
         update_option('proof_gf_forms', [1 => $contact, 2 => $unsupported, 3 => $inactive]);
@@ -146,6 +147,45 @@ $out = match (getenv('FORMS_STEP')) {
         return ['queued' => array_keys(\GetQuick\Site\PublicationEvents\queue())];
     })(),
     'status' => Forms\status(),
+    'published' => (static function (): array {
+        global $wpdb;
+        $ids = static fn(): array => array_values(array_filter([1, 2, 3, 4], static fn(int $id): bool => Forms\published($id)));
+        $read = ['initial' => $ids()];
+        // Answered from the stored set: no query once it is read.
+        $queries = $wpdb->num_queries;
+        Forms\published(1);
+        Forms\published(4);
+        $read['queries'] = $wpdb->num_queries - $queries;
+        $contactos = get_page_by_path('contactos');
+        wp_update_post(['ID' => $contactos->ID, 'post_status' => 'draft']);
+        $read['unpublished'] = $ids();
+        wp_update_post(['ID' => $contactos->ID, 'post_status' => 'publish']);
+        $read['republished'] = $ids();
+        // Form 3 is shown only through a synced pattern two levels down.
+        $inner = get_posts(['post_type' => 'wp_block', 'title' => 'Formulário', 'post_status' => 'publish', 'numberposts' => 1])[0];
+        wp_update_post(['ID' => $inner->ID, 'post_content' => '<!-- wp:paragraph --><p>Sem formulário</p><!-- /wp:paragraph -->']);
+        $read['pattern'] = $ids();
+        wp_update_post(['ID' => $inner->ID, 'post_content' => '<!-- wp:gravityforms/form {"formId":"3"} /-->']);
+        // A set read while content changed is stored under its old generation and read again;
+        // so is one stored under other post types or over an hour ago. A current one is trusted.
+        $current = ['generation' => get_option(Forms\GENERATION_OPTION), 'types' => \GetQuick\Site\PublicationEvents\post_types(), 'at' => time(), 'forms' => [4]];
+        $read['stale'] = [];
+        foreach (['generation' => 'stale', 'types' => ['page'], 'at' => time() - 2 * HOUR_IN_SECONDS] as $key => $value) {
+            update_option(Forms\PUBLISHED_OPTION, [$key => $value] + $current, true);
+            $read['stale'][$key] = $ids();
+        }
+        update_option(Forms\PUBLISHED_OPTION, $current, true);
+        $read['trusted'] = $ids();
+        $read['invalid'] = [Forms\published(0), Forms\published(-1)];
+
+        return $read;
+    })(),
+    // After the `published` step, whose saves read the set again as that request ended.
+    'stored' => (static function (): array {
+        $stored = get_option(Forms\PUBLISHED_OPTION);
+
+        return ['current' => Forms\published_current($stored), 'forms' => $stored['forms'] ?? null];
+    })(),
     'debug' => apply_filters('debug_information', [])['gq_content']['fields']['forms'] ?? null,
 };
 echo wp_json_encode($out);

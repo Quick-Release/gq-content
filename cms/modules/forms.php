@@ -20,7 +20,9 @@
  * Saving a form (its fields or its confirmations), activating, deactivating,
  * trashing, restoring or deleting it publishes every published entry that
  * references it again (publication-events.php), so the Frontend refreshes
- * its stored descriptor. `wp gq-forms status` reports Gravity Forms, every
+ * its stored descriptor. `published()` answers cheaply whether published
+ * content references a form, for a Site's CMS gate on anonymous submissions.
+ * `wp gq-forms status` reports Gravity Forms, every
  * referenced form, its diagnostics and the entries that reference it.
  *
  * Nothing here reads, exposes or exports entries.
@@ -428,6 +430,104 @@ foreach (['gform_post_form_activated', 'gform_post_form_deactivated', 'gform_pos
         republish((int) $form_id);
     }, 20);
 }
+
+/** The forms published content references, stored with what it was read under. */
+const PUBLISHED_OPTION = 'gq_forms_published';
+
+/** Changes whenever content that can reference a form changes. */
+const GENERATION_OPTION = 'gq_forms_generation';
+
+/** Seconds a stored set is trusted, for content changed without saving (SQL, imports). */
+const PUBLISHED_TTL = HOUR_IN_SECONDS;
+
+/**
+ * Whether a published, public entry references the form, directly or through a
+ * synced pattern. Cheap enough for every anonymous request (a Site's REST gate
+ * opens Gravity Forms' submissions path only for these forms): it reads one
+ * stored set, without a query. The request that saves content reads the set
+ * again before it ends; a set stored under another generation, other post
+ * types or more than an hour ago is read again too.
+ */
+function published(int $form_id): bool
+{
+    if ($form_id <= 0 || ! active()) {
+        return false;
+    }
+    $stored = get_option(PUBLISHED_OPTION);
+    $forms = published_current($stored) ? $stored['forms'] : store_published();
+
+    return in_array($form_id, $forms, true);
+}
+
+/** Whether a stored set still describes the content. */
+function published_current(mixed $stored): bool
+{
+    return is_array($stored) && is_array($stored['forms'] ?? null)
+        && ($stored['generation'] ?? null) === get_option(GENERATION_OPTION)
+        && ($stored['types'] ?? null) === \GetQuick\Site\PublicationEvents\post_types()
+        && (int) ($stored['at'] ?? 0) > time() - PUBLISHED_TTL;
+}
+
+/**
+ * Reads the forms published content references and stores them under the
+ * generation the read began at, so a read that races with a save isn't
+ * trusted. A read before post types are registered, or one a query failed,
+ * is answered but not stored.
+ *
+ * @return list<int>
+ */
+function store_published(): array
+{
+    global $wpdb;
+    $generation = get_option(GENERATION_OPTION);
+    if (! is_string($generation)) {
+        // Autoloaded from now on, so reading it needs no query.
+        $generation = wp_generate_uuid4();
+        add_option(GENERATION_OPTION, $generation, '', true);
+    }
+    $types = \GetQuick\Site\PublicationEvents\post_types();
+    $error = $wpdb->last_error;
+    $forms = [];
+    foreach (referencing() as $post) {
+        array_push($forms, ...referenced($post->post_content));
+    }
+    $forms = array_unique($forms);
+    sort($forms);
+    if (did_action('init') && $wpdb->last_error === $error) {
+        update_option(PUBLISHED_OPTION, ['generation' => $generation, 'types' => $types, 'at' => time(), 'forms' => $forms], true);
+    }
+
+    return $forms;
+}
+
+/** Marks the stored set out of date and reads it again before the request ends. */
+function content_changed(?WP_Post $post): void
+{
+    if (! $post instanceof WP_Post || ($post->post_type !== 'wp_block' && ! in_array($post->post_type, \GetQuick\Site\PublicationEvents\post_types(), true))) {
+        return;
+    }
+    update_option(GENERATION_OPTION, wp_generate_uuid4(), true);
+    if (! has_action('shutdown', __NAMESPACE__ . '\\refresh_published')) {
+        add_action('shutdown', __NAMESPACE__ . '\\refresh_published');
+    }
+}
+
+/** Reads the set again once per saving request, so visitors' requests don't. */
+function refresh_published(): void
+{
+    if (active()) {
+        store_published();
+    }
+}
+
+// Saving covers publishing, unpublishing, trashing, restoring and password
+// changes; revisions and autosaves are of another post type.
+add_action('save_post', static function ($post_id, $post = null): void {
+    content_changed($post instanceof WP_Post ? $post : null);
+}, 20, 2);
+add_action('deleted_post', static function ($post_id, $post = null): void {
+    content_changed($post instanceof WP_Post ? $post : null);
+}, 20, 2);
 
 /** Gravity Forms, every referenced form and its diagnostics, for readiness. */
 function status(): array

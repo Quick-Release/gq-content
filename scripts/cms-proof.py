@@ -85,7 +85,7 @@ if __name__ == '__main__':
          '--no-install', '--no-scripts', '--no-interaction'])
     manifest = json.loads((SITE / 'composer.json').read_text())
     manifest['require']['roots/bedrock-autoloader'] = '1.1.0'
-    manifest['require']['getquick/gq-content'] = '0.4.0'
+    manifest['require']['getquick/gq-content'] = '0.4.1'
     manifest['require-dev'] = {}
     package['dist'] = {'type': 'zip', 'url': artifact.as_uri(),
                        'reference': hashlib.sha256(artifact.read_bytes()).hexdigest(),
@@ -114,10 +114,10 @@ if __name__ == '__main__':
        '--admin_password=disposable-local-proof', '--admin_email=proof@example.test', '--skip-email')
     check('real WordPress boots Composer-installed MU plugin',
           wp('eval', "echo is_file(WPMU_PLUGIN_DIR . '/gq-content/gq-content.php') && function_exists('GetQuick\\\\Site\\\\SettingsEvents\\\\changed') ? 'loaded' : 'missing';").stdout.strip() == 'loaded')
-    check('bare version works without event configuration', wp('gq-events', 'version').stdout.strip() == '0.4.0')
+    check('bare version works without event configuration', wp('gq-events', 'version').stdout.strip() == '0.4.1')
     check('JSON version works without event configuration',
           json.loads(wp('gq-events', 'version', '--format=json').stdout) ==
-          {'package': 'getquick/gq-content', 'version': '0.4.0'})
+          {'package': 'getquick/gq-content', 'version': '0.4.1'})
     diagnostics = json.loads(wp('eval-file', str(ROOT / 'cms/tests/diagnostics.php'),
                                 env={'WP_ENV': 'production'}).stdout)
     check('production Site Health reports missing configuration safely',
@@ -203,7 +203,7 @@ if __name__ == '__main__':
             diagnostics = info(env)
             check(name + ': Site Health debug package/version/configured',
                   {name: row['value'] for name, row in diagnostics['fields'].items()} ==
-                  {'package': 'getquick/gq-content', 'version': '0.4.0', 'configured': True,
+                  {'package': 'getquick/gq-content', 'version': '0.4.1', 'configured': True,
                    'forms': 'dormant (Gravity Forms inactive)'})
             start = len(received)
             wp('gq-events', 'check', env=env)
@@ -330,7 +330,7 @@ if __name__ == '__main__':
         configure("define('GQ_CONTENT_SITE_ID', false);")
         check('version remains available with an invalid defined identity',
               json.loads(wp('gq-events', 'version', '--format=json', env=base).stdout) ==
-              {'package': 'getquick/gq-content', 'version': '0.4.0'})
+              {'package': 'getquick/gq-content', 'version': '0.4.1'})
 
         # Archives (ADR 0005): real WPGraphQL (the version Nomia runs) resolves
         # an assigned Page at its custom post type's archive URI.
@@ -436,8 +436,8 @@ if __name__ == '__main__':
                                  env=forms_env | {'FORMS_STEP': name} | (extra or {})).stdout)
 
         dormant = forms_step('dormant')
-        check('without Gravity Forms the forms module is dormant: no getquickForms field',
-              dormant['active'] is False and not dormant['page'] and not dormant['node'] and
+        check('without Gravity Forms the forms module is dormant: no getquickForms field, no published form',
+              dormant['active'] is False and not dormant['page'] and not dormant['node'] and dormant['published'] is False and
               dormant['status'] == {'gravityForms': {'active': False, 'version': None}, 'forms': [], 'ok': True})
         shutil.copy(ROOT / 'cms/tests/forms-fixture.php', SITE / 'web/app/mu-plugins/proof-gravityforms.php')
         try:
@@ -521,6 +521,17 @@ if __name__ == '__main__':
                   cli.returncode == 1 and json.loads(cli.stdout)['ok'] is False)
             check('Site Health names the forms module\'s state',
                   forms_step('debug') == {'label': 'Headless Gravity Forms', 'value': 'active'})
+            gate = forms_step('published')
+            check('published() names the forms public entries show, also through nested synced patterns',
+                  gate['initial'] == [1, 2, 3] and gate['invalid'] == [False, False])
+            check('published() answers from its stored set without a query', gate['queries'] == 0)
+            check('published() follows unpublishing and publishing; a form only a protected entry shows is not published',
+                  gate['unpublished'] == [2, 3] and gate['republished'] == [1, 2, 3])
+            check('published() follows a synced pattern\'s edit', gate['pattern'] == [1, 2])
+            check('published() rereads a set stored under an old generation, other post types or over an hour ago, and trusts a current one',
+                  gate['stale'] == {'generation': [1, 2, 3], 'types': [1, 2, 3], 'at': [1, 2, 3]} and gate['trusted'] == [4])
+            check('a request that saves content stores the current set as it ends, so visitors don\'t read it',
+                  forms_step('stored') == {'current': True, 'forms': [1, 2, 3]})
         finally:
             (SITE / 'web/app/mu-plugins/proof-gravityforms.php').unlink(missing_ok=True)
     finally:

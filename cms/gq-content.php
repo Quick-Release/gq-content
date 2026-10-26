@@ -2,7 +2,7 @@
 /**
  * Plugin Name: GETQUICK Content
  * Description: Publication events, settings events, delivery retries, archive pages, headless Gravity Forms and diagnostics.
- * Version: 0.4.0
+ * Version: 0.4.1
  * Author: GETQUICK
  * License: GPL-2.0-or-later
  * Requires PHP: 8.4.1
@@ -17,7 +17,7 @@ if (! defined('ABSPATH')) {
 }
 
 const PACKAGE = 'getquick/gq-content';
-const VERSION = '0.4.0';
+const VERSION = '0.4.1';
 
 require_once __DIR__ . '/modules/publication-events.php';
 require_once __DIR__ . '/modules/settings-events.php';

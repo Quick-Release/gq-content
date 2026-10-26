@@ -11,7 +11,7 @@ def prepare_npm(root: Path, destination: Path):
         retained = subprocess.check_output(
             ['node', 'scripts/release/candidate.mjs', 'npm'], cwd=root, text=True
         ).strip()
-        shutil.copyfile(retained, destination / 'getquick-content-0.4.0.tgz')
+        shutil.copyfile(retained, destination / 'getquick-content-0.4.1.tgz')
     else:
         subprocess.run(
             ['vp', 'pm', 'pack', '--pack-destination', str(destination)],

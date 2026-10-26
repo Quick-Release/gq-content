@@ -33,7 +33,7 @@ try {
   mkdirSync(artifacts);
   const selected = retained("npm");
   if (!selected) run("vp", ["pm", "pack", "--pack-destination", artifacts], join(repo, "frontend"));
-  const tarball = selected ?? join(artifacts, "getquick-content-0.4.0.tgz");
+  const tarball = selected ?? join(artifacts, "getquick-content-0.4.1.tgz");
   recordArtifact(tarball, "consumer");
   const listing = execFileSync("tar", ["-tzf", tarball], { encoding: "utf8" }).trim().split("\n");
   for (const file of listing) {
@@ -48,7 +48,7 @@ try {
       [
         "scripts/inspect-artifacts.mjs",
         tarball,
-        retained("cms") ?? join(repo, ".artifacts/gq-content-0.4.0.zip"),
+        retained("cms") ?? join(repo, ".artifacts/gq-content-0.4.1.zip"),
       ],
       repo,
     );
