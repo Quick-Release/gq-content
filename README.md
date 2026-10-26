@@ -58,6 +58,6 @@ const css = designThemeStyleSheet(theme) + presentationStyleSheet(theme);
 Grid has no implicit track or gap presets. Native layout context and explicit
 neutral responsive controls are compiled by the shared renderer; Site per-block
 renderers still take precedence. Upgrade both runtime packages together to
-0.4.0 through the Site's blueprint-managed pins alongside Design 0.9. See
-[the 0.4.0 release notes](docs/releases/0.4.0.md) and
+0.4.1 through the Site's blueprint-managed pins alongside Design 0.9. See
+[the 0.4.1](docs/releases/0.4.1.md) and [0.4.0](docs/releases/0.4.0.md) release notes and
 [0.3.2's](docs/releases/0.3.2.md) for rollout and browser mounting.

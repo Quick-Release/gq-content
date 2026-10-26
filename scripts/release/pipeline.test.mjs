@@ -9,7 +9,7 @@ test("interrupted publication resumes verified stages and blocks partial availab
   const candidate = process.env.GQ_RELEASE_BUNDLE
     ? load(process.env.GQ_RELEASE_BUNDLE)
     : {
-        manifest: { sourceCommit: "a".repeat(40), tag: "v0.4.0", version: "0.4.0" },
+        manifest: { sourceCommit: "a".repeat(40), tag: "v0.4.1", version: "0.4.1" },
         assets: { "release-manifest.json": Buffer.from("manifest") },
         npmIdentity: "npm",
         composerIdentity: "zip",
@@ -46,8 +46,8 @@ test("interrupted publication resumes verified stages and blocks partial availab
       ? [
           "tag",
           "release-manifest.json",
-          "getquick-content-0.4.0.tgz",
-          "gq-content-0.4.0.zip",
+          "getquick-content-0.4.1.tgz",
+          "gq-content-0.4.1.zip",
           "npm",
           "dispatch",
         ]

@@ -20,7 +20,9 @@
  * Saving a form (its fields or its confirmations), activating, deactivating,
  * trashing, restoring or deleting it publishes every published entry that
  * references it again (publication-events.php), so the Frontend refreshes
- * its stored descriptor. `wp gq-forms status` reports Gravity Forms, every
+ * its stored descriptor. `published()` answers cheaply whether published
+ * content references a form, for a Site's CMS gate on anonymous submissions.
+ * `wp gq-forms status` reports Gravity Forms, every
  * referenced form, its diagnostics and the entries that reference it.
  *
  * Nothing here reads, exposes or exports entries.
@@ -428,6 +430,60 @@ foreach (['gform_post_form_activated', 'gform_post_form_deactivated', 'gform_pos
         republish((int) $form_id);
     }, 20);
 }
+
+/** The forms published content references, stored with the generation it was read at. */
+const PUBLISHED_OPTION = 'gq_forms_published';
+
+/** Changes whenever content that can reference a form changes. */
+const GENERATION_OPTION = 'gq_forms_generation';
+
+/**
+ * Whether a published, public entry references the form, directly or through a
+ * synced pattern. Cheap enough for every anonymous request (a Site's REST gate
+ * opens Gravity Forms' submissions path only for these forms): it reads one
+ * stored set, which is read again only after content changed. A read that
+ * races with a save is stored under the generation it began at, so the next
+ * call reads again instead of trusting it.
+ */
+function published(int $form_id): bool
+{
+    if ($form_id <= 0 || ! active()) {
+        return false;
+    }
+    $generation = (string) get_option(GENERATION_OPTION, '');
+    $stored = get_option(PUBLISHED_OPTION);
+    if (! is_array($stored) || ($stored['generation'] ?? null) !== $generation || ! is_array($stored['forms'] ?? null)) {
+        $forms = [];
+        foreach (referencing() as $post) {
+            array_push($forms, ...referenced($post->post_content));
+        }
+        $forms = array_values(array_unique($forms));
+        sort($forms);
+        $stored = ['generation' => $generation, 'forms' => $forms];
+        update_option(PUBLISHED_OPTION, $stored, true);
+    }
+
+    return in_array($form_id, $stored['forms'], true);
+}
+
+/** Marks the stored set of published forms out of date. */
+function content_changed(int $post_id, ?WP_Post $post): void
+{
+    if (! $post instanceof WP_Post || wp_is_post_revision($post_id) || wp_is_post_autosave($post_id)) {
+        return;
+    }
+    if ($post->post_type === 'wp_block' || in_array($post->post_type, \GetQuick\Site\PublicationEvents\post_types(), true)) {
+        update_option(GENERATION_OPTION, wp_generate_uuid4(), true);
+    }
+}
+
+// Saving covers publishing, unpublishing, trashing, restoring and password changes.
+add_action('save_post', static function ($post_id, $post = null): void {
+    content_changed((int) $post_id, $post instanceof WP_Post ? $post : null);
+}, 20, 2);
+add_action('deleted_post', static function ($post_id, $post = null): void {
+    content_changed((int) $post_id, $post instanceof WP_Post ? $post : null);
+}, 20, 2);
 
 /** Gravity Forms, every referenced form and its diagnostics, for readiness. */
 function status(): array
