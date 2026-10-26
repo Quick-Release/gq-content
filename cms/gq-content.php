@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: GETQUICK Content
- * Description: Publication events, settings events, delivery retries, archive pages and diagnostics.
- * Version: 0.3.2
+ * Description: Publication events, settings events, delivery retries, archive pages, headless Gravity Forms and diagnostics.
+ * Version: 0.4.0
  * Author: GETQUICK
  * License: GPL-2.0-or-later
  * Requires PHP: 8.4.1
@@ -17,12 +17,13 @@ if (! defined('ABSPATH')) {
 }
 
 const PACKAGE = 'getquick/gq-content';
-const VERSION = '0.3.2';
+const VERSION = '0.4.0';
 
 require_once __DIR__ . '/modules/publication-events.php';
 require_once __DIR__ . '/modules/settings-events.php';
 require_once __DIR__ . '/modules/delivery-retries.php';
 require_once __DIR__ . '/modules/archives.php';
+require_once __DIR__ . '/modules/forms.php';
 
 add_filter('debug_information', static function (array $information): array {
     $information['gq_content'] = [

@@ -167,8 +167,8 @@ importers:
   .:
     dependencies:
       '@getquick/content':
-        specifier: file:getquick-content-0.3.2.tgz
-        version: file:getquick-content-0.3.2.tgz
+        specifier: file:getquick-content-0.4.0.tgz
+        version: file:getquick-content-0.4.0.tgz
       '@tanstack/react-router':
         specifier: 1.170.45
         version: 1.170.45(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -273,9 +273,9 @@ packages:
     resolution: {integrity: sha512-Vj1jF3cPfxg7OAfoI7QnVKLoILlm2JF9pnVHrX8qx7AHMiYWT+NDAA7jChlNgRS4WTLc/fD1lXLmPixluj+3Gg==}
     engines: {node: '>=6.9.0'}
 
-  '@getquick/content@file:getquick-content-0.3.2.tgz':
-    resolution: {integrity: TARBALL_INTEGRITY, tarball: file:getquick-content-0.3.2.tgz}
-    version: 0.3.2
+  '@getquick/content@file:getquick-content-0.4.0.tgz':
+    resolution: {integrity: TARBALL_INTEGRITY, tarball: file:getquick-content-0.4.0.tgz}
+    version: 0.4.0
     engines: {node: '>=22'}
 
   '@jridgewell/gen-mapping@0.3.13':
@@ -1081,7 +1081,7 @@ snapshots:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@getquick/content@file:getquick-content-0.3.2.tgz':
+  '@getquick/content@file:getquick-content-0.4.0.tgz':
     dependencies:
       zod: 3.25.76
 

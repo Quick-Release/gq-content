@@ -3,6 +3,7 @@ import type { LegalLanguage } from "./consent/legal";
 import type { AnalyticsSettings } from "./consent/configuration";
 
 import type { DesignBlock, DesignPattern } from "./design-patterns";
+import type { FormDescriptor } from "./forms/descriptor";
 export interface WordPressImage {
   sourceUrl: string;
   altText: string;
@@ -11,6 +12,11 @@ export interface WordPressImage {
 export interface WordPressPost {
   databaseId?: number;
   designBlocks?: DesignBlock[];
+  /**
+   * The public descriptors of the Gravity Forms forms it references, on a
+   * Site with `forms` (ADR 0009): what `gravityforms/form` blocks render.
+   */
+  forms?: FormDescriptor[];
   id: string;
   title: string;
   excerpt: string;
@@ -60,6 +66,8 @@ export interface HomeContent<X = unknown> extends DesignPresets {
     hasVideoHero: boolean;
     databaseId?: number;
     designBlocks?: DesignBlock[];
+    /** Its Gravity Forms forms' descriptors, on a Site with `forms`. */
+    forms?: FormDescriptor[];
   } & Extended<X>;
   /** WordPress failed on the blocks, so this is the page without them. */
   blocksOmitted: boolean;

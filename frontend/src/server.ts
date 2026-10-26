@@ -13,6 +13,7 @@ import type { ContentBindings } from "./bindings";
 import { configuredDelivery } from "./delivery";
 import { configuredWordPress, internalOrigins } from "./wordpress";
 import type { SiteChrome } from "./content-types";
+import { findForm, type FormDescriptor } from "./forms/descriptor";
 import { consentConfiguration, type ConsentConfiguration } from "./consent/configuration";
 import { rewriteEmbeds } from "./consent/embeds";
 import {
@@ -45,6 +46,14 @@ export interface ContentConfig<X = never> {
    * delivery; absent, bodies are delivered as published.
    */
   consent?: ContentConsentConfig;
+  /**
+   * Headless Gravity Forms (ADR 0009). True, each front page, page, post and
+   * item is read with the public descriptors of the forms it references
+   * (gq-content's CMS forms module, active with Gravity Forms), stored with it
+   * as `forms`, and `publishedForm` finds them for the form endpoint. Absent,
+   * reads and stored bodies are unchanged.
+   */
+  forms?: boolean;
   /**
    * The Site's own content on its pages and posts: GraphQL fields the runtime
    * reads with each of them, and the value the Site makes of them, stored with
@@ -204,6 +213,26 @@ export function createContentRuntime<X = never>(input: ContentConfig<X>) {
     handleRefresh: guarded("Refresh", "Refresh with POST.", refresh.handleRefresh),
     publishedHome: delivery.publishedHome,
     publishedEntry: delivery.publishedEntry,
+    /**
+     * A Gravity Forms form's descriptor as published with the page at a path
+     * (the publication store's, as the page is served), for the form endpoint
+     * (`createFormsServer`'s `descriptor`). Null when the page isn't served,
+     * doesn't reference the form, or the Site doesn't opt in to `forms`.
+     */
+    publishedForm: async (
+      path: string,
+      formId: number,
+      siteOrigin?: string,
+    ): Promise<FormDescriptor | null> => {
+      if (!config.forms) return null;
+      const route = new URL(path, "https://site.invalid").pathname;
+      if (isLanguageHome(route, languages)) {
+        const home = await delivery.publishedHome(siteOrigin, routeLanguage(route, languages));
+        return home.kind === "found" ? findForm(home.content.home.page.forms, formId) : null;
+      }
+      const entry = await delivery.publishedEntry(route, siteOrigin);
+      return entry.kind === "found" ? findForm(entry.content.entry.forms, formId) : null;
+    },
     /** Site-wide text search over delivered public content; never reads WordPress. */
     search: delivery.search,
     /**

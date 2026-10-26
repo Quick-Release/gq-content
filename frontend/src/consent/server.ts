@@ -4,6 +4,7 @@
 import { OPTIONAL_CATEGORIES } from "./catalog";
 import { CONSENT_PATH } from "./paths";
 import { bearerMatches } from "../bearer";
+import { isSameOrigin, readBoundedBody } from "../request-guards";
 import {
   MAX_RECORD_BYTES,
   parseConsentRecordRequest,
@@ -141,47 +142,8 @@ export function createConsentServer(config: ConsentServerConfig) {
   const origins = new Set((config.siteOrigins ?? []).map((origin) => new URL(origin).origin));
 
   /** CN-R9: same-origin only. A browser's cross-site post carries its Origin. */
-  function sameOrigin(request: Request): boolean {
-    const origin = request.headers.get("Origin");
-    const site = request.headers.get("Sec-Fetch-Site");
-    if (site && site !== "same-origin") return false;
-    if (!origin) return false;
-    if (origin === new URL(request.url).origin || origins.has(origin)) return true;
-    // Behind an adapter or proxy the request URL may name another host
-    // (Astro's Node adapter uses localhost): the browser's Host header is the
-    // origin it posted to.
-    try {
-      return new URL(origin).host === request.headers.get("Host");
-    } catch {
-      return false;
-    }
-  }
-
-  async function readBody(request: Request): Promise<string | null> {
-    const declared = Number(request.headers.get("Content-Length") ?? "0");
-    if (declared > MAX_RECORD_BYTES) return null;
-    if (!request.body) return "";
-    const reader = request.body.getReader();
-    const chunks: Uint8Array[] = [];
-    let size = 0;
-    for (;;) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      size += value.byteLength;
-      if (size > MAX_RECORD_BYTES) {
-        await reader.cancel();
-        return null;
-      }
-      chunks.push(value);
-    }
-    const bytes = new Uint8Array(size);
-    let offset = 0;
-    for (const chunk of chunks) {
-      bytes.set(chunk, offset);
-      offset += chunk.byteLength;
-    }
-    return new TextDecoder().decode(bytes);
-  }
+  const sameOrigin = (request: Request) => isSameOrigin(request, origins);
+  const readBody = (request: Request) => readBoundedBody(request, MAX_RECORD_BYTES);
 
   async function insert(db: ConsentDatabase, request: ConsentRecordRequest) {
     const recordedAt = now();
