@@ -1,4 +1,5 @@
 import { designBlocksSchema } from "./design-blocks";
+import { parseFormDescriptors } from "./forms/descriptor";
 import { parseFragment, type DefaultTreeAdapterMap } from "parse5";
 import { safeContentUrl } from "./html";
 import { designThemeSchema } from "./design-theme";
@@ -154,6 +155,11 @@ export function configuredDelivery<X>(
           }),
       }
     : {};
+  /** Gravity Forms descriptors stored with an entry (a Site with `forms`); invalid ones are dropped. */
+  const forms = z
+    .array(z.unknown())
+    .optional()
+    .transform((value) => (value === undefined ? undefined : parseFormDescriptors(value)));
   const homePublication = z.object({
     settings: z.object({ title: z.string(), description: z.string() }),
     page: z.object({
@@ -162,6 +168,7 @@ export function configuredDelivery<X>(
       hasVideoHero: z.boolean(),
       databaseId: z.number().int().positive().optional(),
       designBlocks: designBlocksSchema.optional(),
+      forms,
       ...extended,
     }),
     spacingSizes,
@@ -197,6 +204,7 @@ export function configuredDelivery<X>(
     hasVideoHero: z.boolean(),
     databaseId: z.number().int().positive().optional(),
     designBlocks: designBlocksSchema.optional(),
+    forms,
     spacingSizes,
     colors,
     theme: designThemeSchema.optional(),

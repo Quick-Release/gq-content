@@ -22,6 +22,7 @@ export const checks = [
   ["consent-astro", "node", ["scripts/consent-acceptance.mjs"]],
   ["consent-worker", "node", ["scripts/consent-worker-consumer.mjs"]],
   ["consent-tanstack", "node", ["scripts/consent-tanstack-consumer.mjs"]],
+  ["forms-astro", "node", ["scripts/forms-acceptance.mjs"]],
   [
     "P7",
     "vp",

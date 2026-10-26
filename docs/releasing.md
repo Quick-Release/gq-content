@@ -170,9 +170,14 @@ rebuild, repack, bump the version or edit the manifest to recover.
 
 Validation also runs the consent proofs against the selected bytes: the Astro
 fixture in Chromium (`consent-astro`), the workerd/local D1 Worker consumer
-(`consent-worker`) and the TanStack Start consumer (`consent-tanstack`). They
-install public npm dependencies from pinned lockfiles and Playwright's
-Chromium; CI installs its system dependencies first.
+(`consent-worker`) and the TanStack Start consumer (`consent-tanstack`). It
+also runs the headless Gravity Forms proof (`forms-astro`): an Astro Site built
+for Cloudflare Workers and served by local workerd, visited in Chromium without
+JavaScript. Turnstile is verified through Cloudflare's siteverify with its
+public test keys, so that proof needs outbound HTTPS to
+`challenges.cloudflare.com`. These proofs install public npm dependencies from
+pinned lockfiles and Playwright's Chromium; CI installs its system dependencies
+first. No Cloudflare account or credential is used.
 
 The repository's `vp test` discovers Frontend tests and the eight release cases in
 `scripts/release/*.test.mjs`. Without `GQ_RELEASE_BUNDLE`, the five publication

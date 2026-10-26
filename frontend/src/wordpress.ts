@@ -1,4 +1,5 @@
 import { designBlocksJsonSchema } from "./design-blocks";
+import { parseFormDescriptors } from "./forms/descriptor";
 import { designThemeSchema } from "./design-theme";
 import { z } from "zod";
 import type * as Types from "./content-types";
@@ -85,6 +86,16 @@ export function configuredWordPress<X>(
     const fields = extensionSelection(kind, collection);
     return fields ? `\n... @include(if: $withBlocks) {\n${fields}\n}` : "";
   };
+  /**
+   * The public descriptors of the Gravity Forms forms an entry references
+   * (gq-content's CMS forms module), read with the blocks on a Site that
+   * opts in to forms. Without the option the queries are unchanged.
+   */
+  const formsField = config.forms ? "\n          getquickForms @include(if: $withBlocks)" : "";
+  const formsJson = z
+    .string()
+    .nullish()
+    .transform((value) => (value == null ? undefined : parseFormDescriptors(value)));
   // The GETQUICK schema the Frontend requires. A field WordPress leaves out, or
   // returns with another type, fails the read: only the fields declared nullable
   // here may be null, and only those fall back to a default.
@@ -107,6 +118,7 @@ export function configuredWordPress<X>(
             id: z.string().nullable().optional(),
             databaseId: z.number().int().positive().optional(),
             getquickBlocksJson: designBlocksJsonSchema,
+            getquickForms: formsJson.optional(),
             isFrontPage: z.boolean(),
             title: z.string().nullable(),
             content: z.string().nullable(),
@@ -126,6 +138,7 @@ export function configuredWordPress<X>(
       id: z.string(),
       databaseId: z.number().int().positive().optional(),
       getquickBlocksJson: designBlocksJsonSchema,
+      getquickForms: formsJson.optional(),
       title: z.string().nullable(),
       content: z.string().nullable(),
       uri: z.string(),
@@ -176,6 +189,7 @@ export function configuredWordPress<X>(
       __typename: z.string(),
       databaseId: z.number().int().positive().optional(),
       getquickBlocksJson: designBlocksJsonSchema,
+      getquickForms: formsJson.optional(),
       id: z.string(),
       uri: z.string().nullable(),
       status: z.string().nullable(),
@@ -314,7 +328,7 @@ export function configuredWordPress<X>(
           content
           blocks(attributes: true, htmlContent: true, dynamicContent: true, postTemplate: false)
             @include(if: $withBlocks)
-          isFrontPage${extensionFields("page")}
+          isFrontPage${formsField}${extensionFields("page")}
         }
       }
       designTokens {
@@ -348,7 +362,7 @@ export function configuredWordPress<X>(
           content
           blocks(attributes: true, htmlContent: true, dynamicContent: true, postTemplate: false)
             @include(if: $withBlocks)
-          isFrontPage${extensionFields("page")}
+          isFrontPage${formsField}${extensionFields("page")}
         }
       }
       designTokens {
@@ -469,7 +483,7 @@ export function configuredWordPress<X>(
           sourceUrl
           altText
         }
-      }${extensionFields("post")}
+      }${formsField}${extensionFields("post")}
     }
     pageBy(uri: $uri) {
       id
@@ -488,7 +502,7 @@ export function configuredWordPress<X>(
           sourceUrl
           altText
         }
-      }${extensionFields("page")}
+      }${formsField}${extensionFields("page")}
     }
   }
 `;
@@ -558,7 +572,7 @@ export function configuredWordPress<X>(
         isRestricted
         modifiedGmt
         blocks(attributes: true, htmlContent: true, dynamicContent: true, postTemplate: false)
-          @include(if: $withBlocks)
+          @include(if: $withBlocks)${formsField}
       }
       ... on NodeWithTitle {
         title
@@ -653,6 +667,7 @@ export function configuredWordPress<X>(
       id: post.id,
       ...(post.databaseId !== undefined ? { databaseId: post.databaseId } : {}),
       ...(post.getquickBlocksJson !== undefined ? { designBlocks: post.getquickBlocksJson } : {}),
+      ...(config.forms && post.getquickForms !== undefined ? { forms: post.getquickForms } : {}),
       title: post.title ?? "",
       excerpt: post.excerpt ?? "",
       content: post.content ?? "",
@@ -836,6 +851,11 @@ export function configuredWordPress<X>(
     );
   }
 
+  /** Optional fields (getquickBlocksJson, getquickForms) this CMS has answered it lacks. */
+  const absentFields = new Set<string>();
+  const OPTIONAL_FIELD_ERROR =
+    /^Cannot query field "(getquickBlocksJson|getquickForms)" on type "(?:Post|Page|ContentNode)"\.(?: Did you mean [^\n]+)?$/;
+
   /**
    * The CMS can fail on one page's blocks (a 502 for a block's attributes) while
    * the rest of it is fine: read it again without them rather than fail it. Only
@@ -847,6 +867,9 @@ export function configuredWordPress<X>(
     queryText: string,
     variables: Record<string, string | boolean> = {},
   ): Promise<{ data: z.infer<S>; blocksOmitted: boolean }> {
+    // Fields this CMS was found to lack are left out of every later read.
+    for (const field of absentFields)
+      queryText = queryText.replaceAll(`${field} @include(if: $withBlocks)`, "");
     // Retain the compatible document if the subsequent read needs HTTP recovery.
     const read = async (readVariables: Record<string, string | boolean>): Promise<z.infer<S>> => {
       try {
@@ -856,14 +879,16 @@ export function configuredWordPress<X>(
           !(error instanceof CmsFailureError) ||
           error.failure.reason !== "graphql" ||
           !error.graphqlErrors?.length ||
-          !error.graphqlErrors.every((message) =>
-            /^Cannot query field "getquickBlocksJson" on type "(?:Post|Page)"\.(?: Did you mean [^\n]+)?$/.test(
-              message,
-            ),
-          )
+          !error.graphqlErrors.every((message) => OPTIONAL_FIELD_ERROR.test(message))
         )
           throw error;
-        queryText = queryText.replace(/getquickBlocksJson @include\(if: \$withBlocks\)/g, "");
+        // A CMS without GQ Design's canonical blocks, or without Gravity Forms
+        // (gq-content's forms module is dormant then): read without them.
+        for (const message of error.graphqlErrors) {
+          const field = OPTIONAL_FIELD_ERROR.exec(message)![1]!;
+          absentFields.add(field);
+          queryText = queryText.replaceAll(`${field} @include(if: $withBlocks)`, "");
+        }
         return query(schema, queryText, readVariables);
       }
     };
@@ -937,6 +962,9 @@ export function configuredWordPress<X>(
               ...(node.databaseId !== undefined ? { databaseId: node.databaseId } : {}),
               ...(node.getquickBlocksJson !== undefined
                 ? { designBlocks: node.getquickBlocksJson }
+                : {}),
+              ...(config.forms && node.getquickForms !== undefined
+                ? { forms: node.getquickForms }
                 : {}),
               title: node.title ?? "",
               content:

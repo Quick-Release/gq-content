@@ -1,0 +1,44 @@
+---
+// A page with a gravityforms/form block, rendered from its descriptor alone.
+import {
+  blockFormId,
+  clearFormStateCookie,
+  findForm,
+  readFormState,
+  renderGravityForm,
+} from "@getquick/content/forms/astro";
+import { TURNSTILE_TEST_KEYS } from "@getquick/content/forms/testing";
+import { FORMS } from "../lib/forms";
+
+export const prerender = false;
+
+const source = `/${Astro.params.form}/`;
+const entry = Object.values(FORMS).find((form) => form.page === source);
+if (!entry) return new Response(null, { status: 404 });
+const forms = [entry.descriptor];
+const block = { name: "gravityforms/form", attributes: { formId: String(entry.descriptor.id) } };
+const descriptor = findForm(forms, blockFormId(block.attributes)!);
+const state = descriptor
+  ? readFormState({ url: Astro.url, cookie: Astro.request.headers.get("Cookie") }, descriptor.id)
+  : null;
+if (state) Astro.response.headers.append("Set-Cookie", clearFormStateCookie(state.formId, { secure: Astro.url.protocol === "https:" }));
+const turnstile = source.startsWith("/turnstile") ? { siteKey: TURNSTILE_TEST_KEYS.passingSiteKey } : null;
+const html = renderGravityForm({
+  descriptor,
+  source,
+  language: "pt-PT",
+  legal: { roles: [{ role: "privacy_policy", url: "/politica-de-privacidade/", title: "Política de privacidade" }] },
+  state,
+  turnstile,
+});
+---
+<!doctype html>
+<html lang="pt-PT">
+  <head><meta charset="utf-8" /><title>Contactos</title></head>
+  <body>
+    <main>
+      <h1>Contactos</h1>
+      <Fragment set:html={html} />
+    </main>
+  </body>
+</html>

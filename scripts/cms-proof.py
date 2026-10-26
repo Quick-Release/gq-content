@@ -85,7 +85,7 @@ if __name__ == '__main__':
          '--no-install', '--no-scripts', '--no-interaction'])
     manifest = json.loads((SITE / 'composer.json').read_text())
     manifest['require']['roots/bedrock-autoloader'] = '1.1.0'
-    manifest['require']['getquick/gq-content'] = '0.3.2'
+    manifest['require']['getquick/gq-content'] = '0.4.0'
     manifest['require-dev'] = {}
     package['dist'] = {'type': 'zip', 'url': artifact.as_uri(),
                        'reference': hashlib.sha256(artifact.read_bytes()).hexdigest(),
@@ -114,16 +114,16 @@ if __name__ == '__main__':
        '--admin_password=disposable-local-proof', '--admin_email=proof@example.test', '--skip-email')
     check('real WordPress boots Composer-installed MU plugin',
           wp('eval', "echo is_file(WPMU_PLUGIN_DIR . '/gq-content/gq-content.php') && function_exists('GetQuick\\\\Site\\\\SettingsEvents\\\\changed') ? 'loaded' : 'missing';").stdout.strip() == 'loaded')
-    check('bare version works without event configuration', wp('gq-events', 'version').stdout.strip() == '0.3.2')
+    check('bare version works without event configuration', wp('gq-events', 'version').stdout.strip() == '0.4.0')
     check('JSON version works without event configuration',
           json.loads(wp('gq-events', 'version', '--format=json').stdout) ==
-          {'package': 'getquick/gq-content', 'version': '0.3.2'})
+          {'package': 'getquick/gq-content', 'version': '0.4.0'})
     diagnostics = json.loads(wp('eval-file', str(ROOT / 'cms/tests/diagnostics.php'),
                                 env={'WP_ENV': 'production'}).stdout)
     check('production Site Health reports missing configuration safely',
           diagnostics['health']['status'] == 'critical' and
           diagnostics['fields']['configured']['value'] is False)
-    check('all four modules load once in dependency order through Bedrock',
+    check('all five modules load once in dependency order through Bedrock',
           wp('eval-file', str(ROOT / 'cms/tests/loading.php')).stdout.strip() == 'loaded-once-in-order')
 
     # An external HTTP receiver checks actual WordPress transport/signatures.
@@ -203,7 +203,8 @@ if __name__ == '__main__':
             diagnostics = info(env)
             check(name + ': Site Health debug package/version/configured',
                   {name: row['value'] for name, row in diagnostics['fields'].items()} ==
-                  {'package': 'getquick/gq-content', 'version': '0.3.2', 'configured': True})
+                  {'package': 'getquick/gq-content', 'version': '0.4.0', 'configured': True,
+                   'forms': 'dormant (Gravity Forms inactive)'})
             start = len(received)
             wp('gq-events', 'check', env=env)
             post = wp('eval-file', str(ROOT / 'cms/tests/save.php'), env=env).stdout.strip()
@@ -329,7 +330,7 @@ if __name__ == '__main__':
         configure("define('GQ_CONTENT_SITE_ID', false);")
         check('version remains available with an invalid defined identity',
               json.loads(wp('gq-events', 'version', '--format=json', env=base).stdout) ==
-              {'package': 'getquick/gq-content', 'version': '0.3.2'})
+              {'package': 'getquick/gq-content', 'version': '0.4.0'})
 
         # Archives (ADR 0005): real WPGraphQL (the version Nomia runs) resolves
         # an assigned Page at its custom post type's archive URI.
@@ -424,6 +425,104 @@ if __name__ == '__main__':
         screen = step('screen')
         check('GETQUICK → Archives (under Settings without gq-config) offers a Page for each type',
               screen['menu'] == ['options-general.php'] and screen['select'] and screen['sanitized'])
+
+        # Headless Gravity Forms (gq-platform ADR 0009): dormant without
+        # Gravity Forms; with P2's stand-in for it, every public entry's
+        # referenced forms' public descriptors in real WPGraphQL.
+        forms_env = env | {'GQ_CONTENT_SITE_ID': 'forms-proof'}
+
+        def forms_step(name, extra=None):
+            return json.loads(wp('eval-file', str(ROOT / 'cms/tests/forms.php'),
+                                 env=forms_env | {'FORMS_STEP': name} | (extra or {})).stdout)
+
+        dormant = forms_step('dormant')
+        check('without Gravity Forms the forms module is dormant: no getquickForms field',
+              dormant['active'] is False and not dormant['page'] and not dormant['node'] and
+              dormant['status'] == {'gravityForms': {'active': False, 'version': None}, 'forms': [], 'ok': True})
+        shutil.copy(ROOT / 'cms/tests/forms-fixture.php', SITE / 'web/app/mu-plugins/proof-gravityforms.php')
+        try:
+            forms_step('setup')
+            run(['vp', 'pack'])
+            # P2's bare WordPress lacks the Design/blocks fields, and with them $withBlocks.
+            form_queries = {name: without_fields(query).replace('getquickForms @include(if: $withBlocks)', 'getquickForms')
+                            .replace('HomePage($withBlocks: Boolean = true)', 'HomePage')
+                            for name, query in
+                            json.loads(run(['node', 'scripts/forms-queries.mjs']).stdout).items()}
+            read = forms_step('read', {'FORMS_QUERIES': json.dumps(form_queries)})
+            check('with Gravity Forms every content node has getquickForms',
+                  read['active'] and read['page'] and read['post'] and read['node'])
+            contact = (read['contactos'].get('forms') or [None])[0] or {}
+            check('a page\'s referenced form (in nested blocks) is delivered as its public descriptor',
+                  [form['id'] for form in read['contactos']['forms']] == [1] and contact['available'] and
+                  contact['title'] == 'Contactos' and contact['description'] == 'Envie-nos uma mensagem.' and
+                  contact['submitLabel'] == 'Enviar' and
+                  [field['id'] for field in contact['fields']] == [1, 2, 3, 4, 5, 8] and
+                  contact['fields'][0]['inputs'] == [
+                      {'id': '1.3', 'name': 'input_1_3', 'label': 'Nome próprio', 'autocomplete': 'given-name'},
+                      {'id': '1.6', 'name': 'input_1_6', 'label': 'Apelido', 'autocomplete': 'family-name'}] and
+                  'defaultValue' not in contact['fields'][2] and contact['fields'][2]['maxLength'] == 120 and
+                  contact['fields'][4]['consent'] == {'checkboxLabel': 'Aceito o tratamento dos meus dados.',
+                                                      'description': 'Os dados servem apenas para responder.',
+                                                      'revisionId': '3'} and
+                  [input['name'] for input in contact['fields'][4]['inputs']] == ['input_5_1', 'input_5_2', 'input_5_3'] and
+                  contact['fields'][5]['choices'] == [{'text': 'Geral', 'value': 'geral', 'selected': True},
+                                                     {'text': 'Imprensa', 'value': 'Imprensa', 'selected': False}] and
+                  contact['honeypot'] == {'name': 'input_9'} and
+                  contact['confirmation'] == {'type': 'message', 'message': 'Obrigado, !'} and
+                  contact['diagnostics'] == [])
+            check('the descriptor carries no notification, entry, feed or admin data',
+                  not re.search(r'notifications|secretariado|arquivo@|personalData|adminLabel|reply-to|'
+                                r'limitEntries|requireLogin|honeypotAction|Interno|entries|feeds',
+                                read['contactos']['json']))
+            unsupported = read['candidatura']['forms'][0]
+            check('unsupported fields and settings are diagnostics, and left out of the fields',
+                  [(each['code'], each.get('fieldId')) for each in unsupported['diagnostics']] == [
+                      ('unsupported-captcha', 1), ('unsupported-file-upload', 2), ('unsupported-payment', 3),
+                      ('unsupported-multi-page', 4), ('unsupported-conditional-logic', 5),
+                      ('unsupported-field', 6), ('unsupported-payment', 7), ('requires-login', None)] and
+                  [field['id'] for field in unsupported['fields']] == [5] and
+                  unsupported['confirmation'] == {'type': 'redirect', 'url': 'https://nomia.test/obrigado/'})
+            check('a shortcode (by its own id) and a nested synced pattern\'s form are referenced; an inactive form is unavailable',
+                  [form['id'] for form in read['candidatura']['forms']] == [2] and read['padrao']['forms'][0]['id'] == 3 and read['padrao']['forms'][0]['available'] is False and
+                  read['padrao']['forms'][0]['diagnostics'][0]['code'] == 'unavailable')
+            check('a password-protected entry delivers no descriptors; one without forms delivers none',
+                  read['protegida'] is None and read['sem']['forms'] == [])
+            runtime_reads = read['runtime']
+            check('the runtime\'s forms reads (front page, page, collection node) are valid WPGraphQL',
+                  all('errors' not in result for result in runtime_reads.values()) and
+                  json.loads(runtime_reads['EntryByUri']['data']['pageBy']['getquickForms'])[0]['id'] == 1 and
+                  json.loads(runtime_reads['NodeByUri']['data']['node']['getquickForms'])[0]['id'] == 1)
+
+            ids = {name: wp('post', 'list', '--post_type=page', f'--name={name}', '--field=ID').stdout.strip()
+                   for name in ['contactos', 'candidatura', 'padrao', 'protegida']}
+            start = len(received)
+            saved = forms_step('save')
+            published = [row['event']['entry']['uri'] for row in received[start:]
+                         if row['signed'] and row['event']['action'] == 'publish']
+            check('saving a form publishes again exactly the public entries that reference it',
+                  saved['queued'] == [int(ids['contactos'])] and published == ['/contactos/'])
+            start = len(received)
+            confirmations = forms_step('confirmations')
+            check('saving a form\'s confirmations publishes its entries again; notifications don\'t',
+                  confirmations['queued'] == [int(ids['candidatura'])] and
+                  [row['event']['entry']['uri'] for row in received[start:] if row['signed']] == ['/candidatura/'])
+            start = len(received)
+            trashed = forms_step('trash')
+            check('trashing a form publishes again the entries that show it through nested synced patterns',
+                  trashed['queued'] == [int(ids['padrao'])] and
+                  [row['event']['entry']['uri'] for row in received[start:] if row['signed']] == ['/padrao/'])
+            report = forms_step('status')
+            check('wp gq-forms status reports each referenced form, its diagnostics and where it is',
+                  report['gravityForms'] == {'active': True, 'version': '3.2.0-proof'} and report['ok'] is False and
+                  [(form['id'], form['referencedBy'], [d['code'] for d in form['diagnostics']][:1]) for form in report['forms']] ==
+                  [(1, ['/contactos/'], []), (2, ['/candidatura/'], ['unsupported-captcha']), (3, ['/padrao/'], ['unavailable'])])
+            cli = wp('gq-forms', 'status', '--format=json', env=forms_env, ok=False)
+            check('the readiness command fails while a referenced form has diagnostics',
+                  cli.returncode == 1 and json.loads(cli.stdout)['ok'] is False)
+            check('Site Health names the forms module\'s state',
+                  forms_step('debug') == {'label': 'Headless Gravity Forms', 'value': 'active'})
+        finally:
+            (SITE / 'web/app/mu-plugins/proof-gravityforms.php').unlink(missing_ok=True)
     finally:
         configure()
         receiver.shutdown()

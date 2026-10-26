@@ -69,7 +69,7 @@ def clear_events():
     wp('eval', "foreach(get_posts(['post_type'=>['page','post'],'post_status'=>array_values(get_post_stati()),'numberposts'=>-1,'lang'=>'']) as $p) delete_post_meta($p->ID,'_gq_publication_event'); foreach(['identity','menus','logo','design','patterns','identity:pt','identity:en','menus:pt','menus:en'] as $s) delete_option('gq_settings_event_'.$s); delete_option('gq_publication_events_deleted');", configured=False)
 
 if phase == 'prepare-partial':
-    check('Composer-installed CMS is 0.3.2', wp('gq-events', 'version').stdout.strip() == '0.3.2')
+    check('Composer-installed CMS is 0.4.0', wp('gq-events', 'version').stdout.strip() == '0.4.0')
     check('actual Polylang is active', wp('eval', "echo function_exists('pll_set_post_language') ? 'yes' : 'no';", configured=False).stdout.strip() == 'yes')
     observer.write_text((ROOT / 'cms/tests/reconciliation-export.php').read_text())
     # Use WordPress/Polylang APIs to create real content. Omit endpoint configuration

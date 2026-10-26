@@ -3,7 +3,7 @@
 `gq-content.php` is the single plugin entry point. Install the plugin-root ZIP
 as `getquick/gq-content` (`wordpress-muplugin`) through Composer. Bedrock's
 `roots/bedrock-autoloader` 1.1.0 discovers this entry; it loads publication events,
-settings events, delivery retries, then archives using `require_once`. Do not load modules
+settings events, delivery retries, archives, then forms using `require_once`. Do not load modules
 as loose MU plugins.
 
 Set `GQ_CONTENT_SITE_ID` to exactly the Frontend's `ContentConfig.site` (the
@@ -22,8 +22,8 @@ fail safely when unconfigured, and production Site Health is critical. Existing
 valid delivery history is preserved. Site Health debug information includes
 package, version and a configured boolean, with no credentials.
 
-`wp gq-events version` prints `0.3.2`; `--format=json` prints
-`{"package":"getquick/gq-content","version":"0.3.2"}` even without configuration.
+`wp gq-events version` prints `0.4.0`; `--format=json` prints
+`{"package":"getquick/gq-content","version":"0.4.0"}` even without configuration.
 Existing commands are `status`, `check`, `retry <post-id>`, `settings status`,
 `settings retry <setting>`, `delays`, `retry-due` and `reconcile`.
 Shared settings subjects are `menus`, `logo`, `identity`, `design`, `patterns`,
@@ -71,8 +71,20 @@ reachable at their addresses" names published Pages whose URI resolves to
 something else, such as a child of an archive Page that a type's single-item
 rule claims (the Site moves its items' rewrite slug). See ADR 0005.
 
+Headless Gravity Forms (gq-platform ADR 0009, local ADR 0008) is dormant
+unless Gravity Forms is active. Then WPGraphQL's `ContentNode.getquickForms` holds
+the public descriptors (JSON) of the forms a published, unprotected entry
+references, through blocks, synced patterns or `[gravityform]` shortcodes. A
+descriptor never contains notifications, entries, feeds or admin settings.
+Saving a form or its confirmations, or activating, deactivating, trashing,
+restoring or deleting it, sends a publication event for each entry that
+references it. `wp gq-forms status [--format=json]` lists each referenced form,
+its readiness diagnostics (unsupported fields and settings, unavailable forms)
+and the URIs that reference it. It exits 1 while any form has a diagnostic.
+Site Health debug information says whether the module is active.
+
 Run `vp run cms` for the reusable P2 installed-plugin proof, or
-`vp run cms-package` to produce `.artifacts/gq-content-0.3.2.zip`. The archive
+`vp run cms-package` to produce `.artifacts/gq-content-0.4.0.zip`. The archive
 contains only plugin files, not tests or Frontend code. The proof uses PHP,
 Composer, Python 3, curl, SQLite and downloaded WP-CLI; it installs the archive
 through real Composer installers into a fresh public Bedrock project and boots

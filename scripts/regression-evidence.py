@@ -20,10 +20,10 @@ records = [json.loads((WORK / 'artifacts' / (name + '.json')).read_text()) for n
 for record in records:
     assert digest(WORK / 'artifacts' / (record['proof'] + '-' + record['filename'])) == record['sha256'], 'Retained artifact bytes differ'
 for name in ['pair', 'multilingual']:
-    path = WORK / name / 'getquick-content-0.3.2.tgz'
+    path = WORK / name / 'getquick-content-0.4.0.tgz'
     records.append({'proof': name, 'filename': path.name, 'sha256': digest(path)})
 assert len({r['sha256'] for r in records}) == 1, 'Proofs must consume identical candidate npm bytes'
-archive = ROOT / '.artifacts/gq-content-0.3.2.zip'
+archive = ROOT / '.artifacts/gq-content-0.4.0.zip'
 composer = json.loads((WORK / 'p2/bedrock/composer.lock').read_text())
 assert next(p for p in composer['packages'] if p['name'] == 'getquick/gq-content')['dist']['reference'] == digest(archive), 'Installed Composer ZIP identity differs'
 versions = {p['name']: p['version'] for p in composer['packages']}

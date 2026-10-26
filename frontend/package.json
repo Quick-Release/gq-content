@@ -1,6 +1,6 @@
 {
   "name": "@getquick/content",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "license": "UNLICENSED",
   "files": [
     "dist",
@@ -61,6 +61,22 @@
     "./design/client": {
       "types": "./dist/design-client.d.ts",
       "import": "./dist/design-client.js"
+    },
+    "./forms": {
+      "types": "./dist/forms.d.ts",
+      "import": "./dist/forms.js"
+    },
+    "./forms/astro": {
+      "types": "./dist/forms-astro.d.ts",
+      "import": "./dist/forms-astro.js"
+    },
+    "./forms/server": {
+      "types": "./dist/forms-server.d.ts",
+      "import": "./dist/forms-server.js"
+    },
+    "./forms/testing": {
+      "types": "./dist/forms-testing.d.ts",
+      "import": "./dist/forms-testing.js"
     }
   },
   "publishConfig": {

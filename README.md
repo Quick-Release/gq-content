@@ -35,6 +35,13 @@ The [consent foundation](docs/consent.md) (CONSENT-1/LEGAL-1, gq-platform ADR 00
 without the plugin or content runtime, with `legal`/`analytics` settings events
 on the CMS side.
 
+Headless Gravity Forms (gq-platform ADR 0009) ships as isolated
+`@getquick/content/forms*` exports and a CMS module that is dormant without
+Gravity Forms. Form descriptors travel with publications
+([ADR 0008](docs/adr/0008-deliver-gravity-forms-descriptors-with-publications.md)),
+and submissions go to Gravity Forms' REST submissions endpoint without a
+credential. Nothing reads entries.
+
 [Paired release operations](docs/releasing.md) describe building one retained
 candidate, validating its exact bytes, and safely resuming publication. Publication
 requires exact-revision CI proofs and owner-provided registry enrollment/access;
@@ -51,5 +58,6 @@ const css = designThemeStyleSheet(theme) + presentationStyleSheet(theme);
 Grid has no implicit track or gap presets. Native layout context and explicit
 neutral responsive controls are compiled by the shared renderer; Site per-block
 renderers still take precedence. Upgrade both runtime packages together to
-0.3.2 through the Site's blueprint-managed pins alongside Design 0.9.0. See
-[the release notes](docs/releases/0.3.2.md) for rollout and browser mounting.
+0.4.0 through the Site's blueprint-managed pins alongside Design 0.9. See
+[the 0.4.0 release notes](docs/releases/0.4.0.md) and
+[0.3.2's](docs/releases/0.3.2.md) for rollout and browser mounting.
