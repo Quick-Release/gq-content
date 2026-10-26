@@ -527,8 +527,11 @@ if __name__ == '__main__':
             check('published() answers from its stored set without a query', gate['queries'] == 0)
             check('published() follows unpublishing and publishing; a form only a protected entry shows is not published',
                   gate['unpublished'] == [2, 3] and gate['republished'] == [1, 2, 3])
-            check('published() follows a synced pattern\'s edit, and rereads a set stored under an old generation',
-                  gate['pattern'] == [1, 2] and gate['stale'] == [1, 2, 3])
+            check('published() follows a synced pattern\'s edit', gate['pattern'] == [1, 2])
+            check('published() rereads a set stored under an old generation, other post types or over an hour ago, and trusts a current one',
+                  gate['stale'] == {'generation': [1, 2, 3], 'types': [1, 2, 3], 'at': [1, 2, 3]} and gate['trusted'] == [4])
+            check('a request that saves content stores the current set as it ends, so visitors don\'t read it',
+                  forms_step('stored') == {'current': True, 'forms': [1, 2, 3]})
         finally:
             (SITE / 'web/app/mu-plugins/proof-gravityforms.php').unlink(missing_ok=True)
     finally:

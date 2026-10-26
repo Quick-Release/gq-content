@@ -85,9 +85,11 @@ Site Health debug information says whether the module is active.
 `GetQuick\Content\Forms\published(int $form_id): bool` says whether a published,
 unprotected entry references the form. It is cheap enough for every anonymous
 request: a Site's CMS gate (gq-site's `content-api.php`) can open Gravity Forms'
-submissions route only for those forms. It reads one stored set of form ids,
-which is read again from content after any page, post, item or synced pattern
-is saved or deleted.
+submissions route only for those forms. It reads one stored set of form ids
+without a query. A request that saves or deletes a page, post, item or synced
+pattern reads the set again from content as it ends. A set is also read again
+when post types change or after an hour, which bounds staleness after content
+is changed without saving (SQL, imports, `wp search-replace`).
 
 Run `vp run cms` for the reusable P2 installed-plugin proof, or
 `vp run cms-package` to produce `.artifacts/gq-content-0.4.1.zip`. The archive

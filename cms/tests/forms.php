@@ -166,12 +166,25 @@ $out = match (getenv('FORMS_STEP')) {
         wp_update_post(['ID' => $inner->ID, 'post_content' => '<!-- wp:paragraph --><p>Sem formulário</p><!-- /wp:paragraph -->']);
         $read['pattern'] = $ids();
         wp_update_post(['ID' => $inner->ID, 'post_content' => '<!-- wp:gravityforms/form {"formId":"3"} /-->']);
-        // A set read while content changed is stored under its old generation and read again.
-        update_option(Forms\PUBLISHED_OPTION, ['generation' => 'stale', 'forms' => [4]], true);
-        $read['stale'] = $ids();
+        // A set read while content changed is stored under its old generation and read again;
+        // so is one stored under other post types or over an hour ago. A current one is trusted.
+        $current = ['generation' => get_option(Forms\GENERATION_OPTION), 'types' => \GetQuick\Site\PublicationEvents\post_types(), 'at' => time(), 'forms' => [4]];
+        $read['stale'] = [];
+        foreach (['generation' => 'stale', 'types' => ['page'], 'at' => time() - 2 * HOUR_IN_SECONDS] as $key => $value) {
+            update_option(Forms\PUBLISHED_OPTION, [$key => $value] + $current, true);
+            $read['stale'][$key] = $ids();
+        }
+        update_option(Forms\PUBLISHED_OPTION, $current, true);
+        $read['trusted'] = $ids();
         $read['invalid'] = [Forms\published(0), Forms\published(-1)];
 
         return $read;
+    })(),
+    // After the `published` step, whose saves read the set again as that request ended.
+    'stored' => (static function (): array {
+        $stored = get_option(Forms\PUBLISHED_OPTION);
+
+        return ['current' => Forms\published_current($stored), 'forms' => $stored['forms'] ?? null];
     })(),
     'debug' => apply_filters('debug_information', [])['gq_content']['fields']['forms'] ?? null,
 };
