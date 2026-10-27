@@ -288,14 +288,16 @@ updates. Full P6 release evidence remains issue #11.
 CONSENT-1/LEGAL-1 ship as isolated entries: `@getquick/content/consent`
 (neutral core), `/consent/client` (browser runtime), `/consent/server` (the
 `/gq/consent` record and read endpoints and purge), `/consent/migrations`
-(the separate consent database), `/consent/astro` (default UI and legal
-footer as HTML) and `/consent/testing` (acceptance suite). They import no
+(the separate consent database), `/consent/html` (default UI and legal
+footer as HTML), `/consent/astro` (compatible re-export) and `/consent/testing` (acceptance suite). They import no
 content runtime, framework or WordPress client. Passing
 `consent: { services: ["youtube"], cmsSettings: true }` to
 `createContentRuntime` rewrites third-party embeds into consent placeholders
 at delivery and stores gq-config's Legal Contract and GA4 settings in each
 language's chrome; `runtime.consentConfiguration(chrome)` returns the page's
-consent configuration. See the repository's `docs/consent.md`.
+consent configuration. See the repository's `docs/consent.md` export index and the
+platform-owned [consent HTML reference](https://github.com/Quick-Release/gq-platform/blob/main/docs/runtime/gq-content/consent-html.md)
+([platform PR #273](https://github.com/Quick-Release/gq-platform/pull/273)).
 
 ## Design presentation and composition
 
