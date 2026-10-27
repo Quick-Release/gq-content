@@ -11,6 +11,7 @@ export default defineConfig({
       "consent-client": "frontend/src/consent/client.ts",
       "consent-server": "frontend/src/consent/server.ts",
       "consent-migrations": "frontend/src/consent/migrations.ts",
+      "consent-html": "frontend/src/consent/html.ts",
       "consent-astro": "frontend/src/consent/astro.ts",
       "consent-testing": "frontend/src/consent/testing.ts",
       metadata: "frontend/src/metadata.ts",
