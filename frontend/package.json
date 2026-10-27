@@ -77,6 +77,10 @@
     "./forms/testing": {
       "types": "./dist/forms-testing.d.ts",
       "import": "./dist/forms-testing.js"
+    },
+    "./consent/html": {
+      "types": "./dist/consent-html.d.ts",
+      "import": "./dist/consent-html.js"
     }
   },
   "publishConfig": {

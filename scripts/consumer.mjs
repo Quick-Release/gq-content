@@ -88,6 +88,7 @@ try {
     "./forms/astro",
     "./forms/server",
     "./forms/testing",
+    "./consent/html",
   ]);
   // Both migrations exports resolve, from the consumer, to the SQL shipped in the package.
   const directories = JSON.parse(

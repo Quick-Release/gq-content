@@ -104,3 +104,7 @@ try {
     server.close((error) => (error ? reject(error) : resolve())),
   );
 }
+
+const htmlConsent = await import("@getquick/content/consent/html");
+const astroConsent = await import("@getquick/content/consent/astro");
+assert.deepEqual(astroConsent, htmlConsent);

@@ -192,3 +192,12 @@ const scoped: BlockPresetStyles = blockPresetStyles(spacing, colors, ".site-bloc
 const root: string = presetRootStyle(spacing, colors);
 void [extendedHome, extendedEntry, extendedRead, siteDesign, frontDesign, plainEntry];
 void [design, origins, scoped, root, menuItemHref("https://cms.test/a/", origins)];
+
+import {
+  consentPage as neutralConsentPage,
+  type ConsentPageInput,
+  type ConsentPage,
+} from "@getquick/content/consent/html";
+import { consentPage as astroConsentPage } from "@getquick/content/consent/astro";
+const compatibleConsent: (input: ConsentPageInput) => ConsentPage = astroConsentPage;
+void [compatibleConsent, neutralConsentPage];
