@@ -5,6 +5,7 @@ import { OPTIONAL_CATEGORIES } from "./catalog";
 import { CONSENT_PATH } from "./paths";
 import { bearerMatches } from "../bearer";
 import { isSameOrigin, readBoundedBody } from "../request-guards";
+import { clientAddressResolver, rateLimitKey } from "../client-ip";
 import {
   MAX_RECORD_BYTES,
   parseConsentRecordRequest,
@@ -47,6 +48,13 @@ export interface ConsentServerConfig {
    * request's own origin is always accepted.
    */
   siteOrigins?: readonly string[];
+  /**
+   * The reverse proxies the Site runs in front of the Worker, as IPv4/IPv6
+   * addresses or CIDRs. Only a request whose `CF-Connecting-IP` is one of
+   * them has its client IP taken from the proxy's `X-Forwarded-For` /
+   * `X-Real-IP` (docs/client-ip.md).
+   */
+  trustedProxies?: readonly string[];
   /** Retention after a decision stops being in force; at most (and by default) 5 years (CN-R10). */
   retentionDays?: number;
   now?: () => number;
@@ -140,6 +148,7 @@ export function createConsentServer(config: ConsentServerConfig) {
     throw new Error(`retentionDays must be a whole number of days from 1 to ${MAX_RETENTION_DAYS}`);
   const now = config.now ?? Date.now;
   const origins = new Set((config.siteOrigins ?? []).map((origin) => new URL(origin).origin));
+  const clientAddress = clientAddressResolver(config.trustedProxies);
 
   /** CN-R9: same-origin only. A browser's cross-site post carries its Origin. */
   const sameOrigin = (request: Request) => isSameOrigin(request, origins);
@@ -182,7 +191,7 @@ export function createConsentServer(config: ConsentServerConfig) {
     const limiter = bindings.CONSENT_RATE_LIMITER;
     if (limiter) {
       // The client IP keys the limit for this request only; it is never stored.
-      const key = request.headers.get("CF-Connecting-IP") ?? "unknown";
+      const key = rateLimitKey(clientAddress(request));
       const { success } = await limiter.limit({ key });
       if (!success) return json(429, { error: "Too many consent records; try again later." });
     }

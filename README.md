@@ -35,6 +35,10 @@ The [consent foundation](docs/consent.md) (CONSENT-1/LEGAL-1, gq-platform ADR 00
 without the plugin or content runtime, with `legal`/`analytics` settings events
 on the CMS side.
 
+Behind a reverse proxy the Site runs, the form and consent endpoints take the
+client IP from that proxy only when told to trust it
+([`trustedProxies`](docs/client-ip.md)).
+
 Headless Gravity Forms (gq-platform ADR 0009) ships as isolated
 `@getquick/content/forms*` exports and a CMS module that is dormant without
 Gravity Forms. Form descriptors travel with publications

@@ -13,6 +13,7 @@ import { FORMS_COPY, formsCopyLanguage } from "./copy";
 import { formStateCookie, formStateLocation, type FormState, type FormStatus } from "./state";
 import { honeypotFilled, validateSubmission } from "./validate";
 import { isSameOrigin, readBoundedBody } from "../request-guards";
+import { clientAddressResolver, rateLimitKey } from "../client-ip";
 
 /** The largest form body accepted (bytes); larger posts are refused unread. */
 export const MAX_FORM_BYTES = 64 * 1024;
@@ -61,6 +62,13 @@ export interface FormsServerConfig {
   bindings: () => FormsBindings | Promise<FormsBindings>;
   /** The Site's public origin(s), when the Worker sees another (a proxy). */
   siteOrigins?: readonly string[];
+  /**
+   * The reverse proxies the Site runs in front of the Worker, as IPv4/IPv6
+   * addresses or CIDRs. Only a request whose `CF-Connecting-IP` is one of
+   * them has its client IP taken from the proxy's `X-Forwarded-For` /
+   * `X-Real-IP` (docs/client-ip.md).
+   */
+  trustedProxies?: readonly string[];
   /** The page language for the handler's own messages (`pt-PT`, `en`). */
   language?: string;
   /** Milliseconds Gravity Forms and Turnstile have to answer (15 s). */
@@ -111,6 +119,7 @@ export function createFormsServer(config: FormsServerConfig) {
   if (new URL(restRoot).origin !== cms.origin)
     throw new Error("restRoot must be on the CMS's origin");
   const origins = new Set((config.siteOrigins ?? []).map((origin) => new URL(origin).origin));
+  const clientAddress = clientAddressResolver(config.trustedProxies);
   const timeoutMs = config.timeoutMs ?? 15_000;
   const fetcher = config.fetch ?? globalThis.fetch.bind(globalThis);
   const copy = FORMS_COPY[formsCopyLanguage(config.language)];
@@ -257,7 +266,7 @@ export function createFormsServer(config: FormsServerConfig) {
       if (
         !token ||
         token.length > 2048 ||
-        !(await verifyTurnstile(secret, token, request.headers.get("CF-Connecting-IP")))
+        !(await verifyTurnstile(secret, token, clientAddress(request)))
       )
         return outcome(request, { formId, status: "verification", values: checked.values }, source);
     }
@@ -359,7 +368,7 @@ export function createFormsServer(config: FormsServerConfig) {
     if (limiter) {
       // The client IP keys the limit for this request only; it is never stored.
       const { success } = await limiter.limit({
-        key: `${formId}:${request.headers.get("CF-Connecting-IP") ?? "unknown"}`,
+        key: `${formId}:${rateLimitKey(clientAddress(request))}`,
       });
       if (!success) return outcome(request, { formId, status: "too-many" }, source);
     }
