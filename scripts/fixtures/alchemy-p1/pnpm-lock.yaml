@@ -173,8 +173,8 @@ importers:
         specifier: 4.0.0-rc.115
         version: 4.0.0-rc.115(effect@4.0.0-rc.115)(redis@6.3.0)
       '@getquick/content':
-        specifier: file:getquick-content-0.4.1.tgz
-        version: file:getquick-content-0.4.1.tgz
+        specifier: file:getquick-content-0.4.2.tgz
+        version: file:getquick-content-0.4.2.tgz
       alchemy:
         specifier: 2.0.0-beta.79
         version: 2.0.0-beta.79(@effect/platform-node@4.0.0-rc.115(effect@4.0.0-rc.115)(redis@6.3.0))(@types/node@26.6.5)(effect@4.0.0-rc.115)(vite@8.3.4(@types/node@26.6.5)(yaml@2.9.1))(vitest@5.0.5(@types/node@26.6.5)(vite@8.3.4(@types/node@26.6.5)(yaml@2.9.1)))(ws@8.22.0)
@@ -446,9 +446,9 @@ packages:
   '@emnapi/runtime@1.11.3':
     resolution: {integrity: sha512-Xz4Tpyki7XyrpbUK1jR1AhdAdaXyhhY4lZ3neLodmhpuWfy2PAQN5B46sAiU4liOXGLkHypn/qU+jvfWSCYYLA==}
 
-  '@getquick/content@file:getquick-content-0.4.1.tgz':
-    resolution: {integrity: TARBALL_INTEGRITY, tarball: file:getquick-content-0.4.1.tgz}
-    version: 0.4.1
+  '@getquick/content@file:getquick-content-0.4.2.tgz':
+    resolution: {integrity: TARBALL_INTEGRITY, tarball: file:getquick-content-0.4.2.tgz}
+    version: 0.4.2
     engines: {node: '>=22'}
 
   '@hono/node-server@1.19.9':
@@ -2073,7 +2073,7 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
-  '@getquick/content@file:getquick-content-0.4.1.tgz':
+  '@getquick/content@file:getquick-content-0.4.2.tgz':
     dependencies:
       zod: 3.25.76
 

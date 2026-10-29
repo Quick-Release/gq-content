@@ -22,8 +22,8 @@ fail safely when unconfigured, and production Site Health is critical. Existing
 valid delivery history is preserved. Site Health debug information includes
 package, version and a configured boolean, with no credentials.
 
-`wp gq-events version` prints `0.4.1`; `--format=json` prints
-`{"package":"getquick/gq-content","version":"0.4.1"}` even without configuration.
+`wp gq-events version` prints `0.4.2`; `--format=json` prints
+`{"package":"getquick/gq-content","version":"0.4.2"}` even without configuration.
 Existing commands are `status`, `check`, `retry <post-id>`, `settings status`,
 `settings retry <setting>`, `delays`, `retry-due` and `reconcile`.
 Shared settings subjects are `menus`, `logo`, `identity`, `design`, `patterns`,
@@ -92,7 +92,7 @@ when post types change or after an hour, which bounds staleness after content
 is changed without saving (SQL, imports, `wp search-replace`).
 
 Run `vp run cms` for the reusable P2 installed-plugin proof, or
-`vp run cms-package` to produce `.artifacts/gq-content-0.4.1.zip`. The archive
+`vp run cms-package` to produce `.artifacts/gq-content-0.4.2.zip`. The archive
 contains only plugin files, not tests or Frontend code. The proof uses PHP,
 Composer, Python 3, curl, SQLite and downloaded WP-CLI; it installs the archive
 through real Composer installers into a fresh public Bedrock project and boots
