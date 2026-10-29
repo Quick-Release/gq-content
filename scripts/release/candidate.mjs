@@ -54,8 +54,8 @@ export function load(directory, checkRevision = true) {
   assert.equal(npm.name, "@getquick/content");
   assert.equal(composer.name, "getquick/gq-content");
   for (const item of [npm, composer]) assert.equal(item.version, manifest.version);
-  assert.match(php, /Version: 0\.4\.1/);
-  assert.match(php, /const VERSION = '0\.4\.1';/);
+  assert.match(php, /Version: 0\.4\.2/);
+  assert.match(php, /const VERSION = '0\.4\.2';/);
   return {
     directory,
     manifest,
