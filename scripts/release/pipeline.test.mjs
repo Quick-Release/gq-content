@@ -3,61 +3,69 @@ import { test } from "vite-plus/test";
 import assert from "node:assert/strict";
 import { resume } from "./pipeline.mjs";
 
-test("interrupted publication resumes verified stages and blocks partial availability", async () => {
-  const remote = { tag: null, assets: {}, npm: null, composer: null };
-  const writes = [];
-  const candidate = process.env.GQ_RELEASE_BUNDLE
-    ? load(process.env.GQ_RELEASE_BUNDLE)
-    : {
-        manifest: { sourceCommit: "a".repeat(40), tag: "v0.4.2", version: "0.4.2" },
-        assets: { "release-manifest.json": Buffer.from("manifest") },
-        npmIdentity: "npm",
-        composerIdentity: "zip",
-      };
-  const manifest = candidate.manifest;
-  const service = {
-    gate: async () => {},
-    tag: async () => remote.tag,
-    createTag: async () => {
-      remote.tag = manifest.sourceCommit;
-      writes.push("tag");
-    },
-    asset: async (name) => remote.assets[name],
-    upload: async (name, bytes) => {
-      remote.assets[name] = bytes;
-      writes.push(name);
-    },
-    npm: async () => remote.npm,
-    publish: async () => {
-      remote.npm = candidate.npmIdentity;
-      writes.push("npm");
-      throw Error("interrupted");
-    },
-    composer: async () => remote.composer,
-    dispatch: async () => {
-      writes.push("dispatch");
-    },
-  };
-  await assert.rejects(resume(candidate, service), /interrupted/);
-  assert.equal((await resume(candidate, service)).status, "partial");
-  assert.deepEqual(
-    writes,
-    process.env.GQ_RELEASE_BUNDLE
-      ? [
-          "tag",
-          "release-manifest.json",
-          "getquick-content-0.4.2.tgz",
-          "gq-content-0.4.2.zip",
-          "npm",
-          "dispatch",
-        ]
-      : ["tag", "release-manifest.json", "npm", "dispatch"],
-  );
-  remote.composer = candidate.composerIdentity;
-  assert.equal((await resume(candidate, service)).status, "complete");
-  remote.tag = "b".repeat(40);
-  await assert.rejects(resume(candidate, service), /tag mismatch/);
-});
+// Loading and verifying a real retained pair can exceed the default 5 s under
+// a full parallel test run (paired-release-validation run 40890636268).
+const BUNDLE_TIMEOUT_MS = 60_000;
+
+test(
+  "interrupted publication resumes verified stages and blocks partial availability",
+  async () => {
+    const remote = { tag: null, assets: {}, npm: null, composer: null };
+    const writes = [];
+    const candidate = process.env.GQ_RELEASE_BUNDLE
+      ? load(process.env.GQ_RELEASE_BUNDLE)
+      : {
+          manifest: { sourceCommit: "a".repeat(40), tag: "v0.4.2", version: "0.4.2" },
+          assets: { "release-manifest.json": Buffer.from("manifest") },
+          npmIdentity: "npm",
+          composerIdentity: "zip",
+        };
+    const manifest = candidate.manifest;
+    const service = {
+      gate: async () => {},
+      tag: async () => remote.tag,
+      createTag: async () => {
+        remote.tag = manifest.sourceCommit;
+        writes.push("tag");
+      },
+      asset: async (name) => remote.assets[name],
+      upload: async (name, bytes) => {
+        remote.assets[name] = bytes;
+        writes.push(name);
+      },
+      npm: async () => remote.npm,
+      publish: async () => {
+        remote.npm = candidate.npmIdentity;
+        writes.push("npm");
+        throw Error("interrupted");
+      },
+      composer: async () => remote.composer,
+      dispatch: async () => {
+        writes.push("dispatch");
+      },
+    };
+    await assert.rejects(resume(candidate, service), /interrupted/);
+    assert.equal((await resume(candidate, service)).status, "partial");
+    assert.deepEqual(
+      writes,
+      process.env.GQ_RELEASE_BUNDLE
+        ? [
+            "tag",
+            "release-manifest.json",
+            "getquick-content-0.4.2.tgz",
+            "gq-content-0.4.2.zip",
+            "npm",
+            "dispatch",
+          ]
+        : ["tag", "release-manifest.json", "npm", "dispatch"],
+    );
+    remote.composer = candidate.composerIdentity;
+    assert.equal((await resume(candidate, service)).status, "complete");
+    remote.tag = "b".repeat(40);
+    await assert.rejects(resume(candidate, service), /tag mismatch/);
+  },
+  BUNDLE_TIMEOUT_MS,
+);
 
 /** @type {Array<[string, Buffer | string, RegExp]>} */
 const mismatches = [

@@ -48,6 +48,7 @@ test.skipIf(!process.env.GQ_RELEASE_BUNDLE)(
       rmSync(temp, { recursive: true, force: true });
     }
   },
+  60_000, // Loads a real retained pair; see pipeline.test.mjs.
 );
 
 test.skipIf(!process.env.GQ_RELEASE_BUNDLE)(
@@ -67,4 +68,5 @@ test.skipIf(!process.env.GQ_RELEASE_BUNDLE)(
     assert.match(result.stderr, /missing GitHub\/registry dispatch\/Composer credentials/);
     assert.match(result.stderr, /"handoff":false/);
   },
+  60_000, // Loads a real retained pair; see pipeline.test.mjs.
 );
