@@ -30,13 +30,13 @@ try {
     cpSync(join(repo, "scripts/fixtures/alchemy-p1", file), join(consumer, file));
   cpSync(join(repo, "scripts/fixtures/consent-worker"), consumer, { recursive: true });
   const selected = retained("npm");
-  if (selected) cpSync(selected, join(consumer, "getquick-content-0.4.1.tgz"));
+  if (selected) cpSync(selected, join(consumer, "getquick-content-0.4.2.tgz"));
   else run("vp", ["pm", "pack", "--pack-destination", consumer], join(repo, "frontend"));
-  recordArtifact(join(consumer, "getquick-content-0.4.1.tgz"), "consent-worker");
+  recordArtifact(join(consumer, "getquick-content-0.4.2.tgz"), "consent-worker");
   const integrity =
     "sha512-" +
     createHash("sha512")
-      .update(readFileSync(join(consumer, "getquick-content-0.4.1.tgz")))
+      .update(readFileSync(join(consumer, "getquick-content-0.4.2.tgz")))
       .digest("base64");
   const lockfile = join(consumer, "pnpm-lock.yaml");
   writeFileSync(lockfile, readFileSync(lockfile, "utf8").replace("TARBALL_INTEGRITY", integrity));

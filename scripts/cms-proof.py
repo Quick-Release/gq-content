@@ -85,7 +85,7 @@ if __name__ == '__main__':
          '--no-install', '--no-scripts', '--no-interaction'])
     manifest = json.loads((SITE / 'composer.json').read_text())
     manifest['require']['roots/bedrock-autoloader'] = '1.1.0'
-    manifest['require']['getquick/gq-content'] = '0.4.1'
+    manifest['require']['getquick/gq-content'] = '0.4.2'
     manifest['require-dev'] = {}
     package['dist'] = {'type': 'zip', 'url': artifact.as_uri(),
                        'reference': hashlib.sha256(artifact.read_bytes()).hexdigest(),
@@ -114,10 +114,10 @@ if __name__ == '__main__':
        '--admin_password=disposable-local-proof', '--admin_email=proof@example.test', '--skip-email')
     check('real WordPress boots Composer-installed MU plugin',
           wp('eval', "echo is_file(WPMU_PLUGIN_DIR . '/gq-content/gq-content.php') && function_exists('GetQuick\\\\Site\\\\SettingsEvents\\\\changed') ? 'loaded' : 'missing';").stdout.strip() == 'loaded')
-    check('bare version works without event configuration', wp('gq-events', 'version').stdout.strip() == '0.4.1')
+    check('bare version works without event configuration', wp('gq-events', 'version').stdout.strip() == '0.4.2')
     check('JSON version works without event configuration',
           json.loads(wp('gq-events', 'version', '--format=json').stdout) ==
-          {'package': 'getquick/gq-content', 'version': '0.4.1'})
+          {'package': 'getquick/gq-content', 'version': '0.4.2'})
     diagnostics = json.loads(wp('eval-file', str(ROOT / 'cms/tests/diagnostics.php'),
                                 env={'WP_ENV': 'production'}).stdout)
     check('production Site Health reports missing configuration safely',
@@ -203,7 +203,7 @@ if __name__ == '__main__':
             diagnostics = info(env)
             check(name + ': Site Health debug package/version/configured',
                   {name: row['value'] for name, row in diagnostics['fields'].items()} ==
-                  {'package': 'getquick/gq-content', 'version': '0.4.1', 'configured': True,
+                  {'package': 'getquick/gq-content', 'version': '0.4.2', 'configured': True,
                    'forms': 'dormant (Gravity Forms inactive)'})
             start = len(received)
             wp('gq-events', 'check', env=env)
@@ -330,7 +330,7 @@ if __name__ == '__main__':
         configure("define('GQ_CONTENT_SITE_ID', false);")
         check('version remains available with an invalid defined identity',
               json.loads(wp('gq-events', 'version', '--format=json', env=base).stdout) ==
-              {'package': 'getquick/gq-content', 'version': '0.4.1'})
+              {'package': 'getquick/gq-content', 'version': '0.4.2'})
 
         # Archives (ADR 0005): real WPGraphQL (the version Nomia runs) resolves
         # an assigned Page at its custom post type's archive URI.

@@ -37,7 +37,7 @@ const run = (command, args, options = {}) =>
 
 try {
   cpSync(join(repo, "scripts/fixtures/forms-astro"), consumer, { recursive: true });
-  const tarball = join(consumer, "getquick-content-0.4.1.tgz");
+  const tarball = join(consumer, "getquick-content-0.4.2.tgz");
   const selected = retained("npm");
   if (selected) cpSync(selected, tarball);
   else run("vp", ["pm", "pack", "--pack-destination", consumer], { cwd: join(repo, "frontend") });
