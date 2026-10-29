@@ -55,4 +55,5 @@ test.skipIf(!process.env.GQ_RELEASE_BUNDLE)(
       globalThis.fetch = original;
     }
   },
+  60_000, // Loads a real retained pair; see pipeline.test.mjs.
 );
