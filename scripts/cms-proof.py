@@ -85,7 +85,7 @@ if __name__ == '__main__':
          '--no-install', '--no-scripts', '--no-interaction'])
     manifest = json.loads((SITE / 'composer.json').read_text())
     manifest['require']['roots/bedrock-autoloader'] = '1.1.0'
-    manifest['require']['getquick/gq-content'] = '0.4.2'
+    manifest['require']['getquick/gq-content'] = '0.5.0'
     manifest['require-dev'] = {}
     package['dist'] = {'type': 'zip', 'url': artifact.as_uri(),
                        'reference': hashlib.sha256(artifact.read_bytes()).hexdigest(),
@@ -114,10 +114,10 @@ if __name__ == '__main__':
        '--admin_password=disposable-local-proof', '--admin_email=proof@example.test', '--skip-email')
     check('real WordPress boots Composer-installed MU plugin',
           wp('eval', "echo is_file(WPMU_PLUGIN_DIR . '/gq-content/gq-content.php') && function_exists('GetQuick\\\\Site\\\\SettingsEvents\\\\changed') ? 'loaded' : 'missing';").stdout.strip() == 'loaded')
-    check('bare version works without event configuration', wp('gq-events', 'version').stdout.strip() == '0.4.2')
+    check('bare version works without event configuration', wp('gq-events', 'version').stdout.strip() == '0.5.0')
     check('JSON version works without event configuration',
           json.loads(wp('gq-events', 'version', '--format=json').stdout) ==
-          {'package': 'getquick/gq-content', 'version': '0.4.2'})
+          {'package': 'getquick/gq-content', 'version': '0.5.0'})
     diagnostics = json.loads(wp('eval-file', str(ROOT / 'cms/tests/diagnostics.php'),
                                 env={'WP_ENV': 'production'}).stdout)
     check('production Site Health reports missing configuration safely',
@@ -203,7 +203,7 @@ if __name__ == '__main__':
             diagnostics = info(env)
             check(name + ': Site Health debug package/version/configured',
                   {name: row['value'] for name, row in diagnostics['fields'].items()} ==
-                  {'package': 'getquick/gq-content', 'version': '0.4.2', 'configured': True,
+                  {'package': 'getquick/gq-content', 'version': '0.5.0', 'configured': True,
                    'forms': 'dormant (Gravity Forms inactive)'})
             start = len(received)
             wp('gq-events', 'check', env=env)
@@ -265,6 +265,30 @@ if __name__ == '__main__':
               len(received[start:]) == 1 and received[-1]['signed'] and
               received[-1]['event'].get('setting') == 'patterns' and
               'language' not in received[-1]['event'])
+        # GQ Design's fonts: slot assignments (an option) and Font Library
+        # families and faces, which a Google font import or an upload saves.
+        for operation in [('add', '{"sans":null,"serif":null,"mono":null}'),
+                          ('update', '{"sans":1,"serif":null,"mono":null}'), ('delete',)]:
+            start = len(received)
+            wp('option', operation[0], 'getquick_design_font_slots', *operation[1:], '--format=json'
+               if len(operation) > 1 else '--quiet', env=env)
+            check('font slot assignment ' + operation[0] + ' notifies design',
+                  [row['event'].get('setting') for row in received[start:]] == ['design'])
+        start = len(received)
+        family = wp('post', 'create', '--post_type=wp_font_family', '--post_status=publish',
+                    '--post_title=Inter', '--porcelain', env=env).stdout.strip()
+        check('a font family save notifies design',
+              [row['event'].get('setting') for row in received[start:]] == ['design'])
+        start = len(received)
+        face = wp('post', 'create', '--post_type=wp_font_face', '--post_status=publish',
+                  f'--post_parent={family}', '--post_title=Inter latin', '--porcelain', env=env).stdout.strip()
+        check('a font face save notifies design',
+              [row['event'].get('setting') for row in received[start:]] == ['design'])
+        for post_id, kind in [(face, 'face'), (family, 'family')]:
+            start = len(received)
+            wp('post', 'delete', post_id, '--force', env=env)
+            check('a font ' + kind + ' deletion notifies design',
+                  [row['event'].get('setting') for row in received[start:]] == ['design'])
         # A classic menu a pattern shows by id (a menu-backed block's menuId),
         # at no theme location, refreshes the patterns; others send nothing.
         shown = wp('menu', 'create', 'Footer links', '--porcelain', env=env).stdout.strip()
@@ -330,7 +354,7 @@ if __name__ == '__main__':
         configure("define('GQ_CONTENT_SITE_ID', false);")
         check('version remains available with an invalid defined identity',
               json.loads(wp('gq-events', 'version', '--format=json', env=base).stdout) ==
-              {'package': 'getquick/gq-content', 'version': '0.4.2'})
+              {'package': 'getquick/gq-content', 'version': '0.5.0'})
 
         # Archives (ADR 0005): real WPGraphQL (the version Nomia runs) resolves
         # an assigned Page at its custom post type's archive URI.

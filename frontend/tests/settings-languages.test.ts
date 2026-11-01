@@ -946,3 +946,138 @@ test("resolved theme crosses GraphQL, publication storage and design refresh to 
   expect((await home("en")).home.theme).toEqual(second);
   expect((await entry()).entry.theme).toEqual(second);
 });
+
+test("GQ Design's fonts and text styles cross GraphQL, publication storage and design refresh to the head", async () => {
+  const { designFontsHead } = await import("@getquick/content");
+  const media = "https://media.test/fonts/inter";
+  const face = (subset: string, preload: boolean) => ({
+    src: [`${media}/inter-${subset}-variable.woff2`],
+    format: "woff2",
+    weight: "100 900",
+    style: "normal",
+    unicodeRange: subset === "latin" ? "U+0000-00FF" : "U+0100-02BA",
+    display: "swap",
+    preload,
+  });
+  const fonts = {
+    families: [
+      {
+        slug: "inter",
+        name: "Inter",
+        fallback: {
+          local: "Arial",
+          sizeAdjust: "107.06%",
+          ascentOverride: "90.49%",
+          descentOverride: "22.56%",
+          lineGapOverride: "0%",
+        },
+        faces: [face("latin-ext", false), face("latin", true)],
+      },
+    ],
+    slots: { sans: "inter", serif: null, mono: null },
+  };
+  const textStyles = {
+    heading: {
+      slot: "sans",
+      weight: "700",
+      lineHeight: "1.2",
+      letterSpacing: "0em",
+      sizes: { h1: "5xl", h2: "4xl", h3: "3xl", h4: "2xl", h5: "xl", h6: "lg" },
+    },
+    paragraph: { slot: "sans", weight: "400", lineHeight: "1.6", letterSpacing: "0em" },
+  };
+  // Before any font is assigned: GQ Design 0.10.1 delivers no families and no slots.
+  const fetch = wordpress({
+    design: () =>
+      data({
+        designTokens: {
+          ...presets(),
+          fonts: { families: [], slots: { sans: null, serif: null, mono: null } },
+          textStyles: null,
+        },
+      }),
+  });
+  expect((await refresh()).status).toBe(200);
+  const query = queries(fetch, "DesignPresets")[0]![1].body as string;
+  for (const field of [
+    "fonts",
+    "families",
+    "faces",
+    "unicodeRange",
+    "preload",
+    "slots",
+    "textStyles",
+    "sizes",
+  ])
+    expect(query).toContain(field);
+  offline();
+  expect(await api.designPresets()).toMatchObject({ fonts: { families: [] } });
+  expect(designFontsHead(await api.designPresets())).toBe("");
+
+  // An admin imports Inter and assigns it to sans: the design event stores it.
+  vi.setSystemTime(Date.now() + 1000);
+  wordpress({ design: () => data({ designTokens: { ...presets(), fonts, textStyles } }) });
+  expect((await deliver(event({ setting: "design" }))).status).toBe(200);
+  offline();
+  const stored = await api.designPresets();
+  expect(stored).toMatchObject({ fonts, textStyles });
+  const head = designFontsHead(stored);
+  expect(head).toContain(
+    `<link rel="preload" as="font" type="font/woff2" href="${media}/inter-latin-variable.woff2" crossorigin>`,
+  );
+  expect(head.match(/<link /g)).toHaveLength(1);
+  expect(head.match(/@font-face\{font-family:"Inter";/g)).toHaveLength(2);
+  expect(head).toContain('--gqd-font-sans:"Inter", "Inter Fallback", sans-serif;');
+  expect(head).toContain(".gqd-content.gqd-content h1{font-size:var(--gqd-text-5xl);}");
+  // Pages are served with the shared design's fonts too.
+  expect((await home()).home.fonts).toEqual(fonts);
+  expect((await entry()).entry.textStyles).toEqual(textStyles);
+
+  // Reconciliation finds the stored fonts unchanged.
+  wordpress({ design: () => data({ designTokens: { ...presets(), fonts, textStyles } }) });
+  expect((await deliver(event({ action: "reconcile" }))).body.shared).toMatchObject({
+    design: { outcome: "unchanged" },
+  });
+});
+
+test("a CMS whose GQ Design predates fonts (contract 2.0.0) keeps its design presets without them", async () => {
+  const { designFontsHead } = await import("@getquick/content");
+  const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+  const fetch = wordpress({
+    design: (_variables, query) =>
+      query?.includes("fonts {")
+        ? {
+            ok: true,
+            json: async () => ({
+              errors: [
+                {
+                  message:
+                    'Cannot query field "fonts" on type "DesignTokens". Did you mean "fontFamilies"?',
+                },
+                { message: 'Cannot query field "textStyles" on type "DesignTokens".' },
+              ],
+            }),
+          }
+        : data({ designTokens: presets() }),
+  });
+  expect((await refresh()).status).toBe(200);
+  expect(queries(fetch, "DesignPresets")).toHaveLength(2);
+  expect(warn.mock.calls.flat().join(" ")).toContain("GQ Design 0.10.1 or newer");
+  offline();
+  const stored = await api.designPresets();
+  expect(stored).toEqual(presets());
+  expect(designFontsHead(stored)).toBe("");
+
+  // Any other GraphQL failure still fails the read and keeps what is stored.
+  vi.setSystemTime(Date.now() + 1000);
+  color = "#0a0";
+  wordpress({
+    design: () => ({
+      ok: true,
+      json: async () => ({ errors: [{ message: "Internal server error" }] }),
+    }),
+  });
+  expect((await deliver(event({ setting: "design" }))).status).toBe(503);
+  expect((await api.designPresets())?.colors).toEqual([{ slug: "brand", color: "#c00" }]);
+  warn.mockRestore();
+});

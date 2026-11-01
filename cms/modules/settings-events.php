@@ -17,7 +17,11 @@
  * - logo: the `site_logo` option (the Customizer's `custom_logo` syncs to it);
  * - identity: the `blogname`, `blogdescription` and `site_icon` options;
  * - design: the theme's global styles (`wp_global_styles`, where GQ Design
- *   saves the palette) or the active theme (its theme.json presets);
+ *   saves the palette and the Heading and Paragraph text styles), GQ Design's
+ *   font slot assignments (`getquick_design_font_slots`), a Font Library
+ *   family or face (`wp_font_family`, `wp_font_face`, where GQ Design installs
+ *   and imports fonts) saved or deleted, or the active theme (its theme.json
+ *   presets);
  * - patterns: a synced pattern (`wp_block`, what GQ Design's Header & Footer
  *   selects), a template or a template part (`wp_template`,
  *   `wp_template_part`, where that selection is saved) or a navigation menu
@@ -526,6 +530,21 @@ foreach (['added_post_meta', 'updated_post_meta', 'deleted_post_meta'] as $meta_
 }
 
 add_action('save_post_wp_global_styles', static fn() => changed('design'), 10, 0);
+
+// GQ Design's fonts (contract 2.1.0): the slot assignments are an option, the
+// installed families and their files Font Library posts. Their deletion also
+// changes the delivered fonts; queue coalescing keeps an import to one event.
+foreach (['add_option_getquick_design_font_slots', 'update_option_getquick_design_font_slots', 'delete_option_getquick_design_font_slots'] as $font_slots_hook) {
+    add_action($font_slots_hook, static fn() => changed('design'), 10, 0);
+}
+foreach (['wp_font_family', 'wp_font_face'] as $font_type) {
+    add_action("save_post_{$font_type}", static fn() => changed('design'), 10, 0);
+}
+add_action('deleted_post', static function (int $post_id, mixed $post = null): void {
+    if ($post instanceof WP_Post && in_array($post->post_type, ['wp_font_family', 'wp_font_face'], true)) {
+        changed('design');
+    }
+}, 10, 2);
 
 // gq-config (CONSENT-1/LEGAL-1): the Legal Contract, in every language's chrome.
 add_action('getquick_config_legal_changed', static fn() => changed('legal'), 10, 0);

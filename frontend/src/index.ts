@@ -21,6 +21,13 @@ export type {
 export { designGridStyle } from "./wp-grid-layout";
 
 export * from "./presentation";
+export {
+  designFontsHead,
+  designFontStyleSheet,
+  designFontPreloads,
+  designTextStyleSheet,
+} from "./design-fonts";
+export type { DesignFonts, DesignTextStyles, DesignTypography } from "./design-fonts";
 export * from "./carousel";
 export { renderDesignCover } from "./design-media";
 export { renderDesignVideoHero } from "./design-video";

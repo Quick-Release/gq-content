@@ -33,7 +33,7 @@ try {
   mkdirSync(artifacts);
   const selected = retained("npm");
   if (!selected) run("vp", ["pm", "pack", "--pack-destination", artifacts], join(repo, "frontend"));
-  const tarball = selected ?? join(artifacts, "getquick-content-0.4.2.tgz");
+  const tarball = selected ?? join(artifacts, "getquick-content-0.5.0.tgz");
   recordArtifact(tarball, "consumer");
   const listing = execFileSync("tar", ["-tzf", tarball], { encoding: "utf8" }).trim().split("\n");
   for (const file of listing) {
@@ -48,7 +48,7 @@ try {
       [
         "scripts/inspect-artifacts.mjs",
         tarball,
-        retained("cms") ?? join(repo, ".artifacts/gq-content-0.4.2.zip"),
+        retained("cms") ?? join(repo, ".artifacts/gq-content-0.5.0.zip"),
       ],
       repo,
     );
@@ -154,6 +154,11 @@ try {
   if (process.argv.includes("--design-fixtures")) {
     writeFileSync(join(consumer, "design-content.mjs"), 'export * from "@getquick/content";\n');
     env.DESIGN_CONSUMER_MODULE = join(consumer, "design-content.mjs");
+    writeFileSync(
+      join(consumer, "design-server.mjs"),
+      'export * from "@getquick/content/server";\n',
+    );
+    env.DESIGN_CONSUMER_SERVER_MODULE = join(consumer, "design-server.mjs");
     run("vp", ["test", "--config", "compatibility/vite.config.ts"], repo);
   }
   console.log(

@@ -309,6 +309,40 @@ per response, using the delivered `theme` from entry/home/chrome. Resolve defaul
 with `resolveDesignTheme` for older stored publications. A changed theme requires
 regenerating both stylesheets, including its media thresholds.
 
+### Fonts and text styles
+
+GQ Design 0.10.1 (contract 2.1.0) delivers the Site's self-hosted font families
+(faces on the Site's own or media host, each with a metric-matched local
+fallback), the `sans`/`serif`/`mono` slot assignments and the Heading and
+Paragraph text styles. The design presets carry them as optional `fonts` and
+`textStyles`: read with the other presets, stored with them, refreshed by the
+`design` settings event (a global styles save, a font slot assignment, or a
+Font Library family or face saved or deleted) and compared by reconciliation.
+A CMS whose GQ Design predates them rejects the fields; the presets are read
+again without them, with a warning, and pages keep the theme's system stacks.
+
+Emit them once per response, in the head, after `designThemeStyleSheet(theme)`:
+
+```astro
+<style is:inline set:html={designThemeStyleSheet(theme)} />
+<Fragment set:html={designFontsHead(await runtime.designPresets())} />
+```
+
+`designFontsHead(presets, { root? })` returns, in order: at most two
+`<link rel="preload" as="font" type="font/woff2" href="…" crossorigin>` for the
+faces GQ Design marks (the text styles' primary Latin files); a
+`<style data-gqd-fonts>` with the `@font-face` rules (`font-display` as
+delivered, `swap` from GQ Design), the fallback faces and the assigned slots'
+`--gqd-font-*` stacks; and a `<style data-gqd-text-styles>` with the text
+styles under `root` (default `.gqd-content`, the theme's root). The slot stacks
+are set on `:root` and again on the root, because the theme stylesheet declares
+the system stacks there. It is empty without fonts or text styles, or with no
+families. Font URLs only come from the presets: faces with a relative URL or a
+file on a Google host are dropped, so a visitor's browser never contacts
+Google. Media hosts need a public CORS rule for cross-origin font files.
+`designFontStyleSheet`, `designFontPreloads` (link descriptors for another
+serializer) and `designTextStyleSheet` return the parts.
+
 `presentationHtml(name, shell, presentation, { attributes, model? })` decorates an
 existing root shell. Pass the complete block attributes for native Group layout
 context. `presentationVariables` takes the same attributes context. Both delegate

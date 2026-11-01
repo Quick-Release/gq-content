@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "devDependencies": {
-    "@quick-release/design-contract": "0.9.4"
+    "@quick-release/design-contract": "0.10.1"
   },
   "packageManager": "pnpm@12.11.2"
 }
