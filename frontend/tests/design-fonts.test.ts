@@ -3,6 +3,8 @@ import {
   designFontPreloads,
   designFontsHead,
   designThemeStyleSheet,
+  presentationModel,
+  presentationStyleSheet,
   resolveDesignTheme,
   type DesignFonts,
   type DesignPresets,
@@ -115,11 +117,11 @@ test("the sandbox's Inter on sans renders its faces, one crossorigin preload, sl
     '@font-face{font-family:"Inter Fallback";src:local("Arial");size-adjust:107.06%;ascent-override:90.49%;descent-override:22.56%;line-gap-override:0%;}',
   );
 
-  // The sans stack is assigned on :root and again on the content root, after
-  // (and more specific than) the theme's system stack there.
+  // The sans stack is assigned on :root and on the content root, after (and
+  // more specific than) the theme's system stack there.
   const stack = '--gqd-font-sans:"Inter", "Inter Fallback", sans-serif;';
-  expect(fonts).toContain(`:root{${stack}}`);
-  expect(fonts).toContain(`.gqd-content.gqd-content{${stack}}`);
+  expect(fonts).toContain(`:root,.gqd-content.gqd-content{${stack}}`);
+  expect(fonts.match(/--gqd-font-sans:/g)).toHaveLength(1);
   expect(fonts).not.toContain("--gqd-font-serif:");
   const themeStack = html.indexOf(".gqd-content{--gqd-spacing");
   expect(themeStack).toBeGreaterThan(-1);
@@ -195,8 +197,63 @@ test("preloads are capped at two and escaped as attributes", () => {
 
 test("a Site's own content root scopes the stacks and text styles", () => {
   const html = designFontsHead(sandbox, { root: ".site" });
-  expect(html).toContain('.site.site{--gqd-font-sans:"Inter"');
+  expect(html).toContain(':root,.site.site{--gqd-font-sans:"Inter"');
+  expect(html).not.toContain(".gqd-content");
   expect(html).toContain(".site.site h1{font-size:var(--gqd-text-5xl);}");
-  expect(designFontsHead(sandbox, { root: ":root" })).not.toContain(":root:root");
+  const global = designFontsHead(sandbox, { root: ":root" });
+  expect(global).toContain(':root{--gqd-font-sans:"Inter"');
+  expect(global).not.toMatch(/:root:root|:root,:root/);
   expect(() => designFontsHead(sandbox, { root: "body > main" })).toThrow();
+});
+
+test("a bad stored text style value is dropped without breaking the head", () => {
+  const html = designFontsHead({
+    ...sandbox,
+    textStyles: { ...textStyles, paragraph: { ...textStyles.paragraph, weight: "400;}body{" } },
+  });
+  expect(html).toContain("<style data-gqd-fonts>");
+  expect(html).not.toContain("body{");
+  expect(html).toContain(".gqd-content.gqd-content h1{font-size:var(--gqd-text-5xl);}");
+});
+
+/** Each `selector{declarations}` of a style sheet, @media preludes stripped. */
+const rules = (css: string) =>
+  [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)].map(([, selector, body]) => ({
+    selectors: selector!.replace(/^\s*@media[^{]*$/, "").split(/,(?![^()]*\))/),
+    body: body!,
+  }));
+
+test("a plain heading's presentation leaves typography to the text styles", () => {
+  // GQ Design 0.10.2 (gq-design#121) has no core/heading typography defaults,
+  // so the canonical presentation no longer forces `inherit !important` over
+  // the text styles' heading sizes on headings without authored values.
+  const defaults = presentationModel.defaults["core/heading"] ?? {};
+  for (const property of ["fontFamily", "fontSize", "fontWeight", "lineHeight", "letterSpacing"])
+    expect(defaults).not.toHaveProperty(property);
+
+  const typography = /(?:^|;)\s*(?:font-size|font-family|font-weight|line-height|letter-spacing):/;
+  const heading = rules(presentationStyleSheet(theme)).filter(({ selectors }) =>
+    selectors.some((selector) => selector.includes(".wp-block-heading.gqd-presentation")),
+  );
+  const forced = heading.filter(
+    ({ selectors, body }) =>
+      typography.test(body) &&
+      body.includes("!important") &&
+      selectors.some(
+        (selector) =>
+          selector.includes(".wp-block-heading.gqd-presentation") &&
+          !/\[style\*="--gqd-[\w-]*-(?:fontSize|fontFamily|fontWeight|lineHeight|letterSpacing)/.test(
+            selector,
+          ),
+      ),
+  );
+  expect(forced).toEqual([]);
+  // Authored heading sizes still apply, behind their own variable.
+  expect(
+    heading.some(
+      ({ selectors, body }) =>
+        /(?:^|;)font-size:var\(--gqd-resolved-fontSize\) !important/.test(body) &&
+        selectors.every((selector) => selector.includes('[style*="--gqd-')),
+    ),
+  ).toBe(true);
 });

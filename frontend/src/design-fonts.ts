@@ -117,20 +117,15 @@ function selfHostedFonts(fonts: DesignFonts | undefined): DesignFonts | undefine
   };
 }
 
-const ROOT = /^(?:\.[a-zA-Z_][\w-]*|:root)$/;
-
 /**
  * The `@font-face` rules (Site faces with `font-display` as delivered, and the
  * metric-matched fallback faces) and the assigned slots' `--gqd-font-*` stacks.
- * The stacks are set on `:root` and again on the content root: the theme
- * stylesheet declares the system stacks on that root, which would otherwise
- * shadow the assignment inside Design content.
+ * GQ Design sets the stacks on `:root` and, with doubled specificity, on the
+ * content root: the theme stylesheet declares the system stacks on that root,
+ * which would otherwise shadow the assignment inside Design content.
  */
 export function designFontStyleSheet(fonts?: DesignFonts | null, root = ".gqd-content"): string {
-  if (!ROOT.test(root)) throw new Error("Choose a simple class selector or :root.");
-  const css = fontStyleSheet(selfHostedFonts(fonts ?? undefined));
-  const slots = /:root\{([^{}]*)\}$/.exec(css);
-  return slots && root !== ":root" ? `${css}${root}${root}{${slots[1]}}` : css;
+  return fontStyleSheet(selfHostedFonts(fonts ?? undefined), root);
 }
 
 /** At most two WOFF2 preloads GQ Design marks (the text styles' primary Latin faces). */

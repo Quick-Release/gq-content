@@ -2,8 +2,8 @@ packages:
   - frontend
 
 minimumReleaseAgeExclude:
-  - "@quick-release/design-contract@0.10.1"
-  - "@quick-release/design-renderer@0.10.1"
+  - "@quick-release/design-contract@0.10.2"
+  - "@quick-release/design-renderer@0.10.2"
 
 overrides:
-  "@quick-release/design-contract": 0.10.1
+  "@quick-release/design-contract": 0.10.2

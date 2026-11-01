@@ -311,7 +311,7 @@ regenerating both stylesheets, including its media thresholds.
 
 ### Fonts and text styles
 
-GQ Design 0.10.1 (contract 2.1.0) delivers the Site's self-hosted font families
+GQ Design 0.10.1 or newer (contract 2.1.0; this package bundles 0.10.2) delivers the Site's self-hosted font families
 (faces on the Site's own or media host, each with a metric-matched local
 fallback), the `sans`/`serif`/`mono` slot assignments and the Heading and
 Paragraph text styles. The design presets carry them as optional `fonts` and
@@ -334,9 +334,10 @@ faces GQ Design marks (the text styles' primary Latin files); a
 `<style data-gqd-fonts>` with the `@font-face` rules (`font-display` as
 delivered, `swap` from GQ Design), the fallback faces and the assigned slots'
 `--gqd-font-*` stacks; and a `<style data-gqd-text-styles>` with the text
-styles under `root` (default `.gqd-content`, the theme's root). The slot stacks
-are set on `:root` and again on the root, because the theme stylesheet declares
-the system stacks there. It is empty without fonts or text styles, or with no
+styles under `root` (default `.gqd-content`, the theme's root). GQ Design sets
+the slot stacks on `:root` and on the doubled root (`:root,.gqd-content.gqd-content`),
+because the theme stylesheet declares the system stacks there. A bad stored
+text style value is dropped rather than failing the page. It is empty without fonts or text styles, or with no
 families. Font URLs only come from the presets: faces with a relative URL or a
 file on a Google host are dropped, so a visitor's browser never contacts
 Google. Media hosts need a public CORS rule for cross-origin font files.
