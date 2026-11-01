@@ -1,4 +1,5 @@
 import type { DesignTheme } from "./presentation";
+import type { DesignTypography } from "./design-fonts";
 import type { LegalLanguage } from "./consent/legal";
 import type { AnalyticsSettings } from "./consent/configuration";
 
@@ -40,7 +41,7 @@ export interface WordPressSettings {
   description: string;
 }
 
-export interface DesignPresets {
+export interface DesignPresets extends DesignTypography {
   /** Resolved CMS theme; absent in publications written before theme delivery. */
   theme?: DesignTheme;
   spacingSizes: Array<{ slug: string; size: string }>;

@@ -1,6 +1,7 @@
 import { designBlocksJsonSchema } from "./design-blocks";
 import { parseFormDescriptors } from "./forms/descriptor";
 import { designThemeSchema } from "./design-theme";
+import { designFontsSchema, designTextStylesSchema } from "./design-fonts";
 import { z } from "zod";
 import type * as Types from "./content-types";
 import type { ContentConfig, ExtensionNode } from "./server";
@@ -53,6 +54,8 @@ export interface WordPressClient<X = unknown> {
 /** The origins a link into this Site may use: WordPress's, and the Frontend's when given. */
 /** The first GQ Design whose `designPattern` serves the default `page` route. */
 const DESIGN_PATTERN_VERSION = "0.4.1";
+/** The GQ Design release whose `designTokens` carries fonts and text styles (contract 2.1.0). */
+const DESIGN_FONTS_VERSION = "0.10.1";
 
 export function internalOrigins(
   config: Pick<ContentConfig<unknown>, "graphqlEndpoint">,
@@ -238,6 +241,12 @@ export function configuredWordPress<X>(
   });
 
   const designData = z.object({ designTokens });
+  const designTypographyData = z.object({
+    designTokens: designTokens.extend({
+      fonts: designFontsSchema,
+      textStyles: designTextStylesSchema,
+    }),
+  });
 
   const menuItem = z.object({
     id: z.string(),
@@ -609,7 +618,9 @@ export function configuredWordPress<X>(
   const translatedNodeQuery = nodeQueryText(true);
 
   // The design presets alone, for a change to them that reaches every page.
-  const designQuery = /* GraphQL */ `
+  // Only this read carries the fonts and text styles: pages are served with the
+  // stored shared design, so they need not be read with every entry.
+  const designQueryText = (typography: boolean) => /* GraphQL */ `
     query DesignPresets {
       designTokens {
         theme
@@ -620,10 +631,65 @@ export function configuredWordPress<X>(
         colors {
           slug
           color
+        }${
+          typography
+            ? `
+        fonts {
+          families {
+            slug
+            name
+            fallback {
+              local
+              sizeAdjust
+              ascentOverride
+              descentOverride
+              lineGapOverride
+            }
+            faces {
+              src
+              format
+              weight
+              style
+              unicodeRange
+              display
+              preload
+            }
+          }
+          slots {
+            sans
+            serif
+            mono
+          }
+        }
+        textStyles {
+          heading {
+            slot
+            weight
+            lineHeight
+            letterSpacing
+            sizes {
+              h1
+              h2
+              h3
+              h4
+              h5
+              h6
+            }
+          }
+          paragraph {
+            slot
+            weight
+            lineHeight
+            letterSpacing
+          }
+        }`
+            : ""
         }
       }
     }
   `;
+  const designQuery = designQueryText(false);
+  const designTypographyQuery = designQueryText(true);
 
   // Anonymous readers only get what is published: no drafts, private entries or
   // revisions. The id and the modification time let reconciliation tell which
@@ -1111,16 +1177,47 @@ export function configuredWordPress<X>(
     };
   }
 
-  /** The design presets every page shares (GQ Design's spacing sizes and colors). */
+  /**
+   * The design tokens with GQ Design's fonts and text styles. A CMS whose GQ
+   * Design predates them (before 0.10.1, contract 2.0.0) rejects the fields;
+   * its tokens are read again without them, and pages keep the system fonts.
+   * Any other failure fails the read, so what is stored is kept.
+   */
+  async function designTokensData(): Promise<z.infer<typeof designTypographyData>> {
+    try {
+      return await query(designTypographyData, designTypographyQuery);
+    } catch (error) {
+      if (
+        !(error instanceof CmsFailureError) ||
+        error.failure.reason !== "graphql" ||
+        !/Cannot query field "(?:fonts|textStyles)" on type "DesignTokens"/.test(
+          error.failure.message,
+        )
+      ) {
+        throw error;
+      }
+      console.warn(
+        `WordPress: GQ Design delivers no fonts or text styles (${error.failure.message}); they need GQ Design ${DESIGN_FONTS_VERSION} or newer, so the design presets are read without them`,
+      );
+      return query(designData, designQuery);
+    }
+  }
+
+  /**
+   * The design presets every page shares (GQ Design's spacing sizes, colors,
+   * theme, and from contract 2.1.0 its fonts and text styles).
+   */
   async function getDesignPresets(): Promise<Found<DesignPresets> | Unavailable> {
     return deliver("the design presets", async (): Promise<Found<DesignPresets>> => {
-      const { designTokens } = await query(designData, designQuery);
+      const { designTokens } = await designTokensData();
       return {
         kind: "found",
         content: {
           spacingSizes: designTokens.spacingSizes,
           colors: designTokens.colors,
           ...(designTokens.theme ? { theme: designTokens.theme } : {}),
+          ...(designTokens.fonts ? { fonts: designTokens.fonts } : {}),
+          ...(designTokens.textStyles ? { textStyles: designTokens.textStyles } : {}),
         },
       };
     });

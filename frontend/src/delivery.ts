@@ -3,6 +3,7 @@ import { parseFormDescriptors } from "./forms/descriptor";
 import { parseFragment, type DefaultTreeAdapterMap } from "parse5";
 import { safeContentUrl } from "./html";
 import { designThemeSchema } from "./design-theme";
+import { designFontsSchema, designTextStylesSchema } from "./design-fonts";
 import { z } from "zod";
 import {
   publicationStore,
@@ -251,7 +252,15 @@ export function configuredDelivery<X>(
     legal: legal.optional(),
     analytics: z.object({ enabled: z.boolean(), measurementId: z.string().nullable() }).optional(),
   });
-  const designPresets = z.object({ spacingSizes, colors, theme: designThemeSchema.optional() });
+  // Fonts and text styles are absent from presets stored before them (or read
+  // from a CMS whose GQ Design predates contract 2.1.0).
+  const designPresets = z.object({
+    spacingSizes,
+    colors,
+    theme: designThemeSchema.optional(),
+    fonts: designFontsSchema.optional(),
+    textStyles: designTextStylesSchema.optional(),
+  });
   const archives = z.record(z.string());
 
   const parseWith = (schema: z.ZodType) => (body: unknown) => {
@@ -306,6 +315,8 @@ export function configuredDelivery<X>(
           spacingSizes: design.spacingSizes,
           colors: design.colors,
           theme: design.theme,
+          fonts: design.fonts,
+          textStyles: design.textStyles,
         }
       : content;
   }

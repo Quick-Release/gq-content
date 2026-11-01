@@ -163,18 +163,18 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@quick-release/design-contract': 0.9.4
+  '@quick-release/design-contract': 0.10.1
 
 importers:
 
   .:
     devDependencies:
       '@quick-release/design-contract':
-        specifier: 0.9.4
-        version: 0.9.4
+        specifier: 0.10.1
+        version: 0.10.1
       '@quick-release/design-renderer':
-        specifier: 0.9.4
-        version: 0.9.4
+        specifier: 0.10.1
+        version: 0.10.1
       '@types/node':
         specifier: ^24.0.0
         version: 24.19.2
@@ -509,11 +509,11 @@ packages:
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
 
-  '@quick-release/design-contract@0.9.4':
-    resolution: {integrity: sha512-mSnZK0bThlcUeRMthO4X91mweEStJqaG8de215S4uCvl+26LjtagHKPoJiC34G5nScIaKhoa0TCw06yHqV/B2Q==, tarball: https://npm.pkg.github.com/download/@quick-release/design-contract/0.9.4/5e04192fe70b13c704f56ef8f6ab102f51a5f560}
+  '@quick-release/design-contract@0.10.1':
+    resolution: {integrity: sha512-d7p/XzCCZaqAw/6PY8dHOXsWwXVFFE/L7AJHyPUFApBkp/PcEo5y2CjvElQ3dXgLzOy5KFdW3EV1gY0GlbDahg==, tarball: https://npm.pkg.github.com/download/@quick-release/design-contract/0.10.1/41c53594e3fef74625da25992743c80b24947a0b}
 
-  '@quick-release/design-renderer@0.9.4':
-    resolution: {integrity: sha512-R2Ckx0w1Rkfu82a6aqHMD/jAwVy+OVwNdQw5kDBJRgNgZQkLSZI9QLEE3L+WkJP2GPNr1PyozjLuESwNUM2UPQ==, tarball: https://npm.pkg.github.com/download/@quick-release/design-renderer/0.9.4/6908bf0b18d0c805e3628bc1e2a424c3c94dce78}
+  '@quick-release/design-renderer@0.10.1':
+    resolution: {integrity: sha512-OcGaq44pxVR4VlsBBZPl1yb+lFCP9Cs7GC5stpz6MEsRf9JPogCwvAkrqJgAsOogA2C+uKnEmTHPwtnh+kTW8Q==, tarball: https://npm.pkg.github.com/download/@quick-release/design-renderer/0.10.1/f3047e138a269197adcc9235385b36519a2dc870}
 
   '@testing-library/dom@10.4.2':
     resolution: {integrity: sha512-yzr2S9HyAIdhz2/6qHgbs665Q7PKVcDF05vsOlHPxG1mo36gKVesdYVeDLnXgfjJ03CrKRk08knc6+E/9m8v2Q==}
@@ -1372,11 +1372,11 @@ snapshots:
 
   '@polka/url@1.0.0-next.29': {}
 
-  '@quick-release/design-contract@0.9.4': {}
+  '@quick-release/design-contract@0.10.1': {}
 
-  '@quick-release/design-renderer@0.9.4':
+  '@quick-release/design-renderer@0.10.1':
     dependencies:
-      '@quick-release/design-contract': 0.9.4
+      '@quick-release/design-contract': 0.10.1
 
   '@testing-library/dom@10.4.2':
     dependencies:

@@ -7,7 +7,8 @@
     "noEmit": true,
     "types": ["node"],
     "paths": {
-      "@getquick/content": ["../frontend/dist/index.d.ts"]
+      "@getquick/content": ["../frontend/dist/index.d.ts"],
+      "@getquick/content/server": ["../frontend/dist/server.d.ts"]
     }
   },
   "include": ["*.ts"]

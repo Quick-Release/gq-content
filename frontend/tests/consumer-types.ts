@@ -16,6 +16,10 @@ import {
   parseDesignBlocks,
   designMenuItems,
   escapeHtml,
+  designFontsHead,
+  designFontPreloads,
+  type DesignFonts,
+  type DesignTextStyles,
   type DesignBlock,
   type DesignPattern,
   type DesignBlockRenderer,
@@ -192,6 +196,17 @@ const scoped: BlockPresetStyles = blockPresetStyles(spacing, colors, ".site-bloc
 const root: string = presetRootStyle(spacing, colors);
 void [extendedHome, extendedEntry, extendedRead, siteDesign, frontDesign, plainEntry];
 void [design, origins, scoped, root, menuItemHref("https://cms.test/a/", origins)];
+// GQ Design's fonts and text styles (contract 2.1.0) are optional design presets.
+async function fontHead(): Promise<string> {
+  const presets = await runtime.designPresets();
+  const fonts: DesignFonts | undefined = presets?.fonts;
+  const textStyles: DesignTextStyles | undefined = presets?.textStyles;
+  const preloads: { rel: "preload"; as: "font"; href: string; crossOrigin: "anonymous" }[] =
+    designFontPreloads(fonts);
+  void [textStyles, preloads];
+  return designFontsHead(presets, { root: ".gqd-content" });
+}
+void fontHead;
 
 import {
   consentPage as neutralConsentPage,
