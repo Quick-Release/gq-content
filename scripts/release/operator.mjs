@@ -84,8 +84,8 @@ try {
     const versions = (await response.json()).packages?.["getquick/gq-design"];
     assert(
       Array.isArray(versions) &&
-        versions.some((item) => item.version.replace(/^v/, "") === "0.10.1"),
-      "published Design 0.10.1 Composer record missing",
+        versions.some((item) => item.version.replace(/^v/, "") === "0.10.2"),
+      "published Design 0.10.2 Composer record missing",
     );
     const npm = spawnSync("vp", ["pm", "whoami", "--", "--registry=https://registry.npmjs.org"], {
       cwd: root,
@@ -96,7 +96,7 @@ try {
     console.log(
       JSON.stringify({
         status: "ready",
-        designComposer: "0.10.1",
+        designComposer: "0.10.2",
         npm: true,
         registryDispatch: true,
       }),

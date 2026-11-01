@@ -20,8 +20,8 @@
     "release:nightly": "node scripts/release/nightly.mjs"
   },
   "devDependencies": {
-    "@quick-release/design-contract": "0.10.1",
-    "@quick-release/design-renderer": "0.10.1",
+    "@quick-release/design-contract": "0.10.2",
+    "@quick-release/design-renderer": "0.10.2",
     "@types/node": "^24.0.0",
     "parse5": "8.0.1",
     "typescript": "6.0.3",
