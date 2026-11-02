@@ -1,10 +1,10 @@
 # Render blocks with gq-design's injected HTML adapter
 
-Status: proposed, 2026-10-24; decisions below agreed in
-maintainer interview, 2026-11-02. The consolidated design awaits final
-maintainer confirmation before acceptance, with the Query withdrawal exception
-below still open. Originally proposed as ADR 0007 in PR #41; renumbered because
-main now uses 0007 for development nightlies and 0008 for forms.
+Status: accepted for the content runtime, 2026-11-02, after the maintainer
+accepted all twelve interview recommendations. Proposed 2026-10-24 as ADR 0007
+in PR #41; renumbered because main uses 0007 for development nightlies and 0008
+for forms. Acceptance records the design; implementation, provider delivery,
+owner-side reconciliation and Site rollout remain pending. PR #41 stays open.
 
 ## Current baseline
 
@@ -22,8 +22,9 @@ name, attributes, content and children, without explicit version or complete
 rendered fallback metadata. Body parsing preserves additional validated fields;
 chrome parsing currently reconstructs the node and drops additional fields.
 Both parsers need explicit compatibility coverage. The current Design
-serializer emits saved leaf content, not complete WordPress-rendered HTML for every subtree. This proposal requires a provider
-contract change; merely switching GraphQL selections cannot supply fallback.
+serializer emits saved leaf content, not complete WordPress-rendered HTML for
+every subtree. This decision requires a provider contract change; merely
+switching GraphQL selections cannot supply fallback.
 
 ## Agreed ownership
 
@@ -45,7 +46,7 @@ no private runtime, peer or type dependency and no registry credentials needed
 to install it. Site wiring imports the adapter; Blueprint provisioning and
 version pins belong to gq-site.
 
-On acceptance, this replaces ADR 0006's bundled Design integration for these
+This decision supersedes ADR 0006's bundled Design integration for these
 rendering responsibilities, and the content-rendering/private-package parts of
 [gq-site ADR 0018](https://github.com/Quick-Release/gq-site/blob/main/docs/adr/0018-ship-gq-designs-contract-and-renderer-as-lockstep-packages.md).
 The provider adapter and its contract belong to gq-design (#83); Blueprint
@@ -150,33 +151,40 @@ It does not add a store of earlier publication revisions or override withdrawals
 Query selection and ordering come from stored producer data. Referenced
 Post/Page publications use the existing loader and last-known-good rules; only
 a never-held reference can invoke cold lookup. Hydration stays outside the
-synchronous adapter. A failed dependency selects the Query block's entire
-WordPress subtree fallback rather than dropping an item. This requires hydration
-failures to remain attributable to their owning Query block. Missing fallback
-then follows the 503 rule above. Custom post type loading remains explicitly
-caller-owned; this decision does not silently expand the default loader.
+synchronous adapter. A temporarily unavailable dependency selects the Query
+block's eligible complete WordPress subtree fallback rather than dropping an item. Confirmed missing or
+withdrawn dependencies follow the exception below. Hydration failures must stay
+attributable to their owning Query block. Missing or ineligible fallback follows
+the 503 rule above. Custom post type loading remains explicitly caller-owned; this decision does not silently expand the default loader.
 
 One WPGraphQL request means one per entry/home source read. It is not a promise
 that an entire page's dependent Query hydration makes only one request. Existing
 request budgets, withdrawal handling and independently refreshed child
 publications still apply.
 
-## Open exception: Query snapshots after confirmed absence
+## Agreed exception: Query snapshots after confirmed absence
 
-The agreed hydration fallback policy needs one explicit qualification. A stored
-WordPress Query subtree can contain copies of selected entries, including Post
-Content. If a selected entry is later withdrawn, neutral hydration currently
-refuses it, but unconditional fallback can expose the old snapshot. ADR 0002
-explicitly protects the entry's routes; it does not specify copied Query output.
+A stored WordPress Query subtree can contain copies of selected entries,
+including Post Content. If a selected entry is later withdrawn, neutral
+hydration currently refuses it, but unconditional fallback can expose the old
+snapshot. ADR 0002 explicitly protects the entry's routes; this decision also
+forbids using Query fallback to re-expose a dependency known to be missing or
+withdrawn.
 
-The current preload boundary reduces missing, withdrawn, unavailable and moved
-results to null, so the implementation must retain distinct outcomes to enforce
-a qualified policy. Pending maintainer decision: whether authoritative absence
-makes snapshots containing that reference unusable (including ancestor
-fallback), yielding 503 under the no-partial-output rule, while temporary
-unavailability can still use eligible fallback. Preserve enough dependency
-identity to apply the chosen policy even if a wrapper uses complete fallback.
-This is a consumer contract requirement for coordination with the provider.
+Authoritative missing or withdrawn outcomes make any fallback containing that
+reference unusable, including an enclosing wrapper's fallback. Under the
+no-partial-output rule, delivery returns 503. Temporary unavailability may use
+eligible fallback. The current preload boundary reduces missing, withdrawn,
+unavailable and moved results to null; retain the distinct outcomes needed to
+enforce this policy rather than treating every null as transient failure.
+
+Preserve enough dependency identity with stored Query data and fallbacks to
+check eligibility even when a wrapper selects complete fallback. These checks
+are delivery authorization checks, separate from adapter traversal: a wrapper
+cannot bypass them by declining to render its children. Carry the consumer
+requirement into the provider contract and cover body and chrome paths. Legacy
+HTML-only rows retain their existing compatibility path; this decision does not
+claim to recover dependency identities that were never stored.
 
 ## Agreed performance and rollout gates
 
@@ -204,13 +212,13 @@ Blueprint and Site owners own their adoption and deployment evidence.
 
 Content implementation criteria are consolidated in
 [issue #42](https://github.com/Quick-Release/gq-content/issues/42). That issue
-requires acceptance of this ADR plus the published provider capabilities listed
-above; it does not depend on merging unrelated fleet acceptance work.
+requires the published provider capabilities listed above; it does not depend
+on merging unrelated fleet acceptance work.
 
 Owner-side follow-up requirements are recorded here and in #42:
 
 - Design #83: supported native and Design capability scope; complete rendered
-  subtree fallback and its metadata; supported older data and version decline;
+  subtree fallback, dependency identity and version metadata; supported older data;
   CSS/browser entries; consent integration; Worker and real fixture evidence.
 - Blueprint #125: injection and Site override wiring, registry read access,
   exact pin pairing, affected-Site inventory and tested rollout/rollback gates.
