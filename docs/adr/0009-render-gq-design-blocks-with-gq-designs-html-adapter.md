@@ -1,6 +1,6 @@
 # Render blocks with gq-design's injected HTML adapter
 
-Status: proposed, 2026-10-24; ownership and fallback decisions agreed in
+Status: proposed, 2026-10-24; decisions below agreed in
 maintainer interview, 2026-11-02. Remaining decisions below must be settled
 before acceptance. Originally proposed as ADR 0007 in PR #41; renumbered because
 main now uses 0007 for development nightlies and 0008 for forms.
@@ -16,9 +16,11 @@ The implementation now covers native text/media/navigation, Grid, Query,
 Carousel and Hero, presentation styles and browser behavior. The original
 Video-Hero-only account in this proposal predates those changes.
 
-The existing `DesignBlockRenderer` returns a string. Its parsed node has name,
-attributes, content and children, without version or complete rendered fallback
-metadata. The current Design serializer emits saved leaf content, not complete
+The existing `DesignBlockRenderer` returns a string. Its declared node has
+name, attributes, content and children, without explicit version or complete
+rendered fallback metadata. Body parsing preserves additional validated fields;
+chrome parsing currently reconstructs the node and drops additional fields.
+Both parsers need explicit compatibility coverage. The current Design serializer emits saved leaf content, not complete
 WordPress-rendered HTML for every subtree. This proposal requires a provider
 contract change; merely switching GraphQL selections cannot supply fallback.
 
@@ -65,29 +67,72 @@ There is no whole-page rendering mode switch.
 Structurally malformed trees fail the read and preserve last-known-good content,
 as ADR 0006 requires for chrome. Unsupported or invalid block capabilities in an
 otherwise valid envelope are a separate per-node fallback case. Empty rendered
-HTML must not automatically mean a missing fallback; the result representation
-is still to be settled.
+HTML is a valid successful result and is distinct from a missing fallback.
+
+## Agreed adapter outcomes
+
+The injected interface explicitly distinguishes rendered HTML from a decline
+with a reason. A successful empty string is valid. Exceptions are reported and
+select WordPress subtree fallback, just as explicit declines do. Site overrides
+retain precedence. Exact TypeScript names are implementation details; the public
+contract must express these outcomes without importing private Design types.
+
+## Agreed stored compatibility
+
+Extend the existing optional tree with version and complete-fallback metadata;
+do not introduce a second competing publication tree. Saved leaf content is not
+implicitly complete rendered fallback. Keep older HTML-only rows and existing
+neutral trees servable until refreshed. The adapter supports older stored data
+within its supported contract major. Unknown additive attributes alone do not
+force rejection; incompatible versions or unsupported capabilities may decline.
+
+Plugin-first upgrades and Frontend rollback must be tested with newer stored
+nodes using WordPress fallback. Preserve producer/wire version and fallback
+metadata through parsing, JSON round-trip and delivery. Contract-major and
+capability compatibility must be distinguishable from exact package pairing.
+The case where no renderer and no usable fallback exists remains open below.
+
+## Agreed consent boundary
+
+An injected renderer receives a runtime-owned media transformation function.
+It gates the media that renderer generates before combining it with children
+already processed by the runtime. Do not reprocess the final composed HTML:
+that can damage trusted placeholder hooks. Complete WordPress fallback receives
+the same policy at delivery. Stored data stays as published under ADR 0003.
+
+With consent enabled, unapproved external media stays inert, including unknown
+or inactive services. Tests cover generated and fallback media, nesting,
+activation, revocation and language. Without consent configured, preserve the
+existing media behavior. Exceptions in consent enforcement must not expose raw
+media; their exact delivery failure behavior remains to be settled.
+
+## Agreed upstream gates
+
+Implementation readiness and Site rollout are separate gates. This change
+requires the published provider capabilities it consumes: an adapter covering
+supported Design and native capabilities, complete rendered subtree fallback,
+version metadata, CSS and browser entries, and consent integration, with
+compatibility evidence. Relevant unresolved Tailwind defects still block.
+Closure of every fleet-acceptance item in Design #82 is not a blanket blocker
+for content implementation. Its published 0.9.0 packages are already baseline.
+
+Design #83 and Blueprint #125 need corresponding owner-side scope updates.
+This ADR records the consumer requirements; their records and tickets must be
+changed only in sessions bound to their owning repositories.
 
 ## Remaining decisions before acceptance
 
-- Interface: explicit rendered/declined results, exception handling, diagnostics,
-  node metadata, context capabilities and compatibility for Site overrides.
-- Storage and compatibility: extend the existing optional tree, distinguish
-  complete rendered fallback from saved leaf content, represent producer/wire
-  versions, retain older rows and trees, handle newer nodes and rollback, and
-  define failure when neither adapter nor usable fallback can serve a node.
-- Consent: expose the runtime-owned media boundary to injected renderers before
-  child composition; settle failure policy and acceptance for disabled consent,
-  unknown services, activation/revocation and language. Stored data remains as
-  published under ADR 0003.
+- Failure when neither renderer nor usable fallback can serve a node, and
+  consent transformation fails: promotion, last-known-good and HTTP behavior.
+- Legacy Site renderer compatibility, exact package pairing versus stored wire
+  compatibility, and CSS/browser behavior during fallback and rollout.
 - Data and performance: preserve preloaded Query/Post context, clarify that one
   GraphQL request is per source read (Query hydration can read more entries),
   measure any removal of whole-page `content`, bound rendering and decide any
   rendered-output cache identity.
-- Adoption and release gates: reconcile actual Design #82 completion evidence,
-  require the provider capabilities from #83, and specify the existing-Site
-  inventory and upgrade/rollback evidence rather than assuming no production
-  Sites. Decide acceptance and rollout gates separately.
+- Existing-Site inventory, upgrade/rollback evidence and the final acceptance
+  matrix. Do not infer rollout safety from the unverified claim that no Site
+  is in production.
 
 ## Upstream status checked 2026-11-02
 
