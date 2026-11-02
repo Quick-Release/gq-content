@@ -88,6 +88,11 @@ Child composition must be demand-driven so a parent selecting complete fallback
 does not first render or preload descendants solely for adapter output. A
 declining Site override selects fallback under the same rules.
 
+The [consumer interface proposal](../specs/issue-42-renderer-interface.md) gives
+concrete result and context types for provider reconciliation. Its exact names
+and provider mapping remain a proposal until both owners check the fit; the
+accepted policies in this ADR govern that work.
+
 ## Agreed stored compatibility
 
 Extend the existing optional tree with version and complete-fallback metadata;
