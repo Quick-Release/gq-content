@@ -1,8 +1,9 @@
 # Render blocks with gq-design's injected HTML adapter
 
 Status: proposed, 2026-10-24; decisions below agreed in
-maintainer interview, 2026-11-02. Remaining decisions below must be settled
-before acceptance. Originally proposed as ADR 0007 in PR #41; renumbered because
+maintainer interview, 2026-11-02. The consolidated design awaits final
+maintainer confirmation before acceptance, with the Query withdrawal exception
+below still open. Originally proposed as ADR 0007 in PR #41; renumbered because
 main now uses 0007 for development nightlies and 0008 for forms.
 
 ## Current baseline
@@ -20,8 +21,8 @@ The existing `DesignBlockRenderer` returns a string. Its declared node has
 name, attributes, content and children, without explicit version or complete
 rendered fallback metadata. Body parsing preserves additional validated fields;
 chrome parsing currently reconstructs the node and drops additional fields.
-Both parsers need explicit compatibility coverage. The current Design serializer emits saved leaf content, not complete
-WordPress-rendered HTML for every subtree. This proposal requires a provider
+Both parsers need explicit compatibility coverage. The current Design
+serializer emits saved leaf content, not complete WordPress-rendered HTML for every subtree. This proposal requires a provider
 contract change; merely switching GraphQL selections cannot supply fallback.
 
 ## Agreed ownership
@@ -74,8 +75,17 @@ HTML is a valid successful result and is distinct from a missing fallback.
 The injected interface explicitly distinguishes rendered HTML from a decline
 with a reason. A successful empty string is valid. Exceptions are reported and
 select WordPress subtree fallback, just as explicit declines do. Site overrides
-retain precedence. Exact TypeScript names are implementation details; the public
-contract must express these outcomes without importing private Design types.
+retain precedence. Existing Site renderers returning strings remain compatible:
+a string means successful rendering, while explicit result objects allow decline.
+Existing context fields stay available, with the runtime-owned media function
+added. Existing Site-generated media keeps its current Site responsibility; the
+new helper is available to those renderers too. Exact TypeScript names are
+implementation details; the public contract expresses the outcomes without
+importing private Design types.
+
+Child composition must be demand-driven so a parent selecting complete fallback
+does not first render or preload descendants solely for adapter output. A
+declining Site override selects fallback under the same rules.
 
 ## Agreed stored compatibility
 
@@ -90,7 +100,10 @@ Plugin-first upgrades and Frontend rollback must be tested with newer stored
 nodes using WordPress fallback. Preserve producer/wire version and fallback
 metadata through parsing, JSON round-trip and delivery. Contract-major and
 capability compatibility must be distinguishable from exact package pairing.
-The case where no renderer and no usable fallback exists remains open below.
+Extend the existing publication body without changing its format number or D1
+migrations, following ADRs 0004 and 0006. New metadata must distinguish a legacy
+tree from an incomplete new-contract tree; missing new fields must not silently
+downgrade a damaged new tree into the legacy path.
 
 ## Agreed consent boundary
 
@@ -103,8 +116,9 @@ the same policy at delivery. Stored data stays as published under ADR 0003.
 With consent enabled, unapproved external media stays inert, including unknown
 or inactive services. Tests cover generated and fallback media, nesting,
 activation, revocation and language. Without consent configured, preserve the
-existing media behavior. Exceptions in consent enforcement must not expose raw
-media; their exact delivery failure behavior remains to be settled.
+existing media behavior. Consent transformation failure makes the response
+unavailable (503); it must not be swallowed as an ordinary renderer exception
+and return raw media. See the failure policy below.
 
 ## Agreed upstream gates
 
@@ -120,19 +134,92 @@ Design #83 and Blueprint #125 need corresponding owner-side scope updates.
 This ADR records the consumer requirements; their records and tickets must be
 changed only in sessions bound to their owning repositories.
 
-## Remaining decisions before acceptance
+## Agreed failure and Query behavior
 
-- Failure when neither renderer nor usable fallback can serve a node, and
-  consent transformation fails: promotion, last-known-good and HTTP behavior.
-- Legacy Site renderer compatibility, exact package pairing versus stored wire
-  compatibility, and CSS/browser behavior during fallback and rollout.
-- Data and performance: preserve preloaded Query/Post context, clarify that one
-  GraphQL request is per source read (Query hydration can read more entries),
-  measure any removal of whole-page `content`, bound rendering and decide any
-  rendered-output cache identity.
-- Existing-Site inventory, upgrade/rollback evidence and the final acceptance
-  matrix. Do not infer rollout safety from the unverified claim that no Site
-  is in production.
+New-contract reads require complete fallback metadata for every node. Missing
+metadata, malformed envelopes or exceeded bounds fail the read and keep the
+last-known-good publication; they cannot promote partial content. Explicitly
+empty fallback HTML remains valid. Legacy rows retain their compatibility path.
+
+At delivery, an unrenderable node with no usable fallback makes the response
+unavailable (503). Do not silently omit it, return a partial successful response,
+or attempt a fresh CMS read to repair an existing row during an ordinary visit.
+This preserves ADR 0002's distinction between missing and unavailable content.
+It does not add a store of earlier publication revisions or override withdrawals.
+
+Query selection and ordering come from stored producer data. Referenced
+Post/Page publications use the existing loader and last-known-good rules; only
+a never-held reference can invoke cold lookup. Hydration stays outside the
+synchronous adapter. A failed dependency selects the Query block's entire
+WordPress subtree fallback rather than dropping an item. This requires hydration
+failures to remain attributable to their owning Query block. Missing fallback
+then follows the 503 rule above. Custom post type loading remains explicitly
+caller-owned; this decision does not silently expand the default loader.
+
+One WPGraphQL request means one per entry/home source read. It is not a promise
+that an entire page's dependent Query hydration makes only one request. Existing
+request budgets, withdrawal handling and independently refreshed child
+publications still apply.
+
+## Open exception: Query snapshots after confirmed absence
+
+The agreed hydration fallback policy needs one explicit qualification. A stored
+WordPress Query subtree can contain copies of selected entries, including Post
+Content. If a selected entry is later withdrawn, neutral hydration currently
+refuses it, but unconditional fallback can expose the old snapshot. ADR 0002
+explicitly protects the entry's routes; it does not specify copied Query output.
+
+The current preload boundary reduces missing, withdrawn, unavailable and moved
+results to null, so the implementation must retain distinct outcomes to enforce
+a qualified policy. Pending maintainer decision: whether authoritative absence
+makes snapshots containing that reference unusable (including ancestor
+fallback), yielding 503 under the no-partial-output rule, while temporary
+unavailability can still use eligible fallback. Preserve enough dependency
+identity to apply the chosen policy even if a wrapper uses complete fallback.
+This is a consumer contract requirement for coordination with the provider.
+
+## Agreed performance and rollout gates
+
+Render stored source data at delivery without adding a rendered HTML cache in
+this implementation. Retain whole-page `content` until complete per-node
+fallback and measurements justify removing it. Measure CMS response cost and
+Worker CPU and memory for representative mixed/nested pages and bounded maximum
+fixtures, including the aggregate cost of complete fallback HTML at every node.
+Document numerical CPU, memory, tree and payload limits and acceptance results
+before release. Budget failure requires a design review, not silently adding a
+cache. Any future rendered cache needs a separate decision accounting for
+publication identity, adapter and Site override versions, theme, language,
+consent configuration and preloaded context.
+
+Rollout requires an inventory of affected content Sites and verified upgrade and
+rollback combinations. Plugin and adapter installed pins are exact pairs;
+temporary deployment drift is supported only for tested combinations. WordPress
+fallback must preserve essential presentation and browser behavior under those
+combinations, including the CSS and browser entries actually deployed. If that
+fails, plugin-first deployment or Frontend rollback cannot be called safe.
+Do not infer readiness from the unverified claim that no Site is in production.
+Blueprint and Site owners own their adoption and deployment evidence.
+
+## Acceptance and owner handoff
+
+Content implementation criteria are consolidated in
+[issue #42](https://github.com/Quick-Release/gq-content/issues/42). That issue
+requires acceptance of this ADR plus the published provider capabilities listed
+above; it does not depend on merging unrelated fleet acceptance work.
+
+Owner-side follow-up requirements are recorded here and in #42:
+
+- Design #83: supported native and Design capability scope; complete rendered
+  subtree fallback and its metadata; supported older data and version decline;
+  CSS/browser entries; consent integration; Worker and real fixture evidence.
+- Blueprint #125: injection and Site override wiring, registry read access,
+  exact pin pairing, affected-Site inventory and tested rollout/rollback gates.
+- gq-site ADR 0018 and the shared platform ownership/vocabulary records: reconcile
+  the superseded content rendering statements through their owning sessions.
+
+No cross-repository writes, renderer implementation, release, deployment or PR
+merge are authorized by this interview. Those owner-side updates are pending;
+the consumer requirements here do not claim their providers have delivered them.
 
 ## Upstream status checked 2026-11-02
 
