@@ -12,10 +12,12 @@
  * A descriptor holds what a visitor sees and what a submission is checked
  * against: fields, labels, choices, required flags, the consent's text and
  * revision, the honeypot input and the default confirmation. It never holds
- * notifications, entries, feeds or admin settings. A field or setting the
- * Frontend can't support (Gravity Forms' CAPTCHA, file uploads, payment
- * fields, page breaks, conditional logic, login-only forms) is reported in
- * the descriptor's `diagnostics`, which Site readiness fails on.
+ * notifications, entries, feeds or admin settings. A file upload field
+ * describes its allowed extensions, per-file limit and file count (ADR 0010
+ * here). A field or setting the Frontend can't support (Gravity Forms'
+ * CAPTCHA, post image and signature fields, uploads of files it can't verify,
+ * payment fields, page breaks, conditional logic, login-only forms) is
+ * reported in the descriptor's `diagnostics`, which Site readiness fails on.
  *
  * Saving a form (its fields or its confirmations), activating, deactivating,
  * trashing, restoring or deleting it publishes every published entry that
@@ -42,8 +44,11 @@ const BLOCK = 'gravityforms/form';
 /** Field types the Frontend renders and submits. */
 const SUPPORTED = [
     'text', 'textarea', 'email', 'phone', 'number', 'website', 'select', 'radio',
-    'checkbox', 'consent', 'name', 'hidden', 'html', 'section',
+    'checkbox', 'consent', 'name', 'hidden', 'html', 'section', 'fileupload',
 ];
+
+/** The file extensions whose content the Frontend's form endpoint verifies. */
+const VERIFIABLE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'pdf'];
 
 /** Name sub-inputs: Gravity Forms' input suffix => autocomplete token. */
 const NAME_AUTOCOMPLETE = ['2' => 'honorific-prefix', '3' => 'given-name', '4' => 'additional-name', '6' => 'family-name', '8' => 'honorific-suffix'];
@@ -142,13 +147,96 @@ function unsupported(string $type, string $input_type): ?array
     }
     [$code, $message] = match (true) {
         $type === 'captcha' || $input_type === 'captcha' || str_contains($type, 'turnstile') || str_contains($type, 'recaptcha') => ['unsupported-captcha', 'Gravity Forms\' CAPTCHA can\'t be shown on the Frontend; remove it and use the Site\'s spam controls.'],
-        in_array($input_type, ['fileupload', 'post_image', 'signature'], true) => ['unsupported-file-upload', 'File uploads aren\'t supported.'],
+        in_array($type, ['post_image', 'signature'], true) || in_array($input_type, ['post_image', 'signature'], true) => ['unsupported-file-upload', 'Post image and signature fields aren\'t supported.'],
         $pricing => ['unsupported-payment', 'Payment and pricing fields aren\'t supported.'],
         $type === 'page' => ['unsupported-multi-page', 'Multi-page forms aren\'t supported.'],
         default => ['unsupported-field', sprintf('The %s field type isn\'t supported.', $type)],
     };
 
     return ['code' => $code, 'type' => $type, 'message' => $message];
+}
+
+/** A php.ini size (`8M`) in bytes. */
+function ini_bytes(string $name): int
+{
+    $value = (string) ini_get($name);
+
+    return function_exists('wp_convert_hr_to_bytes') ? (int) wp_convert_hr_to_bytes($value) : (int) $value;
+}
+
+/**
+ * An upload field's public settings: allowed extensions, the largest file
+ * Gravity Forms accepts (its limit, capped by PHP's), and how many files.
+ */
+function upload_of(object $field): array
+{
+    $extensions = [];
+    foreach (explode(',', strtolower((string) ($field->allowedExtensions ?? ''))) as $extension) {
+        $extension = str_replace(['.', ' '], '', $extension);
+        if (preg_match('/^[a-z0-9]{1,16}$/', $extension) === 1 && ! in_array($extension, $extensions, true)) {
+            $extensions[] = $extension;
+        }
+    }
+    $php = function_exists('wp_max_upload_size') ? (int) wp_max_upload_size() : ini_bytes('upload_max_filesize');
+    $field_limit = (int) ($field->maxFileSize ?? 0) > 0 ? (int) $field->maxFileSize * 1048576 : 0;
+    $multiple = ! empty($field->multipleFiles);
+
+    return [
+        'allowedExtensions' => $extensions,
+        'maxFileSize' => $field_limit > 0 && ($php <= 0 || $field_limit < $php) ? $field_limit : max(0, $php),
+        'multipleFiles' => $multiple,
+        'maxFiles' => $multiple ? max(0, (int) ($field->maxFiles ?? 0)) : 1,
+    ];
+}
+
+/** Why an upload field's settings can't be honoured by the Frontend, or null. */
+function upload_problem(array $upload): ?string
+{
+    if ($upload['allowedExtensions'] === []) {
+        return sprintf('Set the field\'s allowed file extensions (%s).', implode(', ', VERIFIABLE_EXTENSIONS));
+    }
+    $unverifiable = array_values(array_diff($upload['allowedExtensions'], VERIFIABLE_EXTENSIONS));
+    if ($unverifiable !== []) {
+        return sprintf('The Frontend can\'t verify %s files: allow only %s.', implode(', ', $unverifiable), implode(', ', VERIFIABLE_EXTENSIONS));
+    }
+    if ($upload['maxFileSize'] <= 0) {
+        return 'The field has no file size limit.';
+    }
+    if ($upload['maxFiles'] <= 0) {
+        return 'Set the maximum number of files.';
+    }
+
+    return null;
+}
+
+/**
+ * Why the CMS's PHP can't take the form's largest possible upload, or null:
+ * PHP drops a post over `post_max_size`, and files over `max_file_uploads`,
+ * without telling Gravity Forms.
+ *
+ * @param list<array> $uploads
+ */
+function upload_capacity_problem(array $uploads): ?string
+{
+    if ($uploads === []) {
+        return null;
+    }
+    $bytes = 0;
+    $files = 0;
+    foreach ($uploads as $upload) {
+        $bytes += $upload['maxFileSize'] * $upload['maxFiles'];
+        $files += $upload['maxFiles'];
+    }
+    $post = ini_bytes('post_max_size');
+    $count = (int) ini_get('max_file_uploads');
+    if ($post > 0 && $bytes > $post) {
+        return sprintf('The form\'s uploads can reach %s, but the CMS\'s PHP accepts posts of up to %s (post_max_size): lower the fields\' size limits or numbers of files, or raise post_max_size.', size_format($bytes), size_format($post));
+    }
+    if ($count > 0 && $files > $count) {
+        return sprintf('The form takes up to %d files, but the CMS\'s PHP accepts %d per post (max_file_uploads).', $files, $count);
+    }
+
+    return null;
 }
 
 /** The public description of one supported field. */
@@ -228,6 +316,9 @@ function field_of(object $field, int $form_id): array
         $inputs[] = ['id' => (string) $id, 'name' => "input_$id", 'label' => $described['label']];
     }
     $described['inputs'] = $inputs;
+    if ($input_type === 'fileupload') {
+        $described['upload'] = upload_of($field);
+    }
     if ($input_type === 'html') {
         $described['content'] = wp_kses_post(preg_replace('/\{[^{}]*\}/', '', (string) ($field->content ?? '')) ?? '');
     }
@@ -293,6 +384,7 @@ function descriptor(int $form_id): array
 
     $fields = [];
     $diagnostics = [];
+    $uploads = [];
     foreach ($form['fields'] ?? [] as $field) {
         if (! is_object($field) || ($field->visibility ?? 'visible') === 'administrative') {
             continue;
@@ -310,7 +402,20 @@ function descriptor(int $form_id): array
         if (! empty($field->conditionalLogic)) {
             $diagnostics[] = ['code' => 'unsupported-conditional-logic', 'fieldId' => (int) $field->id, 'type' => $type, 'message' => 'Conditional logic isn\'t supported.'];
         }
-        $fields[] = field_of($field, $form_id);
+        $described = field_of($field, $form_id);
+        if (isset($described['upload'])) {
+            $problem = upload_problem($described['upload']);
+            if ($problem !== null) {
+                $diagnostics[] = ['code' => 'unsupported-file-upload', 'fieldId' => (int) $field->id, 'type' => $type, 'message' => $problem];
+            } elseif ($described['visibility'] === 'visible') {
+                $uploads[] = $described['upload'];
+            }
+        }
+        $fields[] = $described;
+    }
+    $capacity = upload_capacity_problem($uploads);
+    if ($capacity !== null) {
+        $diagnostics[] = ['code' => 'unsupported-file-upload', 'message' => $capacity];
     }
     if (! empty($form['button']['conditionalLogic'])) {
         $diagnostics[] = ['code' => 'unsupported-conditional-logic', 'message' => 'Conditional logic on the submit button isn\'t supported.'];

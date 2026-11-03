@@ -29,6 +29,7 @@ export const SUPPORTED_FIELD_TYPES = [
   "hidden",
   "html",
   "section",
+  "fileupload",
 ] as const;
 export type FormFieldType = (typeof SUPPORTED_FIELD_TYPES)[number];
 
@@ -61,6 +62,25 @@ export interface FormConsent {
   revisionId: string;
 }
 
+/**
+ * The extensions an upload field may allow: the formats whose content the form
+ * endpoint verifies (ADR 0010 here). Another extension is a diagnostic.
+ */
+export const VERIFIABLE_FILE_EXTENSIONS = ["jpg", "jpeg", "png", "gif", "webp", "pdf"] as const;
+export type VerifiableFileExtension = (typeof VERIFIABLE_FILE_EXTENSIONS)[number];
+
+/** A file upload field's public settings, as Gravity Forms enforces them. */
+export interface FormUpload {
+  /** Lower case, without dots (`jpg`, `pdf`). Empty: none set, which isn't supported. */
+  allowedExtensions: string[];
+  /** The largest file accepted, in bytes (the field's limit, capped by the CMS's PHP). */
+  maxFileSize: number;
+  /** Whether the field takes several files. */
+  multipleFiles: boolean;
+  /** The most files it takes: 1 for a single file; 0 for several without a maximum (unsupported). */
+  maxFiles: number;
+}
+
 export interface FormField {
   id: number;
   type: FormFieldType;
@@ -85,6 +105,8 @@ export interface FormField {
   range?: { min?: number; max?: number };
   /** The Site's CSS classes the editor set on the field. */
   cssClass?: string;
+  /** fileupload only. */
+  upload?: FormUpload;
 }
 
 export type FormConfirmation =
@@ -164,6 +186,28 @@ function parseInput(value: unknown): FormInput | null {
   };
 }
 
+const EXTENSION = /^[a-z0-9]{1,16}$/;
+
+function parseUpload(value: unknown): FormUpload {
+  const record = isRecord(value) ? value : {};
+  const extensions = Array.isArray(record.allowedExtensions) ? record.allowedExtensions : [];
+  const multipleFiles = record.multipleFiles === true;
+  const size = finite(record.maxFileSize);
+  const count = finite(record.maxFiles);
+  return {
+    allowedExtensions: [
+      ...new Set(
+        extensions
+          .map((each) => text(each).trim().toLowerCase().replace(/^\./, ""))
+          .filter((each) => EXTENSION.test(each)),
+      ),
+    ],
+    maxFileSize: size !== undefined && size > 0 ? Math.floor(size) : 0,
+    multipleFiles,
+    maxFiles: !multipleFiles ? 1 : count !== undefined && count > 0 ? Math.floor(count) : 0,
+  };
+}
+
 function parseField(value: unknown): FormField | null {
   if (!isRecord(value)) return null;
   const id = value.id;
@@ -205,6 +249,8 @@ function parseField(value: unknown): FormField | null {
     const max = finite(value.range.max);
     field.range = { ...(min !== undefined ? { min } : {}), ...(max !== undefined ? { max } : {}) };
   }
+  // Settings that don't parse become ones readiness fails on (formDiagnostics).
+  if (field.type === "fileupload") field.upload = parseUpload(value.upload);
   return field;
 }
 
@@ -300,9 +346,47 @@ export function findForm(
 /** The path a form posts to on the Site's own origin. */
 export const formAction = (formId: number) => `${FORMS_PATH}/${formId}`;
 
+/** Whether a descriptor has an upload field a visitor fills in: its form posts multipart. */
+export function hasUploads(descriptor: FormDescriptor): boolean {
+  return descriptor.fields.some(
+    (field) => field.type === "fileupload" && field.visibility === "visible",
+  );
+}
+
+/** Why an upload field's settings can't be honoured, or null. */
+function uploadProblem(upload: FormUpload | undefined): string | null {
+  if (!upload || upload.allowedExtensions.length === 0)
+    return `Set the field's allowed file extensions (${VERIFIABLE_FILE_EXTENSIONS.join(", ")}).`;
+  const unverifiable = upload.allowedExtensions.filter(
+    (each) => !(VERIFIABLE_FILE_EXTENSIONS as readonly string[]).includes(each),
+  );
+  if (unverifiable.length)
+    return `The Frontend can't verify ${unverifiable.join(", ")} files: allow only ${VERIFIABLE_FILE_EXTENSIONS.join(", ")}.`;
+  if (upload.maxFileSize <= 0) return "The field has no file size limit.";
+  if (upload.maxFiles <= 0) return "Set the maximum number of files.";
+  return null;
+}
+
 /** Everything readiness must fail for: an unavailable form, and each unsupported field or setting. */
 export function formDiagnostics(descriptor: FormDescriptor): FormDiagnostic[] {
   const diagnostics = [...descriptor.diagnostics];
+  // Also checked here, so a descriptor from another CMS version can't post what isn't verified.
+  for (const field of descriptor.fields) {
+    if (field.type !== "fileupload") continue;
+    const problem = uploadProblem(field.upload);
+    if (
+      problem &&
+      !diagnostics.some(
+        (each) => each.code === "unsupported-file-upload" && each.fieldId === field.id,
+      )
+    )
+      diagnostics.push({
+        code: "unsupported-file-upload",
+        fieldId: field.id,
+        type: "fileupload",
+        message: problem,
+      });
+  }
   if (!descriptor.available && !diagnostics.some((each) => each.code === "unavailable"))
     diagnostics.unshift({
       code: "unavailable",
@@ -324,18 +408,35 @@ export interface FormsReadiness {
     /** Gravity Forms' honeypot is enabled on the form. */
     honeypot: boolean;
   }>;
-  /** Controls the Site declares that no checked form uses (honeypot only). */
+  /**
+   * Controls the Site declares that no checked form uses (honeypot only), and
+   * forms whose largest upload exceeds the Site's `maxUploadBytes`.
+   */
   warnings: string[];
+}
+
+/** The most a form's visible upload fields can post together (bytes): each field's limit times its files. */
+export function largestUpload(descriptor: FormDescriptor): number {
+  return descriptor.fields
+    .filter((field) => field.type === "fileupload" && field.visibility === "visible")
+    .reduce(
+      (total, field) =>
+        total + (field.upload?.maxFileSize ?? 0) * Math.max(field.upload?.maxFiles ?? 0, 1),
+      0,
+    );
 }
 
 /**
  * Readiness over the forms a Site's published content references: fails for
  * any diagnostic. `spam` is the Site's declared controls; declaring the
  * honeypot for a form that doesn't enable it is reported as a warning.
+ * `maxUploadBytes` is the Site's cap on a post (the form endpoint's): a form
+ * whose files can exceed it together is reported as a warning, since its
+ * largest posts will be refused.
  */
 export function formsReadiness(
   descriptors: readonly FormDescriptor[],
-  options: { spam?: readonly FormSpamControl[] } = {},
+  options: { spam?: readonly FormSpamControl[]; maxUploadBytes?: number } = {},
 ): FormsReadiness {
   const unique = new Map(descriptors.map((descriptor) => [descriptor.id, descriptor]));
   const forms = [...unique.values()].map((descriptor) => {
@@ -353,5 +454,14 @@ export function formsReadiness(
         .filter((form) => !form.honeypot)
         .map((form) => `Form ${form.id} doesn't enable Gravity Forms' anti-spam honeypot.`)
     : [];
+  const cap = options.maxUploadBytes;
+  if (cap !== undefined)
+    for (const descriptor of unique.values()) {
+      const largest = largestUpload(descriptor);
+      if (largest > cap)
+        warnings.push(
+          `Form ${descriptor.id}'s files can reach ${(largest / 1048576).toFixed(1)} MB together, more than the ${(cap / 1048576).toFixed(1)} MB the Site accepts per post: lower its upload fields' size limits or numbers of files.`,
+        );
+    }
   return { ok: forms.every((form) => form.ok), forms, warnings };
 }

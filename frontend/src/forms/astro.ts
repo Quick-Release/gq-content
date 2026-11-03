@@ -2,11 +2,18 @@
 // server-rendered HTML (`<Fragment set:html={...} />`). A plain HTML form
 // posting to the Site's own `/gq/forms/<formId>`: it works without
 // JavaScript, shows the handler's outcome and field errors after the
-// redirect back, and loads nothing from the CMS. It imports no Astro module,
+// redirect back, and loads nothing from the CMS. A form with a file upload
+// field posts multipart/form-data. It imports no Astro module,
 // consent runtime or publication runtime; Sites style it with their own
 // tokens and classes.
 import { FORMS_COPY, formsCopyLanguage, type FormsCopy } from "./copy";
-import { formAction, type FormDescriptor, type FormField } from "./descriptor";
+import {
+  formAction,
+  hasUploads,
+  type FormDescriptor,
+  type FormField,
+  type FormUpload,
+} from "./descriptor";
 import type { FormState } from "./state";
 
 /** LEGAL-1's links in the page's language (the chrome's `legal`), structurally. */
@@ -72,6 +79,7 @@ const INPUT_TYPE: Partial<Record<FormField["type"], string>> = {
 
 interface FieldContext {
   formId: number;
+  language: string;
   copy: FormsCopy;
   state: FormState | null;
   privacyPolicy: { url: string; title: string } | null;
@@ -103,7 +111,42 @@ function requiredMark(field: FormField, copy: FormsCopy): string {
     : "";
 }
 
-/** The description and error elements of a field, and the ids that describe its input. */
+/** A file size as visitors read it (5 MB, 512 KB), never more than the limit. */
+export function formatFileSize(bytes: number, language: string): string {
+  let format: Intl.NumberFormat;
+  try {
+    format = new Intl.NumberFormat(language, { maximumFractionDigits: 1 });
+  } catch {
+    format = new Intl.NumberFormat("en", { maximumFractionDigits: 1 });
+  }
+  const megabytes = bytes / 1048576;
+  if (megabytes >= 1) return `${format.format(Math.floor(megabytes * 10) / 10)} MB`;
+  return `${format.format(Math.max(1, Math.floor(bytes / 1024)))} KB`;
+}
+
+/** An upload field's hint: the accepted types, the size limit and how many files. */
+function uploadHint(upload: FormUpload, context: FieldContext): string {
+  const { copy } = context;
+  const parts = [];
+  if (upload.allowedExtensions.length)
+    parts.push(
+      copy.fileTypes.replace(
+        "{types}",
+        upload.allowedExtensions.map((each) => each.toUpperCase()).join(", "),
+      ),
+    );
+  if (upload.maxFileSize > 0)
+    parts.push(
+      copy.fileSize.replace("{size}", formatFileSize(upload.maxFileSize, context.language)),
+    );
+  if (upload.multipleFiles && upload.maxFiles > 1)
+    parts.push(copy.fileCount.replace("{count}", String(upload.maxFiles)));
+  // A page shown again after a post: browsers never keep the files chosen.
+  if (context.state && context.state.status !== "sent") parts.push(copy.filesAgain);
+  return parts.join(" ");
+}
+
+/** The description, hint and error elements of a field, and the ids that describe its input. */
 function annotations(field: FormField, context: FieldContext) {
   const base = `gq-form-${context.formId}-field-${field.id}`;
   const error = errorText(field, context);
@@ -112,6 +155,11 @@ function annotations(field: FormField, context: FieldContext) {
   if (field.description) {
     ids.push(`${base}-description`);
     html += `<p class="gq-form__description" id="${base}-description">${escapeHtml(field.description)}</p>`;
+  }
+  const hint = field.upload ? uploadHint(field.upload, context) : "";
+  if (hint) {
+    ids.push(`${base}-hint`);
+    html += `<p class="gq-form__hint" id="${base}-hint">${escapeHtml(hint)}</p>`;
   }
   if (error) {
     ids.push(`${base}-error`);
@@ -235,7 +283,12 @@ function renderField(field: FormField, context: FieldContext): string {
     (field.maxLength ? ` maxlength="${field.maxLength}"` : "") +
     inputAttributes(field, context, notes);
   let control: string;
-  if (field.type === "textarea") {
+  if (field.type === "fileupload") {
+    const accept = (field.upload?.allowedExtensions ?? []).map((each) => `.${each}`).join(",");
+    control =
+      `<input type="file" id="${id}" name="${escapeHtml(first.name)}"${attribute("accept", accept || null)}` +
+      `${field.upload?.multipleFiles ? " multiple" : ""}${inputAttributes(field, context, notes)}>`;
+  } else if (field.type === "textarea") {
     control = `<textarea id="${id}" name="${escapeHtml(first.name)}" rows="6"${common}>${escapeHtml(shown(first.name, field, context))}</textarea>`;
   } else if (field.type === "select") {
     const value = typed(context) ? shown(first.name, field, context) : null;
@@ -291,6 +344,7 @@ export function renderGravityForm(input: GravityFormInput): string {
   const policy = input.legal?.roles.find((role) => role.role === "privacy_policy");
   const context: FieldContext = {
     formId,
+    language: input.language,
     copy,
     state,
     privacyPolicy: policy ? { url: policy.url, title: policy.title || copy.privacyPolicy } : null,
@@ -338,7 +392,9 @@ export function renderGravityForm(input: GravityFormInput): string {
           ? copy.verification
           : state.status === "too-many"
             ? copy.tooMany
-            : copy.failed;
+            : state.status === "too-large"
+              ? copy.tooLarge
+              : copy.failed;
     status =
       `<div class="gq-form__errors" role="alert" id="gq-form-${formId}-errors" tabindex="-1">` +
       `<p>${escapeHtml(summary)}</p>${problems.length ? `<ul>${problems.join("")}</ul>` : ""}</div>`;
@@ -356,11 +412,18 @@ export function renderGravityForm(input: GravityFormInput): string {
     ? `<div class="gq-form__turnstile" data-gq-turnstile-widget></div><noscript><p class="gq-form__status">${escapeHtml(copy.needsJavaScript)}</p></noscript>`
     : "";
   const script = input.turnstile?.siteKey ? `<script>${FORMS_TURNSTILE_SCRIPT}</script>` : "";
+  // With files, the action also names the page: a post too large to read is still sent back to it.
+  const uploads = hasUploads(descriptor);
+  const action = uploads
+    ? `${formAction(formId)}?gq_source=${encodeURIComponent(input.source)}`
+    : formAction(formId);
 
   return (
     open +
     status +
-    `<form class="gq-form__form" method="post" action="${formAction(formId)}" novalidate` +
+    `<form class="gq-form__form" method="post" action="${escapeHtml(action)}"` +
+    (uploads ? ` enctype="multipart/form-data"` : "") +
+    ` novalidate` +
     (heading ? ` aria-labelledby="${titleId}"` : "") +
     attribute("data-gq-turnstile", input.turnstile?.siteKey || null) +
     `>` +

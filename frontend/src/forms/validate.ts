@@ -69,6 +69,8 @@ function check(
   switch (field.type) {
     case "html":
     case "section":
+    // Files are checked by validateUploads.
+    case "fileupload":
       return null;
     case "hidden": {
       if (!first) return null;

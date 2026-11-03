@@ -22,8 +22,8 @@ fail safely when unconfigured, and production Site Health is critical. Existing
 valid delivery history is preserved. Site Health debug information includes
 package, version and a configured boolean, with no credentials.
 
-`wp gq-events version` prints `0.5.1`; `--format=json` prints
-`{"package":"getquick/gq-content","version":"0.5.1"}` even without configuration.
+`wp gq-events version` prints `0.6.0`; `--format=json` prints
+`{"package":"getquick/gq-content","version":"0.6.0"}` even without configuration.
 Existing commands are `status`, `check`, `retry <post-id>`, `settings status`,
 `settings retry <setting>`, `delays`, `retry-due` and `reconcile`.
 Shared settings subjects are `menus`, `logo`, `identity`, `design`, `patterns`,
@@ -75,7 +75,13 @@ Headless Gravity Forms (gq-platform ADR 0009, local ADR 0008) is dormant
 unless Gravity Forms is active. Then WPGraphQL's `ContentNode.getquickForms` holds
 the public descriptors (JSON) of the forms a published, unprotected entry
 references, through blocks, synced patterns or `[gravityform]` shortcodes. A
-descriptor never contains notifications, entries, feeds or admin settings.
+descriptor never contains notifications, entries, feeds or admin settings. A
+File Upload field publishes its allowed extensions, its per-file limit (capped
+by PHP's `wp_max_upload_size()`) and its file count; extensions other than
+`jpg`, `jpeg`, `png`, `gif`, `webp` and `pdf`, multi-file uploads without a
+maximum, and forms whose largest upload exceeds PHP's `post_max_size` or
+`max_file_uploads` are diagnostics
+([configuring uploads](../docs/forms-file-uploads.md)).
 Saving a form or its confirmations, or activating, deactivating, trashing,
 restoring or deleting it, sends a publication event for each entry that
 references it. `wp gq-forms status [--format=json]` lists each referenced form,
@@ -92,7 +98,7 @@ when post types change or after an hour, which bounds staleness after content
 is changed without saving (SQL, imports, `wp search-replace`).
 
 Run `vp run cms` for the reusable P2 installed-plugin proof, or
-`vp run cms-package` to produce `.artifacts/gq-content-0.5.1.zip`. The archive
+`vp run cms-package` to produce `.artifacts/gq-content-0.6.0.zip`. The archive
 contains only plugin files, not tests or Frontend code. The proof uses PHP,
 Composer, Python 3, curl, SQLite and downloaded WP-CLI; it installs the archive
 through real Composer installers into a fresh public Bedrock project and boots

@@ -5,7 +5,7 @@
 // the outcome only on that redirect's URL, and the cookie expires in minutes.
 import type { FormErrorCode } from "./copy";
 
-export type FormStatus = "sent" | "invalid" | "failed" | "verification" | "too-many";
+export type FormStatus = "sent" | "invalid" | "failed" | "verification" | "too-many" | "too-large";
 
 export interface FormState {
   formId: number;
@@ -43,7 +43,14 @@ function decode(value: string): unknown {
   ) as unknown;
 }
 
-const STATUSES = new Set<FormStatus>(["sent", "invalid", "failed", "verification", "too-many"]);
+const STATUSES = new Set<FormStatus>([
+  "sent",
+  "invalid",
+  "failed",
+  "verification",
+  "too-many",
+  "too-large",
+]);
 
 /** The Set-Cookie header that carries a form's outcome to the page. */
 export function formStateCookie(state: FormState, options: { secure: boolean }): string {
