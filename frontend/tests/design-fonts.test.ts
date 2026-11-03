@@ -257,3 +257,37 @@ test("a plain heading's presentation leaves typography to the text styles", () =
     ),
   ).toBe(true);
 });
+
+test("an unauthored list keeps its markers; authored list styles still win", () => {
+  // GQ Design 0.10.4 (gq-design#127, #129) defaults core/list to a disc (ul) or
+  // decimal (ol) marker inside the box instead of `list-style-type:none`.
+  expect(presentationModel.defaults["core/list"]).toMatchObject({ listStylePosition: "inside" });
+  expect(presentationModel.defaults["core/list"]).not.toHaveProperty("listStyleType");
+
+  const list = rules(presentationStyleSheet(theme)).filter(({ selectors }) =>
+    selectors.some((selector) => selector.includes(".wp-block-list.gqd-presentation")),
+  );
+  const markers = (tag: string) =>
+    list
+      .filter(({ selectors }) => selectors.some((selector) => selector.includes(`:is(${tag})`)))
+      .map(({ body }) => body);
+  expect(markers("ul")).toEqual(["list-style-type:disc !important;"]);
+  expect(markers("ol")).toEqual(["list-style-type:decimal !important;"]);
+  // The defaults sit in :where(), so an authored type (including `none`)
+  // behind its own variable overrides them.
+  expect(
+    list.some(
+      ({ selectors, body }) =>
+        body === "list-style-type:var(--gqd-resolved-listStyleType) !important;" &&
+        selectors.every((selector) => selector.includes('[style*="--gqd-base-listStyleType:"]')),
+    ),
+  ).toBe(true);
+  expect(list.some(({ body }) => /list-style-type:none/.test(body))).toBe(false);
+  expect(
+    list.some(
+      ({ selectors, body }) =>
+        selectors.includes(".wp-block-list.gqd-presentation") &&
+        body === "list-style-position:var(--gqd-resolved-listStylePosition) !important;",
+    ),
+  ).toBe(true);
+});

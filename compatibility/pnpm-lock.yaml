@@ -167,14 +167,14 @@ importers:
   .:
     devDependencies:
       '@quick-release/design-contract':
-        specifier: 0.10.2
-        version: 0.10.2
+        specifier: 0.10.4
+        version: 0.10.4
 
 packages:
 
-  '@quick-release/design-contract@0.10.2':
-    resolution: {integrity: sha512-PtWK+D3cNvvbi0F9kQtLfq4FqFcckDwPonDmnlrqXI6J2QiZenzpE2nLwtvO+Ymm2Ey1BfdqoNk+fmqhVDWFEA==, tarball: https://npm.pkg.github.com/download/@quick-release/design-contract/0.10.2/e98553bdca7334c044b45c0cca97602104c4076a}
+  '@quick-release/design-contract@0.10.4':
+    resolution: {integrity: sha512-3qPDL2A5+QNH0G49Kbf8abSqd8g1M3cbHvifzs/ekO678KDVMLTfq7aVS67bibFFrNajKj27IkxWVTI9ZsMDWQ==, tarball: https://npm.pkg.github.com/download/@quick-release/design-contract/0.10.4/72cb701425f4bfae145ef484e2cc674751c47243}
 
 snapshots:
 
-  '@quick-release/design-contract@0.10.2': {}
+  '@quick-release/design-contract@0.10.4': {}
