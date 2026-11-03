@@ -3,8 +3,11 @@
 import {
   formsReadiness,
   parseFormDescriptors,
+  validateUploads,
   type FormDescriptor,
   type FormsReadiness,
+  type FormUpload,
+  type UploadCheck,
 } from "@getquick/content/forms";
 import { renderGravityForm, type GravityFormInput } from "@getquick/content/forms/astro";
 import {
@@ -12,7 +15,13 @@ import {
   type FormsBindings,
   type FormsServerConfig,
 } from "@getquick/content/forms/server";
-import { CONTACT_FORM, gravityFormsStub } from "@getquick/content/forms/testing";
+import {
+  CONTACT_FORM,
+  SUBMISSION_FORM,
+  gravityFormsStub,
+  multipartBody,
+  sampleFile,
+} from "@getquick/content/forms/testing";
 
 const descriptors: FormDescriptor[] = parseFormDescriptors(JSON.stringify([CONTACT_FORM])) ?? [];
 const readiness: FormsReadiness = formsReadiness(descriptors, { spam: ["honeypot"] });
@@ -24,8 +33,14 @@ const config: FormsServerConfig = {
   descriptor: () => CONTACT_FORM,
   bindings: () => bindings,
   fetch: gravityFormsStub([CONTACT_FORM]).fetchFor("https://cms.example"),
+  maxUploadBytes: 8 * 1024 * 1024,
 };
+const upload: FormUpload | undefined = SUBMISSION_FORM.fields[5]?.upload;
+const checked: Promise<UploadCheck> = validateUploads(
+  SUBMISSION_FORM,
+  multipartBody({}, { input_6: sampleFile("a.pdf", "pdf") }),
+);
 const handled: Promise<Response | null> = createFormsServer(config).handle(
   new Request("https://x/"),
 );
-export { readiness, html, handled };
+export { readiness, html, handled, upload, checked };

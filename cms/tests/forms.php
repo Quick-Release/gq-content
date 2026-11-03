@@ -49,6 +49,8 @@ $contact = [
         ['id' => 3, 'type' => 'text', 'label' => 'Assunto', 'maxLength' => 120, 'defaultValue' => '{embed_url}'],
         ['id' => 4, 'type' => 'textarea', 'label' => 'Mensagem', 'isRequired' => true],
         ['id' => 5, 'type' => 'consent', 'label' => 'Privacidade', 'isRequired' => true, 'checkboxLabel' => 'Aceito o tratamento dos meus dados.', 'description' => 'Os dados servem apenas para responder.'],
+        // Images and PDFs, 1 MB each, two at most; its upload path stays private.
+        ['id' => 6, 'type' => 'fileupload', 'label' => 'Anexos', 'allowedExtensions' => 'JPG, jpeg,png,.pdf', 'maxFileSize' => '1', 'multipleFiles' => true, 'maxFiles' => '2', 'uploadPath' => '/srv/private'],
         ['id' => 7, 'type' => 'text', 'label' => 'Interno', 'visibility' => 'administrative'],
         ['id' => 8, 'type' => 'select', 'label' => 'Tema', 'choices' => [['text' => 'Geral', 'value' => 'geral', 'isSelected' => true], ['text' => 'Imprensa', 'value' => '']]],
     ],
@@ -71,12 +73,15 @@ $unsupported = [
     'button' => ['text' => 'Candidatar'],
     'fields' => [
         ['id' => 1, 'type' => 'captcha', 'label' => 'CAPTCHA'],
-        ['id' => 2, 'type' => 'fileupload', 'label' => 'CV'],
+        ['id' => 2, 'type' => 'fileupload', 'label' => 'CV', 'allowedExtensions' => 'pdf,docx'],
         ['id' => 3, 'type' => 'product', 'inputType' => 'singleproduct', 'label' => 'Quota'],
         ['id' => 4, 'type' => 'page', 'label' => 'Página 2'],
         ['id' => 5, 'type' => 'text', 'label' => 'Condicional', 'conditionalLogic' => ['actionType' => 'show', 'rules' => [['fieldId' => 1]]]],
         ['id' => 6, 'type' => 'address', 'label' => 'Morada'],
         ['id' => 7, 'type' => 'option', 'inputType' => 'select', 'label' => 'Extra', 'choices' => [['text' => 'A', 'value' => 'a|5']]],
+        ['id' => 8, 'type' => 'signature', 'label' => 'Assinatura'],
+        // Fifty files at PHP's own limit: more than any post_max_size PHP ships with.
+        ['id' => 9, 'type' => 'fileupload', 'label' => 'Portefólio', 'allowedExtensions' => 'pdf', 'multipleFiles' => true, 'maxFiles' => '50'],
     ],
     'confirmations' => [['isDefault' => true, 'type' => 'redirect', 'url' => 'https://nomia.test/obrigado/']],
 ];
@@ -124,6 +129,7 @@ $out = match (getenv('FORMS_STEP')) {
             'protegida' => Forms\descriptors_for(get_page_by_path('protegida')),
             'sem' => $forms('/sem/'),
             'runtime' => $runtime,
+            'maxUploadSize' => wp_max_upload_size(),
         ];
     })(),
     'save' => (static function () use ($contact): array {

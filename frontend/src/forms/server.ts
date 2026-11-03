@@ -4,19 +4,27 @@
 // bounds the body, validates it against the form's published descriptor,
 // applies the Site's spam controls (Gravity Forms' honeypot always; Turnstile
 // when the Site uses it), then submits to Gravity Forms' REST submissions
-// endpoint without any Gravity Forms credential. Gravity Forms validates
-// again, stores the entry, runs its spam checks and sends its notifications.
+// endpoint without any Gravity Forms credential. A form with a file upload
+// field posts multipart/form-data: its files are checked by count, size,
+// extension and content, then sent on as multipart (ADR 0010 here).
+// Gravity Forms validates again, stores the entry and its files, runs its
+// spam checks and sends its notifications.
 // Without JavaScript the answer is a redirect back to the page with the
 // outcome (post/redirect/get). Nothing here reads entries.
-import { formDiagnostics, FORMS_PATH, type FormDescriptor } from "./descriptor";
+import { formDiagnostics, FORMS_PATH, hasUploads, type FormDescriptor } from "./descriptor";
 import { FORMS_COPY, formsCopyLanguage } from "./copy";
 import { formStateCookie, formStateLocation, type FormState, type FormStatus } from "./state";
 import { honeypotFilled, validateSubmission } from "./validate";
-import { isSameOrigin, readBoundedBody } from "../request-guards";
+import { validateUploads, type SubmittedFiles } from "./uploads";
+import { isSameOrigin, readBoundedBody, readBoundedBytes } from "../request-guards";
 import { clientAddressResolver, rateLimitKey } from "../client-ip";
 
 /** The largest form body accepted (bytes); larger posts are refused unread. */
 export const MAX_FORM_BYTES = 64 * 1024;
+/** The largest multipart (upload) body accepted by default (bytes), files included. */
+export const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
+/** The most `maxUploadBytes` may be: the Worker holds a post in memory. */
+export const MAX_UPLOAD_BYTES_LIMIT = 32 * 1024 * 1024;
 /** Cloudflare's server-side Turnstile verification. */
 export const TURNSTILE_SITEVERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 /** The field Turnstile's widget posts its token in. */
@@ -71,7 +79,13 @@ export interface FormsServerConfig {
   trustedProxies?: readonly string[];
   /** The page language for the handler's own messages (`pt-PT`, `en`). */
   language?: string;
-  /** Milliseconds Gravity Forms and Turnstile have to answer (15 s). */
+  /**
+   * The hard cap on a multipart post, files included (bytes; 10 MiB, at most
+   * 32 MiB). Keep it within what the Site's proxies and the CMS's PHP
+   * (`post_max_size`) accept.
+   */
+  maxUploadBytes?: number;
+  /** Milliseconds Gravity Forms and Turnstile have to answer (15 s; 60 s for uploads). */
   timeoutMs?: number;
   fetch?: typeof globalThis.fetch;
 }
@@ -79,6 +93,7 @@ export interface FormsServerConfig {
 /** Gravity Forms' answer to `POST /gf/v2/forms/<id>/submissions`, as far as it is used. */
 interface SubmissionResult {
   is_valid?: boolean;
+  /** A message per field; a list of messages for a multiple file upload. */
   validation_messages?: Record<string, unknown> | unknown[];
   confirmation_type?: string;
   confirmation_message?: unknown;
@@ -121,6 +136,16 @@ export function createFormsServer(config: FormsServerConfig) {
   const origins = new Set((config.siteOrigins ?? []).map((origin) => new URL(origin).origin));
   const clientAddress = clientAddressResolver(config.trustedProxies);
   const timeoutMs = config.timeoutMs ?? 15_000;
+  const uploadTimeoutMs = config.timeoutMs ?? 60_000;
+  const maxUploadBytes = config.maxUploadBytes ?? MAX_UPLOAD_BYTES;
+  if (
+    !Number.isInteger(maxUploadBytes) ||
+    maxUploadBytes < MAX_FORM_BYTES ||
+    maxUploadBytes > MAX_UPLOAD_BYTES_LIMIT
+  )
+    throw new Error(
+      `maxUploadBytes must be a whole number of bytes from ${MAX_FORM_BYTES} to ${MAX_UPLOAD_BYTES_LIMIT}`,
+    );
   const fetcher = config.fetch ?? globalThis.fetch.bind(globalThis);
   const copy = FORMS_COPY[formsCopyLanguage(config.language)];
   const turnstileRequired = config.spam?.turnstile === true;
@@ -155,6 +180,7 @@ export function createFormsServer(config: FormsServerConfig) {
         invalid: 422,
         verification: 422,
         "too-many": 429,
+        "too-large": 413,
         failed: 502,
       };
       return json(statusCode[full.status], {
@@ -200,15 +226,17 @@ export function createFormsServer(config: FormsServerConfig) {
     }
   }
 
-  /** Gravity Forms' field messages, by field id. */
+  /** Gravity Forms' field messages, by field id; a multiple file upload's list is joined. */
   function fieldMessages(value: SubmissionResult["validation_messages"]): Record<number, string> {
     if (!value || typeof value !== "object") return {};
     return Object.fromEntries(
-      Object.entries(value).flatMap(([id, message]) =>
-        /^\d+$/.test(id) && typeof message === "string" && message
-          ? [[Number(id), htmlText(message)]]
-          : [],
-      ),
+      Object.entries(value).flatMap(([id, message]) => {
+        const list = (Array.isArray(message) ? message : [message]).filter(
+          (each): each is string => typeof each === "string" && each !== "",
+        );
+        const text = list.map(htmlText).filter(Boolean).join("\n");
+        return /^\d+$/.test(id) && text ? [[Number(id), text]] : [];
+      }),
     );
   }
 
@@ -217,6 +245,7 @@ export function createFormsServer(config: FormsServerConfig) {
     formId: number,
     source: string,
     params: URLSearchParams,
+    files: SubmittedFiles,
   ): Promise<Response> {
     const bindings = await config.bindings();
     let descriptor: FormDescriptor | null;
@@ -249,10 +278,12 @@ export function createFormsServer(config: FormsServerConfig) {
     if (honeypotFilled(descriptor, params)) return outcome(request, sent, source);
 
     const checked = validateSubmission(descriptor, params);
-    if (Object.keys(checked.errors).length)
+    const uploads = await validateUploads(descriptor, files);
+    const errors = { ...checked.errors, ...uploads.errors };
+    if (Object.keys(errors).length)
       return outcome(
         request,
-        { formId, status: "invalid", errors: checked.errors, values: checked.values },
+        { formId, status: "invalid", errors, values: checked.values },
         source,
       );
 
@@ -279,14 +310,28 @@ export function createFormsServer(config: FormsServerConfig) {
       return outcome(request, { formId, status: "failed", values: checked.values }, source);
     }
 
+    // Gravity Forms reads files from $_FILES: a form with uploads is sent as
+    // multipart, each file with the type its content proved. Others stay JSON.
+    const multipart = hasUploads(descriptor);
+    let body: string | FormData = JSON.stringify(checked.input);
+    if (multipart) {
+      body = new FormData();
+      for (const [name, value] of Object.entries(checked.input)) body.append(name, value);
+      for (const each of uploads.files)
+        body.append(each.name, new Blob([each.file], { type: each.type }), each.filename);
+    }
     let response: Response;
     try {
       response = await fetcher(`${restRoot}/gf/v2/forms/${formId}/submissions`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json", ...access },
-        body: JSON.stringify(checked.input),
+        headers: {
+          ...(multipart ? {} : { "Content-Type": "application/json" }),
+          Accept: "application/json",
+          ...access,
+        },
+        body,
         redirect: "manual",
-        signal: AbortSignal.timeout(timeoutMs),
+        signal: AbortSignal.timeout(multipart ? uploadTimeoutMs : timeoutMs),
       });
     } catch (error) {
       console.error(`Forms: form ${formId} couldn't reach the CMS: ${(error as Error).name}`);
@@ -349,18 +394,49 @@ export function createFormsServer(config: FormsServerConfig) {
     return outcome(request, { formId, status: "failed", values: checked.values }, source);
   }
 
+  /**
+   * A post over its cap. A form with uploads also names its page in the action
+   * (`?gq_source=`), so the visitor is sent back to it with the outcome.
+   */
+  function tooLarge(request: Request, formId: number): Response {
+    const source = new URL(request.url).searchParams.get("gq_source") ?? "";
+    if (SOURCE.test(source) && source.length <= 2048)
+      return outcome(request, { formId, status: "too-large" }, source);
+    return json(413, { error: "The form is too large." });
+  }
+
   /** `POST /gq/forms/<id>`. */
   async function handlePost(request: Request, formId: number): Promise<Response> {
     if (request.method !== "POST")
       return json(405, { error: "Send forms with POST." }, { Allow: "POST" });
     if (!isSameOrigin(request, origins))
       return json(403, { error: "Forms are accepted from this Site only." });
-    if (!/^application\/x-www-form-urlencoded\b/i.test(request.headers.get("Content-Type") ?? ""))
-      return json(415, { error: "Send the form as application/x-www-form-urlencoded." });
+    const type = request.headers.get("Content-Type") ?? "";
+    const multipart = /^multipart\/form-data\b/i.test(type);
+    if (!multipart && !/^application\/x-www-form-urlencoded\b/i.test(type))
+      return json(415, {
+        error: "Send the form as application/x-www-form-urlencoded or multipart/form-data.",
+      });
     const bindings = await config.bindings();
-    const text = await readBoundedBody(request, MAX_FORM_BYTES);
-    if (text === null) return json(413, { error: "The form is too large." });
-    const params = new URLSearchParams(text);
+    let params: URLSearchParams;
+    let files: SubmittedFiles = { getAll: () => [] };
+    if (multipart) {
+      const bytes = await readBoundedBytes(request, maxUploadBytes);
+      if (bytes === null) return tooLarge(request, formId);
+      let data: FormData;
+      try {
+        data = await new Response(bytes, { headers: { "Content-Type": type } }).formData();
+      } catch {
+        return json(400, { error: "The form isn't valid multipart/form-data." });
+      }
+      params = new URLSearchParams();
+      for (const [name, value] of data) if (typeof value === "string") params.append(name, value);
+      files = data;
+    } else {
+      const text = await readBoundedBody(request, MAX_FORM_BYTES);
+      if (text === null) return tooLarge(request, formId);
+      params = new URLSearchParams(text);
+    }
     const source = params.get("gq_source") ?? "";
     if (!SOURCE.test(source) || source.length > 2048)
       return json(400, { error: "The form's page (gq_source) isn't a path on this Site." });
@@ -372,7 +448,7 @@ export function createFormsServer(config: FormsServerConfig) {
       });
       if (!success) return outcome(request, { formId, status: "too-many" }, source);
     }
-    return submit(request, formId, source, params);
+    return submit(request, formId, source, params, files);
   }
 
   /** Routes a form post; null when the path isn't a form endpoint. */
@@ -397,6 +473,7 @@ export function createFormsServer(config: FormsServerConfig) {
       turnstileSecret: Boolean(bindings.TURNSTILE_SECRET_KEY?.trim()),
       access: access === "partial" ? "partial" : Object.keys(access).length ? "configured" : "none",
       rateLimit: Boolean(bindings.FORMS_RATE_LIMITER),
+      maxUploadBytes,
       ready:
         (!turnstileRequired || Boolean(bindings.TURNSTILE_SECRET_KEY?.trim())) &&
         access !== "partial",

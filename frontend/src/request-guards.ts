@@ -25,9 +25,18 @@ export function isSameOrigin(request: Request, origins: ReadonlySet<string>): bo
 
 /** The body as text, or null once it exceeds `limit` bytes (declared or read). */
 export async function readBoundedBody(request: Request, limit: number): Promise<string | null> {
+  const bytes = await readBoundedBytes(request, limit);
+  return bytes === null ? null : new TextDecoder().decode(bytes);
+}
+
+/** The body's bytes, or null once it exceeds `limit` bytes (declared or read). */
+export async function readBoundedBytes(
+  request: Request,
+  limit: number,
+): Promise<Uint8Array<ArrayBuffer> | null> {
   const declared = Number(request.headers.get("Content-Length") ?? "0");
   if (declared > limit) return null;
-  if (!request.body) return "";
+  if (!request.body) return new Uint8Array();
   const reader = request.body.getReader();
   const chunks: Uint8Array[] = [];
   let size = 0;
@@ -47,5 +56,5 @@ export async function readBoundedBody(request: Request, limit: number): Promise<
     bytes.set(chunk, offset);
     offset += chunk.byteLength;
   }
-  return new TextDecoder().decode(bytes);
+  return bytes;
 }

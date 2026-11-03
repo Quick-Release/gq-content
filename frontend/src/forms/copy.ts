@@ -11,7 +11,10 @@ export type FormErrorCode =
   | "range"
   | "url"
   | "choice"
-  | "too-long";
+  | "too-long"
+  | "file-type"
+  | "file-size"
+  | "file-count";
 
 export interface FormsCopy {
   required: string;
@@ -32,6 +35,16 @@ export interface FormsCopy {
   honeypot: string;
   /** With Turnstile and no JavaScript. */
   needsJavaScript: string;
+  /** An upload field's hint: `{types}` is the list of extensions. */
+  fileTypes: string;
+  /** `{size}` is the per-file limit (5 MB). */
+  fileSize: string;
+  /** `{count}` is the most files a field takes, when more than one. */
+  fileCount: string;
+  /** After a post that came back: browsers can't keep chosen files. */
+  filesAgain: string;
+  /** The whole post was larger than the Site accepts. */
+  tooLarge: string;
 }
 
 export const FORMS_COPY: Record<FormsCopyLanguage, FormsCopy> = {
@@ -48,6 +61,9 @@ export const FORMS_COPY: Record<FormsCopyLanguage, FormsCopy> = {
       url: "Enter a valid web address, starting with https://.",
       choice: "Choose one of the options.",
       "too-long": "This is longer than allowed.",
+      "file-type": "Choose files of an accepted type.",
+      "file-size": "A file is larger than allowed.",
+      "file-count": "Too many files.",
     },
     failed: "Your message couldn't be sent. Please try again later.",
     verification: "We couldn't verify that you're not a robot. Please try again.",
@@ -58,6 +74,11 @@ export const FORMS_COPY: Record<FormsCopyLanguage, FormsCopy> = {
     privacyPolicy: "Privacy policy",
     honeypot: "This field is for validation purposes and should be left unchanged.",
     needsJavaScript: "This form needs JavaScript to verify you're not a robot.",
+    fileTypes: "Accepted file types: {types}.",
+    fileSize: "Up to {size} per file.",
+    fileCount: "Up to {count} files.",
+    filesAgain: "Choose your files again.",
+    tooLarge: "The files are too large to send together. Choose fewer or smaller files.",
   },
   "pt-PT": {
     required: "obrigatório",
@@ -72,6 +93,9 @@ export const FORMS_COPY: Record<FormsCopyLanguage, FormsCopy> = {
       url: "Introduza um endereço web válido, começado por https://.",
       choice: "Escolha uma das opções.",
       "too-long": "Excede o comprimento permitido.",
+      "file-type": "Escolha ficheiros de um tipo aceite.",
+      "file-size": "Um ficheiro excede o tamanho permitido.",
+      "file-count": "Demasiados ficheiros.",
     },
     failed: "Não foi possível enviar a sua mensagem. Tente novamente mais tarde.",
     verification: "Não foi possível verificar que não é um robô. Tente novamente.",
@@ -82,6 +106,12 @@ export const FORMS_COPY: Record<FormsCopyLanguage, FormsCopy> = {
     privacyPolicy: "Política de privacidade",
     honeypot: "Este campo serve para validação e deve ser deixado em branco.",
     needsJavaScript: "Este formulário precisa de JavaScript para verificar que não é um robô.",
+    fileTypes: "Tipos de ficheiro aceites: {types}.",
+    fileSize: "Até {size} por ficheiro.",
+    fileCount: "Até {count} ficheiros.",
+    filesAgain: "Volte a escolher os ficheiros.",
+    tooLarge:
+      "Os ficheiros são demasiado grandes para enviar em conjunto. Escolha menos ficheiros ou ficheiros mais pequenos.",
   },
 };
 

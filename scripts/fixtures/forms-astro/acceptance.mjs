@@ -2,7 +2,8 @@
 // stand-in for the CMS's Gravity Forms REST API records what reaches it; the
 // Astro Site is built for Cloudflare Workers and served by local workerd
 // (wrangler dev); Chromium visits it without JavaScript, and Turnstile is verified
-// with Cloudflare's real siteverify and test keys. Evidence: FORMS_EVIDENCE.
+// with Cloudflare's real siteverify and test keys, and files are attached to a
+// multipart form (ADR 0010 here). Evidence: FORMS_EVIDENCE.
 import { execFileSync, spawn } from "node:child_process";
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
@@ -10,6 +11,8 @@ import { join } from "node:path";
 import { chromium } from "playwright";
 import {
   CONTACT_FORM,
+  SAMPLE_FILES,
+  SUBMISSION_FORM,
   UNSUPPORTED_FORM,
   TURNSTILE_TEST_KEYS,
   assertAccessibleForm,
@@ -46,6 +49,7 @@ const stub = gravityFormsStub([
   UNSUPPORTED_FORM,
   { ...CONTACT_FORM, id: 4 },
   { ...CONTACT_FORM, id: 5 },
+  SUBMISSION_FORM,
 ]);
 const cms = createServer(async (incoming, outgoing) => {
   const chunks = [];
@@ -313,6 +317,86 @@ try {
     "Turnstile loads only once the visitor interacts with the form",
     beforeInteraction.length === 0,
     beforeInteraction,
+  );
+
+  // File uploads, without JavaScript: images and PDFs only, checked by content.
+  const sample = (kind, size = 2048) => {
+    const bytes = Buffer.alloc(size);
+    Buffer.from(SAMPLE_FILES[kind]).copy(bytes);
+    return bytes;
+  };
+  const fillSubmission = async () => {
+    await page.fill("#gq-form-6-input_1", "Ana Silva");
+    await page.fill("#gq-form-6-input_2", "ana@example.com");
+    await page.selectOption("#gq-form-6-input_3", "evento");
+    await page.fill("#gq-form-6-input_4", "Feira da bioeconomia");
+    await page.fill("#gq-form-6-input_5", "Um evento sobre bioeconomia circular.");
+    await page.check("#gq-form-6-input_7_1");
+  };
+  await page.goto(`${origin}/partilhe/`);
+  let uploadAccessible = true;
+  try {
+    assertAccessibleForm(await page.content());
+  } catch (error) {
+    uploadAccessible = error.message;
+  }
+  check(
+    "the upload form is accessible: a labelled file input described by its accepted types and size",
+    uploadAccessible === true &&
+      (await page.locator("#gq-form-6-field-6-hint").innerText()).includes("PDF"),
+    uploadAccessible,
+  );
+  const form = page.locator("form.gq-form__form");
+  check(
+    "it posts multipart/form-data, and its action names the page",
+    (await form.getAttribute("enctype")) === "multipart/form-data" &&
+      (await form.getAttribute("action")) === "/gq/forms/6?gq_source=%2Fpartilhe%2F" &&
+      (await page.locator("#gq-form-6-input_6").getAttribute("accept")) ===
+        ".jpg,.jpeg,.png,.webp,.gif,.pdf",
+  );
+  await fillSubmission();
+  await page.setInputFiles("#gq-form-6-input_6", [
+    { name: "feira.png", mimeType: "image/png", buffer: sample("png") },
+    { name: "programa.pdf", mimeType: "application/pdf", buffer: sample("pdf") },
+  ]);
+  const entriesBefore = stub.entries.length;
+  await page.locator("button[type=submit]").click();
+  await page.waitForSelector(".gq-form__status--sent");
+  const sentUpload = stub.requests.at(-1);
+  const stored = stub.entries.at(-1);
+  check(
+    "attached files reach Gravity Forms as multipart under input_6[], with the types their content proves",
+    stub.entries.length === entriesBefore + 1 &&
+      stored.formId === 6 &&
+      /^multipart\/form-data; boundary=/.test(sentUpload.headers["content-type"]) &&
+      JSON.stringify(
+        sentUpload.files["input_6[]"].map(({ filename, type, size }) => [filename, type, size]),
+      ) ===
+        JSON.stringify([
+          ["feira.png", "image/png", 2048],
+          ["programa.pdf", "application/pdf", 2048],
+        ]) &&
+      stored.values.input_7_2 === SUBMISSION_FORM.fields[6].consent.checkboxLabel,
+    sentUpload?.files,
+  );
+  await page.goto(`${origin}/partilhe/`);
+  await fillSubmission();
+  // A program renamed as a photo, claiming to be one.
+  await page.setInputFiles("#gq-form-6-input_6", [
+    { name: "foto.png", mimeType: "image/png", buffer: sample("exe") },
+  ]);
+  const requestsBefore = stub.requests.length;
+  await page.locator("button[type=submit]").click();
+  await page.waitForURL(/gq-form=6/);
+  check(
+    "a file whose content isn't what its name says is refused with a field error, and reaches no CMS",
+    (await page.locator("#gq-form-6-input_6").getAttribute("aria-invalid")) === "true" &&
+      (await page.locator("#gq-form-6-field-6-error").innerText()).includes("tipo aceite") &&
+      (await page.locator("#gq-form-6-field-6-hint").innerText()).includes(
+        "Volte a escolher os ficheiros.",
+      ) &&
+      (await page.inputValue("#gq-form-6-input_4")) === "Feira da bioeconomia" &&
+      stub.requests.length === requestsBefore,
   );
 } finally {
   await browser?.close();

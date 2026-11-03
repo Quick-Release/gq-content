@@ -1,16 +1,19 @@
 // @getquick/content/forms: headless Gravity Forms' public form descriptor
-// (ADR 0009): its types, parsing, submission validation and the readiness
-// diagnostics. No content runtime, consent runtime, framework or zod.
+// (ADR 0009): its types, parsing, submission and upload validation and the
+// readiness diagnostics. No content runtime, consent runtime, framework or zod.
 export {
   FORMS_PATH,
   FORM_DESCRIPTOR_SCHEMA,
   GRAVITY_FORMS_BLOCK,
   SUPPORTED_FIELD_TYPES,
+  VERIFIABLE_FILE_EXTENSIONS,
   blockFormId,
   findForm,
   formAction,
   formDiagnostics,
   formsReadiness,
+  hasUploads,
+  largestUpload,
   parseFormDescriptor,
   parseFormDescriptors,
   type FormChoice,
@@ -23,8 +26,20 @@ export {
   type FormFieldType,
   type FormInput,
   type FormSpamControl,
+  type FormUpload,
   type FormsReadiness,
+  type VerifiableFileExtension,
 } from "./descriptor";
+export {
+  FILE_TYPES,
+  sniffFileType,
+  uploadFilename,
+  validateUploads,
+  type CheckedFile,
+  type SubmittedFile,
+  type SubmittedFiles,
+  type UploadCheck,
+} from "./uploads";
 export {
   MAX_VALUE_LENGTH,
   honeypotFilled,

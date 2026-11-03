@@ -1,11 +1,13 @@
 // The fixture Site's forms, as its publications would carry them: Nomia's
-// contact form, a form readiness must fail, and two copies of the contact form
-// behind Turnstile (Cloudflare's always-passing and always-failing secrets).
+// contact form, a form readiness must fail, two copies of the contact form
+// behind Turnstile (Cloudflare's always-passing and always-failing secrets)
+// and a submission form with image and PDF attachments.
 import { env } from "cloudflare:workers";
 import type { FormDescriptor } from "@getquick/content/forms";
 import { createFormsServer, type FormsServer } from "@getquick/content/forms/server";
 import {
   CONTACT_FORM,
+  SUBMISSION_FORM,
   TURNSTILE_TEST_KEYS,
   UNSUPPORTED_FORM,
 } from "@getquick/content/forms/testing";
@@ -15,6 +17,7 @@ export const FORMS: Record<number, { descriptor: FormDescriptor; page: string }>
   2: { descriptor: UNSUPPORTED_FORM, page: "/candidatura/" },
   4: { descriptor: { ...CONTACT_FORM, id: 4 }, page: "/turnstile/" },
   5: { descriptor: { ...CONTACT_FORM, id: 5 }, page: "/turnstile-falha/" },
+  6: { descriptor: SUBMISSION_FORM, page: "/partilhe/" },
 };
 
 const vars = env as unknown as { CMS_ORIGIN: string };

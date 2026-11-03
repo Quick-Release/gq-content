@@ -85,7 +85,7 @@ if __name__ == '__main__':
          '--no-install', '--no-scripts', '--no-interaction'])
     manifest = json.loads((SITE / 'composer.json').read_text())
     manifest['require']['roots/bedrock-autoloader'] = '1.1.0'
-    manifest['require']['getquick/gq-content'] = '0.5.1'
+    manifest['require']['getquick/gq-content'] = '0.6.0'
     manifest['require-dev'] = {}
     package['dist'] = {'type': 'zip', 'url': artifact.as_uri(),
                        'reference': hashlib.sha256(artifact.read_bytes()).hexdigest(),
@@ -114,10 +114,10 @@ if __name__ == '__main__':
        '--admin_password=disposable-local-proof', '--admin_email=proof@example.test', '--skip-email')
     check('real WordPress boots Composer-installed MU plugin',
           wp('eval', "echo is_file(WPMU_PLUGIN_DIR . '/gq-content/gq-content.php') && function_exists('GetQuick\\\\Site\\\\SettingsEvents\\\\changed') ? 'loaded' : 'missing';").stdout.strip() == 'loaded')
-    check('bare version works without event configuration', wp('gq-events', 'version').stdout.strip() == '0.5.1')
+    check('bare version works without event configuration', wp('gq-events', 'version').stdout.strip() == '0.6.0')
     check('JSON version works without event configuration',
           json.loads(wp('gq-events', 'version', '--format=json').stdout) ==
-          {'package': 'getquick/gq-content', 'version': '0.5.1'})
+          {'package': 'getquick/gq-content', 'version': '0.6.0'})
     diagnostics = json.loads(wp('eval-file', str(ROOT / 'cms/tests/diagnostics.php'),
                                 env={'WP_ENV': 'production'}).stdout)
     check('production Site Health reports missing configuration safely',
@@ -203,7 +203,7 @@ if __name__ == '__main__':
             diagnostics = info(env)
             check(name + ': Site Health debug package/version/configured',
                   {name: row['value'] for name, row in diagnostics['fields'].items()} ==
-                  {'package': 'getquick/gq-content', 'version': '0.5.1', 'configured': True,
+                  {'package': 'getquick/gq-content', 'version': '0.6.0', 'configured': True,
                    'forms': 'dormant (Gravity Forms inactive)'})
             start = len(received)
             wp('gq-events', 'check', env=env)
@@ -354,7 +354,7 @@ if __name__ == '__main__':
         configure("define('GQ_CONTENT_SITE_ID', false);")
         check('version remains available with an invalid defined identity',
               json.loads(wp('gq-events', 'version', '--format=json', env=base).stdout) ==
-              {'package': 'getquick/gq-content', 'version': '0.5.1'})
+              {'package': 'getquick/gq-content', 'version': '0.6.0'})
 
         # Archives (ADR 0005): real WPGraphQL (the version Nomia runs) resolves
         # an assigned Page at its custom post type's archive URI.
@@ -480,7 +480,7 @@ if __name__ == '__main__':
                   [form['id'] for form in read['contactos']['forms']] == [1] and contact['available'] and
                   contact['title'] == 'Contactos' and contact['description'] == 'Envie-nos uma mensagem.' and
                   contact['submitLabel'] == 'Enviar' and
-                  [field['id'] for field in contact['fields']] == [1, 2, 3, 4, 5, 8] and
+                  [field['id'] for field in contact['fields']] == [1, 2, 3, 4, 5, 6, 8] and
                   contact['fields'][0]['inputs'] == [
                       {'id': '1.3', 'name': 'input_1_3', 'label': 'Nome próprio', 'autocomplete': 'given-name'},
                       {'id': '1.6', 'name': 'input_1_6', 'label': 'Apelido', 'autocomplete': 'family-name'}] and
@@ -489,22 +489,31 @@ if __name__ == '__main__':
                                                       'description': 'Os dados servem apenas para responder.',
                                                       'revisionId': '3'} and
                   [input['name'] for input in contact['fields'][4]['inputs']] == ['input_5_1', 'input_5_2', 'input_5_3'] and
-                  contact['fields'][5]['choices'] == [{'text': 'Geral', 'value': 'geral', 'selected': True},
+                  contact['fields'][5] == {
+                      'id': 6, 'type': 'fileupload', 'label': 'Anexos', 'description': '', 'required': False,
+                      'visibility': 'visible', 'inputs': [{'id': '6', 'name': 'input_6', 'label': 'Anexos'}],
+                      'upload': {'allowedExtensions': ['jpg', 'jpeg', 'png', 'pdf'],
+                                 'maxFileSize': min(1048576, read['maxUploadSize']),
+                                 'multipleFiles': True, 'maxFiles': 2}} and
+                  contact['fields'][6]['choices'] == [{'text': 'Geral', 'value': 'geral', 'selected': True},
                                                      {'text': 'Imprensa', 'value': 'Imprensa', 'selected': False}] and
                   contact['honeypot'] == {'name': 'input_9'} and
                   contact['confirmation'] == {'type': 'message', 'message': 'Obrigado, !'} and
                   contact['diagnostics'] == [])
             check('the descriptor carries no notification, entry, feed or admin data',
-                  not re.search(r'notifications|secretariado|arquivo@|personalData|adminLabel|reply-to|'
+                  not re.search(r'notifications|secretariado|arquivo@|personalData|adminLabel|reply-to|uploadPath|/srv/private|'
                                 r'limitEntries|requireLogin|honeypotAction|Interno|entries|feeds',
                                 read['contactos']['json']))
             unsupported = read['candidatura']['forms'][0]
-            check('unsupported fields and settings are diagnostics, and left out of the fields',
+            check('unsupported fields and settings, uploads the Frontend can\'t verify and uploads PHP would drop are diagnostics; unsupported field types are left out',
                   [(each['code'], each.get('fieldId')) for each in unsupported['diagnostics']] == [
                       ('unsupported-captcha', 1), ('unsupported-file-upload', 2), ('unsupported-payment', 3),
                       ('unsupported-multi-page', 4), ('unsupported-conditional-logic', 5),
-                      ('unsupported-field', 6), ('unsupported-payment', 7), ('requires-login', None)] and
-                  [field['id'] for field in unsupported['fields']] == [5] and
+                      ('unsupported-field', 6), ('unsupported-payment', 7), ('unsupported-file-upload', 8),
+                      ('unsupported-file-upload', None), ('requires-login', None)] and
+                  'docx' in unsupported['diagnostics'][1]['message'] and
+                  re.search(r'post_max_size|max_file_uploads', unsupported['diagnostics'][8]['message']) and
+                  [field['id'] for field in unsupported['fields']] == [2, 5, 9] and
                   unsupported['confirmation'] == {'type': 'redirect', 'url': 'https://nomia.test/obrigado/'})
             check('a shortcode (by its own id) and a nested synced pattern\'s form are referenced; an inactive form is unavailable',
                   [form['id'] for form in read['candidatura']['forms']] == [2] and read['padrao']['forms'][0]['id'] == 3 and read['padrao']['forms'][0]['available'] is False and
