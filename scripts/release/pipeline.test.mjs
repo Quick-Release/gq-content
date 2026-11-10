@@ -15,7 +15,7 @@ test(
     const candidate = process.env.GQ_RELEASE_BUNDLE
       ? load(process.env.GQ_RELEASE_BUNDLE)
       : {
-          manifest: { sourceCommit: "a".repeat(40), tag: "v0.6.1", version: "0.6.1" },
+          manifest: { sourceCommit: "a".repeat(40), tag: "v0.6.2", version: "0.6.2" },
           assets: { "release-manifest.json": Buffer.from("manifest") },
           npmIdentity: "npm",
           composerIdentity: "zip",
@@ -52,8 +52,8 @@ test(
         ? [
             "tag",
             "release-manifest.json",
-            "getquick-content-0.6.1.tgz",
-            "gq-content-0.6.1.zip",
+            "getquick-content-0.6.2.tgz",
+            "gq-content-0.6.2.zip",
             "npm",
             "dispatch",
           ]

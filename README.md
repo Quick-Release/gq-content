@@ -71,6 +71,6 @@ whose GQ Design predates them.
 Grid has no implicit track or gap presets. Native layout context and explicit
 neutral responsive controls are compiled by the shared renderer; Site per-block
 renderers still take precedence. Upgrade both runtime packages together to
-0.6.1 through the Site's blueprint-managed pins alongside Design 0.10. See
-[the 0.6.1](docs/releases/0.6.1.md), [0.6.0](docs/releases/0.6.0.md), [0.5.1](docs/releases/0.5.1.md), [0.5.0](docs/releases/0.5.0.md), [0.4.2](docs/releases/0.4.2.md), [0.4.1](docs/releases/0.4.1.md) and [0.4.0](docs/releases/0.4.0.md) release notes and
+0.6.2 through the Site's blueprint-managed pins alongside Design 0.10. See
+[the 0.6.2 candidate](docs/releases/0.6.2.md), [0.6.1](docs/releases/0.6.1.md), [0.6.0](docs/releases/0.6.0.md), [0.5.1](docs/releases/0.5.1.md), [0.5.0](docs/releases/0.5.0.md), [0.4.2](docs/releases/0.4.2.md), [0.4.1](docs/releases/0.4.1.md) and [0.4.0](docs/releases/0.4.0.md) release notes and
 [0.3.2's](docs/releases/0.3.2.md) for rollout and browser mounting.
