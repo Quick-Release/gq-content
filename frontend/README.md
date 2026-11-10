@@ -414,3 +414,45 @@ foreground remain authoritative; no legacy appearance properties are inferred.
 inline controller was removed during delivery. It navigates to the delivered
 selected option's HTTP(S) URL; it does not resolve languages or evaluate inline
 scripts. Cleanup removes that handler and restores the original selection.
+
+### Standard WordPress post listing
+
+`await content.listPosts({ page: 1, perPage: 12, language: "pt" })` lists
+standard published WordPress posts from the publication store, newest first
+(with URI as the tie breaker). All arguments are optional; pagination and
+language use the same rules as `search`. The result is either
+`{ kind: "found", content: { items, total, page, perPage, totalPages } }`
+or `{ kind: "unavailable", failure }`. Items carry canonical `uri`, plain text
+`title`, a bounded plain text `excerpt`, and `language`. Render text escaped.
+Use `total`, not the current page's length, to decide whether news exists.
+
+Unlike collections, standard posts require no collection declaration. The
+runtime records `postType` on newly read standard entries. Older publications
+remain readable but cannot distinguish posts from pages: listing returns
+`unavailable` until those entries have been refreshed or rotated through
+reconciliation. This is additive; no SQL migration or CMS plugin change is
+needed. Existing publication eligibility and withdrawal handling apply.
+Unreadable entries, missing shared readiness rows, missing bindings and store
+failures cannot be reported as zero posts. Visits never read the CMS.
+
+For Notícias adoption, upgrade to a released pair containing this API, refresh
+the stored entries (or allow reconciliation's rotating rereads to complete),
+and establish the normal complete-store readiness before enabling the listing.
+A result describes the publication store, not a synchronous inventory of the
+CMS: operators must complete initial population and keep delivery/reconciliation
+running. On page 757, preserve the hero and render the listing below it:
+
+```ts
+const news = await content.listPosts({ page: requestedPage, perPage: 12, language: "pt" });
+if (news.kind === "unavailable") {
+  // Return the Site's unavailable response (503); do not claim there is no news.
+} else if (news.content.total === 0) {
+  // Render exactly: Brevemente disponível
+} else {
+  // Render news.content.items and pagination; omit the placeholder.
+}
+```
+
+A page beyond the final page has no items but retains a positive total; handle
+it as pagination, not an empty-news state. Nomia owns this rendering and its
+deployment; no listing or placeholder is inserted into CMS page content here.

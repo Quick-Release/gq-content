@@ -96,6 +96,8 @@ export interface Translation {
 }
 
 export interface EntryContent<X = unknown> extends WordPressPost, DesignPresets, Extended<X> {
+  /** Standard WordPress type; absent in legacy publications and collection items. */
+  postType?: "post" | "page";
   /** Its language's slug, on a multilingual Site. */
   language?: string;
   /** Its published translations into the site's other languages, on a multilingual Site. */

@@ -1071,6 +1071,7 @@ export function configuredWordPress<X>(
         kind: "found",
         content: {
           ...normalized,
+          postType: data.postBy ? "post" : "page",
           content:
             containsVideoHero || hasDesignCarousel(blocks)
               ? renderWordPressBlocks(blocks)
@@ -1123,6 +1124,7 @@ export function configuredWordPress<X>(
         kind: "found",
         content: {
           ...normalized,
+          ...(kind ? { postType: kind } : {}),
           content:
             containsVideoHero || hasDesignCarousel(blocks)
               ? renderWordPressBlocks(blocks)

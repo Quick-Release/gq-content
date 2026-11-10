@@ -237,6 +237,8 @@ export function createContentRuntime<X = never>(input: ContentConfig<X>) {
     },
     /** Site-wide text search over delivered public content; never reads WordPress. */
     search: delivery.search,
+    /** Standard published posts, newest first, from the store alone. */
+    listPosts: delivery.listPosts,
     /**
      * A page of a collection's items, from the publication store alone (never
      * WordPress), newest first: those with the given terms and text, in the
