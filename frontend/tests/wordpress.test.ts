@@ -286,6 +286,7 @@ test("HTTP errors, GraphQL errors, missing required fields and absent content st
 test.each([
   ["password-protected", { status: "publish", isRestricted: true, content: null }],
   ["not published", { status: "draft", isRestricted: false }],
+  ["private", { status: "private", isRestricted: false }],
   ["without a status", { status: null, isRestricted: null }],
 ])(
   "an entry WordPress returns %s is missing: only public content is served",

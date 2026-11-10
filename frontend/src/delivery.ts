@@ -190,6 +190,7 @@ export function configuredDelivery<X>(
     })
     .transform(({ name, terms }) => ({ name, terms }));
   const entryPublication = z.object({
+    postType: z.enum(["post", "page"]).optional(),
     // A collection's items only.
     collection: membership.optional(),
     // A multilingual Site's entries only.
@@ -1516,7 +1517,15 @@ export function configuredDelivery<X>(
 
   /** Search a single snapshot, validating before counting or paging it. Never reads WordPress. */
   async function search(query: SearchQuery): Promise<SearchDelivery> {
-    const subject = "site search";
+    return searchSnapshot(query, false);
+  }
+
+  async function listPosts(query: Omit<SearchQuery, "search"> = {}): Promise<SearchDelivery> {
+    return searchSnapshot({ ...query, search: "" }, true);
+  }
+
+  async function searchSnapshot(query: SearchQuery, postsOnly: boolean): Promise<SearchDelivery> {
+    const subject = postsOnly ? "standard posts" : "site search";
     const language =
       query.language === undefined
         ? defaultLanguage
@@ -1539,7 +1548,7 @@ export function configuredDelivery<X>(
       notServed(
         subject,
         "not-ready",
-        "Search requires readable publications and this language's home and chrome in the publication store",
+        "Listing requires readable publications and this language's home and chrome in the publication store",
       );
     const home = rows.find((row) => row.key === homeKey(language));
     const chrome = rows.find((row) => row.key === chromeKey(language));
@@ -1565,7 +1574,10 @@ export function configuredDelivery<X>(
       const plainTitle = searchPlainText(title);
       const plainExcerpt = searchPlainText(excerpt);
       const plainBody = searchPlainText(body);
-      if (needle && searchText(`${plainTitle} ${plainExcerpt} ${plainBody}`).includes(needle))
+      if (
+        (postsOnly || needle) &&
+        (postsOnly || searchText(`${plainTitle} ${plainExcerpt} ${plainBody}`).includes(needle))
+      )
         matches.push({
           uri,
           title: plainTitle,
@@ -1579,7 +1591,7 @@ export function configuredDelivery<X>(
     if (home.state === "published") {
       const content = parseBody(home.body, parseHome);
       if (!content) return unreadable();
-      add(language.home, content.page.title, "", content.page.content, "");
+      if (!postsOnly) add(language.home, content.page.title, "", content.page.content, "");
     }
     for (const row of rows) {
       if (!row.key.startsWith("entry:")) continue;
@@ -1589,6 +1601,11 @@ export function configuredDelivery<X>(
       const entry = parseBody(row.body, parseEntry);
       if (!entry) return unreadable();
       if (!inLanguage(entry, language)) continue;
+      if (postsOnly) {
+        if (entry.collection) continue;
+        if (!entry.postType) return unreadable();
+        if (entry.postType !== "post") continue;
+      }
       // A removed collection is no longer part of this Site's public runtime.
       if (entry.collection && !Object.hasOwn(collections, entry.collection.name)) continue;
       // Old routes must never produce duplicate results or external links.
@@ -1760,6 +1777,7 @@ export function configuredDelivery<X>(
         () => null,
       ),
     search,
+    listPosts,
     list,
     terms,
     archiveUri: (collection: string): Promise<string | null> => {

@@ -275,3 +275,46 @@ test("validates language and pagination and caps page size", async () => {
   const query: SearchQuery = { search: "bioeconomia", page: "2", perPage: "10" };
   expect(content(await runtime.search(query))).toMatchObject({ page: 2, perPage: 10 });
 });
+
+test("lists standard posts with totals, pagination and language, excluding pages and collections", async () => {
+  await put("home:en", home);
+  await put("chrome:en", chrome);
+  await put("entry:/older/", entry("/older/", { postType: "post" }));
+  await put("entry:/newer/", entry("/newer/", { postType: "post", date: "2026-11-01" }));
+  await put("entry:/page/", entry("/page/", { postType: "page" }));
+  await put("entry:/en/news/", entry("/en/news/", { postType: "post", language: "en" }));
+  await put("entry:/item/", entry("/item/", { collection: { name: "recursos", terms: {} } }));
+  const runtime = createContentRuntime(config());
+  expect(content(await runtime.listPosts({ perPage: 1 }))).toMatchObject({
+    items: [{ uri: "/newer/" }],
+    total: 2,
+    totalPages: 2,
+  });
+  expect(content(await runtime.listPosts({ perPage: 1, page: 2 }))).toMatchObject({
+    items: [{ uri: "/older/" }],
+    total: 2,
+  });
+  expect(content(await runtime.listPosts({ language: "en" }))).toMatchObject({
+    items: [{ uri: "/en/news/" }],
+    total: 1,
+  });
+});
+
+test("post listing distinguishes empty, withdrawn and unavailable without CMS reads", async () => {
+  const runtime = createContentRuntime(config());
+  expect(content(await runtime.listPosts())).toMatchObject({ items: [], total: 0 });
+  await put("entry:/news/", entry("/news/", { postType: "post" }));
+  expect(content(await runtime.listPosts())).toMatchObject({ total: 1 });
+  await put("entry:/news/", null, "withdrawn");
+  expect(content(await runtime.listPosts())).toMatchObject({ items: [], total: 0 });
+  await put("entry:/legacy/", entry("/legacy/"));
+  expect(await runtime.listPosts()).toMatchObject({
+    kind: "unavailable",
+    failure: { reason: "not-ready" },
+  });
+  await db.prepare("DELETE FROM publications").run();
+  expect(await runtime.listPosts()).toMatchObject({ kind: "unavailable" });
+  expect(
+    await createContentRuntime({ ...config(), bindings: () => ({}) }).listPosts(),
+  ).toMatchObject({ kind: "unavailable" });
+});
