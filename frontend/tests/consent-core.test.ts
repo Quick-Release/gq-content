@@ -203,6 +203,51 @@ test("unknown hosts, inactive services and scripts are blocked and reported (CN-
   expect(result.html).toContain("Content from evil.example is blocked: it isn&#039;t a service");
 });
 
+test("ViewMedica, Valet Health and Reputation Hub iframes become their services' placeholders", () => {
+  const configuration = consentConfiguration({
+    services: ["viewmedica", "valet_health", "reputationhub"],
+  });
+  expect(configuration.categories).toEqual(["external_media"]);
+  const html =
+    '<figure class="wp-block-texaspain-viewmedica"><iframe loading="lazy" src="https://ondemand.viewmedica.com/4897/open/A_0e3c5c1f" title="Knee pain"></iframe></figure>' +
+    '<div><iframe src="https://link.valethealth.com/widget/form/AbCdEfGhIjKlMnOpQrSt" title="Valet Health form"></iframe></div>' +
+    '<div><iframe src="https://link.valethealth.com/widget/survey/Puqxxhyc5geWmaK6gmJ8" title="Valet Health survey"></iframe></div>' +
+    '<iframe src="https://reputationhub.site/reputation/widgets/review_widget/qGCV76TOZyJGiRoHYsTz?widgetId=6ac39d8152e94a326cb278ea"></iframe>' +
+    // Only Valet Health's widget paths are its embeds.
+    '<iframe src="https://link.valethealth.com/other"></iframe>';
+  const result = rewriteEmbeds(html, { configuration, language: "en" });
+  expect(result.placeholders.map((each) => each.service)).toEqual([
+    "viewmedica",
+    "valet_health",
+    "valet_health",
+    "reputationhub",
+  ]);
+  expect(result.blocked).toEqual([
+    {
+      tag: "iframe",
+      host: "link.valethealth.com",
+      service: "valet_health",
+      reason: "unknown-host",
+    },
+  ]);
+  expect(result.html).not.toMatch(/<iframe/);
+  expect(result.html).toContain('data-gq-consent-embed="viewmedica"');
+  expect(result.html).toContain("Swarm Interactive");
+  expect(scanConsentHtml(result.html, site).liveThirdParty).toEqual([]);
+  // Undeclared, they stay blocked.
+  expect(
+    rewriteEmbeds(html, { configuration: youtube, language: "en" }).blocked.map(
+      (each) => `${each.service}:${each.reason}`,
+    ),
+  ).toEqual([
+    "viewmedica:inactive-service",
+    "valet_health:inactive-service",
+    "valet_health:inactive-service",
+    "reputationhub:inactive-service",
+    "valet_health:unknown-host",
+  ]);
+});
+
 test("HTML without third-party embeds is byte-identical after rewriting", () => {
   const html =
     '<p>Olá &amp; <a href="https://other.example/">link</a></p>\n<video src="/v.mp4"></video>';

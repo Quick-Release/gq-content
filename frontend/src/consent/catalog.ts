@@ -207,6 +207,89 @@ export const SERVICE_CATALOG = {
       { host: "maps.google.com" },
     ],
   },
+  viewmedica: {
+    id: "viewmedica",
+    category: "external_media",
+    provider: "Swarm Interactive, Inc.",
+    name: "ViewMedica",
+    purpose: {
+      en: "Plays embedded ViewMedica patient-education videos. Loading one sends your IP address to Swarm Interactive.",
+      "pt-PT":
+        "Reproduz vídeos educativos ViewMedica incorporados. Carregar um envia o seu endereço IP à Swarm Interactive.",
+    },
+    storage: [
+      {
+        name: "preferences, version",
+        kind: "localStorage",
+        party: "third",
+        duration: { en: "Until cleared", "pt-PT": "Até ser apagado" },
+      },
+    ],
+    retention: {
+      en: "Set by Swarm Interactive; see its privacy policy.",
+      "pt-PT": "Definida pela Swarm Interactive; consulte a sua política de privacidade.",
+    },
+    privacyPolicy: "https://viewmedica.com/privacy-policy/",
+    // The player's API and its CloudFront distributions (preferences, posters, video).
+    hosts: ["viewmedica.com", "d1tuzk4j9pdfth.cloudfront.net", "d2yjegym0lbr1w.cloudfront.net"],
+    embeds: [{ host: "ondemand.viewmedica.com" }],
+  },
+  valet_health: {
+    id: "valet_health",
+    category: "external_media",
+    provider: "Valet Metrix, LLC (d/b/a Valet Health)",
+    name: "Valet Health forms",
+    purpose: {
+      en: "Shows an embedded Valet Health form or survey, hosted on HighLevel's LeadConnector platform. Loading it sends your IP address to Valet Health and HighLevel; what you submit is sent to them.",
+      "pt-PT":
+        "Mostra um formulário ou inquérito Valet Health incorporado, alojado na plataforma LeadConnector da HighLevel. Carregá-lo envia o seu endereço IP à Valet Health e à HighLevel; o que submeter é-lhes enviado.",
+    },
+    storage: [],
+    retention: {
+      en: "Set by Valet Health; see its privacy policy.",
+      "pt-PT": "Definida pela Valet Health; consulte a sua política de privacidade.",
+    },
+    privacyPolicy: "https://valethealth.com/privacy-policy",
+    // link.valethealth.com is HighLevel's white-label form host (link.msgsndr.com);
+    // the form loads its scripts, styles and uploads from LeadConnector's hosts.
+    hosts: [
+      "link.valethealth.com",
+      "leadconnectorhq.com",
+      "msgsndr.com",
+      "filesafe.space",
+      "apisystem.tech",
+    ],
+    embeds: [
+      { host: "link.valethealth.com", path: "/widget/form/" },
+      { host: "link.valethealth.com", path: "/widget/survey/" },
+    ],
+  },
+  reputationhub: {
+    id: "reputationhub",
+    category: "external_media",
+    provider: "HighLevel LLC",
+    name: "Reputation Hub reviews",
+    purpose: {
+      en: "Shows embedded patient reviews from HighLevel's Reputation Hub. Loading them sends your IP address to HighLevel.",
+      "pt-PT":
+        "Mostra avaliações de pacientes incorporadas do Reputation Hub da HighLevel. Carregá-las envia o seu endereço IP à HighLevel.",
+    },
+    storage: [
+      {
+        name: "__cf_bm",
+        kind: "cookie",
+        party: "third",
+        duration: { en: "30 minutes", "pt-PT": "30 minutos" },
+      },
+    ],
+    retention: {
+      en: "Set by HighLevel; see its privacy policy.",
+      "pt-PT": "Definida pela HighLevel; consulte a sua política de privacidade.",
+    },
+    privacyPolicy: "https://www.gohighlevel.com/privacypolicy",
+    hosts: ["reputationhub.site", "leadconnectorhq.com"],
+    embeds: [{ host: "reputationhub.site", path: "/reputation/widgets/" }],
+  },
 } as const satisfies Record<string, ConsentService>;
 
 export type ServiceId = keyof typeof SERVICE_CATALOG;

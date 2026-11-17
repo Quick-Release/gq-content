@@ -1081,3 +1081,76 @@ test("a CMS whose GQ Design predates fonts (contract 2.0.0) keeps its design pre
   expect((await api.designPresets())?.colors).toEqual([{ slug: "brand", color: "#c00" }]);
   warn.mockRestore();
 });
+
+test("gradient presets are read with the design presets and served with every page", async () => {
+  const gradients = [
+    {
+      slug: "title-band",
+      gradient: "linear-gradient(90deg, #cde5e3 0%, rgba(255,255,255,0) 100%)",
+    },
+  ];
+  const fetch = wordpress({
+    design: () => data({ getquickGradients: gradients, designTokens: presets() }),
+  });
+  expect((await refresh()).status).toBe(200);
+  // One request: the gradients come with the design tokens.
+  const designReads = queries(fetch, "DesignPresets");
+  expect(designReads).toHaveLength(1);
+  expect(designReads[0]![1].body as string).toContain("getquickGradients");
+  offline();
+  expect((await api.designPresets())?.gradients).toEqual(gradients);
+  expect((await home()).home.gradients).toEqual(gradients);
+  expect((await entry()).entry.gradients).toEqual(gradients);
+
+  // A design event that removes them stores presets without any.
+  vi.setSystemTime(Date.now() + 1000);
+  wordpress({ design: () => data({ getquickGradients: [], designTokens: presets() }) });
+  expect((await deliver(event({ setting: "design" }))).status).toBe(200);
+  offline();
+  expect(await api.designPresets()).toEqual(presets());
+});
+
+test("a CMS whose gq-content predates gradients keeps its design presets without them", async () => {
+  const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+  const fetch = wordpress({
+    design: (_variables, query) =>
+      query?.includes("getquickGradients")
+        ? {
+            ok: true,
+            json: async () => ({
+              errors: [{ message: 'Cannot query field "getquickGradients" on type "RootQuery".' }],
+            }),
+          }
+        : data({ designTokens: presets() }),
+  });
+  expect((await refresh()).status).toBe(200);
+  expect(queries(fetch, "DesignPresets")).toHaveLength(2);
+  expect(warn.mock.calls.flat().join(" ")).toContain("gq-content 0.7.0 or newer");
+  offline();
+  expect(await api.designPresets()).toEqual(presets());
+
+  // Lacking fonts too (an older GQ Design as well), one more read leaves both out.
+  vi.setSystemTime(Date.now() + 1000);
+  color = "#0a0";
+  const older = wordpress({
+    design: (_variables, query) =>
+      query?.includes("getquickGradients") || query?.includes("fonts {")
+        ? {
+            ok: true,
+            json: async () => ({
+              errors: [
+                ...(query.includes("fonts {")
+                  ? [{ message: 'Cannot query field "fonts" on type "DesignTokens".' }]
+                  : []),
+                ...(query.includes("getquickGradients")
+                  ? [{ message: 'Cannot query field "getquickGradients" on type "RootQuery".' }]
+                  : []),
+              ],
+            }),
+          }
+        : data({ designTokens: presets() }),
+  });
+  expect((await deliver(event({ setting: "design" }))).status).toBe(200);
+  expect(queries(older, "DesignPresets")).toHaveLength(2);
+  expect((await api.designPresets())?.colors).toEqual([{ slug: "brand", color: "#0a0" }]);
+});

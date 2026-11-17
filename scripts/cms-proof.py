@@ -123,7 +123,7 @@ if __name__ == '__main__':
     check('production Site Health reports missing configuration safely',
           diagnostics['health']['status'] == 'critical' and
           diagnostics['fields']['configured']['value'] is False)
-    check('all five modules load once in dependency order through Bedrock',
+    check('all six modules load once in dependency order through Bedrock',
           wp('eval-file', str(ROOT / 'cms/tests/loading.php')).stdout.strip() == 'loaded-once-in-order')
 
     # An external HTTP receiver checks actual WordPress transport/signatures.
@@ -400,6 +400,12 @@ if __name__ == '__main__':
               after['archives']['biblioteca'] == {'uri': '/biblioteca/', 'page': ids['page']} and
               after['archives']['eventos'] == {'uri': '/eventos/', 'page': None})
         check('Site Health finds every published page reachable at its address', after['health'] == 'good')
+        gradients = json.loads(wp('eval-file', str(ROOT / 'cms/tests/gradients.php')).stdout)
+        check('getquickGradients lists the merged gradient presets, a theme\'s replacing a default by slug',
+              gradients == {'errors': None,
+                            'theme': 'linear-gradient(90deg, #cde5e3 0%, rgba(255,255,255,0) 100%)',
+                            'override': 'linear-gradient(90deg, #000 0%, #fff 100%)',
+                            'default': True, 'unique': True})
         collision = step('collide')
         check('Site Health names a page a custom post type\'s item rule hides',
               collision == {'pages': ['/biblioteca/legislacao/'], 'status': 'recommended'})

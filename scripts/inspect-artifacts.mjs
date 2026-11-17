@@ -45,11 +45,11 @@ for (const file of npmFiles) {
     }
   }
 }
-assert.equal(Object.keys(zipFiles).length, 9);
+assert.equal(Object.keys(zipFiles).length, 10);
 for (const [file, text] of Object.entries(zipFiles)) {
   assert.match(
     file,
-    /^(?:composer\.json|gq-content\.php|README\.md|LICENSE|modules\/(?:publication-events|settings-events|delivery-retries|archives|forms)\.php)$/,
+    /^(?:composer\.json|gq-content\.php|README\.md|LICENSE|modules\/(?:publication-events|settings-events|delivery-retries|archives|forms|gradients)\.php)$/,
   );
   assert.doesNotMatch(text, forbidden, file);
 }

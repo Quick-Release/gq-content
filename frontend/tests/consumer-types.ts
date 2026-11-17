@@ -46,6 +46,8 @@ import {
   type Unavailable,
   type BlockPresetStyles,
   type ColorPreset,
+  type GradientPreset,
+  type PresetLists,
   type SpacingPreset,
   type ContainerAttributes,
   type ContentExtension,
@@ -194,6 +196,14 @@ const design: Promise<DesignPresets | null> = runtime.designPresets();
 const origins: string[] = runtime.internalOrigins("https://site.test");
 const scoped: BlockPresetStyles = blockPresetStyles(spacing, colors, ".site-blocks");
 const root: string = presetRootStyle(spacing, colors);
+const gradients: GradientPreset[] = [{ slug: "fade", gradient: "linear-gradient(#fff, #000)" }];
+const lists: PresetLists = { spacingSizes: spacing, colors, gradients };
+const fromPresets: BlockPresetStyles = blockPresetStyles(lists, ".site-blocks");
+const fromEntry = async () => blockPresetStyles(await runtime.designPresets());
+const rootWithGradients: string =
+  presetRootStyle(spacing, colors, gradients) + presetRootStyle(lists);
+const positionalGradients: BlockPresetStyles = blockPresetStyles(spacing, colors, ".x", gradients);
+void [fromPresets, fromEntry, rootWithGradients, positionalGradients];
 void [extendedHome, extendedEntry, extendedRead, siteDesign, frontDesign, plainEntry];
 void [design, origins, scoped, root, menuItemHref("https://cms.test/a/", origins)];
 // GQ Design's fonts and text styles (contract 2.1.0) are optional design presets.

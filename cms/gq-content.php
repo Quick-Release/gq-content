@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: GETQUICK Content
- * Description: Publication events, settings events, delivery retries, archive pages, headless Gravity Forms and diagnostics.
+ * Description: Publication events, settings events, delivery retries, archive pages, headless Gravity Forms, gradient presets and diagnostics.
  * Version: 0.6.2
  * Author: GETQUICK
  * License: GPL-2.0-or-later
@@ -24,6 +24,7 @@ require_once __DIR__ . '/modules/settings-events.php';
 require_once __DIR__ . '/modules/delivery-retries.php';
 require_once __DIR__ . '/modules/archives.php';
 require_once __DIR__ . '/modules/forms.php';
+require_once __DIR__ . '/modules/gradients.php';
 
 add_filter('debug_information', static function (array $information): array {
     $information['gq_content'] = [
