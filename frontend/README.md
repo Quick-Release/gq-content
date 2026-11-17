@@ -84,9 +84,15 @@ or transport.
 `designPresets()` returns the stored design presets for a page that isn't a
 publication (live only in explicit development, null otherwise), and
 `internalOrigins(siteOrigin?)` the origins `menuItemHref` treats as this Site's.
-`blockPresetStyles(spacing, colors, scope?)` scopes the preset classes to a
-container (`.prose-wp` by default); `presetRootStyle(spacing, colors)` declares
-the presets on `:root`.
+`blockPresetStyles(presets, scope?)` takes a page's design presets (an entry,
+the home or `designPresets()`) and scopes the preset classes to a container
+(`.prose-wp` by default); `presetRootStyle(presets)` declares the presets on
+`:root`. Both also take the lists themselves: `blockPresetStyles(spacing,
+colors, scope?, gradients?)` and `presetRootStyle(spacing, colors, gradients?)`.
+The design presets carry the CMS's gradient presets (`gradients`, from
+gq-content's CMS plugin 0.7.0): they become `--wp--preset--gradient--<slug>`
+and the `has-<slug>-gradient-background` classes. Presets stored before them,
+or read from an older CMS plugin, have none until the next design refresh.
 
 ## A Site's own content
 

@@ -56,6 +56,8 @@ export interface WordPressClient<X = unknown> {
 const DESIGN_PATTERN_VERSION = "0.4.1";
 /** The GQ Design release whose `designTokens` carries fonts and text styles (contract 2.1.0). */
 const DESIGN_FONTS_VERSION = "0.10.1";
+/** The gq-content CMS plugin whose `getquickGradients` delivers the gradient presets. */
+const GRADIENTS_VERSION = "0.7.0";
 
 export function internalOrigins(
   config: Pick<ContentConfig<unknown>, "graphqlEndpoint">,
@@ -240,12 +242,17 @@ export function configuredWordPress<X>(
     language: z.object({ title: z.string().nullable(), description: z.string().nullable() }),
   });
 
-  const designData = z.object({ designTokens });
+  // Gradients are optional in the answer: a CMS that answers without them has none.
+  const getquickGradients = z
+    .array(z.object({ slug: z.string(), gradient: z.string() }))
+    .optional();
+  const designData = z.object({ designTokens, getquickGradients });
   const designTypographyData = z.object({
     designTokens: designTokens.extend({
       fonts: designFontsSchema,
       textStyles: designTextStylesSchema,
     }),
+    getquickGradients,
   });
 
   const menuItem = z.object({
@@ -620,8 +627,18 @@ export function configuredWordPress<X>(
   // The design presets alone, for a change to them that reaches every page.
   // Only this read carries the fonts and text styles: pages are served with the
   // stored shared design, so they need not be read with every entry.
-  const designQueryText = (typography: boolean) => /* GraphQL */ `
-    query DesignPresets {
+  // With gradients, gq-content's own gradient presets beside them (GQ Design's
+  // designTokens has none).
+  const designQueryText = (typography: boolean, gradients: boolean) => /* GraphQL */ `
+    query DesignPresets {${
+      gradients
+        ? `
+      getquickGradients {
+        slug
+        gradient
+      }`
+        : ""
+    }
       designTokens {
         theme
         spacingSizes {
@@ -688,8 +705,6 @@ export function configuredWordPress<X>(
       }
     }
   `;
-  const designQuery = designQueryText(false);
-  const designTypographyQuery = designQueryText(true);
 
   // Anonymous readers only get what is published: no drafts, private entries or
   // revisions. The id and the modification time let reconciliation tell which
@@ -1180,43 +1195,68 @@ export function configuredWordPress<X>(
   }
 
   /**
-   * The design tokens with GQ Design's fonts and text styles. A CMS whose GQ
-   * Design predates them (before 0.10.1, contract 2.0.0) rejects the fields;
-   * its tokens are read again without them, and pages keep the system fonts.
-   * Any other failure fails the read, so what is stored is kept.
+   * The design tokens with GQ Design's fonts and text styles, and gq-content's
+   * gradients, in one request. A CMS whose GQ Design predates fonts and text
+   * styles (before 0.10.1, contract 2.0.0) rejects those fields; one whose
+   * gq-content predates gradients (before 0.7.0) rejects `getquickGradients`.
+   * The presets are read again without what it lacks: pages keep the system
+   * fonts, or have no gradient presets. Any other failure fails the read, so
+   * what is stored is kept.
    */
   async function designTokensData(): Promise<z.infer<typeof designTypographyData>> {
-    try {
-      return await query(designTypographyData, designTypographyQuery);
-    } catch (error) {
-      if (
-        !(error instanceof CmsFailureError) ||
-        error.failure.reason !== "graphql" ||
-        !/Cannot query field "(?:fonts|textStyles)" on type "DesignTokens"/.test(
-          error.failure.message,
-        )
-      ) {
-        throw error;
+    let typography = true;
+    let gradients = true;
+    for (;;) {
+      try {
+        return await query(
+          typography ? designTypographyData : designData,
+          designQueryText(typography, gradients),
+        );
+      } catch (error) {
+        if (!(error instanceof CmsFailureError) || error.failure.reason !== "graphql") throw error;
+        const messages = error.graphqlErrors ?? [error.failure.message];
+        const lacksTypography =
+          typography &&
+          messages.some((message) =>
+            /Cannot query field "(?:fonts|textStyles)" on type "DesignTokens"/.test(message),
+          );
+        const lacksGradients =
+          gradients &&
+          messages.some((message) =>
+            /Cannot query field "getquickGradients" on type "RootQuery"/.test(message),
+          );
+        if (!lacksTypography && !lacksGradients) throw error;
+        if (lacksTypography) {
+          typography = false;
+          console.warn(
+            `WordPress: GQ Design delivers no fonts or text styles (${error.failure.message}); they need GQ Design ${DESIGN_FONTS_VERSION} or newer, so the design presets are read without them`,
+          );
+        }
+        if (lacksGradients) {
+          gradients = false;
+          console.warn(
+            `WordPress: gq-content's CMS plugin delivers no gradients (${error.failure.message}); they need gq-content ${GRADIENTS_VERSION} or newer, so the design presets are read without them`,
+          );
+        }
       }
-      console.warn(
-        `WordPress: GQ Design delivers no fonts or text styles (${error.failure.message}); they need GQ Design ${DESIGN_FONTS_VERSION} or newer, so the design presets are read without them`,
-      );
-      return query(designData, designQuery);
     }
   }
 
   /**
    * The design presets every page shares (GQ Design's spacing sizes, colors,
-   * theme, and from contract 2.1.0 its fonts and text styles).
+   * theme, and from contract 2.1.0 its fonts and text styles; gq-content's
+   * gradients).
    */
   async function getDesignPresets(): Promise<Found<DesignPresets> | Unavailable> {
     return deliver("the design presets", async (): Promise<Found<DesignPresets>> => {
-      const { designTokens } = await designTokensData();
+      const { designTokens, getquickGradients: gradients } = await designTokensData();
       return {
         kind: "found",
         content: {
           spacingSizes: designTokens.spacingSizes,
           colors: designTokens.colors,
+          // None is as absent: a Site without gradients stores what it did before them.
+          ...(gradients?.length ? { gradients } : {}),
           ...(designTokens.theme ? { theme: designTokens.theme } : {}),
           ...(designTokens.fonts ? { fonts: designTokens.fonts } : {}),
           ...(designTokens.textStyles ? { textStyles: designTokens.textStyles } : {}),

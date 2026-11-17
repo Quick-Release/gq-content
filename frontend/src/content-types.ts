@@ -46,6 +46,12 @@ export interface DesignPresets extends DesignTypography {
   theme?: DesignTheme;
   spacingSizes: Array<{ slug: string; size: string }>;
   colors: Array<{ slug: string; color: string }>;
+  /**
+   * The CMS's gradient presets (theme.json `settings.color.gradients`), as
+   * `--wp--preset--gradient--<slug>` reads them. Absent from presets stored
+   * before their delivery, or read from a CMS whose gq-content predates it.
+   */
+  gradients?: Array<{ slug: string; gradient: string }>;
 }
 
 /**

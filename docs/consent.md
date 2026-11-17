@@ -30,7 +30,11 @@ zod or Node module. Commerce uses `/consent`, `/consent/server` and
 
 Categories are fixed: `necessary`, `preferences`, `analytics`, `marketing`,
 `external_media`. The catalog is closed: `consent` and `turnstile`
-(necessary), `ga4` (analytics), `youtube`, `vimeo`, `google_maps`
+(necessary), `ga4` (analytics), `youtube`, `vimeo`, `google_maps`,
+`viewmedica` (ViewMedica patient-education videos, `ondemand.viewmedica.com`),
+`valet_health` (Valet Health forms and surveys, `link.valethealth.com/widget/form/`
+and `/widget/survey/`, served by HighLevel's LeadConnector) and `reputationhub`
+(HighLevel Reputation Hub review widgets, `reputationhub.site/reputation/widgets/`)
 (external_media). Each entry names its provider, purpose, storage, retention
 and hosts. Sites declare services in code; GA4 becomes active only from
 gq-config's toggle with a valid `G-` measurement ID (`analytics` setting). An

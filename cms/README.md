@@ -71,6 +71,12 @@ reachable at their addresses" names published Pages whose URI resolves to
 something else, such as a child of an archive Page that a type's single-item
 rule claims (the Site moves its items' rewrite slug). See ADR 0005.
 
+WPGraphQL's `getquickGradients { slug gradient }` lists the gradient presets
+(theme.json `settings.color.gradients`, with saved Global Styles on top: the
+default, theme and custom origins, a later one's slug replacing an earlier
+one's), which GQ Design's `designTokens` lacks. The Frontend reads them with the
+design presets; a change to them reaches it with the `design` settings event.
+
 Headless Gravity Forms (gq-platform ADR 0009, local ADR 0008) is dormant
 unless Gravity Forms is active. Then WPGraphQL's `ContentNode.getquickForms` holds
 the public descriptors (JSON) of the forms a published, unprotected entry

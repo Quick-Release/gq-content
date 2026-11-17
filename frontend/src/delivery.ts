@@ -258,6 +258,7 @@ export function configuredDelivery<X>(
   const designPresets = z.object({
     spacingSizes,
     colors,
+    gradients: z.array(z.object({ slug: z.string(), gradient: z.string() })).optional(),
     theme: designThemeSchema.optional(),
     fonts: designFontsSchema.optional(),
     textStyles: designTextStylesSchema.optional(),
@@ -315,6 +316,7 @@ export function configuredDelivery<X>(
           ...content,
           spacingSizes: design.spacingSizes,
           colors: design.colors,
+          gradients: design.gradients,
           theme: design.theme,
           fonts: design.fonts,
           textStyles: design.textStyles,
